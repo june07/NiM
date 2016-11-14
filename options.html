@@ -1,0 +1,44 @@
+<!doctype html>
+<script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="./node_modules/angular/angular.min.js"></script>
+<script type="text/javascript" src="./node_modules/socket.io-client/socket.io.js"></script>
+<script type="text/javascript" src="./node_modules/materialize-css/dist/js/materialize.min.js"></script>
+<script type="text/javascript" src="options.js"></script>
+<html ng-app="NimOptionsApp" ng-csp>
+    <head>
+        <title>nim (Node Inspector Monitor) - Options Page</title>
+        <link rel="stylesheet" href="./node_modules/materialize-css/dist/css/materialize.min.css">
+    </head>
+    <body id="nim" ng-controller="nimOptionsController">
+        <table>
+            <tbody>
+                <tr>
+                    <td class="right"><h4>Debug</h4></td>
+                    <td>
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" ng-model="bg.debug">
+                                <span class="lever"></span>
+                            </label>
+                            <br>
+                        </div>
+                    </td>
+
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,38 @@
+{
+  "name": "nim",
+  "version": "1.0.0",
+  "description": "Monitor the integrated Node V8 inspector and auto open Chrome DevTools",
+  "main": "ChromeInspectorMonitor.js",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1",
+    "materialize-css": "^0.97.8",
+    "socket.io": "^1.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/june07/nim.git"
+  },
+  "keywords": [
+    "Chrome",
+    "Extension",
+    "Node",
+    "Nodejs",
+    "Node.js",
+    "V8",
+    "Inspector",
+    "Monitor",
+    "DevTools"
+  ],
+  "author": "June07",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/june07/nim/issues"
+  },
+  "homepage": "https://github.com/june07/nim#readme"
+}
