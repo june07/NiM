@@ -35,9 +35,9 @@ ngApp
     $scope.newWindow = false;
     $scope.autoClose = true;
     $scope.devtoolsActive = false;
+    $scope.devToolsSessions = [];
 
     var chrome = $window.chrome;
-
     setInterval(function() {
       $scope.timer++;
     }, $scope.timerInterval);
@@ -48,32 +48,60 @@ ngApp
     var resetInterval = function(timeout) {
       if (timeout) clearInterval(timeout);
       $scope.checkIntervalTimeout = setInterval(function() {
-         if ($scope.autoClose) {
-             chrome.sockets.tcp.create({}, function(result) { console.log(result); });
-         }
-        if ($scope.auto)
-          $scope.openTab($scope.host, $scope.port, function (result) {
-              $scope.message = result;
+        if ($scope.auto) {
+          $scope.closeDevTools();
+          $scope.openTab($scope.host, $scope.port, function(result) {
+            $scope.message = result;
           });
+        }
       }, $scope.checkInterval * 1000);
     }
     resetInterval();
 
+    $scope.closeDevTools = function() {
+      $scope.devToolsSessions.forEach(function(devToolsSession, index) {
+        if (devToolsSession.autoClose) {
+          $http({
+              method: "GET",
+              url: devToolsSession.infoUrl,
+              responseType: "json"
+            })
+            .catch(function(error) {
+              if (error.status == -1) {
+                if (! devToolsSession.isWindow) {
+                  chrome.tabs.remove(devToolsSession.id, function() {
+                      $scope.devToolsSessions.splice(index, 1);
+                    $scope.message += '<br>Closed tab for DevTools session: ' + JSON.stringify(devToolsSession) + '.';
+                  });
+                } else {
+                  chrome.windows.remove(devToolsSession.id, function() {
+                      $scope.devToolsSessions.splice(index, 1);
+                    $scope.message += '<br>Closed window for DevTools session: ' + JSON.stringify(devToolsSession) + '.';
+                  });
+                }
+              } else {
+                $scope.message += '<br>Error while trying to auto close ' + (devToolsSession.isWindow ? 'window' : 'tab') + error;
+              }
+            });
+        }
+      });
+    }
     $scope.openTab = function(host, port, callback) {
-      var url = 'http://' + $scope.host + ':' + $scope.port + '/json';
+      var infoUrl = 'http://' + $scope.host + ':' + $scope.port + '/json';
       chrome.tabs.query({
         url: 'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*'
       }, function(tab) {
         if (tab.length == 0) {
           $http({
               method: "GET",
-              url: url,
+              url: infoUrl,
               responseType: "json"
             })
             .then(function openDevToolsFrontend(json) {
-              var url = json['data'][0]['devtoolsFrontendUrl'].replace(
-                "localhost:9229", host + ":" + port);
-              createTabOrWindow(url, callback);
+              var url = json['data'][0]['devtoolsFrontendUrl'].replace("localhost:9229", host + ":" + port);
+              /** May be a good idea to put this somewhere further along the chain in case tab/window creation fails,
+              in which case this entry will need to be removed from the array */
+              createTabOrWindow(infoUrl, url, callback);
             })
             .catch(function(error) {
               if (error.status == -1) {
@@ -89,12 +117,13 @@ ngApp
         }
       });
     }
-    var createTabOrWindow = function(url, callback) {
+    var createTabOrWindow = function(infoUrl, url, callback) {
       if ($scope.newWindow) {
         chrome.windows.create({
           url: url,
           focused: $scope.devtoolsActive,
-        }, function(tab) {
+      }, function(window) {
+          saveSession(infoUrl, window.id);
           callback(window.url);
         });
       } else {
@@ -102,9 +131,18 @@ ngApp
           url: url,
           active: $scope.devtoolsActive,
         }, function(tab) {
+          saveSession(infoUrl, tab.id);
           callback(tab.url);
         });
       }
+    }
+    var saveSession = function(infoUrl, id) {
+      $scope.devToolsSessions.push({
+        autoClose: $scope.autoClose,
+        isWindow: $scope.newWindow,
+        infoUrl: infoUrl,
+        id: id
+      });
     }
     $scope.save = function(key, obj) {
       switch (key) {
