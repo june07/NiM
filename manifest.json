@@ -1,11 +1,12 @@
 {
     "name": "nim (Node Inspector Monitor)",
-    "version": "0.1.0",
+    "short_name": "nim",
+    "version": "0.3.0",
     "manifest_version": 2,
     "description": "Extension for automatically launching V8 Inspector for Node.js debugging",
     "author": "June07 <667@june07.com> (http://june07.com/)",
     "browser_action": {
-        "default_icon": "logo32.png",
+        "default_title": "nim (Node Inspector Monitor)",
         "default_popup": "popup.html"
     },
     "options_ui": {
@@ -13,10 +14,18 @@
         "chrome_style": true
     },
     "icons": {
-        "16": "logo16.png",
-        "32": "logo32.png",
-        "48": "logo48.png",
-        "128": "logo128.png"
+        "16": "./icon/logo16.png",
+        "162": "./icon/logo16@2x.png",
+        "163": "./icon/logo16@3x.png",
+        "32": "./icon/logo32.png",
+        "322": "./icon/logo32@2x.png",
+        "323": "./icon/logo32@3x.png",
+        "48": "./icon/logo48.png",
+        "482": "./icon/logo48@2x.png",
+        "483": "./icon/logo48@3x.png",
+        "128": "./icon/logo128.png",
+        "1282": "./icon/logo128@2x.png",
+        "1283": "./icon/logo128@3x.png"
     },
     "permissions": ["http://*/", "storage", "background", "tabs"],
     "background": {

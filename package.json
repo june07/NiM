@@ -2,13 +2,11 @@
   "name": "nim",
   "version": "1.0.0",
   "description": "Monitor the integrated Node V8 inspector and auto open Chrome DevTools",
-  "main": "ChromeInspectorMonitor.js",
+  "main": "nim.js",
   "dependencies": {
     "angular": "^1.5.8",
-    "bootstrap": "^3.3.7",
     "jquery": "^3.1.1",
-    "materialize-css": "^0.97.8",
-    "socket.io": "^1.5.1"
+    "materialize-css": "^0.97.8"
   },
   "devDependencies": {},
   "scripts": {

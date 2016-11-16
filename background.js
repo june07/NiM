@@ -23,86 +23,116 @@
  */
 var ngApp = angular.module('NimBackgroundApp', []);
 ngApp
-    .run(function () {})
-    .controller('nimController', ['$scope', '$window', '$http', function ($scope, $window, $http) {
-        $scope.loaded = Date.now();
-        $scope.timer = 0;
-        $scope.auto = false;
-        $scope.timerInterval = 1000;
-        $scope.checkInterval = 5000;
-        $scope.debug = false;
+  .run(function() {})
+  .controller('nimController', ['$scope', '$window', '$http', function($scope, $window, $http) {
+    $scope.loaded = Date.now();
+    $scope.timer = 0;
+    $scope.auto = false;
+    $scope.timerInterval = 1000;
+    $scope.checkInterval = 5;
+    $scope.checkIntervalTimeout = null;
+    $scope.debug = false;
+    $scope.newWindow = false;
+    $scope.autoClose = true;
+    $scope.devtoolsActive = false;
 
-        setInterval(function () {
-            $scope.timer++;
-        }, $scope.timerInterval);
-        setInterval(function () {
-            if ($scope.auto)
-            $scope.openTab($scope.host, $scope.port);
-        }, $scope.checkInterval);
-        $scope.openTab = function (host, port, callback) {
-            var url = 'http://' + $scope.host + ':' + $scope.port + '/json';
-            chrome.tabs.query({
-                url: 'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*'
-            }, function (tab) {
-                if (tab.length == 0) {
-                    $http({
-                            method: "GET",
-                            url: url,
-                            responseType: "json"
-                        })
-                        .then(function openDevToolsFrontend(json) {
-                            console.dir(json);
-                            var url = json['data'][0]['devtoolsFrontendUrl'].replace(
-                                "localhost:9229", host + ":" + port);
-                            chrome.tabs.create({
-                                url: url,
-                                active: false
-                            }, function (tab) {
-                                callback(tab.url);
-                            });
-                        })
-                        .catch(function (error) {
-                            if (error.status == -1) {
-                                var message =
-                                    'Connection to DevTools host was aborted.  Check your host and port.';
-                                callback(message);
-                            } else {
-                                callback(error);
-                            }
-                        });
-                } else {
-                    callback("DevTools is already open.");
-                }
+    var chrome = $window.chrome;
+
+    setInterval(function() {
+      $scope.timer++;
+    }, $scope.timerInterval);
+
+    $scope.$on('options-window-closed', function() {
+      resetInterval($scope.checkIntervalTimeout);
+    });
+    var resetInterval = function(timeout) {
+      if (timeout) clearInterval(timeout);
+      $scope.checkIntervalTimeout = setInterval(function() {
+         if ($scope.autoClose) {
+             chrome.sockets.tcp.create({}, function(result) { console.log(result); });
+         }
+        if ($scope.auto)
+          $scope.openTab($scope.host, $scope.port, function (result) {
+              $scope.message = result;
+          });
+      }, $scope.checkInterval * 1000);
+    }
+    resetInterval();
+
+    $scope.openTab = function(host, port, callback) {
+      var url = 'http://' + $scope.host + ':' + $scope.port + '/json';
+      chrome.tabs.query({
+        url: 'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*'
+      }, function(tab) {
+        if (tab.length == 0) {
+          $http({
+              method: "GET",
+              url: url,
+              responseType: "json"
+            })
+            .then(function openDevToolsFrontend(json) {
+              var url = json['data'][0]['devtoolsFrontendUrl'].replace(
+                "localhost:9229", host + ":" + port);
+              createTabOrWindow(url, callback);
+            })
+            .catch(function(error) {
+              if (error.status == -1) {
+                var message =
+                  'Connection to DevTools host was aborted.  Check your host and port.';
+                callback(message);
+              } else {
+                callback(error);
+              }
             });
+        } else {
+          callback("DevTools is already open.");
         }
-        $scope.save = function (key, obj) {
-            console.log("saving : " + obj + " ...");
-            switch (key) {
-            case "host":
-                chrome.storage.sync.set({
-                    host: obj
-                }, function () {
-                    console.log("saved host: " + obj);
-                });
-                break;
-            case "port":
-                chrome.storage.sync.set({
-                    port: obj
-                }, function () {
-                    console.log("saved port: " + obj);
-                });
-                break;
-            }
-        }
-        $scope.s = function (key) {
-            $scope.save(key, $scope[key]);
-        }
-        chrome.storage.sync.get("host", function (obj) {
-            $scope.host = obj.host || "localhost";
-            $scope.$apply();
+      });
+    }
+    var createTabOrWindow = function(url, callback) {
+      if ($scope.newWindow) {
+        chrome.windows.create({
+          url: url,
+          focused: $scope.devtoolsActive,
+        }, function(tab) {
+          callback(window.url);
         });
-        chrome.storage.sync.get("port", function (obj) {
-            $scope.port = obj.port || 9229;
-            $scope.$apply();
+      } else {
+        chrome.tabs.create({
+          url: url,
+          active: $scope.devtoolsActive,
+        }, function(tab) {
+          callback(tab.url);
         });
-    }]);
+      }
+    }
+    $scope.save = function(key, obj) {
+      switch (key) {
+        case "host":
+          chrome.storage.sync.set({
+            host: obj
+          }, function() {
+            if ($scope.debug) console.log("saved host: " + obj);
+          });
+          break;
+        case "port":
+          chrome.storage.sync.set({
+            port: obj
+          }, function() {
+            if ($scope.debug) console.log("saved port: " + obj);
+          });
+          break;
+      }
+    }
+    $scope.s = function(key) {
+      $scope.save(key, $scope[key]);
+    }
+    chrome.storage.sync.get("host", function(obj) {
+      $scope.host = obj.host || "localhost";
+      $scope.$apply();
+    });
+    chrome.storage.sync.get("port", function(obj) {
+      $scope.port = obj.port || 9229;
+      $scope.$apply();
+    });
+  }]);

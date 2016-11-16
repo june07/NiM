@@ -23,9 +23,33 @@
  */
 var ngApp = angular.module('NimOptionsApp', []);
 ngApp
-    .run(function () {})
-    .controller('nimOptionsController', ['$scope', '$window', '$http', function ($scope, $window, $http) {
-        $scope.bg = $window.chrome.extension.getBackgroundPage().angular.element('#nim').scope();
-        $scope.auto = $scope.bg.auto;
-        $scope.debug = $scope.bg.debug;
-    }]);
+  .run(function() {})
+  .controller('nimOptionsController', ['$scope', '$window', '$http', function($scope, $window, $http) {
+    $scope.bg = $window.chrome.extension.getBackgroundPage().angular.element('#nim').scope();
+    $scope.auto = $scope.bg.auto;
+    $scope.debug = $scope.bg.debug;
+    $scope.newWindow = $scope.bg.newWindow;
+    $scope.autoClose = $scope.bg.autoClose;
+    $scope.checkInterval = $scope.bg.checkInterval;
+
+    var chrome = $window.chrome;
+    var slider = $window.document.getElementById('checkInterval');
+    $window.noUiSlider.create(slider, {
+      start: [$scope.checkInterval],
+      step: 1,
+      range: {
+        'min': [ 5 ],
+        'max': [ 300 ]
+      },
+      tooltips: true
+    });
+    var rangeSliderValueElement = document.getElementById('checkInterval-value');
+    slider.noUiSlider.on('update', function( values, handle ) {
+  	     rangeSliderValueElement.innerHTML = values[handle];
+         $scope.bg.checkInterval = parseInt(values[handle]);
+     });
+     $scope.saveButtonHandler = function() {
+         $scope.bg.$emit('options-window-closed');
+         $window.close();
+     }
+  }]);

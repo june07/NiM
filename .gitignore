@@ -40,3 +40,6 @@ node_modules
 # Any zip files of releases
 *.zip
 artwork/
+unpacked.crx
+unpacked.pem
+unpacked/
