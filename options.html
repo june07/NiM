@@ -1,28 +1,34 @@
 <!doctype html>
+<script type="text/javascript" src="./js/googleanalytics.js"></script>
 <script type="text/javascript" src="./js/jquery.min.js"></script>
 <script type="text/javascript" src="./js/angular.min.js"></script>
 <script type="text/javascript" src="./js/materialize.min.js"></script>
 <script type="text/javascript" src="./js/nouislider.min.js"></script>
 <script type="text/javascript" src="options.js"></script>
+
 <html ng-app="NimOptionsApp" ng-csp id="options-page">
-    <head>
-        <title>nim (Node Inspector Monitor) - Options Page</title>
-        <link rel="stylesheet" href="./css/materialize.min.css">
-        <link rel="stylesheet" href="./css/nouislider.css">
-        <link rel="stylesheet" href="./css/font.css">
-        <link rel="stylesheet" href="./nim.css">
-    </head>
-    <body id="nim" ng-controller="nimOptionsController">
-        <div class="row"><div class="col s12 center white-text" id="options-header">Options</div></div>
-        <div class="row">
-            <div class="col s1"></div>
+
+<head>
+    <title>nim (Node Inspector Monitor) - Options Page</title>
+    <link rel="stylesheet" href="./css/materialize.min.css">
+    <link rel="stylesheet" href="./css/nouislider.css">
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./nim.css">
+</head>
+
+<body id="nim" ng-controller="nimOptionsController">
+    <div class="row">
+        <div class="col s12 center white-text" id="options-header">Options</div>
+    </div>
+    <div class="row">
+        <div class="col s1"></div>
         <div class="col s10">
             <ul class="collection with-header">
                 <li class="collection-header" id="collections-header">General</li>
                 <li class="collection-item">Show debug window
                     <div class="switch right">
                         <label>off
-                            <input type="checkbox" ng-model="bg.debug">
+                            <input type="checkbox" ng-model="bg.debug" id="Show debug window" class="ga-track">
                             <span class="lever"></span>on
                         </label>
                     </div>
@@ -30,19 +36,19 @@
                 <li class="collection-item">Open Inspector in new window
                     <div class="switch right">
                         <label>off
-                            <input type="checkbox" ng-model="bg.newWindow">
+                            <input type="checkbox" ng-model="bg.newWindow" id="Open Inspector in new window" class="ga-track">
                             <span class="lever"></span>on
                         </label>
                     </div>
                 </li>
-            <li class="collection-item">Auto Close Inspector window
-                <div class="switch right">
-                    <label>off
-                        <input type="checkbox" ng-model="bg.autoClose">
+                <li class="collection-item">Auto Close Inspector window
+                    <div class="switch right">
+                        <label>off
+                        <input type="checkbox" ng-model="bg.autoClose" id="Auto Close Inspector window" class="ga-track">
                         <span class="lever"></span>on
                     </label>
-                </div>
-            </li>
+                    </div>
+                </li>
                 <li class="collection-item">Seconds between Inspector checks
                     <div class="right">
                         <span class="badge new" data-badge-caption="seconds" id="checkInterval-value"></span>
@@ -53,7 +59,10 @@
         </div>
         <div class="col s1"></div>
     </div>
-    <div class="row"><div class="col s12 center">            <a class="btn light-green lighten-1" value="Save Options" ng-click="saveButtonHandler()">Save</a>
-</div></div>
-    </body>
+    <div class="row">
+        <div class="col s12 center"> <a class="btn light-green lighten-1" id="save button" value="Save Options" ng-click="saveButtonHandler()">Save</a>
+        </div>
+    </div>
+</body>
+
 </html>

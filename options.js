@@ -48,8 +48,21 @@ ngApp
   	     rangeSliderValueElement.innerHTML = values[handle];
          $scope.bg.checkInterval = parseInt(values[handle]);
      });
+     slider.noUiSlider.on('set', function( values, handle ) {
+          _gaq.push(['_trackEvent', 'checkInterval-value', values[handle]]);
+      });
      $scope.saveButtonHandler = function() {
+          _gaq.push(['_trackEvent', 'save button', 'clicked']);
          $scope.bg.$emit('options-window-closed');
          $window.close();
+     }
+     function trackInputClick(e) {
+         _gaq.push(['_trackEvent', e.target.id, 'clicked']);
+     }
+     var userInputs = $window.document.getElementsByClassName('ga-track');
+     for (var i = 0; i < userInputs.length; i++) {
+         userInputs[i].addEventListener('click', function (event) {
+             trackInputClick(event);
+         });
      }
   }]);

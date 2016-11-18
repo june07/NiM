@@ -1,69 +1,73 @@
 <!doctype html>
+<script type="text/javascript" src="./js/googleanalytics.js"></script>
 <script type="text/javascript" src="./js/jquery.min.js"></script>
 <script type="text/javascript" src="./js/angular.min.js"></script>
 <script type="text/javascript" src="./js/materialize.min.js"></script>
-<script type="text/javascript" src="background.js"></script>
 <script type="text/javascript" src="popup.js"></script>
+
 <html ng-app="NimPopupApp" ng-csp>
-    <head>
-        <title>nim (Node.js Inspector Monitor)</title>
-        <link rel="stylesheet" href="./css/materialize.min.css">
-        <link rel="stylesheet" href="./css/font.css">
-        <link rel="stylesheet" href="nim.css">
-    </head>
-    <body ng-controller="nimPopupController" class="right">
-        <div class="container container-page">
-            <div class="row">
-                <div class="col s12 m4 l4 valign-wrapper header-column">
-                    <img src="./icon/logo128.png" class="left logo-padding" />
-                    <div class="header left valign">nim (Node.js Inspector Monitor )</div>
-                </div>
+
+<head>
+    <title>nim (Node.js Inspector Monitor)</title>
+    <link rel="stylesheet" href="./css/materialize.min.css">
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="nim.css">
+</head>
+
+<body ng-controller="nimPopupController" class="right">
+    <div class="container container-page">
+        <div class="row">
+            <div class="col s12 m4 l4 valign-wrapper header-column">
+                <img src="./icon/logo128.png" class="left logo-padding" />
+                <div class="header left valign">nim (Node.js Inspector Monitor )</div>
             </div>
-            <div class="row">
-                <div class="col l2 m1"></div>
-                <div class="col s11 m12 l12">
-                    <form>
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <input placeholder="localhost" id="hostname" type="text" class="validate card-title input-text" ng-model="host">
-                                <font color="#9e9e9e">Hostname</font>
-                            </div>
-                            <div class="input-field col s6">
-                                <input id="port" type="text" class="validate card-title input-text" value placeholder="9229" ng-model="port">
-                                <font color="#9e9e9e">Port</font>
-                            </div>
+        </div>
+        <div class="row">
+            <div class="col l2 m1"></div>
+            <div class="col s11 m12 l12">
+                <form>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input placeholder="localhost" id="hostname" type="text" class="validate card-title input-text ga-track" ng-model="host">
+                            <font color="#9e9e9e">Hostname</font>
                         </div>
-                        <div class="row">
-                            <div class="col s12 center">
-                                <input type="button" value="Open DevTools" ng-disabled="bg.auto" class="btn light-green lighten-1" ng-click="clickHandler()">
-                                <div class="switch" ng-true-value="true" ng-false-value="false">
-                                    <label>Manual
-                                        <input type="checkbox" ng-model="bg.auto">
-                                        <span class="lever"></span>Auto
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col m1 l2"></div>
-            </div>
-            <div class="row row-footer">
-                <footer class="page-footer grey lighten-3">
-                    <div class="footer-copyright">
-                        <div class="container footer-text">
-                            © 2016 June07
-                            <a class="right footer-text" target="_blank" href="https://donorbox.org/chrome-extentions">Donate</a>
+                        <div class="input-field col s6">
+                            <input id="port" type="text" class="validate card-title input-text ga-track" value placeholder="9229" ng-model="port">
+                            <font color="#9e9e9e">Port</font>
                         </div>
                     </div>
-                </footer>
+                    <div class="row">
+                        <div class="col s12 center">
+                            <input type="button" id="open devtools" value="Open DevTools" ng-disabled="bg.auto" class="btn light-green lighten-1 ga-track" ng-click="clickHandler()">
+                            <div class="switch" ng-true-value="true" ng-false-value="false">
+                                <label>Manual
+                                        <input id="auto switch" type="checkbox" ng-model="bg.auto" class="ga-track">
+                                        <span class="lever"></span>Auto
+                                    </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
+            <div class="col m1 l2"></div>
         </div>
-        <div class="card light-green container-message" ng-if="bg.debug">
-            <div class="card-content light-green lighten-5 black-text">
-                <p class="message">Enabled: {{ bg.loaded | date:'yyyy-MM-dd HH:mm Z' }}<br>Uptime: {{ timer }}</p>
-                <p class="message">{{message}}</p>
-            </div>
+        <div class="row row-footer">
+            <footer class="page-footer grey lighten-3">
+                <div class="footer-copyright">
+                    <div class="container footer-text">
+                        © 2016 June07
+                        <a class="right footer-text" ng-click="track('https://donorbox.org/chrome-extentions')" target="_blank" href="https://donorbox.org/chrome-extentions">Donate</a>
+                    </div>
+                </div>
+            </footer>
         </div>
-    </body>
+    </div>
+    <div class="card light-green container-message" ng-if="bg.debug">
+        <div class="card-content light-green lighten-5 black-text">
+            <p class="message">Enabled: {{ bg.loaded | date:'yyyy-MM-dd HH:mm Z' }}<br>Uptime: {{ timer }}</p>
+            <p class="message">{{message}}</p>
+        </div>
+    </div>
+</body>
+
 </html>

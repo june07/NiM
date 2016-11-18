@@ -28,7 +28,7 @@ ngApp
         $scope.host = $scope.bg.host;
         $scope.port = $scope.bg.port;
         $scope.timer = $scope.bg.timer;
-        
+
         setInterval(function () {
             $scope.timer++;
             $scope.$apply();
@@ -40,4 +40,16 @@ ngApp
                 $scope.message = result;
             });
         }
-    }])
+        $scope.track = function(url) {
+            _gaq.push(['_trackPageview', url]);
+        }
+        function trackInputClick(e) {
+            _gaq.push(['_trackEvent', e.target.id, 'clicked']);
+        }
+        var userInputs = $window.document.getElementsByClassName('ga-track');
+        for (var i = 0; i < userInputs.length; i++) {
+            userInputs[i].addEventListener('click', function (event) {
+                trackInputClick(event);
+            });
+        }
+  }]);
