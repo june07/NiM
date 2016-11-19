@@ -94,4 +94,21 @@ body
 {
     margin-bottom: 0px;
 }
+.animate-if {
+  background:black;
+}
 
+.animate-if.ng-enter, .animate-if.ng-leave {
+  transition:all ease 5.5s;
+}
+
+.animate-if.ng-leave,
+.animate-if.ng-leave.ng-leave-active {
+  opacity:0;
+  padding:50px 10px, 50px, 10px !important;
+  height:50px 10px, 50px, 10px !important;
+}
+
+.animate-if.ng-enter,
+.animate-if.ng-enter.ng-enter-active {
+}
