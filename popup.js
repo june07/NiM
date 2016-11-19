@@ -39,17 +39,20 @@ ngApp
             $scope.bg.openTab($scope.host, $scope.port, function (result) {
                 $scope.message = result;
             });
-        }
-        $scope.track = function(url) {
-            _gaq.push(['_trackPageview', url]);
-        }
+        };
+        $scope.track = function (url) {
+            $window._gaq.push(['_trackPageview', url]);
+        };
+
         function trackInputClick(e) {
-            _gaq.push(['_trackEvent', e.target.id, 'clicked']);
+            $window._gaq.push(['_trackEvent', e.target.id, 'clicked']);
         }
         var userInputs = $window.document.getElementsByClassName('ga-track');
+
+        function trackInputClickListener(event) {
+            trackInputClick(event);
+        }
         for (var i = 0; i < userInputs.length; i++) {
-            userInputs[i].addEventListener('click', function (event) {
-                trackInputClick(event);
-            });
+            userInputs[i].addEventListener('click', trackInputClickListener);
         }
   }]);

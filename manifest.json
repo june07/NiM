@@ -1,12 +1,12 @@
 {
-    "name": "nim (Node Inspector Monitor)",
-    "short_name": "nim",
-    "version": "0.3.0",
+    "name": "NIM (Node Inspector Monitor)",
+    "short_name": "NIM",
+    "version": "0.5.0",
     "manifest_version": 2,
     "description": "Extension for automatically launching V8 Inspector for Node.js debugging",
     "author": "June07 <667@june07.com> (http://june07.com/)",
     "browser_action": {
-        "default_title": "nim (Node Inspector Monitor)",
+        "default_title": "NIM (Node Inspector Monitor)",
         "default_popup": "popup.html"
     },
     "options_ui": {

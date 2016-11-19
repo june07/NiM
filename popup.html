@@ -64,7 +64,7 @@
     </div>
     <div class="card light-green container-message" ng-if="bg.debug">
         <div class="card-content light-green lighten-5 black-text">
-            <p class="message">Enabled: {{ bg.loaded | date:'yyyy-MM-dd HH:mm Z' }}<br>Uptime: {{ timer }}</p>
+            <p class="message">Enabled: {{ bg.loaded | date:'yyyy-MM-dd HH:mm Z' }}<br>Uptime: {{ bg.moment.duration(bg.timer, 'seconds').humanize(); }}</p>
             <p class="message">{{message}}</p>
         </div>
     </div>

@@ -25,15 +25,7 @@
         <div class="col s10">
             <ul class="collection with-header">
                 <li class="collection-header" id="collections-header">General</li>
-                <li class="collection-item">Show debug window
-                    <div class="switch right">
-                        <label>off
-                            <input type="checkbox" ng-model="bg.debug" id="Show debug window" class="ga-track">
-                            <span class="lever"></span>on
-                        </label>
-                    </div>
-                </li>
-                <li class="collection-item">Open Inspector in new window
+                <li class="collection-item">Open Inspector in a new window
                     <div class="switch right">
                         <label>off
                             <input type="checkbox" ng-model="bg.newWindow" id="Open Inspector in new window" class="ga-track">
@@ -41,7 +33,23 @@
                         </label>
                     </div>
                 </li>
-                <li class="collection-item">Auto Close Inspector window
+                <li class="collection-item"">Make Inspector window focused
+                    <div class="switch right">
+                        <label>off
+                            <input type="checkbox" ng-model="bg.windowFocused" id="Make Inspector Window Focused" class="ga-track">
+                            <span class="lever"></span>on
+                        </label>
+                    </div>
+                </li>
+                <li class="collection-item animate-if" ng-if="!bg.newWindow">Make Inspector tab active
+                    <div class="switch right">
+                        <label>off
+                            <input type="checkbox" ng-model="bg.tabActive" id="Make Inspector tab active" class="ga-track">
+                            <span class="lever"></span>on
+                        </label>
+                    </div>
+                </li>
+                <li class="collection-item">Auto close the Inspector
                     <div class="switch right">
                         <label>off
                         <input type="checkbox" ng-model="bg.autoClose" id="Auto Close Inspector window" class="ga-track">
@@ -54,6 +62,17 @@
                         <span class="badge new" data-badge-caption="seconds" id="checkInterval-value"></span>
                     </div>
                     <div id="checkInterval" ng-model="bg.checkInterval"></div>
+                </li>
+            </ul>
+            <ul class="collection with-header">
+                <li class="collection-header" id="collections-header">Debugging</li>
+                <li class="collection-item">Show debug window
+                    <div class="switch right">
+                        <label>off
+                            <input type="checkbox" ng-model="bg.debug" id="Show debug window" class="ga-track">
+                            <span class="lever"></span>on
+                        </label>
+                    </div>
                 </li>
             </ul>
         </div>
