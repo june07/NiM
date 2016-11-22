@@ -21,22 +21,19 @@
  *    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *    SOFTWARE.
  */
-var ngApp = angular.module('NimOptionsApp', []);
+var ngApp = angular.module('NimOptionsApp', ['ngAnimate']);
 ngApp
-    .run(function () {})
-    .controller('nimOptionsController', ['$scope', '$window', '$http', function ($scope, $window) {
+    .run()
+    .controller('nimOptionsController', ['$scope', '$window', function ($scope, $window) {
         $scope.bg = $window.chrome.extension.getBackgroundPage().angular.element('#nim').scope();
-        $scope.auto = $scope.bg.auto;
-        $scope.debug = $scope.bg.debug;
-        $scope.newWindow = $scope.bg.newWindow;
-        $scope.autoClose = $scope.bg.autoClose;
-        $scope.checkInterval = $scope.bg.checkInterval;
-        $scope.tabActive = $scope.bg.tabActive;
-        $scope.windowFocused = $scope.bg.windowFocused;
 
+        $window.chrome.windows.onFocusChanged.addListener(function focusChangedListener() {
+            console.log("running focusChangedListener");
+            $scope.bg.$emit('options-window-focusChanged');
+        });
         var slider = $window.document.getElementById('checkInterval');
         $window.noUiSlider.create(slider, {
-            start: [$scope.checkInterval],
+            start: [$scope.bg.settings.checkInterval],
             step: 1,
             range: {
                 'min': [5],
@@ -47,7 +44,7 @@ ngApp
         var rangeSliderValueElement = $window.document.getElementById('checkInterval-value');
         slider.noUiSlider.on('update', function (values, handle) {
             rangeSliderValueElement.innerHTML = values[handle];
-            $scope.bg.checkInterval = parseInt(values[handle]);
+            $scope.bg.settings.checkInterval = parseInt(values[handle]);
         });
         slider.noUiSlider.on('set', function (values, handle) {
             $window._gaq.push(['_trackEvent', 'checkInterval-value', values[handle]]);

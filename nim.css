@@ -1,20 +1,36 @@
-
-
-body
-{
+body {
     font-family: 'Open Sans Condensed', sans-serif;
     font-size: 24px;
-    padding: 10px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
 }
-
+#extension-options-overlay {
+  max-height: 1200px !important;
+}
+#options-page div.row {
+  margin-bottom: 15px;
+}
+#options-page body {
+  width: 550px;
+    height: 100%;
+}
 #options-page body li.collection-item
 {
     font-size: 16px;
+    padding: 10px 17px 15px 17px;
+    margin: 0px 0px 0px 0px;
 }
-
+#options-page body li.collection-item.subitem {
+  padding-top: 5px;
+  padding-bottom: 8px;
+  padding-left: 50px;
+  background-color: #fafafa;
+}
+#options-page body li.collection-item.bottom {
+  padding-bottom: 20px;
+}
 #options-page #checkInterval
 {
-    margin: 10px 0px 30px 0px;
+    margin: 10px 0px 0px 0px;
 }
 
 #options-page #checkInterval-value
@@ -50,7 +66,6 @@ body
 {
     background-color: #33691e;
 }
-
 .message
 {
     font-size: 14px;
@@ -94,21 +109,21 @@ body
 {
     margin-bottom: 0px;
 }
-.animate-if {
-  background:black;
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+  transition: all linear 0.2s;
+}
+.animate-show {
+  opacity: 1;
+  background: white;
 }
 
-.animate-if.ng-enter, .animate-if.ng-leave {
-  transition:all ease 5.5s;
+.animate-show.ng-hide {
+  line-height: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  opacity: 0;
 }
 
-.animate-if.ng-leave,
-.animate-if.ng-leave.ng-leave-active {
-  opacity:0;
-  padding:50px 10px, 50px, 10px !important;
-  height:50px 10px, 50px, 10px !important;
-}
 
-.animate-if.ng-enter,
-.animate-if.ng-enter.ng-enter-active {
-}
+
+
