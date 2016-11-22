@@ -25,18 +25,16 @@ var ngApp = angular.module('NimPopupApp', []);
 ngApp
     .controller('nimPopupController', ['$scope', '$window', function ($scope, $window) {
         $scope.bg = $window.chrome.extension.getBackgroundPage().angular.element('#nim').scope();
-        $scope.host = $scope.bg.host;
-        $scope.port = $scope.bg.port;
-        $scope.timer = $scope.bg.timer;
 
+        /**
         setInterval(function () {
-            $scope.timer++;
-            $scope.$apply();
-        }, 1000);
+            $scope.bg.timer++;
+            $scope.bg.$apply();
+        }, 1000);*/
         $scope.clickHandler = function () {
-            $scope.bg.save("host", $scope.host);
-            $scope.bg.save("port", $scope.port);
-            $scope.bg.openTab($scope.host, $scope.port, function (result) {
+            $scope.bg.save("host");
+            $scope.bg.save("port");
+            $scope.bg.openTab($scope.bg.settings.host, $scope.bg.settings.port, function (result) {
                 $scope.message = result;
             });
         };

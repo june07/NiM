@@ -28,16 +28,22 @@ ngApp
         const UPTIME_CHECK_INTERVAL = 1000 * 60 * 15; // 15 minutes
         $scope.loaded = Date.now();
         $scope.timer = 0;
-        $scope.auto = false;
-        $scope.timerInterval = 1000;
-        $scope.checkInterval = 5;
-        $scope.checkIntervalTimeout = null;
-        $scope.debug = false;
-        $scope.newWindow = false;
-        $scope.autoClose = true;
-        $scope.tabActive = false;
-        $scope.windowFocused = false;
+        /** Next thing to do is to init these values from storage */
+        $scope.settings = {
+            host: "localhost",
+            port: "9229",
+            auto: false,
+            timerInterval: 1000,
+            checkInterval: 5,
+            checkIntervalTimeout: null,
+            debug: false,
+            newWindow: false,
+            autoClose: true,
+            tabActive: true,
+            windowFocused: true
+        };
         $scope.devToolsSessions = [];
+        $scope.changeObject;
 
         var chrome = $window.chrome;
         $scope.moment = $window.moment;
@@ -47,24 +53,26 @@ ngApp
             if ($scope.timer >= UPTIME_CHECK_INTERVAL && $scope.timer%UPTIME_CHECK_INTERVAL === 0) {
                 $window._gaq.push(['_trackEvent', $scope.moment.duration($scope.timer, 'seconds').humanize(), 'Uptime Checked']);
             }
-        }, $scope.timerInterval);
+        }, $scope.settings.timerInterval);
 
         $scope.$on('options-window-closed', function () {
-            resetInterval($scope.checkIntervalTimeout);
+            resetInterval($scope.settings.checkIntervalTimeout);
         });
-
+        $scope.$on('options-window-focusChanged', function () {
+            $scope.saveAll();
+        });
         function resetInterval(timeout) {
             if (timeout) {
                 clearInterval(timeout);
             }
             $scope.checkIntervalTimeout = setInterval(function () {
-                if ($scope.auto) {
+                if ($scope.settings.auto) {
                     $scope.closeDevTools();
-                    $scope.openTab($scope.host, $scope.port, function (result) {
+                    $scope.openTab($scope.settings.host, $scope.settings.port, function (result) {
                         $scope.message = result;
                     });
                 }
-            }, $scope.checkInterval * 1000);
+            }, $scope.settings.checkInterval * 1000);
         }
         resetInterval();
 
@@ -97,7 +105,7 @@ ngApp
             });
         };
         $scope.openTab = function (host, port, callback) {
-            var infoUrl = 'http://' + $scope.host + ':' + $scope.port + '/json';
+            var infoUrl = 'http://' + $scope.settings.host + ':' + $scope.settings.port + '/json';
             chrome.tabs.query({
                 url: 'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*'
             }, function (tab) {
@@ -127,12 +135,12 @@ ngApp
                 }
             });
         };
-
         function createTabOrWindow(infoUrl, url, callback) {
-            if ($scope.newWindow) {
+            console.dir($scope.settings);
+            if ($scope.settings.newWindow) {
                 chrome.windows.create({
                     url: url,
-                    focused: $scope.windowFocused,
+                    focused: $scope.settings.windowFocused,
                 }, function (window) {
                     saveSession(infoUrl, window.id);
                     callback(window.url);
@@ -140,53 +148,49 @@ ngApp
             } else {
                 chrome.tabs.create({
                     url: url,
-                    active: $scope.tabActive,
+                    active: $scope.settings.tabActive,
                 }, function (tab) {
                     saveSession(infoUrl, tab.id);
                     callback(tab.url);
                 });
             }
         }
-
         function saveSession(infoUrl, id) {
             $scope.devToolsSessions.push({
-                autoClose: $scope.autoClose,
-                isWindow: $scope.newWindow,
+                autoClose: $scope.settings.autoClose,
+                isWindow: $scope.settings.newWindow,
                 infoUrl: infoUrl,
                 id: id
             });
         }
-        $scope.save = function (key, obj) {
-            switch (key) {
-            case "host":
-                chrome.storage.sync.set({
-                    host: obj
-                }, function () {
-                    if ($scope.debug) {
-                        console.log("saved host: " + obj);
-                    }
-                });
-                break;
-            case "port":
-                chrome.storage.sync.set({
-                    port: obj
-                }, function () {
-                    if ($scope.debug) {
-                        console.log("saved port: " + obj);
-                    }
-                });
-                break;
-            }
+        $scope.write = function (key, obj) {
+            chrome.storage.sync.set({
+                [key]: obj
+            }, function () {
+                if ($scope.debug) {
+                    console.log("saved key: [" + JSON.stringify(key) + "] obj: [" + obj + ']');
+                }
+            });
         };
-        $scope.s = function (key) {
-            $scope.save(key, $scope[key]);
+        $scope.saveAll = function() {
+            var keys = Object.keys($scope.settings);
+            keys.forEach(function(key) {
+                $scope.write(key, $scope.settings[key]);
+            });
+        }
+        $scope.save = function (key) {
+                if ($scope.debug) console.log("saved key: [" + JSON.stringify(key) + "] obj: [" + $scope.settings[key] + ']');
+                $scope.write(key, $scope.settings[key]);
         };
         chrome.storage.sync.get("host", function (obj) {
-            $scope.host = obj.host || "localhost";
+            $scope.settings.host = obj.host || "localhost";
             $scope.$apply();
         });
         chrome.storage.sync.get("port", function (obj) {
-            $scope.port = obj.port || 9229;
+            $scope.settings.port = obj.port || 9229;
             $scope.$apply();
+        });
+        chrome.storage.onChanged.addListener(function (changeObject) {
+            $scope.changeObject = changeObject;
         });
   }]);
