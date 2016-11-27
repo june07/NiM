@@ -36,7 +36,7 @@ ngApp
             timerInterval: 1000,
             checkInterval: 5,
             checkIntervalTimeout: null,
-            debug: true,
+            debug: false,
             newWindow: false,
             autoClose: true,
             tabActive: true,
