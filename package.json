@@ -1,63 +1,63 @@
 {
-  "name": "nim",
-  "version": "0.6.0",
-  "description": "Monitor the integrated Node V8 inspector and auto open Chrome DevTools",
-  "main": "nim.js",
-  "dependencies": {
-    "angular": "^1.5.8",
-    "angular-animate": "^1.5.8",
-    "jquery": "^3.1.1",
-    "materialize-css": "^0.97.8",
-    "moment": "^2.16.0"
-  },
-  "devDependencies": {
-    "angular-mocks": "^1.5.8",
-    "eslint-plugin-angular": "^1.4.1",
-    "eslint-plugin-json": "^1.2.0",
-    "grunt": "~0.4.1",
-    "grunt-browserify": "*",
-    "grunt-chrome-compile": "^0.2.2",
-    "grunt-contrib-clean": "~0.4.0",
-    "grunt-contrib-compress": "~0.5.0",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-nodeunit": "~0.1.2",
-    "grunt-contrib-uglify": "*",
-    "grunt-contrib-watch": "*",
-    "grunt-exec": "*",
-    "grunt-mkdir": "*",
-    "grunt-mocha-test": "*",
-    "gruntify-eslint": "^3.1.0",
-    "jasmine-core": "^2.5.2",
-    "karma": "^1.3.0",
-    "karma-chrome-launcher": "^2.0.0",
-    "karma-cli": "^1.0.1",
-    "karma-jasmine": "^1.0.2",
-    "load-grunt-tasks": "^3.5.2",
-    "mocha": ">=1.20.0"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/june07/nim.git"
-  },
-  "keywords": [
-    "Chrome",
-    "Extension",
-    "Node",
-    "Nodejs",
-    "Node.js",
-    "V8",
-    "Inspector",
-    "Monitor",
-    "DevTools"
-  ],
-  "author": "June07",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/june07/nim/issues"
-  },
-  "homepage": "https://github.com/june07/nim#readme"
+    "name": "NIM",
+    "version": "0.6.0",
+    "description": "Monitor the integrated Node V8 inspector and auto open Chrome DevTools",
+    "main": "nim.js",
+    "dependencies": {
+        "angular": "^1.5.8",
+        "angular-animate": "^1.5.8",
+        "jquery": "^3.1.1",
+        "materialize-css": "^0.97.8",
+        "moment": "^2.16.0"
+    },
+    "devDependencies": {
+        "angular-mocks": "^1.5.8",
+        "eslint-plugin-angular": "^1.4.1",
+        "eslint-plugin-json": "^1.2.0",
+        "grunt": "~0.4.1",
+        "grunt-browserify": "*",
+        "grunt-chrome-compile": "^0.2.2",
+        "grunt-contrib-clean": "~0.4.0",
+        "grunt-contrib-compress": "~0.5.0",
+        "grunt-contrib-concat": "~0.3.0",
+        "grunt-contrib-copy": "^1.0.0",
+        "grunt-contrib-nodeunit": "~0.1.2",
+        "grunt-contrib-uglify": "*",
+        "grunt-contrib-watch": "*",
+        "grunt-exec": "*",
+        "grunt-mkdir": "*",
+        "grunt-mocha-test": "*",
+        "gruntify-eslint": "^3.1.0",
+        "jasmine-core": "^2.5.2",
+        "karma": "^1.3.0",
+        "karma-chrome-launcher": "^2.0.0",
+        "karma-cli": "^1.0.1",
+        "karma-jasmine": "^1.0.2",
+        "load-grunt-tasks": "^3.5.2",
+        "mocha": ">=1.20.0"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/june07/nim.git"
+    },
+    "keywords": [
+        "Chrome",
+        "Extension",
+        "Node",
+        "Nodejs",
+        "Node.js",
+        "V8",
+        "Inspector",
+        "Monitor",
+        "DevTools"
+    ],
+    "author": "June07",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/june07/NIM/issues"
+    },
+    "homepage": "https://github.com/june07/NIM#readme"
 }

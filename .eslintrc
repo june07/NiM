@@ -9,8 +9,9 @@
   "setInterval": false,
     "clearInterval": false,
     "console": false,
-  "process": false
+  "process": false,
 },
+  "env": { "es6": true },
     "rules": {
         "no-alert": "off",
         "no-array-constructor": "off",

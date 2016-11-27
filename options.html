@@ -5,9 +5,7 @@
 <script type="text/javascript" src="./js/materialize.min.js"></script>
 <script type="text/javascript" src="./js/nouislider.min.js"></script>
 <script type="text/javascript" src="./js/angular-animate.min.js"></script>
-
 <script type="text/javascript" src="options.js"></script>
-
 <html ng-app="NimOptionsApp" ng-csp id="options-page">
 
 <head>
@@ -25,7 +23,7 @@
     <div class="row">
         <div class="col s1"></div>
         <div class="col s10">
-            <ul class="collection with-header">
+            <ul class="collection with-header swing">
                 <li class="collection-header" id="collections-header">General</li>
                 <li class="collection-item">Open Inspector in a new window
                     <div class="switch right">
@@ -35,7 +33,7 @@
                         </label>
                     </div>
                 </li>
-                <li class="collection-item"">Make Inspector window focused
+                <li class="collection-item animate-swing-show" ng-show="bg.settings.newWindow">Make Inspector window focused
                     <div class="switch right">
                         <label>off
                             <input type="checkbox" ng-model="bg.settings.windowFocused" id="Make Inspector Window Focused" class="ga-track">
@@ -43,7 +41,7 @@
                         </label>
                     </div>
                 </li>
-                <li class="collection-item animate-show subitem" ng-show="!bg.settings.newWindow">Make Inspector tab active
+                <li class="collection-item animate-swing-show" ng-show="!bg.settings.newWindow">Make Inspector tab active
                     <div class="switch right">
                         <label>off
                             <input type="checkbox" ng-model="bg.settings.tabActive" id="Make Inspector tab active" class="ga-track">
@@ -54,9 +52,9 @@
                 <li class="collection-item">Auto close the Inspector
                     <div class="switch right">
                         <label>off
-                        <input type="checkbox" ng-model="bg.settings.autoClose" id="Auto Close Inspector window" class="ga-track">
-                        <span class="lever"></span>on
-                    </label>
+                            <input type="checkbox" ng-model="bg.settings.autoClose" id="Auto Close Inspector window" class="ga-track">
+                            <span class="lever"></span>on
+                        </label>
                     </div>
                 </li>
                 <li class="collection-item bottom">Seconds between Inspector checks

@@ -2,128 +2,142 @@ body {
     font-family: 'Open Sans Condensed', sans-serif;
     font-size: 24px;
     padding: 0px 0px 0px 0px;
-}
-#extension-options-overlay {
-  max-height: 1200px !important;
-}
-#options-page div.row {
-  margin-bottom: 15px;
-}
-#options-page body {
-  width: 550px;
     height: 100%;
 }
-#options-page body li.collection-item
-{
+
+#options-page div.row {
+    margin-bottom: 15px;
+}
+
+#options-page body {
+    width: 100%;
+    height: 1200px;
+    overflow: hidden;
+}
+
+div #extension-options-overlay.page {
+    height: 100%;
+}
+
+#options-page body li.collection-item {
     font-size: 16px;
     padding: 10px 17px 15px 17px;
     margin: 0px 0px 0px 0px;
 }
+
 #options-page body li.collection-item.subitem {
-  padding-top: 5px;
-  padding-bottom: 8px;
-  padding-left: 50px;
-  background-color: #fafafa;
+    padding-top: 5px;
+    padding-bottom: 8px;
+    padding-left: 50px;
+    background-color: #fafafa;
 }
+
 #options-page body li.collection-item.bottom {
-  padding-bottom: 20px;
+    padding-bottom: 20px;
 }
-#options-page #checkInterval
-{
+
+#options-page #checkInterval {
     margin: 10px 0px 0px 0px;
 }
 
-#options-page #checkInterval-value
-{
+#options-page #checkInterval-value {
     background-color: #aed581;
     font-size: 16px;
 }
 
-#options-page #options-header
-{
+#options-page #options-header {
     padding: 15px 0px 15px 0px;
     background-color: #9ccc65;
 }
 
-#options-page #collections-header
-{
+#options-page #collections-header {
     font-size: 14px;
     font-weight: bold;
     background-color: #e0e0e0;
 }
 
-#options-page .switch label
-{
+#options-page .switch label {
     font-size: 16px;
 }
 
-#options-page .noUi-target .range-label
-{
+#options-page .noUi-target .range-label {
     background-color: #4caf50;
 }
 
-#options-page .noUi-handle-lower
-{
+#options-page .noUi-handle-lower {
     background-color: #33691e;
 }
-.message
-{
+
+.message {
     font-size: 14px;
 }
 
-.header
-{
+.header {
     margin-left: 15px;
     margin-right: 15px;
 }
 
-.input-text
-{
+.input-text {
     font-size: 20px !important;
 }
 
-.auto-switch
-{
+.auto-switch {
     clear: both;
 }
 
-.footer-text
-{
+.footer-text {
     font-size: 18px;
     color: #33691e;
 }
 
-.container-page
-{
+.container-page {
     padding: 0;
     margin: 0;
     width: 100%;
+    height: 100%;
 }
 
-.logo-padding
-{
+.logo-padding {
     margin-left: 15px;
 }
 
-.row-footer
-{
+.row-footer {
     margin-bottom: 0px;
 }
-.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
-  transition: all linear 0.2s;
+
+.animate-show.ng-hide-add,
+.animate-show.ng-hide-remove {
+    transition: all 0.2s cubic-bezier(.36, -0.64, .34, 1.76);
 }
+
 .animate-show {
-  opacity: 1;
-  background: white;
+    opacity: 1;
+    background: white;
 }
 
 .animate-show.ng-hide {
-  line-height: 0px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  opacity: 0;
+    line-height: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    opacity: 0;
+}
+
+.animate-swing-show.ng-hide {
+    opacity: 0;
+    transform: rotateY(-90deg);
+    transition: all 0.2s cubic-bezier(.36, -0.64, .34, 1.76);
+}
+
+.animate-swing-show {
+    opacity: 1;
+    transform: none;
+    transition: all 0.5s cubic-bezier(.36, -0.64, .34, 1.76);
+}
+
+.swing {
+    background-color: #f1f8e9;
+    perspective: 400px;
 }
 
 
-
-
+}
