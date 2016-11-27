@@ -1,6 +1,6 @@
 {
     "name": "NIM",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "description": "Monitor the integrated Node V8 inspector and auto open Chrome DevTools",
     "main": "nim.js",
     "dependencies": {

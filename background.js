@@ -118,7 +118,8 @@ ngApp
                             responseType: "json"
                         })
                         .then(function openDevToolsFrontend(json) {
-                            var url = json.data[0].devtoolsFrontendUrl.replace("localhost:9229", host + ":" + port);
+                            var url = json.data[0].devtoolsFrontendUrl.replace("127.0.0.1:9229", host + ":" + port)
+                                .replace("localhost:9229", host + ":" + port);
                             /** May be a good idea to put this somewhere further along the chain in case tab/window creation fails,
                             in which case this entry will need to be removed from the array */
                             createTabOrWindow(infoUrl, url, callback);
