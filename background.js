@@ -23,8 +23,8 @@
  */
 var ngApp = angular.module('NimBackgroundApp', []);
 ngApp
-    .run(function () {})
-    .controller('nimController', ['$scope', '$window', '$http', function ($scope, $window, $http) {
+    .run(function() {})
+    .controller('nimController', ['$scope', '$window', '$http', function($scope, $window, $http) {
         const UPTIME_CHECK_INTERVAL = 1000 * 60 * 15; // 15 minutes
         $scope.loaded = Date.now();
         $scope.timer = 0;
@@ -36,7 +36,7 @@ ngApp
             timerInterval: 1000,
             checkInterval: 5,
             checkIntervalTimeout: null,
-            debug: false,
+            debug: true,
             newWindow: false,
             autoClose: true,
             tabActive: true,
@@ -48,27 +48,29 @@ ngApp
         var chrome = $window.chrome;
         $scope.moment = $window.moment;
 
-        setInterval(function () {
+        setInterval(function() {
             $scope.timer++;
-            if ($scope.timer >= UPTIME_CHECK_INTERVAL && $scope.timer%UPTIME_CHECK_INTERVAL === 0) {
+            if ($scope.timer >= UPTIME_CHECK_INTERVAL && $scope.timer % UPTIME_CHECK_INTERVAL === 0) {
                 $window._gaq.push(['_trackEvent', $scope.moment.duration($scope.timer, 'seconds').humanize(), 'Uptime Checked']);
             }
         }, $scope.settings.timerInterval);
 
-        $scope.$on('options-window-closed', function () {
+        $scope.$on('options-window-closed', function() {
             resetInterval($scope.settings.checkIntervalTimeout);
         });
-        $scope.$on('options-window-focusChanged', function () {
+        $scope.$on('options-window-focusChanged', function() {
+            // Only if an event happened
             $scope.saveAll();
         });
+
         function resetInterval(timeout) {
             if (timeout) {
                 clearInterval(timeout);
             }
-            $scope.checkIntervalTimeout = setInterval(function () {
+            $scope.checkIntervalTimeout = setInterval(function() {
                 if ($scope.settings.auto) {
                     $scope.closeDevTools();
-                    $scope.openTab($scope.settings.host, $scope.settings.port, function (result) {
+                    $scope.openTab($scope.settings.host, $scope.settings.port, function(result) {
                         $scope.message = result;
                     });
                 }
@@ -76,23 +78,23 @@ ngApp
         }
         resetInterval();
 
-        $scope.closeDevTools = function () {
-            $scope.devToolsSessions.forEach(function (devToolsSession, index) {
+        $scope.closeDevTools = function() {
+            $scope.devToolsSessions.forEach(function(devToolsSession, index) {
                 if (devToolsSession.autoClose) {
                     $http({
                             method: "GET",
                             url: devToolsSession.infoUrl,
                             responseType: "json"
                         })
-                        .catch(function (error) {
+                        .catch(function(error) {
                             if (error.status === -1) {
                                 if (!devToolsSession.isWindow) {
-                                    chrome.tabs.remove(devToolsSession.id, function () {
+                                    chrome.tabs.remove(devToolsSession.id, function() {
                                         $scope.devToolsSessions.splice(index, 1);
                                         $scope.message += '<br>Closed tab for DevTools session: ' + JSON.stringify(devToolsSession) + '.';
                                     });
                                 } else {
-                                    chrome.windows.remove(devToolsSession.id, function () {
+                                    chrome.windows.remove(devToolsSession.id, function() {
                                         $scope.devToolsSessions.splice(index, 1);
                                         $scope.message += '<br>Closed window for DevTools session: ' + JSON.stringify(devToolsSession) + '.';
                                     });
@@ -104,11 +106,11 @@ ngApp
                 }
             });
         };
-        $scope.openTab = function (host, port, callback) {
+        $scope.openTab = function(host, port, callback) {
             var infoUrl = 'http://' + $scope.settings.host + ':' + $scope.settings.port + '/json';
             chrome.tabs.query({
                 url: 'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*'
-            }, function (tab) {
+            }, function(tab) {
                 if (tab.length === 0) {
                     $http({
                             method: "GET",
@@ -121,7 +123,7 @@ ngApp
                             in which case this entry will need to be removed from the array */
                             createTabOrWindow(infoUrl, url, callback);
                         })
-                        .catch(function (error) {
+                        .catch(function(error) {
                             if (error.status === -1) {
                                 var message =
                                     'Connection to DevTools host was aborted.  Check your host and port.';
@@ -135,13 +137,14 @@ ngApp
                 }
             });
         };
+
         function createTabOrWindow(infoUrl, url, callback) {
             console.dir($scope.settings);
             if ($scope.settings.newWindow) {
                 chrome.windows.create({
                     url: url,
                     focused: $scope.settings.windowFocused,
-                }, function (window) {
+                }, function(window) {
                     saveSession(infoUrl, window.id);
                     callback(window.url);
                 });
@@ -149,12 +152,13 @@ ngApp
                 chrome.tabs.create({
                     url: url,
                     active: $scope.settings.tabActive,
-                }, function (tab) {
+                }, function(tab) {
                     saveSession(infoUrl, tab.id);
                     callback(tab.url);
                 });
             }
         }
+
         function saveSession(infoUrl, id) {
             $scope.devToolsSessions.push({
                 autoClose: $scope.settings.autoClose,
@@ -163,34 +167,38 @@ ngApp
                 id: id
             });
         }
-        $scope.write = function (key, obj) {
+        $scope.write = function(key, obj) {
             chrome.storage.sync.set({
                 [key]: obj
-            }, function () {
-                if ($scope.debug) {
-                    console.log("saved key: [" + JSON.stringify(key) + "] obj: [" + obj + ']');
+            }, function() {
+                if ($scope.settings.debug) {
+                    //console.log("saved key: [" + JSON.stringify(key) + "] obj: [" + obj + ']');
                 }
             });
         };
         $scope.saveAll = function() {
             var keys = Object.keys($scope.settings);
             keys.forEach(function(key) {
-                $scope.write(key, $scope.settings[key]);
+                if (!$scope.changeObject || !$scope.changeObject[key] || ($scope.settings[key] !== $scope.changeObject[key].newValue)) {
+                    $scope.write(key, $scope.settings[key]);
+                }
             });
         }
-        $scope.save = function (key) {
-                if ($scope.debug) console.log("saved key: [" + JSON.stringify(key) + "] obj: [" + $scope.settings[key] + ']');
-                $scope.write(key, $scope.settings[key]);
+        $scope.save = function(key) {
+            $scope.write(key, $scope.settings[key]);
         };
-        chrome.storage.sync.get("host", function (obj) {
+        chrome.storage.sync.get("host", function(obj) {
             $scope.settings.host = obj.host || "localhost";
-            $scope.$apply();
         });
-        chrome.storage.sync.get("port", function (obj) {
+        chrome.storage.sync.get("port", function(obj) {
             $scope.settings.port = obj.port || 9229;
-            $scope.$apply();
         });
-        chrome.storage.onChanged.addListener(function (changeObject) {
-            $scope.changeObject = changeObject;
+        chrome.storage.onChanged.addListener(function(changes, namespace) {
+            $scope.changeObject = changes;
+            var key;
+            for (key in changes) {
+                var storageChange = changes[key];
+                if ($scope.settings.debug) console.log('Storage key "%s" in namespace "%s" changed.  Old value was "%s", new value is "%s".', key, namespace, storageChange.oldValue, storageChange.newValue);
+            }
         });
-  }]);
+    }]);

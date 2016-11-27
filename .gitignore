@@ -46,3 +46,4 @@ unpacked/
 build/
 *.pem
 js/moment.min.js
+js/
