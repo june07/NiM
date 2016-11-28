@@ -26,6 +26,8 @@ If you enjoy using NIM please give us a 5 star rating and/or a G+1.  Any and all
 This project is open source and available at https://github.com/june07/NIM.
 
 https://github.com/june07/NIM/blob/master/CHANGELOG.md
+[0.7.0] - 2016-11-28
+- Added a very short uninstall survey.
 [0.6.1] - 2016-11-27
 - Bug fix: Remote debugging only worked in some cases.
 [0.6.0] - 2016-11-26
