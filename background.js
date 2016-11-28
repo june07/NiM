@@ -26,6 +26,7 @@ ngApp
     .run(function() {})
     .controller('nimController', ['$scope', '$window', '$http', function($scope, $window, $http) {
         const UPTIME_CHECK_INTERVAL = 1000 * 60 * 15; // 15 minutes
+        const UNINSTALL_URL = "http://june07.com/uninstall";
         $scope.loaded = Date.now();
         $scope.timer = 0;
         /** Next thing to do is to init these values from storage */
@@ -46,6 +47,11 @@ ngApp
         $scope.changeObject;
 
         var chrome = $window.chrome;
+        chrome.runtime.setUninstallURL(UNINSTALL_URL, function() {
+            if (chrome.runtime.lastError && $scope.settings.debug) {
+                $scope.message += "Error setting uninstall URL: " + UNINSTALL_URL;
+            }
+        });
         $scope.moment = $window.moment;
 
         setInterval(function() {
