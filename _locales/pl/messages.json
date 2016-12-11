@@ -1,0 +1,152 @@
+{
+  "appName": {
+    "message": "Nim (węzeł Menedżer inspektor)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "Nim",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Rozszerzenie do automatycznego uruchamiania inspektor V8 dla Node.js debugowanie",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "Nim (węzeł Menedżer inspektor) - strona wariantu",
+    "description": "Title shown on options page."
+  },
+  "defaultTitle": {
+    "message": "Nim (węzeł Menedżer inspektor)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Błąd instalacji usuń adres URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Zamkniętą kartę narzędzia developerskie sesji: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Zamknięte okna narzędzi programistycznych sesji: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Błąd podczas próby automatycznego zamknięcia ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Połączenie z narzędzia developerskie węzeł zostało przerwane. Sprawdź, czy twój host i port.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "Narzędzia developerskie już otwarta.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "Narzędzia developerskie już otwarta.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "Narzędzia developerskie już otwarta.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Port",
+    "description": "Port."
+  },
+  "hostname": {
+    "message": "Nazwa",
+    "description": "Hostname."
+  },
+  "manual": {
+    "message": "Podręcznik",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Auto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Do oddania",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Włączony",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Аптайм",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Opcje",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Ogólne",
+    "description": "General."
+  },
+  "on": {
+    "message": "Na",
+    "description": "On."
+  },
+  "off": {
+    "message": "Od",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Otwórz w nowym oknie.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Aby Okno.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Zrobić Kartę Aktywnego.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Automatycznie Zamknąć.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Sprawdzić Odstęp.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Debugowanie",
+    "description": "Debugging."
+  },
+  "showDebugWindow": {
+    "message": "Pokaż Okno Debugowania.",
+    "description": "Show debug window."
+  },
+  "save": {
+    "message": "Zapisz",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Otwórz Devtools",
+    "description": "Open DevTools"
+  },
+  "seconds": {
+    "message": "Sekund",
+    "description": "Seconds badge label."
+  }
+}

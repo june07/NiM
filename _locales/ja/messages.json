@@ -1,0 +1,152 @@
+{
+  "appName": {
+    "message": "ビン電源(ノード検査マネージャー)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NIM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "拡張のために自動的に起動V8調査のためのNode.js デバッグ",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "ビン電源(ノード検査マネージャー)-オプションページ",
+    "description": "Title shown on options page."
+  },
+  "defaultTitle": {
+    "message": "ビン電源(ノード検査マネージャー)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "エラー設定をアンインストールURL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "閉じたタブのためのDevToolsセッション: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "閉じたウィンドウDevToolsセッション: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "エラーをしようとオートあり ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "接続DevToolsホストが中断されました。 チェックをホストとポートします。",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevToolsが開いています。",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevToolsが開いています。",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevToolsが開いています。",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "港",
+    "description": "Port."
+  },
+  "hostname": {
+    "message": "ホスト名",
+    "description": "Hostname."
+  },
+  "manual": {
+    "message": "マニュアル",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "オート",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "寄付",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "有効な",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "アップタイム",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "オプション",
+    "description": "Options."
+  },
+  "general": {
+    "message": "一般",
+    "description": "General."
+  },
+  "on": {
+    "message": "月",
+    "description": "On."
+  },
+  "off": {
+    "message": "Off",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "新しいウィンドウで開きます。",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "作画面にフォーカスします。",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "をタブで活躍しました。",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "自動的に閉じます。",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "チェック間隔で出ています。",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "デバッグ",
+    "description": "Debugging."
+  },
+  "showDebugWindow": {
+    "message": "示デバッグウインドウです。",
+    "description": "Show debug window."
+  },
+  "save": {
+    "message": "保存",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "開DevTools",
+    "description": "Open DevTools"
+  },
+  "seconds": {
+    "message": "秒",
+    "description": "Seconds badge label."
+  }
+}

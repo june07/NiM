@@ -1,0 +1,152 @@
+{
+  "appName": {
+    "message": "NIM (Nœud Inspecteur Manager)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NIM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Extension pour lancer automatiquement des V8 Inspecteur Node.js débogage",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "NIM (Nœud Inspecteur Manager) - Options de la Page",
+    "description": "Title shown on options page."
+  },
+  "defaultTitle": {
+    "message": "NIM (Nœud Inspecteur Manager)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Erreur de configuration désinstaller URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Onglet fermé pour les DevTools session: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Fenêtre fermée pour les DevTools session: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Erreur lors de la tentative de fermeture auto ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Connexion à DevTools hôte a été abandonnée. Vérifiez votre hôte et le port.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools est déjà ouvert.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools est déjà ouvert.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools est déjà ouvert.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Port",
+    "description": "Port."
+  },
+  "hostname": {
+    "message": "Nom d'hôte",
+    "description": "Hostname."
+  },
+  "manual": {
+    "message": "Manuel",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Auto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Faire un don",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Activé",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Le temps de disponibilité",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Options",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Général",
+    "description": "General."
+  },
+  "on": {
+    "message": "Sur",
+    "description": "On."
+  },
+  "off": {
+    "message": "Off",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Ouvrir dans une Nouvelle Fenêtre.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Rendre La Fenêtre Ciblée.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Faire De L'Onglet Actif.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Fermer Automatiquement.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Intervalle De Vérification.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Débogage",
+    "description": "Debugging."
+  },
+  "showDebugWindow": {
+    "message": "Afficher La Fenêtre De Débogage.",
+    "description": "Show debug window."
+  },
+  "save": {
+    "message": "Enregistrer",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Ouvrir DevTools",
+    "description": "Open DevTools"
+  },
+  "seconds": {
+    "message": "Secondes",
+    "description": "Seconds badge label."
+  }
+}

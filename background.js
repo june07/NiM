@@ -49,7 +49,7 @@ ngApp
         var chrome = $window.chrome;
         chrome.runtime.setUninstallURL(UNINSTALL_URL, function() {
             if (chrome.runtime.lastError && $scope.settings.debug) {
-                $scope.message += "Error setting uninstall URL: " + UNINSTALL_URL;
+                $scope.message += chrome.i18n.getMessage("errMsg1") + UNINSTALL_URL;
             }
         });
         $scope.moment = $window.moment;
@@ -97,16 +97,16 @@ ngApp
                                 if (!devToolsSession.isWindow) {
                                     chrome.tabs.remove(devToolsSession.id, function() {
                                         $scope.devToolsSessions.splice(index, 1);
-                                        $scope.message += '<br>Closed tab for DevTools session: ' + JSON.stringify(devToolsSession) + '.';
+                                        $scope.message += '<br>' + chrome.i18n.getMessage("errMsg2") + JSON.stringify(devToolsSession) + '.';
                                     });
                                 } else {
                                     chrome.windows.remove(devToolsSession.id, function() {
                                         $scope.devToolsSessions.splice(index, 1);
-                                        $scope.message += '<br>Closed window for DevTools session: ' + JSON.stringify(devToolsSession) + '.';
+                                        $scope.message += '<br>' + chrome.i18n.getMessage("errMsg6") + JSON.stringify(devToolsSession) + '.';
                                     });
                                 }
                             } else {
-                                $scope.message += '<br>Error while trying to auto close ' + (devToolsSession.isWindow ? 'window' : 'tab') + error;
+                                $scope.message += '<br>' + chrome.i18n.getMessage("errMsg3") + (devToolsSession.isWindow ? 'window' : 'tab') + error;
                             }
                         });
                 }
@@ -132,14 +132,14 @@ ngApp
                         .catch(function(error) {
                             if (error.status === -1) {
                                 var message =
-                                    'Connection to DevTools host was aborted.  Check your host and port.';
+                                    chrome.i18n.getMessage("errMsg4");
                                 callback(message);
                             } else {
                                 callback(error);
                             }
                         });
                 } else {
-                    callback("DevTools is already open.");
+                    callback(chrome.i18n.getMessage("errMsg5"));
                 }
             });
         };
@@ -192,6 +192,18 @@ ngApp
         $scope.save = function(key) {
             $scope.write(key, $scope.settings[key]);
         };
+        $scope.localize = function($window, updateUI) {
+            Array.from($window.document.getElementsByClassName("i18n")).forEach(function(element, i, elements) {
+                var message;
+                switch (element.id) {
+                    case "open devtools": message = chrome.i18n.getMessage("openDevtools"); element.value = message; break;
+                    case "checkInterval-value": message = chrome.i18n.getMessage(element.dataset.badgeCaption); element.dataset.badgeCaption = message; break;
+                    default: message = chrome.i18n.getMessage(element.innerText.split(/\s/)[0]);
+                        element.textContent = message; break;
+                }
+                if (i === (elements.length-1)) updateUI();
+            });
+        }
         chrome.storage.sync.get("host", function(obj) {
             $scope.settings.host = obj.host || "localhost";
         });
@@ -203,7 +215,7 @@ ngApp
             var key;
             for (key in changes) {
                 var storageChange = changes[key];
-                if ($scope.settings.debug) console.log('Storage key "%s" in namespace "%s" changed.  Old value was "%s", new value is "%s".', key, namespace, storageChange.oldValue, storageChange.newValue);
+                if ($scope.settings.debug) console.log(chrome.i18n.getMessage("errMsg5", [key, namespace, storageChange.oldValue, storageChange.newValue]));
             }
         });
     }]);

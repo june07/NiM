@@ -1,0 +1,152 @@
+{
+  "appName": {
+    "message": "Ним (узел Диспетчер инспектор)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "Ним",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Расширение для автоматического запуска инспектор V8 для Node.js отладка",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "Ним (узел Диспетчер инспектор) - страница варианта",
+    "description": "Title shown on options page."
+  },
+  "defaultTitle": {
+    "message": "Ним (узел Диспетчер инспектор)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Ошибка установки удалить URL-адрес: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Закрытую вкладку для инструменты разработчика сессии: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Закрытые окна инструментов разработчика сессии: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Ошибка при попытке автоматического закрытия ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Подключение к инструменты разработчика узел было прервано. Проверьте ваш хост и порт.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "Инструменты разработчика уже открыта.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "Инструменты разработчика уже открыта.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "Инструменты разработчика уже открыта.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Порт",
+    "description": "Port."
+  },
+  "hostname": {
+    "message": "Имя",
+    "description": "Hostname."
+  },
+  "manual": {
+    "message": "Руководство",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Авто",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Пожертвовать",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Включен",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Аптайм",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Варианты",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Общие",
+    "description": "General."
+  },
+  "on": {
+    "message": "На",
+    "description": "On."
+  },
+  "off": {
+    "message": "От",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Открыть в новом окне.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Сделать Окно.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Сделать Вкладку Активной.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Автоматически Закрыть.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Проверить Интервал.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Отладка",
+    "description": "Debugging."
+  },
+  "showDebugWindow": {
+    "message": "Показать Окно Отладки.",
+    "description": "Show debug window."
+  },
+  "save": {
+    "message": "Сохранить",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Откройте Devtools",
+    "description": "Open DevTools"
+  },
+  "seconds": {
+    "message": "Секунд",
+    "description": "Seconds badge label."
+  }
+}
