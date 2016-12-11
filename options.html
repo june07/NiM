@@ -9,7 +9,7 @@
 <html ng-app="NimOptionsApp" ng-csp id="options-page">
 
 <head>
-    <title>nim (Node Inspector Monitor) - Options Page</title>
+    <title><span class="i18n">pageOptionsTitle</span></title>
     <link rel="stylesheet" href="./css/materialize.min.css">
     <link rel="stylesheet" href="./css/nouislider.css">
     <link rel="stylesheet" href="./css/font.css">
@@ -18,59 +18,59 @@
 
 <body id="nim" ng-controller="nimOptionsController">
     <div class="row">
-        <div class="col s12 center white-text" id="options-header">Options</div>
+        <div class="col s12 center white-text" id="options-header"><span class="i18n">options</span></div>
     </div>
     <div class="row">
         <div class="col s1"></div>
         <div class="col s10">
             <ul class="collection with-header swing">
-                <li class="collection-header" id="collections-header">General</li>
-                <li class="collection-item">Open Inspector in a new window
+                <li class="collection-header" id="collections-header"><span class="i18n">general</span></li>
+                <li class="collection-item"><span class="i18n">openInspectorNewWindow</span>
                     <div class="switch right">
-                        <label>off
+                        <label><span class="i18n">off</span>
                             <input type="checkbox" ng-model="bg.settings.newWindow" id="Open Inspector in new window" class="ga-track">
-                            <span class="lever"></span>on
+                            <span class="lever"></span><span class="i18n">on</span>
                         </label>
                     </div>
                 </li>
-                <li class="collection-item animate-swing-show" ng-show="bg.settings.newWindow">Make Inspector window focused
+                <li class="collection-item animate-swing-show" ng-show="bg.settings.newWindow"><span class="i18n">makeInspectorWindowFocused</span>
                     <div class="switch right">
-                        <label>off
+                        <label><span class="i18n">off</span>
                             <input type="checkbox" ng-model="bg.settings.windowFocused" id="Make Inspector Window Focused" class="ga-track">
-                            <span class="lever"></span>on
+                            <span class="lever"></span><span class="i18n">on</span>
                         </label>
                     </div>
                 </li>
-                <li class="collection-item animate-swing-show" ng-show="!bg.settings.newWindow">Make Inspector tab active
+                <li class="collection-item animate-swing-show" ng-show="!bg.settings.newWindow"><span class="i18n">makeInspectorTabActive</span>
                     <div class="switch right">
-                        <label>off
+                        <label><span class="i18n">off</span>
                             <input type="checkbox" ng-model="bg.settings.tabActive" id="Make Inspector tab active" class="ga-track">
-                            <span class="lever"></span>on
+                            <span class="lever"></span><span class="i18n">on</span>
                         </label>
                     </div>
                 </li>
-                <li class="collection-item">Auto close the Inspector
+                <li class="collection-item"><span class="i18n">autoCloseInspector</span>
                     <div class="switch right">
-                        <label>off
+                        <label><span class="i18n">off</span>
                             <input type="checkbox" ng-model="bg.settings.autoClose" id="Auto Close Inspector window" class="ga-track">
-                            <span class="lever"></span>on
+                            <span class="lever"></span><span class="i18n">on</span>
                         </label>
                     </div>
                 </li>
-                <li class="collection-item bottom">Seconds between Inspector checks
+                <li class="collection-item bottom"><span class="i18n">secondsBetweenInspectorChecks</span>
                     <div class="right">
-                        <span class="badge new" data-badge-caption="seconds" id="checkInterval-value"></span>
+                        <span class="badge new i18n" data-badge-caption="seconds" id="checkInterval-value"></span>
                     </div>
                     <div id="checkInterval" ng-model="bg.settings.checkInterval"></div>
                 </li>
             </ul>
             <ul class="collection with-header">
-                <li class="collection-header" id="collections-header">Debugging</li>
-                <li class="collection-item">Show debug window
+                <li class="collection-header" id="collections-header"><span class="i18n">debugging</span></li>
+                <li class="collection-item"><span class="i18n">showDebugWindow</span>
                     <div class="switch right">
-                        <label>off
+                        <label><span class="i18n">off</span>
                             <input type="checkbox" ng-model="bg.settings.debug" id="Show debug window" class="ga-track">
-                            <span class="lever"></span>on
+                            <span class="lever"></span><span class="i18n">on</span>
                         </label>
                     </div>
                 </li>
@@ -79,7 +79,7 @@
         <div class="col s1"></div>
     </div>
     <div class="row">
-        <div class="col s12 center"> <a class="btn light-green lighten-1" id="save button" value="Save Options" ng-click="saveButtonHandler()">Save</a>
+        <div class="col s12 center"> <a class="btn light-green lighten-1" id="save button" value="Save Options" ng-click="saveButtonHandler()"><span class="i18n">save</span></a>
         </div>
     </div>
 </body>

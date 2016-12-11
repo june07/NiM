@@ -23,9 +23,10 @@
  */
 var ngApp = angular.module('NimOptionsApp', ['ngAnimate']);
 ngApp
-    .run()
     .controller('nimOptionsController', ['$scope', '$window', function($scope, $window) {
         $scope.bg = $window.chrome.extension.getBackgroundPage().angular.element('#nim').scope();
+        $scope.bg.localize($window, function() { console.log("updating ui"); });
+
         var $ = $window.$;
 
         $($window).blur(function() {
@@ -36,7 +37,7 @@ ngApp
             start: [$scope.bg.settings.checkInterval],
             step: 1,
             range: {
-                'min': [5],
+                'min': [1],
                 'max': [300]
             },
             tooltips: true

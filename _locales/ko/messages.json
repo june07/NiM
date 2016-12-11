@@ -1,0 +1,152 @@
+{
+  "appName": {
+    "message": "NIM(노드 검사기 관)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NIM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "확장을 위해 자동으로 실행 V8 검사기 Node.js 디버깅",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "NIM(노드 검사기 관)-옵션이 페이지",
+    "description": "Title shown on options page."
+  },
+  "defaultTitle": {
+    "message": "NIM(노드 검사기 관)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "오류를 설정하거 URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "폐 탭에 대한 개발자 도구 세션: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "닫힌 창문에 대한 개발자 도구 세션: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "하려는 동안 오류가 자동으로 닫 ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "연결은 호스트 개발자 도구이 중단되었습니다. 을 확인하는 호스트 및 포트가 있습니다.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "개발자는 이미 열려 있습니다.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "개발자는 이미 열려 있습니다.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "개발자는 이미 열려 있습니다.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "트",
+    "description": "Port."
+  },
+  "hostname": {
+    "message": "호스트명",
+    "description": "Hostname."
+  },
+  "manual": {
+    "message": "설명",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "자동차",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "기부",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "사용 가능",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "가동 시간",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "옵션",
+    "description": "Options."
+  },
+  "general": {
+    "message": "일반",
+    "description": "General."
+  },
+  "on": {
+    "message": "에",
+    "description": "On."
+  },
+  "off": {
+    "message": "륙",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "새 창에서 열립니다.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "확인 창에 초점을 맞춘다.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "게 탭이 활성화됩니다.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "자동으로 닫습니다.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "체크인 간격입니다.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "디버깅",
+    "description": "Debugging."
+  },
+  "showDebugWindow": {
+    "message": "표시 창입니다.",
+    "description": "Show debug window."
+  },
+  "save": {
+    "message": "저장",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "오픈 개발자 도구",
+    "description": "Open DevTools"
+  },
+  "seconds": {
+    "message": "초",
+    "description": "Seconds badge label."
+  }
+}
