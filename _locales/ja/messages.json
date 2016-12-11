@@ -106,7 +106,7 @@
     "description": "On."
   },
   "off": {
-    "message": "Off",
+    "message": "オフ",
     "description": "Off."
   },
   "openInspectorNewWindow": {

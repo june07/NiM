@@ -25,7 +25,7 @@ var ngApp = angular.module('NimPopupApp', []);
 ngApp
     .controller('nimPopupController', ['$scope', '$window', function ($scope, $window) {
         $scope.bg = $window.chrome.extension.getBackgroundPage().angular.element('#nim').scope();
-        $scope.bg.localize($window);
+        $scope.bg.localize($window, function() {});
 
         /**
         setInterval(function () {

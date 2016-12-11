@@ -17,6 +17,7 @@
 </head>
 
 <body id="nim" ng-controller="nimOptionsController">
+    <div class="">
     <div class="row">
         <div class="col s12 center white-text" id="options-header"><span class="i18n">options</span></div>
     </div>
@@ -25,39 +26,44 @@
         <div class="col s10">
             <ul class="collection with-header swing">
                 <li class="collection-header" id="collections-header"><span class="i18n">general</span></li>
-                <li class="collection-item"><span class="i18n">openInspectorNewWindow</span>
+                <li class="collection-item">
                     <div class="switch right">
                         <label><span class="i18n">off</span>
                             <input type="checkbox" ng-model="bg.settings.newWindow" id="Open Inspector in new window" class="ga-track">
                             <span class="lever"></span><span class="i18n">on</span>
                         </label>
                     </div>
+                    <span class="i18n">openInspectorNewWindow</span>
                 </li>
-                <li class="collection-item animate-swing-show" ng-show="bg.settings.newWindow"><span class="i18n">makeInspectorWindowFocused</span>
+                <li class="collection-item animate-swing-show" ng-show="bg.settings.newWindow">
                     <div class="switch right">
                         <label><span class="i18n">off</span>
                             <input type="checkbox" ng-model="bg.settings.windowFocused" id="Make Inspector Window Focused" class="ga-track">
                             <span class="lever"></span><span class="i18n">on</span>
                         </label>
                     </div>
+                    <span class="i18n">makeInspectorWindowFocused</span>
                 </li>
-                <li class="collection-item animate-swing-show" ng-show="!bg.settings.newWindow"><span class="i18n">makeInspectorTabActive</span>
+                <li class="collection-item animate-swing-show" ng-show="!bg.settings.newWindow">
                     <div class="switch right">
                         <label><span class="i18n">off</span>
                             <input type="checkbox" ng-model="bg.settings.tabActive" id="Make Inspector tab active" class="ga-track">
                             <span class="lever"></span><span class="i18n">on</span>
                         </label>
                     </div>
+                    <span class="i18n">makeInspectorTabActive</span>
                 </li>
-                <li class="collection-item"><span class="i18n">autoCloseInspector</span>
+                <li class="collection-item">
                     <div class="switch right">
                         <label><span class="i18n">off</span>
                             <input type="checkbox" ng-model="bg.settings.autoClose" id="Auto Close Inspector window" class="ga-track">
                             <span class="lever"></span><span class="i18n">on</span>
                         </label>
                     </div>
+                    <span class="i18n">autoCloseInspector</span>
                 </li>
-                <li class="collection-item bottom"><span class="i18n">secondsBetweenInspectorChecks</span>
+                <li class="collection-item bottom">
+                    <span class="i18n">secondsBetweenInspectorChecks</span>
                     <div class="right">
                         <span class="badge new i18n" data-badge-caption="seconds" id="checkInterval-value"></span>
                     </div>
@@ -66,13 +72,14 @@
             </ul>
             <ul class="collection with-header">
                 <li class="collection-header" id="collections-header"><span class="i18n">debugging</span></li>
-                <li class="collection-item"><span class="i18n">showDebugWindow</span>
+                <li class="collection-item">
                     <div class="switch right">
                         <label><span class="i18n">off</span>
                             <input type="checkbox" ng-model="bg.settings.debug" id="Show debug window" class="ga-track">
                             <span class="lever"></span><span class="i18n">on</span>
                         </label>
                     </div>
+                    <span class="i18n">showDebugWindow</span>
                 </li>
             </ul>
         </div>
@@ -81,6 +88,7 @@
     <div class="row">
         <div class="col s12 center"> <a class="btn light-green lighten-1" id="save button" value="Save Options" ng-click="saveButtonHandler()"><span class="i18n">save</span></a>
         </div>
+    </div>
     </div>
 </body>
 
