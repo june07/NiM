@@ -35,7 +35,7 @@ ngApp
             port: "9229",
             auto: false,
             timerInterval: 1000,
-            checkInterval: 5,
+            checkInterval: 3,
             checkIntervalTimeout: null,
             debug: false,
             newWindow: false,
@@ -195,6 +195,8 @@ ngApp
         $scope.localize = function($window, updateUI) {
             Array.from($window.document.getElementsByClassName("i18n")).forEach(function(element, i, elements) {
                 var message;
+                // Hack until I can figure out how to resize the overlay properly.
+                if (chrome.i18n.getUILanguage() == "ja") element.style.fontSize = "small";
                 switch (element.id) {
                     case "open devtools": message = chrome.i18n.getMessage("openDevtools"); element.value = message; break;
                     case "checkInterval-value": message = chrome.i18n.getMessage(element.dataset.badgeCaption); element.dataset.badgeCaption = message; break;

@@ -8,7 +8,7 @@
 <html ng-app="NimPopupApp" ng-csp>
 
 <head>
-    <title class="i18n">appName</title>
+    <title><span class="i18n">appName</span></title>
     <link rel="stylesheet" href="./css/materialize.min.css">
     <link rel="stylesheet" href="./css/font.css">
     <link rel="stylesheet" href="nim.css">
@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col s12 m4 l4 valign-wrapper header-column">
                 <img src="./icon/logo128.png" class="left logo-padding" />
-                <div class="header left valign i18n">appName</div>
+                <div class="header left valign"><span class="i18n">appName</span></div>
             </div>
         </div>
         <div class="row">
@@ -29,11 +29,11 @@
                     <div class="row">
                         <div class="input-field col s6">
                             <input placeholder="localhost" id="hostname" type="text" class="validate card-title input-text ga-track" ng-model="bg.settings.host">
-                            <font color="#9e9e9e" class="i18n">Hostname</font>
+                            <font color="#9e9e9e"><span class="i18n">Hostname</span></font>
                         </div>
                         <div class="input-field col s6">
                             <input id="port" type="text" class="validate card-title input-text ga-track" value placeholder="9229" ng-model="bg.settings.port">
-                            <font color="#9e9e9e" class="i18n">Port</font>
+                            <font color="#9e9e9e"><span class="i18n">Port</span></font>
                         </div>
                     </div>
                     <div class="row">
@@ -57,7 +57,7 @@
                 <div class="footer-copyright">
                     <div class="container footer-text">
                         © 2016 June07
-                        <a class="right footer-text i18n" ng-click="track('https://donorbox.org/chrome-extentions')" target="_blank" href="https://donorbox.org/chrome-extentions">Donate</a>
+                        <a class="right footer-text" ng-click="track('https://donorbox.org/chrome-extentions')" target="_blank" href="https://donorbox.org/chrome-extentions"><span class="i18n">Donate</span></a>
                     </div>
                 </div>
             </footer>

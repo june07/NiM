@@ -45,7 +45,7 @@ module.exports = function (grunt) {
         main: {
           files: [{
               expand: true,
-              src: ['js/**/*.js', '*.js', '*.html', 'css/**/*.css', '*.css', 'icon/*', 'manifest.json', 'LICENSE'],
+              src: ['js/**/*.js', '*.js', '*.html', 'css/**/*.css', '*.css', 'icon/*', 'manifest.json', 'LICENSE', '_locales/**/*'],
               dest: 'build/unpacked-dev/'
           }]
         },
@@ -53,7 +53,7 @@ module.exports = function (grunt) {
           files: [{
               expand: true,
               cwd: 'build/unpacked-dev/',
-              src: ['js/**/*.js', '*.js', '*.html', 'css/**/*.css', '*.css', 'icon/*', 'manifest.json', 'LICENSE'],
+              src: ['js/**/*.js', '*.js', '*.html', 'css/**/*.css', '*.css', 'icon/*', 'manifest.json', 'LICENSE', '_locales/**/*'],
               dest: 'build/unpacked-prod/'
           }]
         },
@@ -108,7 +108,7 @@ module.exports = function (grunt) {
   grunt.registerTask(
       'manifest', 'Extend manifest.json with extra fields from package.json',
       function () {
-          var fields = ['name', 'version', 'description'];
+          var fields = ['version'];
           for (var i = 0; i < fields.length; i++) {
               var field = fields[i];
               mnf[field] = pkg[field];
