@@ -1,3 +1,5 @@
+[NIM Homepage](http://june07.com/nim)
+![alt text](http://nim.ucraft.com/images/logo.png?v=1481652763 "NIM Logo (lettering)")
 # NIM (Node Inspection Monitor)
 #### NIM streamlines your Node.js development cycle when using Chrome DevTools Inspector.
 
@@ -12,6 +14,8 @@ NIM automatically detects the URL that is generated when running node (locally o
  * Autosave settings
 
 *Note: At the time of writing, the v8 --inspect option is fairly new. See https://nodejs.org/api/debugger.html#debugger_v8_inspector_integration_for_node_js for additional details on the option.*
-#### If you enjoy using NIM please give us a 5 star rating and/or a G+1.  Any and all feedback is encouraged and welcome.  [Send us an email!](mailto:667@june07.com)
+#### If you enjoy using NIM please [give us a 5 star rating and/or a G+1.](https://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj/reviewshttps://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj/reviews)
+
+Any and all feedback is encouraged and welcome.  [Send us an email!](mailto:667@june07.com)
 
 
