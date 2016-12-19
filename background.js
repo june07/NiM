@@ -76,8 +76,8 @@ ngApp
             $scope.checkIntervalTimeout = setInterval(function() {
                 if ($scope.settings.auto) {
                     $scope.closeDevTools(
-                    $scope.openTab($scope.settings.host, $scope.settings.port, function(result) {
-                        $scope.message += '<br>' + result;
+                    $scope.openTab($scope.settings.host, $scope.settings.port, function() {
+                        //$scope.message += '<br>' + result;
                     }));
                 }
             }, $scope.settings.checkInterval * 1000);
