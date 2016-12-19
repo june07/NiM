@@ -25,16 +25,24 @@ If you enjoy using NIM please give us a 5 star rating and/or a G+1.  Any and all
 
 This project is open source and available at https://github.com/june07/NIM.
 
-https://github.com/june07/NIM/blob/master/CHANGELOG.md
+[0.8.1] - 2016-19-16
+Fixed
+Language support for Portuguese and Chinese.
+Chrome tab not closing properly when using Nodemon #1
 [0.8.0] - 2016-12-11
-- Added support for 10 additional languages.  Danish, Spanish, French, Italian, Japanese, Korean, Polish, Portuguese, Russian, and Chinese
+Added
+support for 10 additional languages. Danish, Spanish, French, Italian, Japanese, Korean, Polish, Portuguese, Russian, and Chinese
 [0.7.0] - 2016-11-28
-- Added a very short uninstall survey.
+Added
+a very short uninstall survey.
 [0.6.1] - 2016-11-27
-- Bug fix: Remote debugging only worked in some cases.
+Fixed
+Remote debugging only worked in some cases.
 [0.6.0] - 2016-11-26
-- UI improvements
+Added
+UI improvements
 [0.4.0] - 2016-11-17
-- Added the option of auto closing the Chrome DevTools session (tab or window).
+Added
+the option of auto closing the Chrome DevTools session (tab or window).
 
 Complete changelog: https://github.com/june07/NIM/blob/master/CHANGELOG.md
