@@ -49,7 +49,7 @@ ngApp
         var chrome = $window.chrome;
         chrome.runtime.setUninstallURL(UNINSTALL_URL, function() {
             if (chrome.runtime.lastError && $scope.settings.debug) {
-                $scope.message += chrome.i18n.getMessage("errMsg1") + UNINSTALL_URL;
+                $scope.message += '<br>' + chrome.i18n.getMessage("errMsg1") + UNINSTALL_URL;
             }
         });
         $scope.moment = $window.moment;
@@ -75,16 +75,16 @@ ngApp
             }
             $scope.checkIntervalTimeout = setInterval(function() {
                 if ($scope.settings.auto) {
-                    $scope.closeDevTools();
+                    $scope.closeDevTools(
                     $scope.openTab($scope.settings.host, $scope.settings.port, function(result) {
-                        $scope.message = result;
-                    });
+                        $scope.message += '<br>' + result;
+                    }));
                 }
             }, $scope.settings.checkInterval * 1000);
         }
         resetInterval();
 
-        $scope.closeDevTools = function() {
+        $scope.closeDevTools = function(callback) {
             $scope.devToolsSessions.forEach(function(devToolsSession, index) {
                 if (devToolsSession.autoClose) {
                     $http({
@@ -105,6 +105,9 @@ ngApp
                                 $scope.message += '<br>' + chrome.i18n.getMessage("errMsg3") + (devToolsSession.isWindow ? 'window' : 'tab') + error;
                             }
                         });
+                }
+                if (index >= $scope.devToolsSessions.length) {
+                    callback();
                 }
             });
         };
@@ -231,5 +234,10 @@ ngApp
                 var storageChange = changes[key];
                 if ($scope.settings.debug) console.log(chrome.i18n.getMessage("errMsg5", [key, namespace, storageChange.oldValue, storageChange.newValue]));
             }
+        });
+        chrome.tabs.onRemoved.addListener(function(tabId) {
+            $scope.devToolsSessions.splice($scope.devToolsSessions.findIndex(function(devToolsSession) {
+                if (devToolsSession.id === tabId) return true;
+            }), 1);
         });
     }]);
