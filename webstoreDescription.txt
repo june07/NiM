@@ -29,6 +29,8 @@ This project is open source and available at https://github.com/june07/NIM.
 Fixed
 Language support for Portuguese and Chinese.
 Chrome tab not closing properly when using Nodemon #1
+improve ja localization #3
+
 [0.8.0] - 2016-12-11
 Added
 support for 10 additional languages. Danish, Spanish, French, Italian, Japanese, Korean, Polish, Portuguese, Russian, and Chinese
