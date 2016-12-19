@@ -92,19 +92,15 @@ ngApp
                             url: devToolsSession.infoUrl,
                             responseType: "json"
                         })
+                        .then(function(response) {
+                            var activeDevToolsSessionWebsocketId = response.data[0].id;
+                            if (devToolsSession.websocketId !== activeDevToolsSessionWebsocketId) {
+                                removeDevToolsSession(devToolsSession, index);
+                            }
+                        })
                         .catch(function(error) {
                             if (error.status === -1) {
-                                if (!devToolsSession.isWindow) {
-                                    chrome.tabs.remove(devToolsSession.id, function() {
-                                        $scope.devToolsSessions.splice(index, 1);
-                                        $scope.message += '<br>' + chrome.i18n.getMessage("errMsg2") + JSON.stringify(devToolsSession) + '.';
-                                    });
-                                } else {
-                                    chrome.windows.remove(devToolsSession.id, function() {
-                                        $scope.devToolsSessions.splice(index, 1);
-                                        $scope.message += '<br>' + chrome.i18n.getMessage("errMsg6") + JSON.stringify(devToolsSession) + '.';
-                                    });
-                                }
+                                removeDevToolsSession(devToolsSession, index);
                             } else {
                                 $scope.message += '<br>' + chrome.i18n.getMessage("errMsg3") + (devToolsSession.isWindow ? 'window' : 'tab') + error;
                             }
@@ -125,9 +121,10 @@ ngApp
                         })
                         .then(function openDevToolsFrontend(json) {
                             var url = json.data[0].devtoolsFrontendUrl.replace("127.0.0.1:9229", host + ":" + port).replace("localhost:9229", host + ":" + port);
+                            var websocketId = json.data[0].id;
                             /** May be a good idea to put this somewhere further along the chain in case tab/window creation fails,
                             in which case this entry will need to be removed from the array */
-                            createTabOrWindow(infoUrl, url, callback);
+                            createTabOrWindow(infoUrl, url, websocketId, callback);
                         })
                         .catch(function(error) {
                             if (error.status === -1) {
@@ -144,13 +141,27 @@ ngApp
             });
         };
 
-        function createTabOrWindow(infoUrl, url, callback) {
+        function removeDevToolsSession(devToolsSession, index) {
+            if (!devToolsSession.isWindow) {
+                chrome.tabs.remove(devToolsSession.id, function() {
+                    $scope.devToolsSessions.splice(index, 1);
+                    $scope.message += '<br>' + chrome.i18n.getMessage("errMsg2") + JSON.stringify(devToolsSession) + '.';
+                });
+            } else {
+                chrome.windows.remove(devToolsSession.id, function() {
+                    $scope.devToolsSessions.splice(index, 1);
+                    $scope.message += '<br>' + chrome.i18n.getMessage("errMsg6") + JSON.stringify(devToolsSession) + '.';
+                });
+            }
+        }
+
+        function createTabOrWindow(infoUrl, url, websocketId, callback) {
             if ($scope.settings.newWindow) {
                 chrome.windows.create({
                     url: url,
                     focused: $scope.settings.windowFocused,
                 }, function(window) {
-                    saveSession(infoUrl, window.id);
+                    saveSession(infoUrl, websocketId, window.id);
                     callback(window.url);
                 });
             } else {
@@ -158,18 +169,19 @@ ngApp
                     url: url,
                     active: $scope.settings.tabActive,
                 }, function(tab) {
-                    saveSession(infoUrl, tab.id);
+                    saveSession(infoUrl, websocketId, tab.id);
                     callback(tab.url);
                 });
             }
         }
 
-        function saveSession(infoUrl, id) {
+        function saveSession(infoUrl, websocketId, id) {
             $scope.devToolsSessions.push({
                 autoClose: $scope.settings.autoClose,
                 isWindow: $scope.settings.newWindow,
                 infoUrl: infoUrl,
-                id: id
+                id: id,
+                websocketId: websocketId
             });
         }
         $scope.write = function(key, obj) {
