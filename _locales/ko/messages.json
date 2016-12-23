@@ -148,5 +148,9 @@
   "seconds": {
     "message": "초",
     "description": "Seconds badge label."
+  },
+  "localDevTools": {
+    "message": "사용 지역 개발자 도구입니다.",
+    "description": "Use local DevTools."
   }
 }

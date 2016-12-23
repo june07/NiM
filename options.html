@@ -10,6 +10,7 @@
 
 <head>
     <title><span class="i18n">pageOptionsTitle</span></title>
+    <link rel="stylesheet" href="./css/icon.css">
     <link rel="stylesheet" href="./css/materialize.min.css">
     <link rel="stylesheet" href="./css/nouislider.css">
     <link rel="stylesheet" href="./css/font.css">
@@ -25,7 +26,9 @@
         <div class="col s1"></div>
         <div class="col s10">
             <ul class="collection with-header swing">
-                <li class="collection-header" id="collections-header"><span class="i18n">general</span></li>
+                <li class="collection-header" id="collections-header"><span class="i18n">general</span>
+                <a href="#modal1" class="additional-options"><i class="tiny material-icons right" id="additionalOptions">settings</i></a>
+                </li>
                 <li class="collection-item">
                     <div class="switch right">
                         <label><span class="i18n">off</span>
@@ -62,6 +65,15 @@
                     </div>
                     <span class="i18n">autoCloseInspector</span>
                 </li>
+                <li class="collection-item">
+                    <div class="switch right">
+                        <label><span class="i18n">off</span>
+                            <input type="checkbox" ng-model="bg.settings.localDevTools" id="Local DevTools" class="ga-track">
+                            <span class="lever"></span><span class="i18n">on</span>
+                        </label>
+                    </div>
+                    <span class="i18n">localDevTools</span>
+                </li>
                 <li class="collection-item bottom">
                     <span class="i18n">secondsBetweenInspectorChecks</span>
                     <div class="right">
@@ -70,6 +82,9 @@
                     <div id="checkInterval" ng-model="bg.settings.checkInterval"></div>
                 </li>
             </ul>
+            <div id="modal1" class="modal">
+            <div class="modal-content">
+            
             <ul class="collection with-header">
                 <li class="collection-header" id="collections-header"><span class="i18n">debugging</span></li>
                 <li class="collection-item">
@@ -82,6 +97,9 @@
                     <span class="i18n">showDebugWindow</span>
                 </li>
             </ul>
+
+            </div>
+            </div>
         </div>
         <div class="col s1"></div>
     </div>

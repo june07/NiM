@@ -41,7 +41,8 @@ ngApp
             newWindow: false,
             autoClose: true,
             tabActive: true,
-            windowFocused: true
+            windowFocused: true,
+            localDevTools: true
         };
         $scope.devToolsSessions = [];
         $scope.changeObject;
@@ -114,7 +115,8 @@ ngApp
         $scope.openTab = function(host, port, callback) {
             var infoUrl = 'http://' + $scope.settings.host + ':' + $scope.settings.port + '/json';
             chrome.tabs.query({
-                url: 'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*'
+                    url: [ 'chrome-devtools://*/*',
+                        'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*' ]
             }, function(tab) {
                 if (tab.length === 0) {
                     $http({
@@ -124,6 +126,8 @@ ngApp
                         })
                         .then(function openDevToolsFrontend(json) {
                             var url = json.data[0].devtoolsFrontendUrl.replace("127.0.0.1:9229", host + ":" + port).replace("localhost:9229", host + ":" + port);
+                            if ($scope.settings.localDevTools)
+                                url = url.replace('https://chrome-devtools-frontend.appspot.com', 'chrome-devtools://devtools/remote');
                             var websocketId = json.data[0].id;
                             /** May be a good idea to put this somewhere further along the chain in case tab/window creation fails,
                             in which case this entry will need to be removed from the array */

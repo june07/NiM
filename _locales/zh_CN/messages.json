@@ -148,5 +148,9 @@
   "seconds": {
     "message": "几秒钟",
     "description": "Seconds badge label."
+  },
+  "localDevTools": {
+    "message": "使用本地DevTools.",
+    "description": "Use local DevTools."
   }
 }

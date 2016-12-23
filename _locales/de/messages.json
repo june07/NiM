@@ -148,5 +148,9 @@
   "seconds": {
     "message": "Sekunden",
     "description": "Seconds badge label."
+  },
+  "localDevTools": {
+    "message": "Verwenden Sie Lokale DevTools.",
+    "description": "Use local DevTools."
   }
 }
