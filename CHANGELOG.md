@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 _Added, Changed, Deprecated, Removed, Fixed, Security_
 
-## [0.8.1] - 2016-12-16
+## [0.9.0] - 2016-23-16
+### Added
+- Use Local DevTools option
+## [0.8.1] - 2016-19-16
 ### Fixed
 - Language support for Portuguese and Chinese.
+- Chrome tab not closing properly when using Nodemon #1
 ## [0.8.0] - 2016-12-11
 ### Added
 - support for 10 additional languages.  Danish, Spanish, French, Italian, Japanese, Korean, Polish, Portuguese, Russian, and Chinese
