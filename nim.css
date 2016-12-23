@@ -147,6 +147,18 @@ body {
     background-color: #f1f8e9;
     perspective: 400px;
 }
-
+body#nim {
+    width: 100% !important;
+}
+.additional-options {
+    text-decoration: none;
+    color: black;
+}
+.material-icons#additionalOptions {
+    line-height: inherit;
+}
+.modal {
+    width: 90%;
+}
 
 }

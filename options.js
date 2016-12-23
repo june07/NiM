@@ -29,6 +29,9 @@ ngApp
 
         var $ = $window.$;
 
+        $($window.document).ready(function() {
+            $('.modal').modal();
+        });
         $($window).blur(function() {
             $scope.bg.$emit('options-window-focusChanged');
         });
