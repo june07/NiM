@@ -25,6 +25,9 @@ If you enjoy using NIM please give us a 5 star rating and/or a G+1.  Any and all
 
 This project is open source and available at https://github.com/june07/NIM.
 
+[0.9.1] - 2016-23-16
+Changed
+- Updated icon set
 [0.9.0] - 2016-23-16
 Added
 Use Local DevTools option

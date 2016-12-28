@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 _Added, Changed, Deprecated, Removed, Fixed, Security_
 
+## [0.9.1] - 2016-27-16
+### Changed
+- Updated icon set
 ## [0.9.0] - 2016-23-16
 ### Added
 - Use Local DevTools option
