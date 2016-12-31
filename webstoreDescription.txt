@@ -1,4 +1,4 @@
-NIM (Node Inspection Manager)
+NIM (Node Inspector Manager)
 
 NIM streamlines your Node.js development cycle when using Chrome DevTools Inspector.
 
@@ -25,6 +25,9 @@ If you enjoy using NIM please give us a 5 star rating and/or a G+1.  Any and all
 
 This project is open source and available at https://github.com/june07/NIM.
 
+[0.9.2] - 2016-30-16
+Changed
+- Updated analytics to provide more data on program usage.
 [0.9.1] - 2016-23-16
 Changed
 - Updated icon set

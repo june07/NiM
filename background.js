@@ -131,6 +131,7 @@ ngApp
                             var websocketId = json.data[0].id;
                             /** May be a good idea to put this somewhere further along the chain in case tab/window creation fails,
                             in which case this entry will need to be removed from the array */
+                            $window._gaq.push(['_trackEvent', 'Program Event', 'openTab', 'Non-existing tab.', undefined, true]);
                             createTabOrWindow(infoUrl, url, websocketId, callback);
                         })
                         .catch(function(error) {
@@ -150,11 +151,13 @@ ngApp
 
         function removeDevToolsSession(devToolsSession, index) {
             if (!devToolsSession.isWindow) {
+                $window._gaq.push(['_trackEvent', 'Program Event', 'removeDevToolsSession', 'window', undefined, true]);
                 chrome.tabs.remove(devToolsSession.id, function() {
                     $scope.devToolsSessions.splice(index, 1);
                     $scope.message += '<br>' + chrome.i18n.getMessage("errMsg2") + JSON.stringify(devToolsSession) + '.';
                 });
             } else {
+                $window._gaq.push(['_trackEvent', 'Program Event', 'removeDevToolsSession', 'tab', undefined, true]);
                 chrome.windows.remove(devToolsSession.id, function() {
                     $scope.devToolsSessions.splice(index, 1);
                     $scope.message += '<br>' + chrome.i18n.getMessage("errMsg6") + JSON.stringify(devToolsSession) + '.';
@@ -164,6 +167,7 @@ ngApp
 
         function createTabOrWindow(infoUrl, url, websocketId, callback) {
             if ($scope.settings.newWindow) {
+                $window._gaq.push(['_trackEvent', 'Program Event', 'createWindow', 'focused', $scope.settings.windowFocused, true]);
                 chrome.windows.create({
                     url: url,
                     focused: $scope.settings.windowFocused,
@@ -172,6 +176,7 @@ ngApp
                     callback(window.url);
                 });
             } else {
+                $window._gaq.push(['_trackEvent', 'Program Event', 'createTab', 'focused', $scope.settings.windowFocused, true]);
                 chrome.tabs.create({
                     url: url,
                     active: $scope.settings.tabActive,
@@ -240,6 +245,7 @@ ngApp
             }
         });
         chrome.tabs.onRemoved.addListener(function(tabId) {
+            $window._gaq.push(['_trackEvent', 'Program Event', 'onRemoved', undefined, undefined, true]);
             $scope.devToolsSessions.splice($scope.devToolsSessions.findIndex(function(devToolsSession) {
                 if (devToolsSession.id === tabId) return true;
             }), 1);
