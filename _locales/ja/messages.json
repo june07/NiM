@@ -150,7 +150,7 @@
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "地元のDevToolsます。",
+    "message": "ローカルのデベロッパーツールを使用する",
     "description": "Use local DevTools."
   }
 }
