@@ -10,7 +10,11 @@ _Added, Changed, Deprecated, Removed, Fixed, Security_
 ## [0.9.3] - 2017-01-19
 ### Fixed
 - There was a "bug" where if a user was debugging remotely and did not forward the DevTools port along with the websocket port, the local websocket port would not be translated.  This was fixed.
+### Changed
 - Japanese localization improvements https://github.com/june07/NIM/pull/6, Thank you to ABCanG!
+### Added
+- Keyboard Shortcut Ctrl-I for opening DevTools.
+- Hitting the Enter key for "host" or "port" input on the popup will open DevTools.
 ## [0.9.2] - 2016-12-30
 ### Changed
 - Updated analytics to provide more data on program usage.
