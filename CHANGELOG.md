@@ -7,19 +7,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 _Added, Changed, Deprecated, Removed, Fixed, Security_
 
-## [0.9.2] - 2016-30-16
+## [0.9.3] - 2017-01-19
+### Fixed
+- There was a "bug" where if a user was debugging remotely and did not forward the DevTools port along with the websocket port, the local websocket port would not be translated.  This was fixed.
+- Japanese localization improvements https://github.com/june07/NIM/pull/6, Thank you to ABCanG!
+## [0.9.2] - 2016-12-30
 ### Changed
 - Updated analytics to provide more data on program usage.
-## [0.9.1] - 2016-27-16
+## [0.9.1] - 2016-12-27
 ### Changed
 - Updated icon set
-## [0.9.0] - 2016-23-16
+## [0.9.0] - 2016-12-23
 ### Added
 - Use Local DevTools option
-## [0.8.1] - 2016-19-16
+## [0.8.1] - 2016-12-16
 ### Fixed
 - Language support for Portuguese and Chinese.
 - Chrome tab not closing properly when using Nodemon #1
+- Improve ja localization https://github.com/june07/NIM/pull/3, Thank you to onionmk2!
 ## [0.8.0] - 2016-12-11
 ### Added
 - support for 10 additional languages.  Danish, Spanish, French, Italian, Japanese, Korean, Polish, Portuguese, Russian, and Chinese
