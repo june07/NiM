@@ -42,7 +42,6 @@ ngApp
         $scope.track = function (url) {
             $window._gaq.push(['_trackPageview', url]);
         };
-
         function trackInputClick(e) {
             $window._gaq.push(['_trackEvent', e.target.id, 'clicked']);
         }
@@ -51,7 +50,16 @@ ngApp
         function trackInputClickListener(event) {
             trackInputClick(event);
         }
+        function keypressHandler(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                $scope.clickHandler();
+                $window._gaq.push(['_trackEvent', 'User Event', 'OpenDevTools', 'Enter Key Pressed', '', true]);
+            }
+        }
         for (var i = 0; i < userInputs.length; i++) {
             userInputs[i].addEventListener('click', trackInputClickListener);
+            if (userInputs[i].id === "port" || userInputs[i].id === "hostname")
+                userInputs[i].addEventListener('keypress', keypressHandler);
         }
   }]);
