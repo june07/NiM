@@ -125,7 +125,11 @@ ngApp
                             responseType: "json"
                         })
                         .then(function openDevToolsFrontend(json) {
-                            var url = json.data[0].devtoolsFrontendUrl.replace("127.0.0.1:9229", host + ":" + port).replace("localhost:9229", host + ":" + port);
+                            var url = json.data[0].devtoolsFrontendUrl
+                                .replace("127.0.0.1:9229", host + ":" + port)
+                                .replace("localhost:9229", host + ":" + port)
+                                .replace("127.0.0.1:" + port, host + ":" + port) // In the event that remote debugging is being used and the infoUrl port (by default 80) is not forwarded.
+                                .replace("localhost:" + port, host + ":" + port)  // A check for just the port change must be made.
                             if ($scope.settings.localDevTools)
                                 url = url.replace('https://chrome-devtools-frontend.appspot.com', 'chrome-devtools://devtools/remote');
                             var websocketId = json.data[0].id;
@@ -249,5 +253,16 @@ ngApp
             $scope.devToolsSessions.splice($scope.devToolsSessions.findIndex(function(devToolsSession) {
                 if (devToolsSession.id === tabId) return true;
             }), 1);
+        });
+        chrome.commands.onCommand.addListener(function(command) {
+            switch (command) {
+                case "open-devtools":
+                    $scope.save("host");
+                    $scope.save("port");
+                    $scope.openTab($scope.settings.host, $scope.settings.port, function (result) {
+                        $scope.message += '<br>' + result + '.';
+                    });
+                    $window._gaq.push(['_trackEvent', 'User Event', 'OpenDevTools', 'Keyboard Shortcut Used', '', true]); break;
+            }
         });
     }]);
