@@ -32,5 +32,5 @@
     "background": {
         "page": "background.html"
     },
-    "content_security_policy": "script-src 'self' https://www.google-analytics.com https://ssl.google-analytics.com; object-src 'self' https://www.google-analytics.com https://ssl.google-analytics.com;"
+    "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.google-analytics.com https://ssl.google-analytics.com https://june07.github.io https://apis.google.com https://button.flattr.com https://www.paypalobjects.com; object-src 'self' https://www.google-analytics.com https://ssl.google-analytics.com;"
 }

@@ -26,9 +26,19 @@ ngApp
     .run(function() {})
     .controller('nimController', ['$scope', '$window', '$http', function($scope, $window, $http) {
         const UPTIME_CHECK_INTERVAL = 1000 * 60 * 15; // 15 minutes
+        const NOTIFICATION_CHECK_INTERVAL = 1000 * 6;//0 * 60; // 60 minutes
         const UNINSTALL_URL = "http://june07.com/uninstall";
+        const GITHUB_OAUTH = { id: '3fd983f383cb7c99a00a', secret: 'cf93cf5b5e4e5c37e2033b0935c441b07585fb7e' };
+        const GITHUB_TOKEN = "9165ec59d23ef9234453e0814fa3226bbefd64b8";
+        //const HOOKIO_SECRET = "84d6d1fe-af32-4790-884d-04e047adf626";
+        const IO_JUNE_SECRET = "";
+        const IO_JUNE_HOST = "do1.june07.com";
+        const NOTIFICATION_FILE = 'c7bcacbc-2c93-4054-be7d-2541b2a5223e';
+
+        var $ = $window.$;
         $scope.loaded = Date.now();
         $scope.timer = 0;
+        $scope.timer2 = 0;
         /** Next thing to do is to init these values from storage */
         $scope.settings = {
             host: "localhost",
@@ -42,10 +52,17 @@ ngApp
             autoClose: true,
             tabActive: true,
             windowFocused: true,
-            localDevTools: true
+            localDevTools: true,
+            notifications: {
+                showMessage: false,
+                lastMD5: 0,
+                lastHMAC: 0
+            }
         };
+        $scope.notifications;
         $scope.devToolsSessions = [];
         $scope.changeObject;
+        var md5 = new goog.crypt.Md5();
 
         var chrome = $window.chrome;
         chrome.runtime.setUninstallURL(UNINSTALL_URL, function() {
@@ -55,6 +72,58 @@ ngApp
         });
         $scope.moment = $window.moment;
 
+        setInterval(function() {
+            $scope.timer2++;
+            if ($scope.timer2 >= NOTIFICATION_CHECK_INTERVAL && $scope.timer2 % NOTIFICATION_CHECK_INTERVAL === 0) {
+                $.get('https://june07.github.io/nim/notifications/'+NOTIFICATION_FILE+'.hmac', function(hmac) {
+                    if ((hmac.toLowerCase() !== $scope.settings.hmac) && (hmac.toLowerCase() !== $scope.settings.notifications.lastHMAC)) {
+                        $.get("https://june07.github.io/nim/notifications/"+NOTIFICATION_FILE+".json", function(data) {
+                            saveNotifications(data);
+                        });
+                    }
+                    $scope.settings.notifications.lastHMAC = hmac.toLowerCase();
+                });
+            }
+        });
+        function saveNotifications(data) {
+            if (! $scope.notifications || $scope.notifications.length === 0) {
+                $scope.notifications = data;
+            } else {
+                $scope.notifications = $scope.notifications.concat(data);
+            }
+            $.get("http://hook.io/june07/hmac?secret="+HOOKIO_SECRET+"data="+btoa(data)), function(hmac) {
+                var postdata = {
+                    token: GITHUB_TOKEN,
+                    notification_file: NOTIFICATION_FILE,
+                    hmac: hmac
+                };
+                $.post("https://io.june07.com/nimGithub", postdata, function(response) {
+                    $scope.settings.notifications.lastHMAC = hmac;
+                });
+            }
+            $scope.notifications.sort(function(a, b) {
+                if (a.id < b.id) return -1;
+                if (a.id > b.id) return 1;
+                if (a.id === b.id) {
+                    if (a.read && b.read) return 0;
+                    if (a.read) return -1
+                    return 1
+                }
+            });
+            var uniqueNotificationsKeepingRead = [];
+            $scope.notifications.forEach(function(notification, index, notifications) {
+                if ((notifications.length > 0) && index > 0 && (notification.id === notifications[index-1].id)) {
+                    if (notification.read) uniqueNotificationsKeepingRead.push(notification);
+                } else {
+                    uniqueNotificationsKeepingRead.push(notification);
+                }
+                if (index+1 === (notifications.length)) {
+                    $scope.notifications = uniqueNotificationsKeepingRead;
+                    $scope.write('notifications', $scope.notifications);
+                    $scope.$emit('notification-update');
+                }
+            });
+        }
         setInterval(function() {
             $scope.timer++;
             if ($scope.timer >= UPTIME_CHECK_INTERVAL && $scope.timer % UPTIME_CHECK_INTERVAL === 0) {

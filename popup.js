@@ -21,17 +21,109 @@
  *    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *    SOFTWARE.
  */
-var ngApp = angular.module('NimPopupApp', []);
+var ngApp = angular.module('NimPopupApp', ['angularMoment']);
 ngApp
+    .filter('stringLimit', ['$filter', function($filter) {
+       return function(input, limit, ellipses) {
+          if (! input) return;
+          if (input.length <= limit && limit > 0) {
+              return input;
+          }
+          var limitedString = $filter('limitTo')(input, Math.abs(limit));
+          if (limit < 0)
+            return input.substring(limitedString.lastIndexOf(" ")+1, input.length)
+          if (! ellipses)
+            return limitedString.substring(0, limitedString.lastIndexOf(" "))
+          return limitedString + '...';
+       };
+    }])
     .controller('nimPopupController', ['$scope', '$window', function ($scope, $window) {
+        $scope.sortType = 'date';
+        $scope.sortReverse = true;
+        $scope.active = "none";
         $scope.bg = $window.chrome.extension.getBackgroundPage().angular.element('#nim').scope();
         $scope.bg.localize($window, function() {});
+        $scope.yieldResult = "wait";
+        $scope.messageModalState = "closed";
 
-        /**
-        setInterval(function () {
-            $scope.bg.timer++;
-            $scope.bg.$apply();
-        }, 1000);*/
+        var $ = $window.$,
+            chrome = $window.chrome;
+        
+        filterAndProcess();
+        $scope.bg.$on('notification-update', filterAndProcess());
+
+        function buildOptions(unreadNotifications, index) {
+          var options = {};
+          options.title = unreadNotifications[index].notification.title;
+          options.icon = unreadNotifications[index].notification.icon;
+          if ($scope.bg.settings.notifications.showMessage)
+            options.title = unreadNotifications[index].notification.message;
+          return options;
+        }
+        function *processNotification(unreadNotifications) {      
+            for (var i2 = 0; i2 < unreadNotifications.length; i2++) {
+                $scope.notify = $.notify(Object.assign({
+                  animate: {
+                          enter: 'animated fadeInRight',
+                          exit: 'animated fadeOutRight'
+                  }
+                },
+                // options
+                buildOptions(unreadNotifications, i2)),
+                {
+                  // settings
+                  icon_type: 'material',
+                  type: 'info',
+                  allow_dismiss: true,
+                  delay: 0,
+                  onClosed: function() { closeNotification(unreadNotifications[i2]) },
+                  template: '<div data-notify="container" class="col-xs-12 alert alert-{0}" role="alert">' +
+                    '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">x</button>' +
+                    '<div class="row">' +
+                    '<div class="col-xs-2"><i id="notify-icon" class="material-icons">' + unreadNotifications[i2].notification.icon + '</i></div>' +
+                    '<div class="col-xs-10"><span data-notify="title"><a id="notify-title-button" href="#" class="ga-track">' + unreadNotifications[i2].notification.title + '</a></span></div>' +
+                    '</div>' +
+                  '</div>' 
+                });
+                if ($scope.yieldResult === 'wait') {
+                  $scope.yieldResult = '';
+                  yield;
+                }
+                yield;
+            }
+        }
+        (function(element) {
+          if (! element) return;
+          element.addEventListener('click', function() {
+            $scope.yieldResult = "wait";
+            $scope.notify.close();
+            $window.$('#modal1').modal('open');
+          })
+        })($window.document.getElementById('notify-title-button'));
+        function closeNotification(notification) {
+            notification.read = true;
+            $scope.pn.next();
+        }
+        function filterAndProcess() {
+            if (! $scope.bg.notifications)
+                return;
+            // Use generator here to process message queue.
+            var unread = $scope.bg.notifications.filter(function(n) {
+                if (!n.read) return true;
+                return false;
+            });
+            if (unread) {
+              chrome.browserAction.setBadgeText({ text:"note" });
+            }
+            if ($scope.messageModalState !== "open") {
+              $scope.pn = processNotification(unread);
+              $scope.pn.next();
+            }
+        }
+        $scope.openModal = function() {
+          $.notify.close();
+          $scope.pn.next("wait");
+        }
         $scope.clickHandler = function () {
             $scope.bg.save("host");
             $scope.bg.save("port");
@@ -54,4 +146,27 @@ ngApp
         for (var i = 0; i < userInputs.length; i++) {
             userInputs[i].addEventListener('click', trackInputClickListener);
         }
-  }]);
+        $window.document.querySelector('#options-button').addEventListener('click', function() {
+          if (chrome.runtime.openOptionsPage) {
+            // New way to open options pages, if supported (Chrome 42+).
+            chrome.runtime.openOptionsPage();
+          } else {
+            // Reasonable fallback.
+            $window.open(chrome.runtime.getURL('options.html'));
+          }
+        });
+        $('.modal').modal({
+          dismissible: true, // Modal can be dismissed by clicking outside of the modal
+          opacity: .5, // Opacity of modal background
+          in_duration: 300, // Transition in duration
+          out_duration: 200, // Transition out duration
+          starting_top: '4%', // Starting top style attribute
+          ending_top: '10%', // Ending top style attribute
+          ready: function() {
+            $scope.messageModalState = "open";
+            if ($scope.notify) $scope.notify.close();
+          }
+        });
+        $('#modal1').perfectScrollbar();
+        $('#modal2').perfectScrollbar();
+    }]);

@@ -1,74 +1,197 @@
 <!doctype html>
-<script type="text/javascript" src="./js/googleanalytics.js"></script>
 <script type="text/javascript" src="./js/jquery.min.js"></script>
 <script type="text/javascript" src="./js/angular.min.js"></script>
 <script type="text/javascript" src="./js/materialize.min.js"></script>
+<script type="text/javascript" src="./js/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="./js/moment.min.js"></script>
+<script type="text/javascript" src="./js/angular-moment.min.js"></script>
+<script type="text/javascript" src="./js/googleanalytics.js"></script>
+<script type="text/javascript" src="./js/perfect-scrollbar.jquery.min.js"></script>
+<script type="text/javascript" src="./js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="https://apis.google.com/js/platform.js" async defer></script>
 <script type="text/javascript" src="popup.js"></script>
-
 <html ng-app="NimPopupApp" ng-csp>
-
-<head>
-    <title><span class="i18n">appName</span></title>
-    <link rel="stylesheet" href="./css/materialize.min.css">
-    <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="nim.css">
-</head>
-
-<body ng-controller="nimPopupController" class="right">
-    <div class="container container-page">
-        <div class="row">
-            <div class="col s12 m4 l4 valign-wrapper header-column">
-                <img src="./icon/icon128.png" class="left logo-padding" />
-                <div class="header left valign"><span class="i18n">appName</span></div>
+    <head>
+        <title>
+            <span class="i18n">appName</span>
+        </title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="./css/fontello.css">
+        <link rel="stylesheet" href="./css/font.css">
+        <link rel="stylesheet" href="./css/bootstrap.min.css">
+        <link rel="stylesheet" href="./css/materialize.min.css">
+        <link rel="stylesheet" href="./css/animate.css">
+        <link rel="stylesheet" href="./css/perfect-scrollbar.min.css">
+        <link rel="stylesheet" href="nim.css">
+    </head>
+    <body ng-controller="nimPopupController as main" class="right">
+    <!-- BEGIN Modal No Notifications -->
+      <div id="modal3" class="modal">
+        <div id="modal3-content" class="modal-content">
+            <div id="uptodate">
+            <i class="large material-icons">done_all</i><br>
+            <p>Up To Date!</p>
             </div>
         </div>
-        <div class="row">
-            <div class="col l2 m1"></div>
-            <div class="col s11 m12 l12">
-                <form>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input placeholder="localhost" id="hostname" type="text" class="validate card-title input-text ga-track" ng-model="bg.settings.host">
-                            <font color="#9e9e9e"><span class="i18n">Hostname</span></font>
-                        </div>
-                        <div class="input-field col s6">
-                            <input id="port" type="text" class="validate card-title input-text ga-track" value placeholder="9229" ng-model="bg.settings.port">
-                            <font color="#9e9e9e"><span class="i18n">Port</span></font>
-                        </div>
+      </div>
+    <!-- END Modal No Notifications -->
+        <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+            <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th width="15%"><a href="#" ng-click="sortType = 'notification.type'; sortReverse = !sortReverse">Type
+                          <i ng-show="sortType == 'notification.type' && sortReverse" class="icon-down-open-big"></i>
+                          <i ng-show="sortType == 'notification.type' && !sortReverse" class="icon-up-open-big"></i></a></th>
+                      <th><a href="#" ng-click="sortType = 'notification.title'; sortReverse = !sortReverse">Subject
+                          <i ng-show="sortType == 'notification.title' && sortReverse" class="icon-down-open-big"></i>
+                          <i ng-show="sortType == 'notification.title' && !sortReverse" class="icon-up-open-big"></i></a></th>
+                      <th width="20%"><a href="#" ng-click="sortType = 'date'; sortReverse = !sortReverse">Date
+                          <i ng-show="sortType == 'date' && sortReverse" class="icon-down-open-big"></i>
+                          <i ng-show="sortType == 'date' && !sortReverse" class="icon-up-open-big"></i></a></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat-start="notification in bg.notifications | orderBy:sortType:sortReverse" ng-click="main.active=notification.date" >
+                      <td><i class="material-icons">{{notification.notification.icon}}</i></td>
+                      <td><h3 class="notification-title">{{notification.notification.title}}</h3>
+                          <div ng-show="main.active!=notification.date"><p class="notification-message">{{notification.notification.message | stringLimit: 120: true }}</div>
+                          <div ng-show="main.active==notification.date"><p class="notification-message">{{notification.notification.message | stringLimit: 120: false }}</div></td>
+                      <td><span am-time-ago="notification.date"></span></td>
+                    </tr>
+                    <tr ng-repeat-end ng-show="main.active==notification.date">
+                        <td class="active-cell"></td>
+                        <td class="notification-message active-cell">{{notification.notification.message | stringLimit: -120: true}}</td>
+                        <td class="active-cell"></td>
+                    </tr>
+                  </tbody>
+                </table>
+        </div>
+    </div>
+  </div>
+
+ <!-- Modal Structure -->
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+        <div class="page-header" data-pg-collapsed>
+            <h3>Donations are Appreciated<br><small>Thank you</small></h3>
+        </div>         
+        <div id="donation-container" class="container">
+            <div class="row">
+                <div class="col-xs-3">
+                    Paypal
+                </div>
+                <div class="col-xs-8">
+                     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                        <input type="hidden" name="cmd" value="_s-xclick">
+                        <input type="hidden" name="hosted_button_id" value="YNAGPPBM6R8EU">
+                        <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-rect-paypal-44px.png" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    Flattr
+                </div>
+                <div class="col-xs-8">
+                    <a class="donate-button" id="flattr-donate-button" href="https://flattr.com/submit/auto?fid=voplwe&url=http%3A%2F%2Fjune07.com" target="_blank"><img height="44px" src="./image/flattr.svg" alt="Flattr this" title="Flattr this" border="0"></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    Donorbox
+                </div>
+                <div class="col-xs-8">
+                    <a class="donate-button" " href="https://donorbox.org/chrome-extentions" target="_blank" style="background:#5cb85c url(https://d1iczxrky3cnb2.cloudfront.net/white_logo.png) no-repeat 18px center; color: #fff;text-decoration: none;font-family: Verdana,sans-serif;display: inline-block;font-size: 16px;padding: 13px 17px 13px 56px; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; box-shadow: 0 1px 0 0 #408040; text-shadow: 0 1px rgba(0, 0, 0, 0.3);" >Donate</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    Bitcoin
+                </div>
+                <div class="col-xs-8">
+                    <a class="donate-button" id="mycelium-donate-button" href="https://gateway.gear.mycelium.com/widgets/dfcf0217aea4d3b0ebcd4b3406522ae5f334f9ba681f912f2c3264eea7ce8c97" target="_blank"><img src="./image/bitcoin.png"></a>
                     </div>
-                    <div class="row">
-                        <div class="col s12 center">
-                            <span class="waves-effect waves-light">
-                            <input type="button" id="open devtools" value="Open DevTools" ng-disabled="bg.settings.auto" class="btn light-green lighten-1 ga-track i18n" ng-click="clickHandler()"></span>
-                            <div class="switch" ng-true-value="true" ng-false-value="false">
-                                <label><span class="i18n">Manual</span>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+        <div class="container container-page">
+            <div class="row">
+                <div class="col s12 m4 l4 valign-wrapper header-column">
+                    <div class="fixed-action-btn horizontal" style="bottom: 85px; right: 15px;">
+                        <a class="btn-floating green lighten-5"> <i class="large"></i> </a>
+                        <ul>
+                            <li>
+                                <a ng-if="bg.notifications" href="#modal1" class="btn btn-floating green lighten-2"><i class="icon-note"></i></a>
+                                <a ng-if="!bg.notifications" href="#modal3" class="btn btn-floating green lighten-2"><i class="icon-inbox"></i></a>
+                            </li>
+
+                            <li>
+                                <a class="btn-floating green lighten-1" id="options-button"><i class="icon-params"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <img src="./icon/icon128.png" class="left logo-padding" />
+                    <div class="header left valign">
+                        <span class="i18n">appName</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l2 m1"></div>
+                <div class="col s11 m12 l12">
+                    <form>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input placeholder="localhost" id="hostname" type="text" class="validate card-title input-text ga-track" ng-model="bg.settings.host">
+                                <font color="#9e9e9e"><span class="i18n">Hostname</span></font>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="port" type="text" class="validate card-title input-text ga-track" value placeholder="9229" ng-model="bg.settings.port">
+                                <font color="#9e9e9e"><span class="i18n">Port</span></font>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 center">
+                                <span class="waves-effect waves-light"><input type="button" id="open devtools" value="Open DevTools" ng-disabled="bg.settings.auto" class="btn green lighten-1 ga-track i18n" ng-click="clickHandler()"></span>
+                                <div class="switch" ng-true-value="true" ng-false-value="false">
+                                    <label>
+                                        <span class="i18n">Manual</span>
                                         <input id="auto switch" type="checkbox" ng-model="bg.settings.auto" class="ga-track">
-                                        <span class="lever"></span><span class="i18n">Auto</span>
+                                        <span class="lever"></span>
+                                        <span class="i18n">Auto</span>
                                     </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col m1 l2"></div>
+            </div>
+            <div class="row row-footer">
+                <footer class="page-footer grey lighten-3">
+                    <div class="footer-copyright">
+                        <div class="container footer-text">
+                            <a id="site-href" target="_blank" href="https://june07.com">© 2016 June07</a>
+                            <div class="right">
+                                <div id="g-plusone" class="g-plusone" data-align="right" expandTo="bottom, left, top, right" data-href="https://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj"></div>
+                                <a class="btn green lighten-2" href="#modal2" id="donate-button"><span class="i18n">Donate</span></a>
                             </div>
                         </div>
                     </div>
-                </form>
+                </footer>
             </div>
-            <div class="col m1 l2"></div>
         </div>
-        <div class="row row-footer">
-            <footer class="page-footer grey lighten-3">
-                <div class="footer-copyright">
-                    <div class="container footer-text">
-                        © 2016 June07
-                        <a class="right footer-text" ng-click="track('https://donorbox.org/chrome-extentions')" target="_blank" href="https://donorbox.org/chrome-extentions"><span class="i18n">Donate</span></a>
-                    </div>
-                </div>
-            </footer>
+        <div class="card green container-message" ng-if="bg.settings.debug">
+            <div class="card-content green lighten-5 black-text">
+                <p class="message"><span class="i18n">Enabled</span>: {{ bg.loaded | date:'yyyy-MM-dd HH:mm Z' }}<br><span class="i18n">Uptime</span>: {{ bg.moment.duration(bg.timer, 'seconds').humanize(); }}</p>
+                <p class="message">{{bg.message}}</p>
+            </div>
         </div>
-    </div>
-    <div class="card light-green container-message" ng-if="bg.settings.debug">
-        <div class="card-content light-green lighten-5 black-text">
-            <p class="message"><span class="i18n">Enabled</span>: {{ bg.loaded | date:'yyyy-MM-dd HH:mm Z' }}<br><span class="i18n">Uptime</span>: {{ bg.moment.duration(bg.timer, 'seconds').humanize(); }}</p>
-            <p class="message">{{bg.message}}</p>
-        </div>
-    </div>
-</body>
-
+    </body>
 </html>
