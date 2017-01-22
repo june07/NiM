@@ -26,9 +26,13 @@ ngApp
     .run(function() {})
     .controller('nimController', ['$scope', '$window', '$http', function($scope, $window, $http) {
         const UPTIME_CHECK_INTERVAL = 1000 * 60 * 15; // 15 minutes
+        const NOTIFICATION_CHECK_INTERVAL = 1000 * 5; //60 * 60; // 60 minutes
         const UNINSTALL_URL = "http://june07.com/uninstall";
+
+        var $ = $window.$;
         $scope.loaded = Date.now();
         $scope.timer = 0;
+        $scope.timer2 = 0;
         /** Next thing to do is to init these values from storage */
         $scope.settings = {
             host: "localhost",
@@ -55,6 +59,45 @@ ngApp
         });
         $scope.moment = $window.moment;
 
+/**        setInterval(function() {
+            $scope.timer2++;
+            if ($scope.timer2 >= NOTIFICATION_CHECK_INTERVAL && $scope.timer2 % NOTIFICATION_CHECK_INTERVAL === 0) {
+                $.get("https://june07.github.io/nim/notifications/4887dff5-7a99-4eae-bf9b-ad8c07e6fdc6.md5", function(md5sum) {
+                    if (md5sum.toLowerCase() !== $scope.settings.md5sum) {
+                        $.get("https://june07.github.io/nim/notifications/4887dff5-7a99-4eae-bf9b-ad8c07e6fdc6.json", function(data) {
+                            saveNotifications(data);
+                        });
+                    }
+                });
+            }
+        }); */
+        function saveNotifications(data) {
+            if (! $scope.settings.notifications || $scope.settings.notifications.length === 0)
+                $scope.settings.notifications = data;
+            $scope.settings.md5sum = md5(JSON.stringify(data)).toLowerCase();
+            // Before setting the in memory value, first check to see which have been read and keeps those marked as such.
+            var read = $scope.settings.notifications.filter(function(notification) {
+                if (notification.read) {
+                    return true;
+                }
+                return false;
+            });
+            if (read && read > 0) {
+                $scope.settings.notifications = data.filter(function(notification, index) {
+                    return read.find(function(readNotification, index2) {
+                        if (readNotification.id === notification.id) {
+                            data.splice(index, 1);
+                            return false;
+                        } else if (index2 === read.length - 1) {
+                            return true;
+                        }
+                    });
+                });
+            }
+            $scope.settings.notifications = $scope.settings.notifications.concat(read);
+            $scope.write('notifications', $scope.settings.notifications);
+            $scope.$emit('notification-update');
+        }
         setInterval(function() {
             $scope.timer++;
             if ($scope.timer >= UPTIME_CHECK_INTERVAL && $scope.timer % UPTIME_CHECK_INTERVAL === 0) {

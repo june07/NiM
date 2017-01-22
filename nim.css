@@ -161,4 +161,32 @@ body#nim {
     width: 90%;
 }
 
+.alert {
+    width: 70%;
+    top: 1px !important;
+    right: 5px !important;
+    border-radius: 15px;
+}
+.alert > [data-notify="icon"] {
+
+}
+.alert > [data-notify="title"] {
+
+}
+.alert > [data-notify="message"] {
+
+}
+.fixed-action-btn.horizontal ul li {
+    margin: 0 0 0 0 !important;
+}
+.modal {
+    opacity: 0.8 !important;
+    width: 95%;
+    top: 0 !important;
+    max-height: 95%;
+}
+.modal-content {
+    height: 100%;
+}
+
 }
