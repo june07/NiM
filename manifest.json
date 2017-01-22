@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "__MSG_appName__",
     "short_name": "__MSG_appShortName__",
-    "version": "0.9.2",
+    "version": "0.9.3",
     "default_locale": "en",
     "description": "__MSG_appDescription__",
     "author": "June07 <667@june07.com> (http://june07.com/)",
@@ -32,5 +32,14 @@
     "background": {
         "page": "background.html"
     },
-    "content_security_policy": "script-src 'self' https://www.google-analytics.com https://ssl.google-analytics.com; object-src 'self' https://www.google-analytics.com https://ssl.google-analytics.com;"
+    "content_security_policy": "script-src 'self' https://www.google-analytics.com https://ssl.google-analytics.com; object-src 'self' https://www.google-analytics.com https://ssl.google-analytics.com;",
+    "commands": {
+        "open-devtools": {
+            "suggested_key": {
+                "default": "Ctrl+I",
+                "mac": "Command+I"
+            },
+            "description": "Open the DevTools Window"
+        }
+    }
 }
