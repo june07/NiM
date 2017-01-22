@@ -23,15 +23,68 @@
  */
 var ngApp = angular.module('NimPopupApp', []);
 ngApp
+    .filter('stringLimit', ['$filter', function($filter) {
+       return function(input, limit, ellipses) {
+          if (! input) return;
+          if (input.length <= limit && limit > 0) {
+              return input;
+          }
+          var limitedString = $filter('limitTo')(input, Math.abs(limit));
+          if (limit < 0)
+            return input.substring(limitedString.lastIndexOf(" ")+1, input.length)
+          if (! ellipses)
+            return limitedString.substring(0, limitedString.lastIndexOf(" "))
+          return limitedString + '...';
+       };
+    }])
     .controller('nimPopupController', ['$scope', '$window', function ($scope, $window) {
+        $scope.sortType = 'date';
+        $scope.sortReverse = false;
         $scope.bg = $window.chrome.extension.getBackgroundPage().angular.element('#nim').scope();
         $scope.bg.localize($window, function() {});
 
-        /**
-        setInterval(function () {
-            $scope.bg.timer++;
-            $scope.bg.$apply();
-        }, 1000);*/
+        var $ = $window.$,
+            chrome = $window.chrome,
+            pn = null;
+        
+        filterAndProcess();
+        //$scope.bg.$on('notification-update', filterAndProcess());
+
+        function *processNotification(unreadNotifications) {            
+            for (var i2 = 0; i2 < unreadNotifications.length; i2++) {
+                $.notify({
+                animate: {
+                        enter: 'animated fadeInRight',
+                        exit: 'animated fadeOutRight'
+                },
+                    // options
+                    title: unreadNotifications[i2].notification.title,
+                    message: unreadNotifications[i2].notification.message
+                },{
+                    // settings
+                    type: 'info',
+                    allow_dismiss: true,
+                    delay: 0,
+                    onClosed: function() { closeNotification(unreadNotifications[i2]) }
+                });
+                yield;
+            }
+        }
+        function closeNotification(notification) {
+            notification.read = true;
+            pn.next();
+        }
+        function filterAndProcess() {
+            if (! $scope.bg.settings.notifications)
+                return;
+            // Use generator here to process message queue.
+            var unread = $scope.bg.settings.notifications.filter(function(n) {
+                if (!n.read) return true;
+                return false;
+            });
+            pn = processNotification(unread);
+            pn.next();
+        }
         $scope.clickHandler = function () {
             $scope.bg.save("host");
             $scope.bg.save("port");
@@ -62,4 +115,22 @@ ngApp
             if (userInputs[i].id === "port" || userInputs[i].id === "hostname")
                 userInputs[i].addEventListener('keypress', keypressHandler);
         }
+        $window.document.querySelector('#options-button').addEventListener('click', function() {
+          if (chrome.runtime.openOptionsPage) {
+            // New way to open options pages, if supported (Chrome 42+).
+            chrome.runtime.openOptionsPage();
+          } else {
+            // Reasonable fallback.
+            $window.open(chrome.runtime.getURL('options.html'));
+          }
+        });
+        $('.modal').modal({
+          dismissible: true, // Modal can be dismissed by clicking outside of the modal
+          opacity: .5, // Opacity of modal background
+          in_duration: 300, // Transition in duration
+          out_duration: 200, // Transition out duration
+          starting_top: '4%', // Starting top style attribute
+          ending_top: '10%' // Ending top style attribute
+        }
+      );
   }]);
