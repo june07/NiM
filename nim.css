@@ -263,21 +263,44 @@ td.active-cell {
 #modal1 > div.modal-content > table > thead {
     background-color: #fafafa;
 }
+.modal-content {
+    border-radius: 0;
+}
 #uptodate {
+    text-align: center;
     margin: auto;
     position: absolute;
-    width: 150px;
-    height: 150px;
+    width: 300px;
+    height: 200px;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
 }
-#uptodate {
-    text-align: center;
+#no-notifications {
+    font-size: x-large;
+    text-transform: uppercase;
+}
+.icon-inbox-1:before { font-size: 300%; }
+
+#modal2 > div.modal-content > div.page-header > h3 > small {
+    text-transform: uppercase;
 }
 #donation-container {
     padding-top: 5px;
+}
+.close-x:focus {
+    font-family: Verdana,sans-serif;
+    outline: none;
+}
+.modal-header button {
+    background-color: inherit;
+}
+.modal-header {
+    border-bottom: 0;
+}
+#modal2 > div.modal-content > div.page-header > h3 {
+    font-size: 26px !important;
 }
 
 }

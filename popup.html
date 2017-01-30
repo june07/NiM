@@ -1,21 +1,20 @@
 <!doctype html>
+<script type="text/javascript" src="https://apis.google.com/js/platform.js" async defer></script>
+<script type="text/javascript" src="./js/googleanalytics.js"></script>
 <script type="text/javascript" src="./js/jquery.min.js"></script>
 <script type="text/javascript" src="./js/angular.min.js"></script>
 <script type="text/javascript" src="./js/materialize.min.js"></script>
-<script type="text/javascript" src="./js/bootstrap-notify.min.js"></script>
 <script type="text/javascript" src="./js/moment.min.js"></script>
 <script type="text/javascript" src="./js/angular-moment.min.js"></script>
-<script type="text/javascript" src="./js/googleanalytics.js"></script>
 <script type="text/javascript" src="./js/perfect-scrollbar.jquery.min.js"></script>
 <script type="text/javascript" src="./js/perfect-scrollbar.min.js"></script>
-<script type="text/javascript" src="https://apis.google.com/js/platform.js" async defer></script>
+<script type="text/javascript" src="./js/bootstrap-notify.min.js"></script>
 <script type="text/javascript" src="popup.js"></script>
 <html ng-app="NimPopupApp" ng-csp>
     <head>
         <title>
             <span class="i18n">appName</span>
         </title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="./css/fontello.css">
         <link rel="stylesheet" href="./css/font.css">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
@@ -27,16 +26,26 @@
     <body ng-controller="nimPopupController as main" class="right">
     <!-- BEGIN Modal No Notifications -->
       <div id="modal3" class="modal">
-        <div id="modal3-content" class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" aria-label="Close">
+                <span class="close-x" aria-hidden="true"><i class="icon-cancel"></i></span>
+            </button>
+        </div>
+        <div id="modal3-content" class="modal-content"> 
             <div id="uptodate">
-            <i class="large material-icons">done_all</i><br>
-            <p>Up To Date!</p>
+            <p><span id="no-notifications" class="i18n">noNotifications</span></p>
+            <i class="icon-inbox-1"></i><br>
             </div>
         </div>
       </div>
     <!-- END Modal No Notifications -->
-        <!-- Modal Structure -->
+        <!-- Modal Structure Notifications -->
   <div id="modal1" class="modal">
+    <div class="modal-header">
+        <button type="button" class="close" aria-label="Close">
+            <span class="close-x" aria-hidden="true"><i class="icon-cancel"></i></span>
+        </button>
+    </div>
     <div class="modal-content">
             <table class="table table-striped">
                   <thead>
@@ -73,9 +82,14 @@
 
  <!-- Modal Structure -->
   <div id="modal2" class="modal">
+    <div class="modal-header">
+        <button type="button" class="close" aria-label="Close">
+            <span class="close-x" aria-hidden="true"><i class="icon-cancel"></i></span>
+        </button>
+    </div>
     <div class="modal-content">
         <div class="page-header" data-pg-collapsed>
-            <h3>Donations are Appreciated<br><small>Thank you</small></h3>
+            <h3><span class="i18n">donationModalHeader</span><br><small>Thank you</small></h3>
         </div>         
         <div id="donation-container" class="container">
             <div class="row">
@@ -189,7 +203,7 @@
         </div>
         <div class="card green container-message" ng-if="bg.settings.debug">
             <div class="card-content green lighten-5 black-text">
-                <p class="message"><span class="i18n">Enabled</span>: {{ bg.loaded | date:'yyyy-MM-dd HH:mm Z' }}<br><span class="i18n">Uptime</span>: {{ bg.moment.duration(bg.timer, 'seconds').humanize(); }}</p>
+                <p class="message"><span class="i18n">Enabled</span>: {{ bg.loaded | date:'yyyy-MM-dd HH:mm Z' }}<br><span class="i18n">Uptime</span>: {{ bg.moment.duration(bg.timerUptime, 'seconds').humanize(); }}</p>
                 <p class="message">{{bg.message}}</p>
             </div>
         </div>
