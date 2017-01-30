@@ -20,31 +20,26 @@
  *    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *    SOFTWARE.
- */
+*/
 var ngApp = angular.module('NimBackgroundApp', []);
 ngApp
     .run(function() {})
     .controller('nimController', ['$scope', '$window', '$http', function($scope, $window, $http) {
-        const UPTIME_CHECK_INTERVAL = 1000 * 60 * 15; // 15 minutes
-        const NOTIFICATION_CHECK_INTERVAL = 1000 * 6;//0 * 60; // 60 minutes
+        const UPTIME_CHECK_INTERVAL = 60 * 15; // 15 minutes
         const UNINSTALL_URL = "http://june07.com/uninstall";
-        const GITHUB_OAUTH = { id: '3fd983f383cb7c99a00a', secret: 'cf93cf5b5e4e5c37e2033b0935c441b07585fb7e' };
-        const GITHUB_TOKEN = "9165ec59d23ef9234453e0814fa3226bbefd64b8";
-        //const HOOKIO_SECRET = "84d6d1fe-af32-4790-884d-04e047adf626";
-        const IO_JUNE_SECRET = "";
-        const IO_JUNE_HOST = "do1.june07.com";
-        const NOTIFICATION_FILE = 'c7bcacbc-2c93-4054-be7d-2541b2a5223e';
+        const UPTIME_CHECK_RESOLUTION = 1000; // Check every second
+        /**const NOTIFICATION_CHECK_INTERVAL = 6;// 60; // 60 minutes
+        const NOTIFICATION_CHECK_RESOLUTION = 1000; // * 60; // Check every minute
+        const HOOKIO_SECRET = "84d6d1fe-af32-4790-884d-04e047adf626";
+        const NOTIFICATION_FILE = 'c7bcacbc-2c93-4054-be7d-2541b2a5223e';*/
 
-        var $ = $window.$;
         $scope.loaded = Date.now();
-        $scope.timer = 0;
-        $scope.timer2 = 0;
-        /** Next thing to do is to init these values from storage */
+        $scope.timerUptime= 0;
+        $scope.timerNotification = 0;
         $scope.settings = {
             host: "localhost",
             port: "9229",
             auto: false,
-            timerInterval: 1000,
             checkInterval: 3,
             checkIntervalTimeout: null,
             debug: false,
@@ -55,14 +50,12 @@ ngApp
             localDevTools: true,
             notifications: {
                 showMessage: false,
-                lastMD5: 0,
                 lastHMAC: 0
             }
         };
         $scope.notifications;
         $scope.devToolsSessions = [];
         $scope.changeObject;
-        var md5 = new goog.crypt.Md5();
 
         var chrome = $window.chrome;
         chrome.runtime.setUninstallURL(UNINSTALL_URL, function() {
@@ -71,36 +64,29 @@ ngApp
             }
         });
         $scope.moment = $window.moment;
-
+        /**
         setInterval(function() {
-            $scope.timer2++;
-            if ($scope.timer2 >= NOTIFICATION_CHECK_INTERVAL && $scope.timer2 % NOTIFICATION_CHECK_INTERVAL === 0) {
+            $scope.timerNotification++;
+            if ($scope.timerNotification >= NOTIFICATION_CHECK_INTERVAL && $scope.timerNotification % NOTIFICATION_CHECK_INTERVAL === 0) {
                 $.get('https://june07.github.io/nim/notifications/'+NOTIFICATION_FILE+'.hmac', function(hmac) {
-                    if ((hmac.toLowerCase() !== $scope.settings.hmac) && (hmac.toLowerCase() !== $scope.settings.notifications.lastHMAC)) {
+                    if (hmac.toLowerCase() !== $scope.settings.notifications.lastHMAC) {
                         $.get("https://june07.github.io/nim/notifications/"+NOTIFICATION_FILE+".json", function(data) {
                             saveNotifications(data);
                         });
                     }
-                    $scope.settings.notifications.lastHMAC = hmac.toLowerCase();
                 });
             }
-        });
-        function saveNotifications(data) {
+        }, NOTIFICATION_CHECK_RESOLUTION);
+
+        function saveNotifications(data, callback) {
             if (! $scope.notifications || $scope.notifications.length === 0) {
                 $scope.notifications = data;
             } else {
                 $scope.notifications = $scope.notifications.concat(data);
             }
-            $.get("http://hook.io/june07/hmac?secret="+HOOKIO_SECRET+"data="+btoa(data)), function(hmac) {
-                var postdata = {
-                    token: GITHUB_TOKEN,
-                    notification_file: NOTIFICATION_FILE,
-                    hmac: hmac
-                };
-                $.post("https://io.june07.com/nimGithub", postdata, function(response) {
-                    $scope.settings.notifications.lastHMAC = hmac;
-                });
-            }
+            $.get("http://hook.io/june07/hmac?key="+HOOKIO_SECRET+"&data="+btoa(JSON.stringify(data)), function(response) {
+                $scope.settings.notifications.lastHMAC = response.split(':')[1].trim();
+            });
             $scope.notifications.sort(function(a, b) {
                 if (a.id < b.id) return -1;
                 if (a.id > b.id) return 1;
@@ -111,25 +97,29 @@ ngApp
                 }
             });
             var uniqueNotificationsKeepingRead = [];
+            var unreadFlag = true;
             $scope.notifications.forEach(function(notification, index, notifications) {
-                if ((notifications.length > 0) && index > 0 && (notification.id === notifications[index-1].id)) {
+                if (((notifications.length > 0) && (index === 0)) || ((notifications.length > 0) && (index > 0) && (notification.id === notifications[index-1].id))) {
                     if (notification.read) uniqueNotificationsKeepingRead.push(notification);
+                    else unreadFlag = false;
                 } else {
                     uniqueNotificationsKeepingRead.push(notification);
                 }
                 if (index+1 === (notifications.length)) {
+                    if (unreadFlag) chrome.browserAction.setBadgeText({ text:"note" });
+                    else chrome.browserAction.setBadgeText({ text:"" });
                     $scope.notifications = uniqueNotificationsKeepingRead;
                     $scope.write('notifications', $scope.notifications);
                     $scope.$emit('notification-update');
                 }
             });
-        }
+        } */
         setInterval(function() {
-            $scope.timer++;
-            if ($scope.timer >= UPTIME_CHECK_INTERVAL && $scope.timer % UPTIME_CHECK_INTERVAL === 0) {
-                $window._gaq.push(['_trackEvent', $scope.moment.duration($scope.timer, 'seconds').humanize(), 'Uptime Checked']);
+            $scope.timerUptime++;
+            if ($scope.timerUptime >= UPTIME_CHECK_INTERVAL && $scope.timerUptime % UPTIME_CHECK_INTERVAL === 0) {
+                $window._gaq.push(['_trackEvent', $scope.moment.duration($scope.timerUptime, 'seconds').humanize(), 'Uptime Checked']);
             }
-        }, $scope.settings.timerInterval);
+        }, UPTIME_CHECK_RESOLUTION);
 
         $scope.$on('options-window-closed', function() {
             resetInterval($scope.settings.checkIntervalTimeout);
@@ -322,5 +312,16 @@ ngApp
             $scope.devToolsSessions.splice($scope.devToolsSessions.findIndex(function(devToolsSession) {
                 if (devToolsSession.id === tabId) return true;
             }), 1);
+        });
+        chrome.commands.onCommand.addListener(function(command) {
+            switch (command) {
+                case "open-devtools":
+                    $scope.save("host");
+                    $scope.save("port");
+                    $scope.openTab($scope.settings.host, $scope.settings.port, function (result) {
+                        $scope.message += '<br>' + result + '.';
+                    });
+                    $window._gaq.push(['_trackEvent', 'User Event', 'OpenDevTools', 'Keyboard Shortcut Used', '', true]); break;
+            }
         });
     }]);

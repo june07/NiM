@@ -1,4 +1,12 @@
 {
+  "donationModalHeader": {
+    "message": "Donations Appreciated",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "There are no notifications.",
+    "description": "Message to display when there are no notifications."
+  },
   "appName": {
     "message": "NIM (Node Inspector Manager)",
     "description": "The title of the extension displayed in the web store."

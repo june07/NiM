@@ -20,7 +20,7 @@
  *    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *    SOFTWARE.
- */
+*/
 var ngApp = angular.module('NimPopupApp', ['angularMoment']);
 ngApp
     .filter('stringLimit', ['$filter', function($filter) {
@@ -41,14 +41,16 @@ ngApp
         $scope.sortType = 'date';
         $scope.sortReverse = true;
         $scope.active = "none";
-        $scope.bg = $window.chrome.extension.getBackgroundPage().angular.element('#nim').scope();
+        var bgWindow = $window.chrome.extension.getBackgroundPage();
+        var controllerElement = bgWindow.document.querySelector('body');
+        $scope.bg = bgWindow.angular.element(controllerElement).scope()
         $scope.bg.localize($window, function() {});
         $scope.yieldResult = "wait";
         $scope.messageModalState = "closed";
 
-        var $ = $window.$,
-          chrome = $window.chrome;
-        
+        var  chrome = $window.chrome,
+          $ = $window.$;
+        /**
         filterAndProcess();
         $scope.bg.$on('notification-update', filterAndProcess());
 
@@ -112,14 +114,11 @@ ngApp
                 if (!n.read) return true;
                 return false;
             });
-            if (unread) {
-              chrome.browserAction.setBadgeText({ text:"note" });
-            }
             if ($scope.messageModalState !== "open") {
               $scope.pn = processNotification(unread);
               $scope.pn.next();
             }
-        }
+        } */
         $scope.openModal = function() {
           $.notify.close();
           $scope.pn.next("wait");
@@ -154,6 +153,15 @@ ngApp
             if (userInputs[i].id === "port" || userInputs[i].id === "hostname")
                 userInputs[i].addEventListener('keypress', keypressHandler);
         }
+        $window.document.querySelector('#modal1 > div.modal-header > button').addEventListener('click', function() {
+          $('#modal1').modal('close');
+        });
+        $window.document.querySelector('#modal2 > div.modal-header > button').addEventListener('click', function() {
+          $('#modal2').modal('close');
+        });
+        $window.document.querySelector('#modal3 > div.modal-header > button').addEventListener('click', function() {
+          $('#modal3').modal('close');
+        });
         $window.document.querySelector('#options-button').addEventListener('click', function() {
           if (chrome.runtime.openOptionsPage) {
             // New way to open options pages, if supported (Chrome 42+).
