@@ -53,3 +53,7 @@ media/
 i18n_config.js
 i18n_meta.json
 tmp/
+*.orig
+dist/
+yarn.lock
+.env.js

@@ -45,7 +45,7 @@ module.exports = function (grunt) {
         main: {
           files: [{
               expand: true,
-              src: ['js/**/*.js', '*.js', '*.html', 'css/**/*.css', '*.css', 'icon/*', 'manifest.json', 'LICENSE', '_locales/**/*'],
+              src: ['js/**/*.js', '*.js', '*.html', 'css/**/*.css', '*.css', 'icon/*', 'font/*', 'image/*', 'manifest.json', 'LICENSE', '_locales/**/*'],
               dest: 'build/unpacked-dev/'
           }]
         },
@@ -53,7 +53,7 @@ module.exports = function (grunt) {
           files: [{
               expand: true,
               cwd: 'build/unpacked-dev/',
-              src: ['js/**/*.js', '*.js', '*.html', 'css/**/*.css', '*.css', 'icon/*', 'manifest.json', 'LICENSE', '_locales/**/*'],
+              src: ['js/**/*.js', '*.js', '*.html', 'css/**/*.css', '*.css', 'icon/*', 'font/*', 'image/*', 'manifest.json', 'LICENSE', '_locales/**/*'],
               dest: 'build/unpacked-prod/'
           }]
         },
@@ -130,7 +130,7 @@ module.exports = function (grunt) {
   );
   grunt.registerTask('test', ['eslint']);
   grunt.registerTask('test-cont', ['test', 'watch']);
-  grunt.registerTask('default', ['clean', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'browserify', 'copy:prod', 'uglify', 'exec', 'compress']);
+  grunt.registerTask('default', ['clean', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'copy:prod', 'uglify', 'exec', 'compress']);
   grunt.file.write('build/unpacked-dev/manifest.json', JSON.stringify(mnf, null, 4) + '\n');
   grunt.log.ok('manifest.json generated');
 }

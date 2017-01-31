@@ -25,6 +25,9 @@ If you enjoy using NIM please give us a 5 star rating and/or a G+1.  Any and all
 
 This project is open source and available at https://github.com/june07/NIM.
 
+[0.10.0] - 2017-01-30
+Added
+- This release includes a lot of UI changes, hopefully, all to the better.  The color scheme has changed slightly to match that of the main NIM icon.  A floating material style button has been added to the lower right corner of the popup to facilitate access to current and possible future features without being disruptive to the UI.  Currently, there is a button for the settings modal as well as well as a button for a new feature, the notification area.  Again, the notification area was meant to be very non-intrusive and to allow for easier communication to users about important issues.  Finally a Google+ Platform link was added to make it even easier to add those stellar reviews and 5 star ratings <i class=\"emo-thumbsup\"></i>.  The donation link was also changed partially in response to user feedback about making some additions to that area.
 [0.9.3] - 2017-01-19
 Fixed
 - There was a "bug" where if a user was debugging remotely and did not forward the DevTools port along with the websocket port, the local websocket port would not be translated.  This was fixed.
