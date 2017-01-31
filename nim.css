@@ -5,6 +5,9 @@ body {
     height: 100%;
 }
 
+div.container.footer-text {
+    width: 80%;
+}
 #options-page div.row {
     margin-bottom: 15px;
 }
@@ -65,8 +68,9 @@ body {
     background-color: #e0e0e0;
 }
 
-#options-page .switch label {
+label {
     font-size: 16px;
+    font-weight: normal !important;
 }
 
 #options-page .noUi-target .range-label {
@@ -159,6 +163,144 @@ body#nim {
 }
 .modal {
     width: 90%;
+}
+
+.alert {
+    width: 70%;
+    top: 1px !important;
+    right: 5px !important;
+    border-radius: 15px;
+}
+.alert > [data-notify="icon"] {
+
+}
+.alert > [data-notify="title"] {
+
+}
+.alert > [data-notify="message"] {
+
+}
+.fixed-action-btn.horizontal ul li {
+    margin: 0 0 0 0 !important;
+}
+.modal {
+    opacity: 0.9 !important;
+    width: 100%;
+    top: 0 !important;
+    max-height: 90%;
+    overflow: hidden;
+    margin: inherit;
+}
+.modal-content {
+    height: 100%;
+    padding: 0 !important;
+}
+#___plusone_0 {
+    vertical-align: middle !important;
+}
+i.small {
+    vertical-align: middle;
+}
+.notification-message {
+    font-size: small;
+}
+.notification-title {
+    font-size: large;
+}
+thead tr th {
+    font-size: large;
+}
+
+#donate-icon {
+    width: 30px;
+    transform: scaleX(-1);
+}
+#site-href {
+    color: inherit;
+    text-decoration: none;
+}
+#notify-icon {
+    padding-right: 10px;
+}
+#notify-title {
+    font-size: 18px;
+}
+#notify-read-button {
+    line-height: 30px;
+    height: 30px;
+    float: right;
+    padding-left: 5px !important;
+    padding-left: 5px !important;
+}
+#modal1 > div > table > thead > tr > th > a {
+    font-weight: lighter;
+}
+#donate-button {
+    height: 26px;
+    padding: 0 10px 0 10px;
+    line-height: 28px;
+    margin-left: 5px;
+}
+#modal2 > div > div.page-header {
+    padding: 10px 0 0 0;
+    text-align: center;
+    margin: 0;
+}
+#modal1 > div.modal-content > table > tbody > tr:nth-child(n) > td:nth-child(3) > span {
+    font-size: 16px;
+}
+#modal1 > div.modal-content > table > thead > tr > th:nth-child(n) > a {
+    text-decoration: none;
+    color: black;
+}
+td.active-cell {
+    border-top: 0 !important;
+    background-color: #dcedc8;
+}
+#modal1 > div.modal-content > table > tbody > tr:nth-child(n) {
+    background-color: #f1f8e9;
+}
+#modal1 > div.modal-content > table > thead {
+    background-color: #fafafa;
+}
+.modal-content {
+    border-radius: 0;
+}
+#uptodate {
+    text-align: center;
+    margin: auto;
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+#no-notifications {
+    font-size: x-large;
+    text-transform: uppercase;
+}
+.icon-inbox-1:before { font-size: 300%; }
+
+#modal2 > div.modal-content > div.page-header > h3 > small {
+    text-transform: uppercase;
+}
+#donation-container {
+    padding-top: 5px;
+}
+.close-x:focus {
+    font-family: Verdana,sans-serif;
+    outline: none;
+}
+.modal-header button {
+    background-color: inherit;
+}
+.modal-header {
+    border-bottom: 0;
+}
+#modal2 > div.modal-content > div.page-header > h3 {
+    font-size: 26px !important;
 }
 
 }

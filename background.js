@@ -20,21 +20,26 @@
  *    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *    SOFTWARE.
- */
+*/
 var ngApp = angular.module('NimBackgroundApp', []);
 ngApp
     .run(function() {})
     .controller('nimController', ['$scope', '$window', '$http', function($scope, $window, $http) {
-        const UPTIME_CHECK_INTERVAL = 1000 * 60 * 15; // 15 minutes
+        const UPTIME_CHECK_INTERVAL = 60 * 15; // 15 minutes
         const UNINSTALL_URL = "http://june07.com/uninstall";
+        const UPTIME_CHECK_RESOLUTION = 1000; // Check every second
+        /**const NOTIFICATION_CHECK_INTERVAL = 6;// 60; // 60 minutes
+        const NOTIFICATION_CHECK_RESOLUTION = 1000; // * 60; // Check every minute
+        const HOOKIO_SECRET = "84d6d1fe-af32-4790-884d-04e047adf626";
+        const NOTIFICATION_FILE = 'c7bcacbc-2c93-4054-be7d-2541b2a5223e';*/
+
         $scope.loaded = Date.now();
-        $scope.timer = 0;
-        /** Next thing to do is to init these values from storage */
+        $scope.timerUptime= 0;
+        $scope.timerNotification = 0;
         $scope.settings = {
             host: "localhost",
             port: "9229",
             auto: false,
-            timerInterval: 1000,
             checkInterval: 3,
             checkIntervalTimeout: null,
             debug: false,
@@ -42,8 +47,13 @@ ngApp
             autoClose: true,
             tabActive: true,
             windowFocused: true,
-            localDevTools: true
+            localDevTools: true,
+            notifications: {
+                showMessage: false,
+                lastHMAC: 0
+            }
         };
+        $scope.notifications;
         $scope.devToolsSessions = [];
         $scope.changeObject;
 
@@ -54,13 +64,62 @@ ngApp
             }
         });
         $scope.moment = $window.moment;
-
+        /**
         setInterval(function() {
-            $scope.timer++;
-            if ($scope.timer >= UPTIME_CHECK_INTERVAL && $scope.timer % UPTIME_CHECK_INTERVAL === 0) {
-                $window._gaq.push(['_trackEvent', $scope.moment.duration($scope.timer, 'seconds').humanize(), 'Uptime Checked']);
+            $scope.timerNotification++;
+            if ($scope.timerNotification >= NOTIFICATION_CHECK_INTERVAL && $scope.timerNotification % NOTIFICATION_CHECK_INTERVAL === 0) {
+                $.get('https://june07.github.io/nim/notifications/'+NOTIFICATION_FILE+'.hmac', function(hmac) {
+                    if (hmac.toLowerCase() !== $scope.settings.notifications.lastHMAC) {
+                        $.get("https://june07.github.io/nim/notifications/"+NOTIFICATION_FILE+".json", function(data) {
+                            saveNotifications(data);
+                        });
+                    }
+                });
             }
-        }, $scope.settings.timerInterval);
+        }, NOTIFICATION_CHECK_RESOLUTION);
+
+        function saveNotifications(data, callback) {
+            if (! $scope.notifications || $scope.notifications.length === 0) {
+                $scope.notifications = data;
+            } else {
+                $scope.notifications = $scope.notifications.concat(data);
+            }
+            $.get("http://hook.io/june07/hmac?key="+HOOKIO_SECRET+"&data="+btoa(JSON.stringify(data)), function(response) {
+                $scope.settings.notifications.lastHMAC = response.split(':')[1].trim();
+            });
+            $scope.notifications.sort(function(a, b) {
+                if (a.id < b.id) return -1;
+                if (a.id > b.id) return 1;
+                if (a.id === b.id) {
+                    if (a.read && b.read) return 0;
+                    if (a.read) return -1
+                    return 1
+                }
+            });
+            var uniqueNotificationsKeepingRead = [];
+            var unreadFlag = true;
+            $scope.notifications.forEach(function(notification, index, notifications) {
+                if (((notifications.length > 0) && (index === 0)) || ((notifications.length > 0) && (index > 0) && (notification.id === notifications[index-1].id))) {
+                    if (notification.read) uniqueNotificationsKeepingRead.push(notification);
+                    else unreadFlag = false;
+                } else {
+                    uniqueNotificationsKeepingRead.push(notification);
+                }
+                if (index+1 === (notifications.length)) {
+                    if (unreadFlag) chrome.browserAction.setBadgeText({ text:"note" });
+                    else chrome.browserAction.setBadgeText({ text:"" });
+                    $scope.notifications = uniqueNotificationsKeepingRead;
+                    $scope.write('notifications', $scope.notifications);
+                    $scope.$emit('notification-update');
+                }
+            });
+        } */
+        setInterval(function() {
+            $scope.timerUptime++;
+            if ($scope.timerUptime >= UPTIME_CHECK_INTERVAL && $scope.timerUptime % UPTIME_CHECK_INTERVAL === 0) {
+                $window._gaq.push(['_trackEvent', $scope.moment.duration($scope.timerUptime, 'seconds').humanize(), 'Uptime Checked']);
+            }
+        }, UPTIME_CHECK_RESOLUTION);
 
         $scope.$on('options-window-closed', function() {
             resetInterval($scope.settings.checkIntervalTimeout);
@@ -126,7 +185,7 @@ ngApp
                         })
                         .then(function openDevToolsFrontend(json) {
                             var url = json.data[0].devtoolsFrontendUrl
-                                .replace("127.0.0.1:9229", host + ":" + port)
+                            .replace("127.0.0.1:9229", host + ":" + port)
                                 .replace("localhost:9229", host + ":" + port)
                                 .replace("127.0.0.1:" + port, host + ":" + port) // In the event that remote debugging is being used and the infoUrl port (by default 80) is not forwarded.
                                 .replace("localhost:" + port, host + ":" + port)  // A check for just the port change must be made.
