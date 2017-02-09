@@ -1,6 +1,6 @@
 {
   "name": "NIM",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "Monitor the integrated Node V8 inspector and auto open Chrome DevTools",
   "main": "nim.js",
   "dependencies": {
@@ -28,6 +28,7 @@
     "grunt-exec": "*",
     "grunt-mkdir": "*",
     "grunt-mocha-test": "*",
+    "grunt-string-replace": "^1.3.1",
     "gruntify-eslint": "^3.1.0",
     "jasmine-core": "^2.5.2",
     "karma": "^1.3.0",
