@@ -1,14 +1,14 @@
 {
   "donationModalHeader": {
-    "message": "寄付の評価",
+    "message": "Doações Apreciado",
     "description": "Donation modal header."
   },
   "noNotifications": {
-    "message": "通知がない。",
+    "message": "Não existem notificações.",
     "description": "Message to display when there are no notifications."
   },
   "appName": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "NIM (Nó Inspetor Manager)",
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
@@ -16,47 +16,47 @@
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Node.jsのデバッグのため、 V8 Inspectorを自動で起動する拡張機能です。",
+    "message": "Extensão para automaticamente lançamento V8 Inspetor Node.js depuração",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {
-    "message": "NIM (Node Inspector Manager) - Options Page",
+    "message": "NIM (Nó Inspetor Manager) - Opções de Página",
     "description": "Title shown on options page."
   },
   "defaultTitle": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "NIM (Nó Inspetor Manager)",
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Error setting uninstall URL: ",
+    "message": "Erro de configuração de desinstalar URL: ",
     "description": "Error message."
   },
   "errMsg2": {
-    "message": "Closed tab for DevTools session: ",
+    "message": "Fechado guia para DevTools sessão: ",
     "description": "Error message."
   },
   "errMsg6": {
-    "message": "Closed window for DevTools session: ",
+    "message": "Janela fechada para DevTools sessão: ",
     "description": "Error message."
   },
   "errMsg3": {
-    "message": "Error while trying to auto close ",
+    "message": "Erro ao tentar fechar automaticamente ",
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "デベロッパーツールへの接続が中断されました。ホストとポートを確認してください。",
+    "message": "Conexão para DevTools host foi anulada. Verifique o host e a porta.",
     "description": "Error message."
   },
   "errMsg5": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools já está aberto.",
     "description": "Error message."
   },
   "errMsg7": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools já está aberto.",
     "description": "Error message."
   },
   "errMsg8": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools já está aberto.",
     "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
     "placeholders": {
       "key": {
@@ -74,11 +74,11 @@
     }
   },
   "port": {
-    "message": "ポート",
+    "message": "Porta",
     "description": "Port."
   },
   "hostname": {
-    "message": "ホスト",
+    "message": "Hostname",
     "description": "Hostname."
   },
   "manual": {
@@ -90,83 +90,83 @@
     "description": "Auto."
   },
   "donate": {
-    "message": "寄付",
+    "message": "Doar",
     "description": "Donate."
   },
   "enabled": {
-    "message": "Enabled",
+    "message": "Habilitado",
     "description": "Enabled."
   },
   "uptime": {
-    "message": "Uptime",
+    "message": "Tempo de atividade",
     "description": "Uptime."
   },
   "options": {
-    "message": "Options",
+    "message": "Opções",
     "description": "Options."
   },
   "general": {
-    "message": "General",
+    "message": "Geral",
     "description": "General."
   },
   "on": {
-    "message": "On",
+    "message": "No",
     "description": "On."
   },
   "off": {
-    "message": "Off",
+    "message": "Fora",
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "新しいウィンドウで開く",
+    "message": "Abrir em uma Nova Janela.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
-    "message": "ウィンドウにフォーカスを移動する",
+    "message": "Faça Janela De Foco.",
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "タブをアクティブにする",
+    "message": "Guia Ativa.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
-    "message": "自動で閉じる",
+    "message": "Feche Automaticamente.",
     "description": "Auto close the Inspector."
   },
   "secondsBetweenInspectorChecks": {
-    "message": "チェック間隔",
+    "message": "Intervalo De Verificação.",
     "description": "Seconds between Inspector checks."
   },
   "debugging": {
-    "message": "Debugging",
+    "message": "Depuração",
     "description": "Debugging."
   },
   "showDebugWindow": {
-    "message": "デバッグウィンドウを表示",
+    "message": "Mostrar Janela De Depuração.",
     "description": "Show debug window."
   },
   "save": {
-    "message": "Save",
+    "message": "Salvar",
     "description": "Save."
   },
   "openDevtools": {
-    "message": "Open DevTools",
+    "message": "Abrir DevTools",
     "description": "Open DevTools"
   },
   "addTab": {
-    "message": "タブの追加",
+    "message": "Adicionar Guia",
     "description": "Add Tab"
   },
   "seconds": {
-    "message": "秒",
+    "message": "Segundos",
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "ローカルのデベロッパーツールを使用する",
+    "message": "Locais De Uso DevTools.",
     "description": "Use local DevTools."
   },
   "autoIncrement": {
-    "message": "オート値がホスト名/ポートします。",
+    "message": "Auto Incremento Host/Port.",
     "description": "Auto increment host and/or port."
   }
 }

@@ -1,4 +1,12 @@
 {
+  "donationModalHeader": {
+    "message": "Las Donaciones Apreciado",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "No hay notificaciones.",
+    "description": "Message to display when there are no notifications."
+  },
   "appName": {
     "message": "NIM (Nodo Inspector Administrador)",
     "description": "The title of the extension displayed in the web store."
@@ -145,6 +153,10 @@
     "message": "Abierto DevTools",
     "description": "Open DevTools"
   },
+  "addTab": {
+    "message": "Agregar Ficha",
+    "description": "Add Tab"
+  },
   "seconds": {
     "message": "Segundos",
     "description": "Seconds badge label."
@@ -152,5 +164,9 @@
   "localDevTools": {
     "message": "El Uso Local De Los DevTools.",
     "description": "Use local DevTools."
+  },
+  "autoIncrement": {
+    "message": "Incremento Automático De Host/Puerto.",
+    "description": "Auto increment host and/or port."
   }
 }

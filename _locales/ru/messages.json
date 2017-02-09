@@ -1,4 +1,12 @@
 {
+  "donationModalHeader": {
+    "message": "Пожертвования Приветствуются",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Нет никаких уведомлений.",
+    "description": "Message to display when there are no notifications."
+  },
   "appName": {
     "message": "Ним (узел Диспетчер инспектор)",
     "description": "The title of the extension displayed in the web store."
@@ -145,12 +153,20 @@
     "message": "Откройте Devtools",
     "description": "Open DevTools"
   },
+  "addTab": {
+    "message": "Добавить Закладку",
+    "description": "Add Tab"
+  },
   "seconds": {
     "message": "Секунд",
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "Использование локальных DevTools.",
+    "message": "Использовать Местные Инструменты Разработчика.",
     "description": "Use local DevTools."
+  },
+  "autoIncrement": {
+    "message": "Автоинкремент Хост/Порт.",
+    "description": "Auto increment host and/or port."
   }
 }

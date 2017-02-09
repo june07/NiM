@@ -1,6 +1,14 @@
 {
+  "donationModalHeader": {
+    "message": "Dary Vítány",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Nejsou žádné oznámení.",
+    "description": "Message to display when there are no notifications."
+  },
   "appName": {
-    "message": "NIM (Nó Inspetor Manager)",
+    "message": "NIM (Node Inspector Správce)",
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
@@ -8,47 +16,47 @@
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Extensão para automaticamente lançamento V8 Inspetor Node.js depuração",
+    "message": "Rozšíření pro automatické spouštění V8 Inspektor pro Node.js ladění",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {
-    "message": "NIM (Nó Inspetor Manager) - Opções de Página",
+    "message": "NIM (Node Inspector Správce) - Možnosti Stránky",
     "description": "Title shown on options page."
   },
   "defaultTitle": {
-    "message": "NIM (Nó Inspetor Manager)",
+    "message": "NIM (Node Inspector Správce)",
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Erro de configuração de desinstalar URL: ",
+    "message": "Chyba nastavení odinstalovat URL: ",
     "description": "Error message."
   },
   "errMsg2": {
-    "message": "Fechado guia para DevTools sessão: ",
+    "message": "Zavřeno tab pro DevTools zasedání: ",
     "description": "Error message."
   },
   "errMsg6": {
-    "message": "Janela fechada para DevTools sessão: ",
+    "message": "Zavřené okno pro DevTools zasedání: ",
     "description": "Error message."
   },
   "errMsg3": {
-    "message": "Erro ao tentar fechar automaticamente ",
+    "message": "Chyba při pokusu o auto close ",
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "Conexão para DevTools host foi anulada. Verifique o host e a porta.",
+    "message": "Připojení k DevTools host byl přerušen. Zkontrolujte, zda vaše hostitele a portu.",
     "description": "Error message."
   },
   "errMsg5": {
-    "message": "DevTools já está aberto.",
+    "message": "DevTools je již otevřena.",
     "description": "Error message."
   },
   "errMsg7": {
-    "message": "DevTools já está aberto.",
+    "message": "DevTools je již otevřena.",
     "description": "Error message."
   },
   "errMsg8": {
-    "message": "DevTools já está aberto.",
+    "message": "DevTools je již otevřena.",
     "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
     "placeholders": {
       "key": {
@@ -66,7 +74,7 @@
     }
   },
   "port": {
-    "message": "Porta",
+    "message": "Port",
     "description": "Port."
   },
   "hostname": {
@@ -74,7 +82,7 @@
     "description": "Hostname."
   },
   "manual": {
-    "message": "Manual",
+    "message": "Manuální",
     "description": "Manual."
   },
   "auto": {
@@ -82,75 +90,83 @@
     "description": "Auto."
   },
   "donate": {
-    "message": "Doar",
+    "message": "Darovat",
     "description": "Donate."
   },
   "enabled": {
-    "message": "Habilitado",
+    "message": "Povoleno",
     "description": "Enabled."
   },
   "uptime": {
-    "message": "Tempo de atividade",
+    "message": "Uptime",
     "description": "Uptime."
   },
   "options": {
-    "message": "Opções",
+    "message": "Možnosti",
     "description": "Options."
   },
   "general": {
-    "message": "Geral",
+    "message": "Obecné",
     "description": "General."
   },
   "on": {
-    "message": "No",
+    "message": "Na",
     "description": "On."
   },
   "off": {
-    "message": "Fora",
+    "message": "Off",
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "Abrir em uma Nova Janela.",
+    "message": "Otevřít v Novém Okně.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
-    "message": "Faça Janela De Foco.",
+    "message": "Aby Okna Soustředěný.",
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "Guia Ativa.",
+    "message": "Aby Karta Aktivní.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
-    "message": "Feche Automaticamente.",
+    "message": "Zavřít Automaticky.",
     "description": "Auto close the Inspector."
   },
   "secondsBetweenInspectorChecks": {
-    "message": "Intervalo De Verificação.",
+    "message": "Interval Kontroly.",
     "description": "Seconds between Inspector checks."
   },
   "debugging": {
-    "message": "Depuração",
+    "message": "Ladění",
     "description": "Debugging."
   },
   "showDebugWindow": {
-    "message": "Mostrar Janela De Depuração.",
+    "message": "Show Debug Okno.",
     "description": "Show debug window."
   },
   "save": {
-    "message": "Salvar",
+    "message": "Uložit",
     "description": "Save."
   },
   "openDevtools": {
-    "message": "Abrir DevTools",
+    "message": "Otevřete DevTools",
     "description": "Open DevTools"
   },
+  "addTab": {
+    "message": "Přidat Kartu",
+    "description": "Add Tab"
+  },
   "seconds": {
-    "message": "Segundos",
+    "message": "Sekund",
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "Locais De Uso DevTools.",
+    "message": "Použití Místní DevTools.",
     "description": "Use local DevTools."
+  },
+  "autoIncrement": {
+    "message": "Auto Přírůstek Hostitele/Portu.",
+    "description": "Auto increment host and/or port."
   }
 }

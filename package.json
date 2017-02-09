@@ -48,14 +48,13 @@
     "url": "git+https://github.com/june07/nim.git"
   },
   "keywords": [
-    "Chrome",
-    "Extension",
     "Node",
     "Nodejs",
     "Node.js",
     "V8",
+    "Inspect",
     "Inspector",
-    "Monitor",
+    "--inspect",
     "DevTools"
   ],
   "author": "June07",

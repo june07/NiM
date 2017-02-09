@@ -1,62 +1,62 @@
 {
   "donationModalHeader": {
-    "message": "寄付の評価",
+    "message": "תרומות מוערכות",
     "description": "Donation modal header."
   },
   "noNotifications": {
-    "message": "通知がない。",
+    "message": "אין הודעות.",
     "description": "Message to display when there are no notifications."
   },
   "appName": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "נים (צומת מפקח מנהל)",
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
-    "message": "NIM",
+    "message": "נים",
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Node.jsのデバッグのため、 V8 Inspectorを自動で起動する拡張機能です。",
+    "message": "הארכה אוטומטית השקת V8 המפקח על Node.js איתור באגים",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {
-    "message": "NIM (Node Inspector Manager) - Options Page",
+    "message": "נים (צומת מפקח מנהל) - דף אפשרויות",
     "description": "Title shown on options page."
   },
   "defaultTitle": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "נים (צומת מפקח מנהל)",
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Error setting uninstall URL: ",
+    "message": "שגיאה בהגדרת להסיר את כתובת האתר: ",
     "description": "Error message."
   },
   "errMsg2": {
-    "message": "Closed tab for DevTools session: ",
+    "message": "סגור בכרטיסיה DevTools הפעלה: ",
     "description": "Error message."
   },
   "errMsg6": {
-    "message": "Closed window for DevTools session: ",
+    "message": "סגור את החלון DevTools הפעלה: ",
     "description": "Error message."
   },
   "errMsg3": {
-    "message": "Error while trying to auto close ",
+    "message": "שגיאה בעת אוטומטי קרוב ",
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "デベロッパーツールへの接続が中断されました。ホストとポートを確認してください。",
+    "message": "חיבור DevTools מארח בוטלה. בדוק את המארח ואת היציאה.",
     "description": "Error message."
   },
   "errMsg5": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools כבר פתוח.",
     "description": "Error message."
   },
   "errMsg7": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools כבר פתוח.",
     "description": "Error message."
   },
   "errMsg8": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools כבר פתוח.",
     "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
     "placeholders": {
       "key": {
@@ -74,27 +74,27 @@
     }
   },
   "port": {
-    "message": "ポート",
+    "message": "נמל",
     "description": "Port."
   },
   "hostname": {
-    "message": "ホスト",
+    "message": "שם מארח",
     "description": "Hostname."
   },
   "manual": {
-    "message": "Manual",
+    "message": "מדריך",
     "description": "Manual."
   },
   "auto": {
-    "message": "Auto",
+    "message": "אוטומטי",
     "description": "Auto."
   },
   "donate": {
-    "message": "寄付",
+    "message": "לתרום",
     "description": "Donate."
   },
   "enabled": {
-    "message": "Enabled",
+    "message": "זמין",
     "description": "Enabled."
   },
   "uptime": {
@@ -102,71 +102,71 @@
     "description": "Uptime."
   },
   "options": {
-    "message": "Options",
+    "message": "אפשרויות",
     "description": "Options."
   },
   "general": {
-    "message": "General",
+    "message": "כללי",
     "description": "General."
   },
   "on": {
-    "message": "On",
+    "message": "על",
     "description": "On."
   },
   "off": {
-    "message": "Off",
+    "message": "חופש",
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "新しいウィンドウで開く",
+    "message": "פתח בחלון חדש.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
-    "message": "ウィンドウにフォーカスを移動する",
+    "message": "להפוך את חלון מרוכז.",
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "タブをアクティブにする",
+    "message": "להפוך את הכרטיסייה הפעילה.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
-    "message": "自動で閉じる",
+    "message": "לסגור באופן אוטומטי.",
     "description": "Auto close the Inspector."
   },
   "secondsBetweenInspectorChecks": {
-    "message": "チェック間隔",
+    "message": "בדוק מרווח.",
     "description": "Seconds between Inspector checks."
   },
   "debugging": {
-    "message": "Debugging",
+    "message": "איתור באגים",
     "description": "Debugging."
   },
   "showDebugWindow": {
-    "message": "デバッグウィンドウを表示",
+    "message": "הצג חלון ניפוי באגים.",
     "description": "Show debug window."
   },
   "save": {
-    "message": "Save",
+    "message": "להציל",
     "description": "Save."
   },
   "openDevtools": {
-    "message": "Open DevTools",
+    "message": "פתח DevTools",
     "description": "Open DevTools"
   },
   "addTab": {
-    "message": "タブの追加",
+    "message": "הוספת טאב",
     "description": "Add Tab"
   },
   "seconds": {
-    "message": "秒",
+    "message": "שניות",
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "ローカルのデベロッパーツールを使用する",
+    "message": "שימוש מקומי DevTools.",
     "description": "Use local DevTools."
   },
   "autoIncrement": {
-    "message": "オート値がホスト名/ポートします。",
+    "message": "אוטומטי תוספת מארח/יציאה.",
     "description": "Auto increment host and/or port."
   }
 }
