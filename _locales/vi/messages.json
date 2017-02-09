@@ -1,62 +1,62 @@
 {
   "donationModalHeader": {
-    "message": "寄付の評価",
+    "message": "Đóng Góp Đánh Giá Cao",
     "description": "Donation modal header."
   },
   "noNotifications": {
-    "message": "通知がない。",
+    "message": "Không có thông báo.",
     "description": "Message to display when there are no notifications."
   },
   "appName": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "ĐÂY (Nút thanh Tra Lý)",
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
-    "message": "NIM",
+    "message": "KHẢ",
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Node.jsのデバッグのため、 V8 Inspectorを自動で起動する拡張機能です。",
+    "message": "Mở rộng cho tự động khởi động động cơ V8 thanh Tra cho Node.js gỡ",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {
-    "message": "NIM (Node Inspector Manager) - Options Page",
+    "message": "ĐÂY (Nút thanh Tra Lý) - Trang lựa Chọn",
     "description": "Title shown on options page."
   },
   "defaultTitle": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "ĐÂY (Nút thanh Tra Lý)",
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Error setting uninstall URL: ",
+    "message": "Lỗi thiết lập hướng DẪN: ",
     "description": "Error message."
   },
   "errMsg2": {
-    "message": "Closed tab for DevTools session: ",
+    "message": "Đóng cửa tab cho! phiên: ",
     "description": "Error message."
   },
   "errMsg6": {
-    "message": "Closed window for DevTools session: ",
+    "message": "Đóng cửa sổ! phiên: ",
     "description": "Error message."
   },
   "errMsg3": {
-    "message": "Error while trying to auto close ",
+    "message": "Lỗi trong khi cố gắng để tự động đóng ",
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "デベロッパーツールへの接続が中断されました。ホストとポートを確認してください。",
+    "message": "Kết nối đến! loạt đã bị hủy bỏ. Kiểm tra máy chủ và cổng.",
     "description": "Error message."
   },
   "errMsg5": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "! Đã được mở.",
     "description": "Error message."
   },
   "errMsg7": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "! Đã được mở.",
     "description": "Error message."
   },
   "errMsg8": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "! Đã được mở.",
     "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
     "placeholders": {
       "key": {
@@ -74,15 +74,15 @@
     }
   },
   "port": {
-    "message": "ポート",
+    "message": "Port",
     "description": "Port."
   },
   "hostname": {
-    "message": "ホスト",
+    "message": "Tên máy",
     "description": "Hostname."
   },
   "manual": {
-    "message": "Manual",
+    "message": "Hướng dẫn sử dụng",
     "description": "Manual."
   },
   "auto": {
@@ -90,83 +90,83 @@
     "description": "Auto."
   },
   "donate": {
-    "message": "寄付",
+    "message": "Tặng",
     "description": "Donate."
   },
   "enabled": {
-    "message": "Enabled",
+    "message": "Kích hoạt",
     "description": "Enabled."
   },
   "uptime": {
-    "message": "Uptime",
+    "message": "Thời gian hoạt động",
     "description": "Uptime."
   },
   "options": {
-    "message": "Options",
+    "message": "Lựa chọn",
     "description": "Options."
   },
   "general": {
-    "message": "General",
+    "message": "Tổng",
     "description": "General."
   },
   "on": {
-    "message": "On",
+    "message": "Trên",
     "description": "On."
   },
   "off": {
-    "message": "Off",
+    "message": "Tắt",
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "新しいウィンドウで開く",
+    "message": "Mở một cửa Sổ Mới.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
-    "message": "ウィンドウにフォーカスを移動する",
+    "message": "Làm Cho Cửa Sổ Tập Trung.",
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "タブをアクティブにする",
+    "message": "Hãy Tab Hoạt Động.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
-    "message": "自動で閉じる",
+    "message": "Gần Tự Động.",
     "description": "Auto close the Inspector."
   },
   "secondsBetweenInspectorChecks": {
-    "message": "チェック間隔",
+    "message": "Kiểm Tra Khoảng Thời Gian.",
     "description": "Seconds between Inspector checks."
   },
   "debugging": {
-    "message": "Debugging",
+    "message": "Gỡ",
     "description": "Debugging."
   },
   "showDebugWindow": {
-    "message": "デバッグウィンドウを表示",
+    "message": "Show Gỡ Cửa Sổ.",
     "description": "Show debug window."
   },
   "save": {
-    "message": "Save",
+    "message": "Tiết kiệm",
     "description": "Save."
   },
   "openDevtools": {
-    "message": "Open DevTools",
+    "message": "Mở!",
     "description": "Open DevTools"
   },
   "addTab": {
-    "message": "タブの追加",
+    "message": "Thêm Tab",
     "description": "Add Tab"
   },
   "seconds": {
-    "message": "秒",
+    "message": "Giây",
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "ローカルのデベロッパーツールを使用する",
+    "message": "Sử Dụng Địa Phương!.",
     "description": "Use local DevTools."
   },
   "autoIncrement": {
-    "message": "オート値がホスト名/ポートします。",
+    "message": "Tự Động Tăng Chủ/Cảng.",
     "description": "Auto increment host and/or port."
   }
 }

@@ -1,62 +1,62 @@
 {
   "donationModalHeader": {
-    "message": "寄付の評価",
+    "message": "Вітаються Пожертви",
     "description": "Donation modal header."
   },
   "noNotifications": {
-    "message": "通知がない。",
+    "message": "Немає жодних повідомлень.",
     "description": "Message to display when there are no notifications."
   },
   "appName": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "Ним (вузол Диспетчер інспектор)",
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
-    "message": "NIM",
+    "message": "Ним",
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Node.jsのデバッグのため、 V8 Inspectorを自動で起動する拡張機能です。",
+    "message": "Розширення для автоматичного запуску інспектор V8 для Node.js налагодження",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {
-    "message": "NIM (Node Inspector Manager) - Options Page",
+    "message": "Ним (вузол Диспетчер інспектор) - сторінка варіанти",
     "description": "Title shown on options page."
   },
   "defaultTitle": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "Ним (вузол Диспетчер інспектор)",
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Error setting uninstall URL: ",
+    "message": "Помилка установки видалити URL-адреса: ",
     "description": "Error message."
   },
   "errMsg2": {
-    "message": "Closed tab for DevTools session: ",
+    "message": "Закриту вкладку інструменти розробника сесії: ",
     "description": "Error message."
   },
   "errMsg6": {
-    "message": "Closed window for DevTools session: ",
+    "message": "Закриті вікна інструментів розробника сесії: ",
     "description": "Error message."
   },
   "errMsg3": {
-    "message": "Error while trying to auto close ",
+    "message": "Помилка при спробі автоматичного закриття ",
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "デベロッパーツールへの接続が中断されました。ホストとポートを確認してください。",
+    "message": "Підключення до інструменти розробника вузол було перервано. Перевірте ваш хост і порт.",
     "description": "Error message."
   },
   "errMsg5": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "Інструменти розробника вже відкрита.",
     "description": "Error message."
   },
   "errMsg7": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "Інструменти розробника вже відкрита.",
     "description": "Error message."
   },
   "errMsg8": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "Інструменти розробника вже відкрита.",
     "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
     "placeholders": {
       "key": {
@@ -74,99 +74,99 @@
     }
   },
   "port": {
-    "message": "ポート",
+    "message": "Порт",
     "description": "Port."
   },
   "hostname": {
-    "message": "ホスト",
+    "message": "Ім'я",
     "description": "Hostname."
   },
   "manual": {
-    "message": "Manual",
+    "message": "Керівництво",
     "description": "Manual."
   },
   "auto": {
-    "message": "Auto",
+    "message": "Авто",
     "description": "Auto."
   },
   "donate": {
-    "message": "寄付",
+    "message": "Пожертвувати",
     "description": "Donate."
   },
   "enabled": {
-    "message": "Enabled",
+    "message": "Включений",
     "description": "Enabled."
   },
   "uptime": {
-    "message": "Uptime",
+    "message": "Аптайм",
     "description": "Uptime."
   },
   "options": {
-    "message": "Options",
+    "message": "Варіанти",
     "description": "Options."
   },
   "general": {
-    "message": "General",
+    "message": "Загальні",
     "description": "General."
   },
   "on": {
-    "message": "On",
+    "message": "На",
     "description": "On."
   },
   "off": {
-    "message": "Off",
+    "message": "Від",
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "新しいウィンドウで開く",
+    "message": "Відкрити у новому вікні.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
-    "message": "ウィンドウにフォーカスを移動する",
+    "message": "Зробити Вікно.",
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "タブをアクティブにする",
+    "message": "Зробити Вкладку Активною.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
-    "message": "自動で閉じる",
+    "message": "Автоматично Закрити.",
     "description": "Auto close the Inspector."
   },
   "secondsBetweenInspectorChecks": {
-    "message": "チェック間隔",
+    "message": "Перевірити Інтервал.",
     "description": "Seconds between Inspector checks."
   },
   "debugging": {
-    "message": "Debugging",
+    "message": "Налагодження",
     "description": "Debugging."
   },
   "showDebugWindow": {
-    "message": "デバッグウィンドウを表示",
+    "message": "Показати Вікно Налагодження.",
     "description": "Show debug window."
   },
   "save": {
-    "message": "Save",
+    "message": "Зберегти",
     "description": "Save."
   },
   "openDevtools": {
-    "message": "Open DevTools",
+    "message": "Відкрийте Devtools",
     "description": "Open DevTools"
   },
   "addTab": {
-    "message": "タブの追加",
+    "message": "Додати Закладку",
     "description": "Add Tab"
   },
   "seconds": {
-    "message": "秒",
+    "message": "Секунд",
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "ローカルのデベロッパーツールを使用する",
+    "message": "Використовувати Місцеві Інструменти Розробника.",
     "description": "Use local DevTools."
   },
   "autoIncrement": {
-    "message": "オート値がホスト名/ポートします。",
+    "message": "Автоинкремент Хост/Порт.",
     "description": "Auto increment host and/or port."
   }
 }

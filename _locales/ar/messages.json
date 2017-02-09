@@ -1,62 +1,62 @@
 {
   "donationModalHeader": {
-    "message": "寄付の評価",
+    "message": "التبرعات تقدير",
     "description": "Donation modal header."
   },
   "noNotifications": {
-    "message": "通知がない。",
+    "message": "لا توجد الإخطارات.",
     "description": "Message to display when there are no notifications."
   },
   "appName": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "نيم (عقدة المفتش مدير)",
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
-    "message": "NIM",
+    "message": "نيم",
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Node.jsのデバッグのため、 V8 Inspectorを自動で起動する拡張機能です。",
+    "message": "تمديد تلقائيا إطلاق V8 المفتش Node.js التصحيح",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {
-    "message": "NIM (Node Inspector Manager) - Options Page",
+    "message": "نيم (عقدة المفتش مدير) - صفحة خيارات",
     "description": "Title shown on options page."
   },
   "defaultTitle": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "نيم (عقدة المفتش مدير)",
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Error setting uninstall URL: ",
+    "message": "خطأ في الإعداد إزالة عنوان URL: ",
     "description": "Error message."
   },
   "errMsg2": {
-    "message": "Closed tab for DevTools session: ",
+    "message": "إغلاق علامة التبويب DevTools الدورة: ",
     "description": "Error message."
   },
   "errMsg6": {
-    "message": "Closed window for DevTools session: ",
+    "message": "أغلقت نافذة DevTools الدورة: ",
     "description": "Error message."
   },
   "errMsg3": {
-    "message": "Error while trying to auto close ",
+    "message": "حدث خطأ أثناء محاولة قريبة السيارات ",
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "デベロッパーツールへの接続が中断されました。ホストとポートを確認してください。",
+    "message": "اتصال DevTools المضيف تم إحباط. تحقق host و port.",
     "description": "Error message."
   },
   "errMsg5": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools مفتوح بالفعل.",
     "description": "Error message."
   },
   "errMsg7": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools مفتوح بالفعل.",
     "description": "Error message."
   },
   "errMsg8": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools مفتوح بالفعل.",
     "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
     "placeholders": {
       "key": {
@@ -74,99 +74,99 @@
     }
   },
   "port": {
-    "message": "ポート",
+    "message": "ميناء",
     "description": "Port."
   },
   "hostname": {
-    "message": "ホスト",
+    "message": "اسم المضيف",
     "description": "Hostname."
   },
   "manual": {
-    "message": "Manual",
+    "message": "دليل",
     "description": "Manual."
   },
   "auto": {
-    "message": "Auto",
+    "message": "السيارات",
     "description": "Auto."
   },
   "donate": {
-    "message": "寄付",
+    "message": "التبرع",
     "description": "Donate."
   },
   "enabled": {
-    "message": "Enabled",
+    "message": "تمكين",
     "description": "Enabled."
   },
   "uptime": {
-    "message": "Uptime",
+    "message": "الجهوزية",
     "description": "Uptime."
   },
   "options": {
-    "message": "Options",
+    "message": "خيارات",
     "description": "Options."
   },
   "general": {
-    "message": "General",
+    "message": "العامة",
     "description": "General."
   },
   "on": {
-    "message": "On",
+    "message": "على",
     "description": "On."
   },
   "off": {
-    "message": "Off",
+    "message": "قبالة",
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "新しいウィンドウで開く",
+    "message": "تفتح في نافذة جديدة.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
-    "message": "ウィンドウにフォーカスを移動する",
+    "message": "جعل نافذة تركيزا.",
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "タブをアクティブにする",
+    "message": "جعل علامة التبويب النشطة.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
-    "message": "自動で閉じる",
+    "message": "إغلاق تلقائيا.",
     "description": "Auto close the Inspector."
   },
   "secondsBetweenInspectorChecks": {
-    "message": "チェック間隔",
+    "message": "تحقق الفاصل.",
     "description": "Seconds between Inspector checks."
   },
   "debugging": {
-    "message": "Debugging",
+    "message": "التصحيح",
     "description": "Debugging."
   },
   "showDebugWindow": {
-    "message": "デバッグウィンドウを表示",
+    "message": "عرض إطار التصحيح.",
     "description": "Show debug window."
   },
   "save": {
-    "message": "Save",
+    "message": "حفظ",
     "description": "Save."
   },
   "openDevtools": {
-    "message": "Open DevTools",
+    "message": "فتح DevTools",
     "description": "Open DevTools"
   },
   "addTab": {
-    "message": "タブの追加",
+    "message": "إضافة علامة التبويب",
     "description": "Add Tab"
   },
   "seconds": {
-    "message": "秒",
+    "message": "ثانية",
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "ローカルのデベロッパーツールを使用する",
+    "message": "استخدام المحلية DevTools.",
     "description": "Use local DevTools."
   },
   "autoIncrement": {
-    "message": "オート値がホスト名/ポートします。",
+    "message": "السيارات زيادة المضيف/الميناء.",
     "description": "Auto increment host and/or port."
   }
 }

@@ -1,14 +1,14 @@
 {
   "donationModalHeader": {
-    "message": "寄付の評価",
+    "message": "Ziedojumi Appreciated",
     "description": "Donation modal header."
   },
   "noNotifications": {
-    "message": "通知がない。",
+    "message": "Nav paziņojumus.",
     "description": "Message to display when there are no notifications."
   },
   "appName": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "NIM (Mezglu Inspektors Vadītājs)",
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
@@ -16,47 +16,47 @@
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Node.jsのデバッグのため、 V8 Inspectorを自動で起動する拡張機能です。",
+    "message": "Pagarināt automātiski, uzsākot V8 Inspektors Node.js atkļūdošanas",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {
-    "message": "NIM (Node Inspector Manager) - Options Page",
+    "message": "NIM (Mezglu Inspektors Vadītājs) - Iespēja Lapa",
     "description": "Title shown on options page."
   },
   "defaultTitle": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "NIM (Mezglu Inspektors Vadītājs)",
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Error setting uninstall URL: ",
+    "message": "Error setting atinstalēt URL: ",
     "description": "Error message."
   },
   "errMsg2": {
-    "message": "Closed tab for DevTools session: ",
+    "message": "Slēgta cilnes DevTools sesija: ",
     "description": "Error message."
   },
   "errMsg6": {
-    "message": "Closed window for DevTools session: ",
+    "message": "Aizvērts logs DevTools sesija: ",
     "description": "Error message."
   },
   "errMsg3": {
-    "message": "Error while trying to auto close ",
+    "message": "Kļūda, mēģinot auto aizvērt ",
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "デベロッパーツールへの接続が中断されました。ホストとポートを確認してください。",
+    "message": "Savienojums DevTools uzņēmējas tika pārtraukta. Pārbaudiet savu uzņēmēja un ostas.",
     "description": "Error message."
   },
   "errMsg5": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools ir jau atvērta.",
     "description": "Error message."
   },
   "errMsg7": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools ir jau atvērta.",
     "description": "Error message."
   },
   "errMsg8": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools ir jau atvērta.",
     "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
     "placeholders": {
       "key": {
@@ -74,15 +74,15 @@
     }
   },
   "port": {
-    "message": "ポート",
+    "message": "Ostas",
     "description": "Port."
   },
   "hostname": {
-    "message": "ホスト",
+    "message": "Hostname",
     "description": "Hostname."
   },
   "manual": {
-    "message": "Manual",
+    "message": "Rokasgrāmata",
     "description": "Manual."
   },
   "auto": {
@@ -90,11 +90,11 @@
     "description": "Auto."
   },
   "donate": {
-    "message": "寄付",
+    "message": "Ziedot",
     "description": "Donate."
   },
   "enabled": {
-    "message": "Enabled",
+    "message": "Iespējota",
     "description": "Enabled."
   },
   "uptime": {
@@ -102,15 +102,15 @@
     "description": "Uptime."
   },
   "options": {
-    "message": "Options",
+    "message": "Iespējas",
     "description": "Options."
   },
   "general": {
-    "message": "General",
+    "message": "Vispārīgi",
     "description": "General."
   },
   "on": {
-    "message": "On",
+    "message": "Par",
     "description": "On."
   },
   "off": {
@@ -118,55 +118,55 @@
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "新しいウィンドウで開く",
+    "message": "Atvērt Jaunā Logā.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
-    "message": "ウィンドウにフォーカスを移動する",
+    "message": "Veikt Logu Vērsta.",
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "タブをアクティブにする",
+    "message": "Padarīt Cilnes Aktīvs.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
-    "message": "自動で閉じる",
+    "message": "Aizveras Automātiski.",
     "description": "Auto close the Inspector."
   },
   "secondsBetweenInspectorChecks": {
-    "message": "チェック間隔",
+    "message": "Pārbaužu Intervāls.",
     "description": "Seconds between Inspector checks."
   },
   "debugging": {
-    "message": "Debugging",
+    "message": "Atkļūdošanas",
     "description": "Debugging."
   },
   "showDebugWindow": {
-    "message": "デバッグウィンドウを表示",
+    "message": "Rādīt Atkļūdošanas Logu.",
     "description": "Show debug window."
   },
   "save": {
-    "message": "Save",
+    "message": "Saglabāt",
     "description": "Save."
   },
   "openDevtools": {
-    "message": "Open DevTools",
+    "message": "Atvērt DevTools",
     "description": "Open DevTools"
   },
   "addTab": {
-    "message": "タブの追加",
+    "message": "Pievienot Cilnes",
     "description": "Add Tab"
   },
   "seconds": {
-    "message": "秒",
+    "message": "Sekundes",
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "ローカルのデベロッパーツールを使用する",
+    "message": "Izmantot Vietējās DevTools.",
     "description": "Use local DevTools."
   },
   "autoIncrement": {
-    "message": "オート値がホスト名/ポートします。",
+    "message": "Auto Pieauguma Uzņēmēja/Ostas.",
     "description": "Auto increment host and/or port."
   }
 }

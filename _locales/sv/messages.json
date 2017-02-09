@@ -1,14 +1,14 @@
 {
   "donationModalHeader": {
-    "message": "寄付の評価",
+    "message": "Donationer Uppskattas",
     "description": "Donation modal header."
   },
   "noNotifications": {
-    "message": "通知がない。",
+    "message": "Det finns inga meddelanden.",
     "description": "Message to display when there are no notifications."
   },
   "appName": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "NIM (Nod Inspektör Manager)",
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
@@ -16,47 +16,47 @@
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Node.jsのデバッグのため、 V8 Inspectorを自動で起動する拡張機能です。",
+    "message": "Förlängning för att automatiskt starta V8 Inspektör för Node.js felsökning",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {
-    "message": "NIM (Node Inspector Manager) - Options Page",
+    "message": "NIM (Nod Inspektör Manager) - Sidan Alternativ",
     "description": "Title shown on options page."
   },
   "defaultTitle": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "NIM (Nod Inspektör Manager)",
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Error setting uninstall URL: ",
+    "message": "Fel inställning avinstallera URL: ",
     "description": "Error message."
   },
   "errMsg2": {
-    "message": "Closed tab for DevTools session: ",
+    "message": "Stängd flik för DevTools session: ",
     "description": "Error message."
   },
   "errMsg6": {
-    "message": "Closed window for DevTools session: ",
+    "message": "Stängt fönstret för DevTools session: ",
     "description": "Error message."
   },
   "errMsg3": {
-    "message": "Error while trying to auto close ",
+    "message": "Fel när du försöker auto stäng ",
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "デベロッパーツールへの接続が中断されました。ホストとポートを確認してください。",
+    "message": "Anslutning till DevTools värd avbröts. Kontrollera din värd och port.",
     "description": "Error message."
   },
   "errMsg5": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools är redan öppen.",
     "description": "Error message."
   },
   "errMsg7": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools är redan öppen.",
     "description": "Error message."
   },
   "errMsg8": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools är redan öppen.",
     "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
     "placeholders": {
       "key": {
@@ -74,15 +74,15 @@
     }
   },
   "port": {
-    "message": "ポート",
+    "message": "Port",
     "description": "Port."
   },
   "hostname": {
-    "message": "ホスト",
+    "message": "Hostname",
     "description": "Hostname."
   },
   "manual": {
-    "message": "Manual",
+    "message": "Manuell",
     "description": "Manual."
   },
   "auto": {
@@ -90,83 +90,83 @@
     "description": "Auto."
   },
   "donate": {
-    "message": "寄付",
+    "message": "Donera",
     "description": "Donate."
   },
   "enabled": {
-    "message": "Enabled",
+    "message": "Aktiverad",
     "description": "Enabled."
   },
   "uptime": {
-    "message": "Uptime",
+    "message": "Tillgänglighet",
     "description": "Uptime."
   },
   "options": {
-    "message": "Options",
+    "message": "Alternativ",
     "description": "Options."
   },
   "general": {
-    "message": "General",
+    "message": "Allmänt",
     "description": "General."
   },
   "on": {
-    "message": "On",
+    "message": "På",
     "description": "On."
   },
   "off": {
-    "message": "Off",
+    "message": "Mindre",
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "新しいウィンドウで開く",
+    "message": "Öppna i ett Nytt Fönster.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
-    "message": "ウィンドウにフォーカスを移動する",
+    "message": "Gör Fönstret I Fokus.",
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "タブをアクティブにする",
+    "message": "Se Fliken Aktiva.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
-    "message": "自動で閉じる",
+    "message": "Nära Automatiskt.",
     "description": "Auto close the Inspector."
   },
   "secondsBetweenInspectorChecks": {
-    "message": "チェック間隔",
+    "message": "Kontrollera Intervall.",
     "description": "Seconds between Inspector checks."
   },
   "debugging": {
-    "message": "Debugging",
+    "message": "Felsökning",
     "description": "Debugging."
   },
   "showDebugWindow": {
-    "message": "デバッグウィンドウを表示",
+    "message": "Visa Debug Fönster.",
     "description": "Show debug window."
   },
   "save": {
-    "message": "Save",
+    "message": "Spara",
     "description": "Save."
   },
   "openDevtools": {
-    "message": "Open DevTools",
+    "message": "Öppna DevTools",
     "description": "Open DevTools"
   },
   "addTab": {
-    "message": "タブの追加",
+    "message": "Lägg Till Flik",
     "description": "Add Tab"
   },
   "seconds": {
-    "message": "秒",
+    "message": "Sekunder",
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "ローカルのデベロッパーツールを使用する",
+    "message": "Använda Lokala DevTools.",
     "description": "Use local DevTools."
   },
   "autoIncrement": {
-    "message": "オート値がホスト名/ポートします。",
+    "message": "Auto Increment Vara Värd/Port.",
     "description": "Auto increment host and/or port."
   }
 }

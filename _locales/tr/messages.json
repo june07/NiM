@@ -1,62 +1,62 @@
 {
   "donationModalHeader": {
-    "message": "寄付の評価",
+    "message": "Bağış Takdir",
     "description": "Donation modal header."
   },
   "noNotifications": {
-    "message": "通知がない。",
+    "message": "Herhangi bir bildirim var.",
     "description": "Message to display when there are no notifications."
   },
   "appName": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "(Düğüm Müfettiş Yöneticisi)NİM",
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
-    "message": "NIM",
+    "message": "NİM",
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Node.jsのデバッグのため、 V8 Inspectorを自動で起動する拡張機能です。",
+    "message": "Node.js otomatik olarak başlatılması için uzatma V8 Müfettiş hata ayıklama",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {
-    "message": "NIM (Node Inspector Manager) - Options Page",
+    "message": "(Düğüm Müfettiş Yöneticisi) NİM - Seçenekleri Sayfası",
     "description": "Title shown on options page."
   },
   "defaultTitle": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "(Düğüm Müfettiş Yöneticisi)NİM",
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Error setting uninstall URL: ",
+    "message": "Kaldır URL ayarlama hatası: ",
     "description": "Error message."
   },
   "errMsg2": {
-    "message": "Closed tab for DevTools session: ",
+    "message": "DevTools oturum için kapalı sekmesi: ",
     "description": "Error message."
   },
   "errMsg6": {
-    "message": "Closed window for DevTools session: ",
+    "message": "DevTools oturum kapalı pencere: ",
     "description": "Error message."
   },
   "errMsg3": {
-    "message": "Error while trying to auto close ",
+    "message": "Otomatik kapat çalışırken hata ",
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "デベロッパーツールへの接続が中断されました。ホストとポートを確認してください。",
+    "message": "Ana DevTools bağlantısı iptal edildi. Ana bilgisayar ve bağlantı noktası kontrol edin.",
     "description": "Error message."
   },
   "errMsg5": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools zaten açık.",
     "description": "Error message."
   },
   "errMsg7": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools zaten açık.",
     "description": "Error message."
   },
   "errMsg8": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools zaten açık.",
     "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
     "placeholders": {
       "key": {
@@ -74,99 +74,99 @@
     }
   },
   "port": {
-    "message": "ポート",
+    "message": "Port",
     "description": "Port."
   },
   "hostname": {
-    "message": "ホスト",
+    "message": "Hostname",
     "description": "Hostname."
   },
   "manual": {
-    "message": "Manual",
+    "message": "Manuel",
     "description": "Manual."
   },
   "auto": {
-    "message": "Auto",
+    "message": "Oto",
     "description": "Auto."
   },
   "donate": {
-    "message": "寄付",
+    "message": "Bağış",
     "description": "Donate."
   },
   "enabled": {
-    "message": "Enabled",
+    "message": "Etkin",
     "description": "Enabled."
   },
   "uptime": {
-    "message": "Uptime",
+    "message": "Çalışma süresi",
     "description": "Uptime."
   },
   "options": {
-    "message": "Options",
+    "message": "Seçenekleri",
     "description": "Options."
   },
   "general": {
-    "message": "General",
+    "message": "Genel",
     "description": "General."
   },
   "on": {
-    "message": "On",
+    "message": "Üzerinde",
     "description": "On."
   },
   "off": {
-    "message": "Off",
+    "message": "Kapalı",
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "新しいウィンドウで開く",
+    "message": "Yeni bir Pencerede aç.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
-    "message": "ウィンドウにフォーカスを移動する",
+    "message": "Pencerede Duruldu.",
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "タブをアクティブにする",
+    "message": "Sekme Etkin Hale Getirmek.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
-    "message": "自動で閉じる",
+    "message": "Otomatik Olarak Kapanır.",
     "description": "Auto close the Inspector."
   },
   "secondsBetweenInspectorChecks": {
-    "message": "チェック間隔",
+    "message": "Kontrol Aralığı.",
     "description": "Seconds between Inspector checks."
   },
   "debugging": {
-    "message": "Debugging",
+    "message": "Hata ayıklama",
     "description": "Debugging."
   },
   "showDebugWindow": {
-    "message": "デバッグウィンドウを表示",
+    "message": "Hata Ayıklama Penceresini Göster.",
     "description": "Show debug window."
   },
   "save": {
-    "message": "Save",
+    "message": "Kaydet",
     "description": "Save."
   },
   "openDevtools": {
-    "message": "Open DevTools",
+    "message": "Açık DevTools",
     "description": "Open DevTools"
   },
   "addTab": {
-    "message": "タブの追加",
+    "message": "Sekme Ekle",
     "description": "Add Tab"
   },
   "seconds": {
-    "message": "秒",
+    "message": "Saniye",
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "ローカルのデベロッパーツールを使用する",
+    "message": "Yerel DevTools Kullanın.",
     "description": "Use local DevTools."
   },
   "autoIncrement": {
-    "message": "オート値がホスト名/ポートします。",
+    "message": "Otomatik Artan Host/Port.",
     "description": "Auto increment host and/or port."
   }
 }

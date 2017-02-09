@@ -1,62 +1,62 @@
 {
   "donationModalHeader": {
-    "message": "寄付の評価",
+    "message": "Δωρεές Εκτιμηθεί",
     "description": "Donation modal header."
   },
   "noNotifications": {
-    "message": "通知がない。",
+    "message": "Δεν υπάρχουν ειδοποιήσεις.",
     "description": "Message to display when there are no notifications."
   },
   "appName": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "ΝΙΜ (Κόμβος Επιθεωρητής Manager)",
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
-    "message": "NIM",
+    "message": "ΝΙΜ",
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Node.jsのデバッグのため、 V8 Inspectorを自動で起動する拡張機能です。",
+    "message": "Παράταση για την αυτόματη έναρξη V8 Επιθεωρητή για Node.js τον εντοπισμό σφαλμάτων",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {
-    "message": "NIM (Node Inspector Manager) - Options Page",
+    "message": "ΝΙΜ (Κόμβος Επιθεωρητής Manager) - Σελίδα Επιλογές",
     "description": "Title shown on options page."
   },
   "defaultTitle": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "ΝΙΜ (Κόμβος Επιθεωρητής Manager)",
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Error setting uninstall URL: ",
+    "message": "Σφάλμα ρύθμισης απεγκαταστήσετε URL: ",
     "description": "Error message."
   },
   "errMsg2": {
-    "message": "Closed tab for DevTools session: ",
+    "message": "Κλειστό καρτέλα για DevTools συνεδρία: ",
     "description": "Error message."
   },
   "errMsg6": {
-    "message": "Closed window for DevTools session: ",
+    "message": "Κλειστό παράθυρο για DevTools συνεδρία: ",
     "description": "Error message."
   },
   "errMsg3": {
-    "message": "Error while trying to auto close ",
+    "message": "Σφάλμα κατά την προσπάθεια αυτόματος στενός ",
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "デベロッパーツールへの接続が中断されました。ホストとポートを確認してください。",
+    "message": "Σύνδεση με DevTools υποδοχής ματαιώθηκε. Ελέγξτε υποδοχής και το λιμάνι.",
     "description": "Error message."
   },
   "errMsg5": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools είναι ήδη ανοιχτό.",
     "description": "Error message."
   },
   "errMsg7": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools είναι ήδη ανοιχτό.",
     "description": "Error message."
   },
   "errMsg8": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools είναι ήδη ανοιχτό.",
     "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
     "placeholders": {
       "key": {
@@ -74,15 +74,15 @@
     }
   },
   "port": {
-    "message": "ポート",
+    "message": "Λιμάνι",
     "description": "Port."
   },
   "hostname": {
-    "message": "ホスト",
+    "message": "Hostname",
     "description": "Hostname."
   },
   "manual": {
-    "message": "Manual",
+    "message": "Εγχειρίδιο",
     "description": "Manual."
   },
   "auto": {
@@ -90,11 +90,11 @@
     "description": "Auto."
   },
   "donate": {
-    "message": "寄付",
+    "message": "Δωρεά",
     "description": "Donate."
   },
   "enabled": {
-    "message": "Enabled",
+    "message": "Ενεργοποιημένη",
     "description": "Enabled."
   },
   "uptime": {
@@ -102,71 +102,71 @@
     "description": "Uptime."
   },
   "options": {
-    "message": "Options",
+    "message": "Επιλογές",
     "description": "Options."
   },
   "general": {
-    "message": "General",
+    "message": "Γενικά",
     "description": "General."
   },
   "on": {
-    "message": "On",
+    "message": "Στις",
     "description": "On."
   },
   "off": {
-    "message": "Off",
+    "message": "Από",
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "新しいウィンドウで開く",
+    "message": "Ανοίξει σε ένα Νέο Παράθυρο.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
-    "message": "ウィンドウにフォーカスを移動する",
+    "message": "Κάνει Παράθυρο Συγκεντρωμένοι.",
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "タブをアクティブにする",
+    "message": "Κάντε Tab Active.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
-    "message": "自動で閉じる",
+    "message": "Κλείνει Αυτόματα.",
     "description": "Auto close the Inspector."
   },
   "secondsBetweenInspectorChecks": {
-    "message": "チェック間隔",
+    "message": "Ελέγξτε Διάστημα.",
     "description": "Seconds between Inspector checks."
   },
   "debugging": {
-    "message": "Debugging",
+    "message": "Τον εντοπισμό σφαλμάτων",
     "description": "Debugging."
   },
   "showDebugWindow": {
-    "message": "デバッグウィンドウを表示",
+    "message": "Παρουσιάστε Παράθυρο Εντοπισμός Σφαλμάτων.",
     "description": "Show debug window."
   },
   "save": {
-    "message": "Save",
+    "message": "Αποθήκευση",
     "description": "Save."
   },
   "openDevtools": {
-    "message": "Open DevTools",
+    "message": "Ανοίξτε DevTools",
     "description": "Open DevTools"
   },
   "addTab": {
-    "message": "タブの追加",
+    "message": "Προσθήκη Καρτέλας",
     "description": "Add Tab"
   },
   "seconds": {
-    "message": "秒",
+    "message": "Δευτερόλεπτα",
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "ローカルのデベロッパーツールを使用する",
+    "message": "Χρήση Τοπικών DevTools.",
     "description": "Use local DevTools."
   },
   "autoIncrement": {
-    "message": "オート値がホスト名/ポートします。",
+    "message": "Αυτόματη Αύξηση Υποδοχής/Λιμάνι.",
     "description": "Auto increment host and/or port."
   }
 }
