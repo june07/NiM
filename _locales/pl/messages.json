@@ -1,4 +1,12 @@
 {
+  "donationModalHeader": {
+    "message": "Datki Są Mile Widziane",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Nie ma żadnych powiadomień.",
+    "description": "Message to display when there are no notifications."
+  },
   "appName": {
     "message": "Nim (węzeł Menedżer inspektor)",
     "description": "The title of the extension displayed in the web store."
@@ -145,6 +153,10 @@
     "message": "Otwórz Devtools",
     "description": "Open DevTools"
   },
+  "addTab": {
+    "message": "Dodaj Zakładkę",
+    "description": "Add Tab"
+  },
   "seconds": {
     "message": "Sekund",
     "description": "Seconds badge label."
@@ -152,5 +164,9 @@
   "localDevTools": {
     "message": "Korzystanie Z Lokalnych Narzędzia Developerskie.",
     "description": "Use local DevTools."
+  },
+  "autoIncrement": {
+    "message": "Automatycznego Przyrostu Host/Port.",
+    "description": "Auto increment host and/or port."
   }
 }

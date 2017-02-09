@@ -1,14 +1,14 @@
 {
   "donationModalHeader": {
-    "message": "寄付の評価",
+    "message": "Sumbangan Dihargai",
     "description": "Donation modal header."
   },
   "noNotifications": {
-    "message": "通知がない。",
+    "message": "Tidak ada pemberitahuan.",
     "description": "Message to display when there are no notifications."
   },
   "appName": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "NIM (Node Inspektur Manager)",
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
@@ -16,47 +16,47 @@
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Node.jsのデバッグのため、 V8 Inspectorを自動で起動する拡張機能です。",
+    "message": "Ekstensi untuk secara otomatis meluncurkan V8 Inspektur untuk Node.js debugging",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {
-    "message": "NIM (Node Inspector Manager) - Options Page",
+    "message": "NIM (Node Inspektur Manager) - Halaman Pilihan",
     "description": "Title shown on options page."
   },
   "defaultTitle": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "NIM (Node Inspektur Manager)",
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Error setting uninstall URL: ",
+    "message": "Kesalahan pengaturan uninstall URL: ",
     "description": "Error message."
   },
   "errMsg2": {
-    "message": "Closed tab for DevTools session: ",
+    "message": "Tab yang tertutup untuk DevTools sesi: ",
     "description": "Error message."
   },
   "errMsg6": {
-    "message": "Closed window for DevTools session: ",
+    "message": "Jendela yang tertutup untuk DevTools sesi: ",
     "description": "Error message."
   },
   "errMsg3": {
-    "message": "Error while trying to auto close ",
+    "message": "Kesalahan ketika mencoba untuk auto dekat ",
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "デベロッパーツールへの接続が中断されました。ホストとポートを確認してください。",
+    "message": "Koneksi ke DevTools tuan rumah dibatalkan. Check host dan port.",
     "description": "Error message."
   },
   "errMsg5": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools sudah terbuka.",
     "description": "Error message."
   },
   "errMsg7": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools sudah terbuka.",
     "description": "Error message."
   },
   "errMsg8": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "DevTools sudah terbuka.",
     "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
     "placeholders": {
       "key": {
@@ -74,11 +74,11 @@
     }
   },
   "port": {
-    "message": "ポート",
+    "message": "Port",
     "description": "Port."
   },
   "hostname": {
-    "message": "ホスト",
+    "message": "Hostname",
     "description": "Hostname."
   },
   "manual": {
@@ -90,11 +90,11 @@
     "description": "Auto."
   },
   "donate": {
-    "message": "寄付",
+    "message": "Donasi",
     "description": "Donate."
   },
   "enabled": {
-    "message": "Enabled",
+    "message": "Diaktifkan",
     "description": "Enabled."
   },
   "uptime": {
@@ -102,15 +102,15 @@
     "description": "Uptime."
   },
   "options": {
-    "message": "Options",
+    "message": "Pilihan",
     "description": "Options."
   },
   "general": {
-    "message": "General",
+    "message": "Umum",
     "description": "General."
   },
   "on": {
-    "message": "On",
+    "message": "Pada",
     "description": "On."
   },
   "off": {
@@ -118,23 +118,23 @@
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "新しいウィンドウで開く",
+    "message": "Terbuka di Jendela Baru.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
-    "message": "ウィンドウにフォーカスを移動する",
+    "message": "Membuat Jendela Terfokus.",
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "タブをアクティブにする",
+    "message": "Membuat Tab Active.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
-    "message": "自動で閉じる",
+    "message": "Menutup Secara Otomatis.",
     "description": "Auto close the Inspector."
   },
   "secondsBetweenInspectorChecks": {
-    "message": "チェック間隔",
+    "message": "Check Interval.",
     "description": "Seconds between Inspector checks."
   },
   "debugging": {
@@ -142,31 +142,31 @@
     "description": "Debugging."
   },
   "showDebugWindow": {
-    "message": "デバッグウィンドウを表示",
+    "message": "Tampilkan Jendela Debug.",
     "description": "Show debug window."
   },
   "save": {
-    "message": "Save",
+    "message": "Simpan",
     "description": "Save."
   },
   "openDevtools": {
-    "message": "Open DevTools",
+    "message": "Buka DevTools",
     "description": "Open DevTools"
   },
   "addTab": {
-    "message": "タブの追加",
+    "message": "Menambahkan Tab",
     "description": "Add Tab"
   },
   "seconds": {
-    "message": "秒",
+    "message": "Detik",
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "ローカルのデベロッパーツールを使用する",
+    "message": "Menggunakan Lokal DevTools.",
     "description": "Use local DevTools."
   },
   "autoIncrement": {
-    "message": "オート値がホスト名/ポートします。",
+    "message": "Auto Increment Host/Port.",
     "description": "Auto increment host and/or port."
   }
 }

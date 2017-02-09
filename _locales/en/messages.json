@@ -153,6 +153,10 @@
     "message": "Open DevTools",
     "description": "Open DevTools"
   },
+  "addTab": {
+    "message": "Add Tab",
+    "description": "Add Tab"
+  },
   "seconds": {
     "message": "Seconds",
     "description": "Seconds badge label."
@@ -160,5 +164,9 @@
   "localDevTools": {
     "message": "Use Local DevTools.",
     "description": "Use local DevTools."
+  },
+  "autoIncrement": {
+    "message": "Auto Increment Host/Port.",
+    "description": "Auto increment host and/or port."
   }
 }
