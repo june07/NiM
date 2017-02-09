@@ -97,6 +97,20 @@ module.exports = function (grunt) {
               files: fileMaps.uglify
           }
       },
+      'string-replace': {
+        dist: {
+          files: {
+            'build/unpacked-dev/': 'background.js',
+            'build/unpacked-prod/': 'background.js'
+          },
+          options: {
+            replacements: [{
+              pattern: /const VERSION \= \'\'/,
+              replacement: 'const VERSION = \''+ pkg.version +'\''
+            }]
+          }
+        }
+      },
       watch: {
           js: {
               files: ['package.json', 'lint-options.json', 'Gruntfile.js', '**/*.js',
@@ -130,7 +144,7 @@ module.exports = function (grunt) {
   );
   grunt.registerTask('test', ['eslint']);
   grunt.registerTask('test-cont', ['test', 'watch']);
-  grunt.registerTask('default', ['clean', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'copy:prod', 'uglify', 'exec', 'compress']);
+  grunt.registerTask('default', ['clean', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'copy:prod', 'string-replace', 'uglify', 'exec', 'compress']);
   grunt.file.write('build/unpacked-dev/manifest.json', JSON.stringify(mnf, null, 4) + '\n');
   grunt.log.ok('manifest.json generated');
 }

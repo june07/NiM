@@ -1,62 +1,62 @@
 {
   "donationModalHeader": {
-    "message": "寄付の評価",
+    "message": "Donacija Je Dobrodošla",
     "description": "Donation modal header."
   },
   "noNotifications": {
-    "message": "通知がない。",
+    "message": "Nema nikakve obavijesti.",
     "description": "Message to display when there are no notifications."
   },
   "appName": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "Njim (čvor Upravitelj inspektor)",
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
-    "message": "NIM",
+    "message": "Njim",
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Node.jsのデバッグのため、 V8 Inspectorを自動で起動する拡張機能です。",
+    "message": "Proširenje za automatsko pokretanje inspektor V8 za Node.js otkrivanje pogrešaka",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {
-    "message": "NIM (Node Inspector Manager) - Options Page",
+    "message": "Njim (čvor Upravitelj inspektor) - stranica smještajna",
     "description": "Title shown on options page."
   },
   "defaultTitle": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "Njim (čvor Upravitelj inspektor)",
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Error setting uninstall URL: ",
+    "message": "Greška uklanjanje URL-adresa: ",
     "description": "Error message."
   },
   "errMsg2": {
-    "message": "Closed tab for DevTools session: ",
+    "message": "Zatvorenu karticu za razvojne alate sjednice: ",
     "description": "Error message."
   },
   "errMsg6": {
-    "message": "Closed window for DevTools session: ",
+    "message": "Zatvorene prozore developer alata sjednice: ",
     "description": "Error message."
   },
   "errMsg3": {
-    "message": "Error while trying to auto close ",
+    "message": "Pogreška prilikom pokušaja automatskog zatvaranja ",
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "デベロッパーツールへの接続が中断されました。ホストとポートを確認してください。",
+    "message": "Internetska developer tools čvor je prekinuta. Provjerite vaš host i port.",
     "description": "Error message."
   },
   "errMsg5": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "Developer tools je već otvoren.",
     "description": "Error message."
   },
   "errMsg7": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "Developer tools je već otvoren.",
     "description": "Error message."
   },
   "errMsg8": {
-    "message": "デベロッパーツールはすでに開いています。",
+    "message": "Developer tools je već otvoren.",
     "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
     "placeholders": {
       "key": {
@@ -74,15 +74,15 @@
     }
   },
   "port": {
-    "message": "ポート",
+    "message": "Luka",
     "description": "Port."
   },
   "hostname": {
-    "message": "ホスト",
+    "message": "Naziv",
     "description": "Hostname."
   },
   "manual": {
-    "message": "Manual",
+    "message": "Vodič",
     "description": "Manual."
   },
   "auto": {
@@ -90,83 +90,83 @@
     "description": "Auto."
   },
   "donate": {
-    "message": "寄付",
+    "message": "Donirati",
     "description": "Donate."
   },
   "enabled": {
-    "message": "Enabled",
+    "message": "Uključen",
     "description": "Enabled."
   },
   "uptime": {
-    "message": "Uptime",
+    "message": "Аптайм",
     "description": "Uptime."
   },
   "options": {
-    "message": "Options",
+    "message": "Mogućnosti",
     "description": "Options."
   },
   "general": {
-    "message": "General",
+    "message": "Općenito",
     "description": "General."
   },
   "on": {
-    "message": "On",
+    "message": "Na",
     "description": "On."
   },
   "off": {
-    "message": "Off",
+    "message": "Od",
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "新しいウィンドウで開く",
+    "message": "Otvori u novom prozoru.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
-    "message": "ウィンドウにフォーカスを移動する",
+    "message": "Napraviti Prozor.",
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "タブをアクティブにする",
+    "message": "Napraviti Aktivnu Karticu.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
-    "message": "自動で閉じる",
+    "message": "Automatski Zatvoriti.",
     "description": "Auto close the Inspector."
   },
   "secondsBetweenInspectorChecks": {
-    "message": "チェック間隔",
+    "message": "Provjerite Razdoblja.",
     "description": "Seconds between Inspector checks."
   },
   "debugging": {
-    "message": "Debugging",
+    "message": "Otkrivanje pogrešaka",
     "description": "Debugging."
   },
   "showDebugWindow": {
-    "message": "デバッグウィンドウを表示",
+    "message": "Prikaži Prozor Za Ispravljanje Pogrešaka.",
     "description": "Show debug window."
   },
   "save": {
-    "message": "Save",
+    "message": "Spremi",
     "description": "Save."
   },
   "openDevtools": {
-    "message": "Open DevTools",
+    "message": "Otvorite Devtools",
     "description": "Open DevTools"
   },
   "addTab": {
-    "message": "タブの追加",
+    "message": "Dodaj Oznaku",
     "description": "Add Tab"
   },
   "seconds": {
-    "message": "秒",
+    "message": "Sekundi",
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "ローカルのデベロッパーツールを使用する",
+    "message": "Koristiti Lokalne Razvojne Alate.",
     "description": "Use local DevTools."
   },
   "autoIncrement": {
-    "message": "オート値がホスト名/ポートします。",
+    "message": "Автоинкремент Host/Port.",
     "description": "Auto increment host and/or port."
   }
 }

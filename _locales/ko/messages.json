@@ -1,4 +1,12 @@
 {
+  "donationModalHeader": {
+    "message": "기부 감사",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "알림이 없습니다.",
+    "description": "Message to display when there are no notifications."
+  },
   "appName": {
     "message": "NIM(노드 검사기 관)",
     "description": "The title of the extension displayed in the web store."
@@ -145,6 +153,10 @@
     "message": "오픈 개발자 도구",
     "description": "Open DevTools"
   },
+  "addTab": {
+    "message": "추가 탭",
+    "description": "Add Tab"
+  },
   "seconds": {
     "message": "초",
     "description": "Seconds badge label."
@@ -152,5 +164,9 @@
   "localDevTools": {
     "message": "사용 지역 개발자 도구입니다.",
     "description": "Use local DevTools."
+  },
+  "autoIncrement": {
+    "message": "자동차 증가하는 호스트/포트가 있습니다.",
+    "description": "Auto increment host and/or port."
   }
 }
