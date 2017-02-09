@@ -149,9 +149,9 @@ ngApp
             }
         }
         for (var i = 0; i < userInputs.length; i++) {
-            userInputs[i].addEventListener('click', trackInputClickListener);
-            if (userInputs[i].id === "port" || userInputs[i].id === "hostname")
-                userInputs[i].addEventListener('keypress', keypressHandler);
+          userInputs[i].addEventListener('click', trackInputClickListener);
+          if (userInputs[i].id === "port" || userInputs[i].id === "hostname")
+            userInputs[i].addEventListener('keypress', keypressHandler);
         }
         $window.document.querySelector('#modal1 > div.modal-header > button').addEventListener('click', function() {
           $('#modal1').modal('close');
