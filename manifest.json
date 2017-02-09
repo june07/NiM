@@ -28,7 +28,7 @@
         "1282": "./icon/icon128@2x.png",
         "1283": "./icon/icon128@3x.png"
     },
-    "permissions": ["*://*/", "storage", "background", "tabs"],
+    "permissions": ["*://*/", "storage", "background", "tabs", "identity", "identity.email"],
     "background": {
         "page": "background.html"
     },

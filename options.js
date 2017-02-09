@@ -26,6 +26,12 @@ ngApp
     .controller('nimOptionsController', ['$scope', '$window', function($scope, $window) {
         $scope.bg = $window.chrome.extension.getBackgroundPage().angular.element('#nim').scope();
         $scope.bg.localize($window, function() {});
+        $scope.autoIncrementOptions = [
+            {id: 'both', name: 'Both'},
+            {id: 'host', name: 'Host'},
+            {id: 'port', name: 'Port'},
+            {id: 'false', name: 'False'},
+        ];
 
         var $ = $window.$;
 
@@ -51,7 +57,7 @@ ngApp
             $scope.bg.settings.checkInterval = parseInt(values[handle]);
         });
         slider.noUiSlider.on('set', function(values, handle) {
-            $window._gaq.push(['_trackEvent', 'checkInterval-value', values[handle]]);
+            $window._gaq.push(['_trackEvent', 'User Event', 'checkInterval-value', values[handle], undefined, true]);
         });
         $scope.saveButtonHandler = function() {
             $window._gaq.push(['_trackEvent', 'save button', 'clicked']);
