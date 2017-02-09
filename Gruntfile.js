@@ -53,7 +53,7 @@ module.exports = function (grunt) {
           files: [{
               expand: true,
               cwd: 'build/unpacked-dev/',
-              src: ['js/**/*.js', '*.js', '*.html', 'css/**/*.css', '*.css', 'icon/*', 'font/*', 'image/*', 'manifest.json', 'LICENSE', '_locales/**/*'],
+              src: ['js/**/*.js', '*.js', '*.html', 'css/**/*.css', '*.css', 'icon/*', 'font/*', 'image/*', 'manifest.json', 'LICENSE', '_locales/**/*', '!js/dev/**'],
               dest: 'build/unpacked-prod/'
           }]
         },
