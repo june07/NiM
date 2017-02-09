@@ -1,6 +1,6 @@
 {
-  "name": "NIM",
-  "version": "0.11.0",
+  "name": "NIM Node.js Inspector (v8 --inspect) Monitor",
+  "version": "0.12.0",
   "description": "Monitor the integrated Node V8 inspector and auto open Chrome DevTools",
   "main": "nim.js",
   "dependencies": {
@@ -55,7 +55,10 @@
     "Inspect",
     "Inspector",
     "--inspect",
-    "DevTools"
+    "DevTools",
+    "node-inspector",
+    "debugging",
+    "javascript"
   ],
   "author": "June07",
   "license": "MIT",
