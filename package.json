@@ -1,7 +1,7 @@
 {
-  "name": "NIM Node.js Inspector (v8 --inspect) Monitor",
+  "name": "NIM",
   "version": "0.12.0",
-  "description": "Monitor the integrated Node V8 inspector and auto open Chrome DevTools",
+  "description": "Node.js Inspector (v8 --inspect) Monitor.  Monitor the integrated Node V8 inspector and auto open Chrome DevTools",
   "main": "nim.js",
   "dependencies": {
     "angular": "^1.5.8",
@@ -10,6 +10,7 @@
     "bootstrap-notify": "^3.1.3",
     "dotenv": "^4.0.0",
     "jquery": "^3.1.1",
+    "materialize-css": "^0.98.0",
     "moment": "^2.17.1",
     "perfect-scrollbar": "^0.6.16",
     "requirejs": "^2.3.2"
@@ -23,11 +24,13 @@
     "grunt-contrib-compress": "~0.5.0",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^1.0.2",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
     "grunt-exec": "*",
     "grunt-mkdir": "*",
     "grunt-mocha-test": "*",
+    "grunt-processhtml": "^0.4.1",
     "grunt-string-replace": "^1.3.1",
     "gruntify-eslint": "^3.1.0",
     "jasmine-core": "^2.5.2",

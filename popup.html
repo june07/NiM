@@ -15,13 +15,19 @@
         <title>
             <span class="i18n">appName</span>
         </title>
-        <link rel="stylesheet" href="./css/fontello.css">
-        <link rel="stylesheet" href="./css/font.css">
-        <link rel="stylesheet" href="./css/bootstrap.min.css">
-        <link rel="stylesheet" href="./css/materialize.min.css">
-        <link rel="stylesheet" href="./css/animate.css">
-        <link rel="stylesheet" href="./css/perfect-scrollbar.min.css">
-        <link rel="stylesheet" href="nim.css">
+        <!-- build:css ./css/vendor-popup.min.css -->
+        <link rel="stylesheet" href="./css/vendor/popup/fontello.css">
+        <link rel="stylesheet" href="./css/vendor/popup/bootstrap.css">
+        <link rel="stylesheet" href="./css/vendor/popup/animate.css">
+        <link rel="stylesheet" href="./css/vendor/popup/perfect-scrollbar.css">
+        <!-- /build -->
+        <!-- build:css ./css/vendor.min.css -->
+        <link rel="stylesheet" href="./css/vendor/font.css">
+        <link rel="stylesheet" href="./css/vendor/materialize.css">
+        <!-- /build -->
+        <!-- build:css ./css/nim.min.css -->
+        <link rel="stylesheet" href="./css/nim.css">
+        <!-- /build -->
     </head>
     <body ng-controller="nimPopupController as main" class="right">
     <!-- BEGIN Modal No Notifications -->
@@ -191,7 +197,7 @@
                 <footer class="page-footer grey lighten-3">
                     <div class="footer-copyright">
                         <div class="container footer-text">
-                            <a id="site-href" target="_blank" href="https://june07.com">© 2016 June07</a>
+                            <a id="site-href" target="_blank" href="https://june07.com">© 2016-2017 June07</a>
                             <div class="right">
                                 <div id="g-plusone" class="g-plusone" data-align="right" expandTo="bottom, left, top, right" data-href="https://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj"></div>
                                 <a class="btn green lighten-2" href="#modal2" id="donate-button"><span class="i18n">Donate</span></a>
