@@ -1,7 +1,7 @@
 [NIM Homepage](http://june07.com/nim)
 ![alt text](http://nim.ucraft.com/images/logo.png?v=1481652763 "NIM Logo (lettering)")
 # NIM (Node Inspection Monitor)
-#### NIM streamlines your Node.js development cycle when using Chrome DevTools Inspector.
+#### NIM streamlines your Node.js development cycle when using Node V8 Inspector "--inspect" and Chrome DevTools.
 
 NIM manages the Chrome DevTools window/tab lifecycle leaving you with more ability to focus on what matters... debugging your code.  You no longer need to copy/paste DevTools URL's or continue opening/closeing tabs/windows.
 

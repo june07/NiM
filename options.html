@@ -9,11 +9,17 @@
 <html ng-app="NimOptionsApp" ng-csp id="options-page">
 <head>
     <title><span class="i18n">pageOptionsTitle</span></title>
-    <link rel="stylesheet" href="./css/icon.css">
-    <link rel="stylesheet" href="./css/materialize.min.css">
-    <link rel="stylesheet" href="./css/nouislider.css">
-    <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./nim.css">
+    <!-- build:css ./css/vendor-options.min.css -->
+    <link rel="stylesheet" href="./css/vendor/options/nouislider.css">
+    <link rel="stylesheet" href="./css/vendor/options/icon.css">
+    <!-- /build -->
+    <!-- build:css ./css/vendor.min.css -->
+    <link rel="stylesheet" href="./css/vendor/font.css">
+    <link rel="stylesheet" href="./css/vendor/materialize.css">
+    <!-- /build -->
+    <!-- build:css ./css/nim.min.css -->
+    <link rel="stylesheet" href="./css/nim.css">
+    <!-- /build -->
 </head>
 <body id="nim" ng-controller="nimOptionsController as main">
     <div class="">

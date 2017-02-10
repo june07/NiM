@@ -16,7 +16,7 @@
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Extension for automatically launching V8 Inspector for Node.js debugging",
+    "message": "Manages DevTools with Node V8 Inspector (node --inspect) Debugging Workflow",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {

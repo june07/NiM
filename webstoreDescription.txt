@@ -28,6 +28,8 @@ This project is open source and available at https://github.com/june07/NIM.
 [0.12.0] - 2017-02-09
 Added
 - Version update progress metric capture.
+Changed
+- Optimized CSS files.
 [0.11.0] - 2017-02-07
 Added
 - Better langauge support with the addition of 20 more language translations.  Arabic, Czech, Danish, Greek, Estonian, Finnish, Hebrew, Hungarian, Croatian, Indonesian, Latvian, Dutch, Norwegian, Romanian, Slovak, Swedish, Thai, Turkish, Ukrainian, and Vietnamese!  

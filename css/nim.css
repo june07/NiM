@@ -3,6 +3,15 @@ body {
     font-size: 24px;
     padding: 0px 0px 0px 0px;
     height: 100%;
+    width:500px;
+    margin:0;
+}
+.switch label input[type=checkbox]:checked+.lever {
+background-color:#e8f5e9;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+background-color:#4caf50;
 }
 
 div.container.footer-text {
