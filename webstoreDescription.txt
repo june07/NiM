@@ -1,4 +1,4 @@
-NIM (Node Inspector Manager)
+Node.js Inspector Manager - NIM
 
 NIM streamlines your Node.js development cycle when using Chrome DevTools Inspector.
 
@@ -19,7 +19,17 @@ Features:
  - Customize duration between v8 Inspector probes
  - Auto-save settings
 
-Note: At the time of writing, the v8 --inspect option is fairly new. See https://nodejs.org/api/debugger.html#debugger_v8_inspector_integration_for_node_js for additional details on the option.d
+Note: By it's nature this extension requires permissions which
+"Read and change all your data on the websites you visit"
+
+Further to better serve and understand my user base the following permission is asked
+"Know your email address"
+
+The following URL will provide what I feel to be an informed viewpoint on the whole matter of permissions:  https://palant.de/2016/07/02/why-mozilla-shouldn-t-copy-chrome-s-permission-prompt-for-extensions
+
+No information will ever be shared with 3rd parties.  Further the source is open and available on GitHub.  However should you still prefer it, a version is available which does not require sharing your email address: http://june07.com/nim11.  I will maintain the code (bug fixes), however feature additions will only be made to this branch.  Please feel free to reach out to me 667@june07.com if you have any other concerns as I am open to discussion.  Should any policies change there will be notice given of such changes.
+
+At the time of writing, the v8 --inspect option is fairly new. See https://nodejs.org/api/debugger.html#debugger_v8_inspector_integration_for_node_js for additional details on the option.d
 
 If you enjoy using NIM please give us a 5 star rating and/or a G+1.  Any and all feedback is encouraged and welcome.  667@june07.com  Thank you in advance.
 
