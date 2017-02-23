@@ -57,3 +57,5 @@ tmp/
 dist/
 yarn.lock
 .env.js
+webstoreDescription.txt
+Gruntfile.js
