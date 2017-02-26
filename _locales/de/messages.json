@@ -1,10 +1,10 @@
 {
   "donationModalHeader": {
-    "message": "Spenden Geschätzt",
+    "message": "Spenden willkommen",
     "description": "Donation modal header."
   },
   "noNotifications": {
-    "message": "Es gibt keine Benachrichtigungen.",
+    "message": "Keine Benachrichtigungen vorhanden.",
     "description": "Message to display when there are no notifications."
   },
   "appName": {
@@ -16,11 +16,11 @@
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Erweiterung für automatisch Start-V8-Inspektor für Node.js debugging",
+    "message": "Erweiterung für die automatische Aktualisierung der DevTools bei der Nutzung des Node V8 Inspectors (node --inspect).",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {
-    "message": "NIM (Node-Inspector Manager) - Seite Optionen",
+    "message": "NIM (Node-Inspector Manager) - Einstellungen",
     "description": "Title shown on options page."
   },
   "defaultTitle": {
@@ -28,23 +28,23 @@
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Fehler beim deinstallieren URL: ",
+    "message": "Fehler beim setzen der deinstallations URL: ",
     "description": "Error message."
   },
   "errMsg2": {
-    "message": "Geschlossenen tab für DevTools Sitzung: ",
+    "message": "Tab geschlossen in der DevTools-Session: ",
     "description": "Error message."
   },
   "errMsg6": {
-    "message": "Geschlossen Fenster für die DevTools-Sitzung: ",
+    "message": "Fenster geschlossen in der DevTools-Session: ",
     "description": "Error message."
   },
   "errMsg3": {
-    "message": "Fehler beim auto-close ",
+    "message": "Fehler beim automatischen schließen ",
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "Verbindung zu DevTools host abgebrochen wurde. Überprüfen Sie Ihre host-und port.",
+    "message": "Verbindung zu DevTools-Host unterbrochen. Überprüfen Sie Ihre Host und Port Einstellungen.",
     "description": "Error message."
   },
   "errMsg5": {
@@ -82,7 +82,7 @@
     "description": "Hostname."
   },
   "manual": {
-    "message": "Handbuch",
+    "message": "Manuell",
     "description": "Manual."
   },
   "auto": {
@@ -98,19 +98,19 @@
     "description": "Enabled."
   },
   "uptime": {
-    "message": "Verfügbarkeit",
+    "message": "Uptime",
     "description": "Uptime."
   },
   "options": {
-    "message": "Optionen",
+    "message": "Einstellungen",
     "description": "Options."
   },
   "general": {
-    "message": "Allgemeine",
+    "message": "Allgemein",
     "description": "General."
   },
   "on": {
-    "message": "Auf",
+    "message": "An",
     "description": "On."
   },
   "off": {
@@ -118,19 +118,19 @@
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "In einem Neuen Fenster geöffnet.",
+    "message": "In neuen Fenster öffnen.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
-    "message": "Fenster Stellen Konzentriert.",
+    "message": "Wechsle zum Inspector-Fenster.",
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "Registerkarte Aktiv Ist.",
+    "message": "Wechsle zum Inspector-Tab.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
-    "message": "Automatisch Schließen.",
+    "message": "Automatisch schließen.",
     "description": "Auto close the Inspector."
   },
   "secondsBetweenInspectorChecks": {
@@ -142,7 +142,7 @@
     "description": "Debugging."
   },
   "showDebugWindow": {
-    "message": "Show Debug-Fenster.",
+    "message": "Debug-Fenster einblenden.",
     "description": "Show debug window."
   },
   "save": {
@@ -150,11 +150,11 @@
     "description": "Save."
   },
   "openDevtools": {
-    "message": "Öffnen DevTools",
+    "message": "DevTools öffnen",
     "description": "Open DevTools"
   },
   "addTab": {
-    "message": "Registerkarte Hinzufügen",
+    "message": "Tab hinzufügen",
     "description": "Add Tab"
   },
   "seconds": {
@@ -162,11 +162,11 @@
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "Verwenden Sie Lokale DevTools.",
+    "message": "Lokale DevTools verwenden.",
     "description": "Use local DevTools."
   },
   "autoIncrement": {
-    "message": "Auto-Inkrement-Host/Port.",
+    "message": "Auto-Inkrement Host/Port.",
     "description": "Auto increment host and/or port."
   }
 }
