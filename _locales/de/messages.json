@@ -118,7 +118,7 @@
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "In neuen Fenster öffnen.",
+    "message": "In neuem Fenster öffnen.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
