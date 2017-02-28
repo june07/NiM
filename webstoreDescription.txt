@@ -35,6 +35,10 @@ If you enjoy using NIM please give us a 5 star rating and/or a G+1.  Any and all
 
 This project is open source and available at https://github.com/june07/NIM.
 
+[0.12.1] - 2017-02-28
+Fixed
+- Improve German localization https://github.com/june07/NIM/pull/9, Thank you to hpohlmeyer!
+- Improve Chinese localization https://github.com/june07/NIM/pull/10, Thank you to jingsam!
 [0.12.0] - 2017-02-09
 Added
 - Version update progress metric capture.
