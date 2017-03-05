@@ -136,39 +136,41 @@ ngApp
                     url: [ 'chrome-devtools://*/*',
                         'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*' ]
             }, function(tab) {
-                if (tab.length === 0) {
-                    $http({
-                            method: "GET",
-                            url: infoUrl,
-                            responseType: "json"
-                        })
-                        .then(function openDevToolsFrontend(json) {
-                            if (!json.data[0].devtoolsFrontendUrl) return callback(chrome.i18n.getMessage("errMsg7", [host, port]));
-                            var url = json.data[0].devtoolsFrontendUrl
-                            .replace("127.0.0.1:9229", host + ":" + port)
-                                .replace("localhost:9229", host + ":" + port)
-                                .replace("127.0.0.1:" + port, host + ":" + port) // In the event that remote debugging is being used and the infoUrl port (by default 80) is not forwarded.
-                                .replace("localhost:" + port, host + ":" + port)  // A check for just the port change must be made.
-                            if ($scope.settings.localDevTools)
-                                url = url.replace('https://chrome-devtools-frontend.appspot.com', 'chrome-devtools://devtools/remote');
-                            var websocketId = json.data[0].id;
-                            /** May be a good idea to put this somewhere further along the chain in case tab/window creation fails,
-                            in which case this entry will need to be removed from the array */
-                            $window._gaq.push(['_trackEvent', 'Program Event', 'openTab', 'Non-existing tab.', undefined, true]);
+                $http({
+                        method: "GET",
+                        url: infoUrl,
+                        responseType: "json"
+                    })
+                    .then(function openDevToolsFrontend(json) {
+                        if (!json.data[0].devtoolsFrontendUrl) return callback(chrome.i18n.getMessage("errMsg7", [host, port]));
+                        var url = json.data[0].devtoolsFrontendUrl
+                        .replace("127.0.0.1:9229", host + ":" + port)
+                            .replace("localhost:9229", host + ":" + port)
+                            .replace("127.0.0.1:" + port, host + ":" + port) // In the event that remote debugging is being used and the infoUrl port (by default 80) is not forwarded.
+                            .replace("localhost:" + port, host + ":" + port)  // A check for just the port change must be made.
+                        if ($scope.settings.localDevTools)
+                            url = url.replace('https://chrome-devtools-frontend.appspot.com', 'chrome-devtools://devtools/remote');
+                        var websocketId = json.data[0].id;
+                        /** May be a good idea to put this somewhere further along the chain in case tab/window creation fails,
+                        in which case this entry will need to be removed from the array */
+                        $window._gaq.push(['_trackEvent', 'Program Event', 'openTab', 'Non-existing tab.', undefined, true]);
+                        if (tab.length === 0) {
                             createTabOrWindow(infoUrl, url, websocketId, callback);
-                        })
-                        .catch(function(error) {
-                            if (error.status === -1) {
-                                var message =
-                                    chrome.i18n.getMessage("errMsg4");
-                                callback(message);
-                            } else {
-                                callback(error);
-                            }
-                        });
-                } else {
-                    callback(chrome.i18n.getMessage("errMsg5"));
-                }
+                        } else {
+                            updateTabOrWindow(infoUrl, url, websocketId, tab, callback);
+                        }
+                    })
+                    .catch(function(error) {
+                        if (error.status === -1) {
+                            var message =
+                                chrome.i18n.getMessage("errMsg4");
+                            callback(message);
+                        } else if (error.message === "look for error message when nothing is listening at host:port") {
+                            callback(chrome.i18n.getMessage("errMsg5"));
+                        } else {
+                            callback(error);
+                        }
+                    });
             });
         };
 
@@ -186,6 +188,17 @@ ngApp
                     $scope.message += '<br>' + chrome.i18n.getMessage("errMsg6") + JSON.stringify(devToolsSession) + '.';
                 });
             }
+        }
+
+        function updateTabOrWindow(infoUrl, url, websocketId, tab, callback) {
+            $window._gaq.push(['_trackEvent', 'Program Event', 'updateTab', 'focused', $scope.settings.windowFocused, true]);
+            chrome.tabs.update(tab.id, {
+                url: url,
+                active: $scope.settings.tabActive,
+            }, function(tab) {
+                saveSession(infoUrl, websocketId, tab.id);
+                callback(tab.url);
+            });
         }
 
         function createTabOrWindow(infoUrl, url, websocketId, callback) {
