@@ -45,7 +45,7 @@ ngApp
             checkIntervalTimeout: null,
             debug: false,
             newWindow: false,
-            autoClose: true,
+            autoClose: false,
             tabActive: true,
             windowFocused: true,
             localDevTools: false,
