@@ -92,7 +92,7 @@ ngApp
             if (timeout) {
                 clearInterval(timeout);
             }
-            $scope.checkIntervalTimeout = setInterval(function() {
+            $scope.settings.checkIntervalTimeout = setInterval(function() {
                 if ($scope.settings.auto) {
                     $scope.closeDevTools(
                     $scope.openTab($scope.settings.host, $scope.settings.port, function() {
@@ -104,7 +104,8 @@ ngApp
         resetInterval();
 
         $scope.closeDevTools = function(callback) {
-            $scope.devToolsSessions.forEach(function(devToolsSession, index) {
+            var devToolsSessions = $scope.devToolsSessions;
+            devToolsSessions.forEach(function(devToolsSession, index) {
                 if (devToolsSession.autoClose) {
                     $http({
                             method: "GET",
@@ -125,7 +126,7 @@ ngApp
                             }
                         });
                 }
-                if (index >= $scope.devToolsSessions.length) {
+                if (index >= devToolsSessions.length) {
                     callback();
                 }
             });
@@ -157,7 +158,7 @@ ngApp
                         if (tab.length === 0) {
                             createTabOrWindow(infoUrl, url, websocketId, callback);
                         } else {
-                            updateTabOrWindow(infoUrl, url, websocketId, tab, callback);
+                            updateTabOrWindow(infoUrl, url, websocketId, tab[0], callback);
                         }
                     })
                     .catch(function(error) {
@@ -178,12 +179,22 @@ ngApp
             if (!devToolsSession.isWindow) {
                 $window._gaq.push(['_trackEvent', 'Program Event', 'removeDevToolsSession', 'window', undefined, true]);
                 chrome.tabs.remove(devToolsSession.id, function() {
+                    if (chrome.runtime.lastError) {
+                        if (chrome.runtime.lastError.message.toLowerCase().includes("no window ")) {
+                            deleteSession(tab.id);
+                        }
+                    }
                     $scope.devToolsSessions.splice(index, 1);
                     $scope.message += '<br>' + chrome.i18n.getMessage("errMsg2") + JSON.stringify(devToolsSession) + '.';
                 });
             } else {
                 $window._gaq.push(['_trackEvent', 'Program Event', 'removeDevToolsSession', 'tab', undefined, true]);
                 chrome.windows.remove(devToolsSession.id, function() {
+                    if (chrome.runtime.lastError) {
+                        if (chrome.runtime.lastError.message.toLowerCase().includes("no tab ")) {
+                            deleteSession(tab.id);
+                        }
+                    }
                     $scope.devToolsSessions.splice(index, 1);
                     $scope.message += '<br>' + chrome.i18n.getMessage("errMsg6") + JSON.stringify(devToolsSession) + '.';
                 });
@@ -195,9 +206,15 @@ ngApp
             chrome.tabs.update(tab.id, {
                 url: url,
                 active: $scope.settings.tabActive,
-            }, function(tab) {
-                saveSession(infoUrl, websocketId, tab.id);
-                callback(tab.url);
+            }, function(tabToUpdate) {
+                if (chrome.runtime.lastError) {
+                    // In the event a tab is closed between the last check and now, just delete the session and wait until the next check loop.
+                    if (chrome.runtime.lastError.message.toLowerCase().includes("no tab ")) {
+                        return deleteSession(tab.id);
+                    }
+                }
+                saveSession(infoUrl, websocketId, tabToUpdate.id);
+                callback(tabToUpdate.url);
             });
         }
 
@@ -223,14 +240,44 @@ ngApp
             }
         }
 
-        function saveSession(infoUrl, websocketId, id) {
-            $scope.devToolsSessions.push({
-                autoClose: $scope.settings.autoClose,
-                isWindow: $scope.settings.newWindow,
-                infoUrl: infoUrl,
-                id: id,
-                websocketId: websocketId
+        function deleteSession(id) {
+            var existingIndex;
+            var existingSession = $scope.devToolsSessions.find(function(session, index) {
+                if (session.id === id) {
+                    existingIndex = index;
+                    return session;
+                }
             });
+            if (existingSession) {
+                $scope.devToolsSessions.splice(existingIndex, 1);
+            }
+        }
+
+        function saveSession(infoUrl, websocketId, id) {
+            var existingIndex;
+            var existingSession = $scope.devToolsSessions.find(function(session, index) {
+                if (session.id === id) {
+                    existingIndex = index;
+                    return session;
+                }
+            });
+            if (existingSession) {
+                $scope.devToolsSessions.splice(existingIndex, 1, {
+                    autoClose: $scope.settings.autoClose,
+                    isWindow: $scope.settings.newWindow,
+                    infoUrl: infoUrl,
+                    id: id,
+                    websocketId: websocketId
+                });
+            } else {
+                $scope.devToolsSessions.push({
+                    autoClose: $scope.settings.autoClose,
+                    isWindow: $scope.settings.newWindow,
+                    infoUrl: infoUrl,
+                    id: id,
+                    websocketId: websocketId
+                });
+            }
         }
         $scope.write = function(key, obj) {
             chrome.storage.sync.set({
