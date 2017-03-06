@@ -35,6 +35,9 @@ If you enjoy using NIM please give us a 5 star rating and/or a G+1.  Any and all
 
 This project is open source and available at https://github.com/june07/NIM.
 
+[0.12.4] - 2017-03-06
+Fixed
+- GitHub Issue #12 breaking change caused by 0.12.2.
 [0.12.2] - 2017-03-05
 Fixed
 - GitHub Issue #11 opened by wesbos.
