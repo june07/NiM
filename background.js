@@ -60,6 +60,7 @@ ngApp
         $scope.changeObject;
         $scope.userInfo;
         $scope.sessionlessTabs = [];
+        $scope.message;
 
         var chrome = $window.chrome;
         chrome.runtime.setUninstallURL(UNINSTALL_URL, function() {
@@ -163,11 +164,8 @@ ngApp
                     })
                     .catch(function(error) {
                         if (error.status === -1) {
-                            var message =
-                                chrome.i18n.getMessage("errMsg4");
+                            var message = chrome.i18n.getMessage("errMsg4");
                             callback(message);
-                        } else if (error.message === "look for error message when nothing is listening at host:port") {
-                            callback(chrome.i18n.getMessage("errMsg5"));
                         } else {
                             callback(error);
                         }

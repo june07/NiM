@@ -126,13 +126,24 @@ ngApp
         $scope.clickHandler = function () {
             $scope.bg.save("host");
             $scope.bg.save("port");
-            $scope.bg.openTab($scope.bg.settings.host, $scope.bg.settings.port, function (result) {
-                $scope.message = result;
+            $scope.bg.openTab($scope.bg.settings.host, $scope.bg.settings.port, function (error, result) {
+                if (error) showErrorMessage(error);
+                else
+                  $scope.message = result;
             });
         };
         $scope.track = function (url) {
             $window._gaq.push(['_trackPageview', url]);
         };
+        function showErrorMessage(error) {
+          $window.document.querySelector('#site-href').style.display = "none";
+          $window.Materialize.toast(error, 5000);
+          var siteHrefTimeout;
+          if (siteHrefTimeout) clearTimeout(siteHrefTimeout);
+          siteHrefTimeout = setTimeout(function() {
+            $window.document.querySelector('#site-href').style.display = "inline";
+          }, 5050)
+        }
         function trackInputClick(e) {
             $window._gaq.push(['_trackEvent', e.target.id, 'clicked']);
         }

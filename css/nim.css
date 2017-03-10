@@ -6,6 +6,13 @@ body {
     width:500px;
     margin:0;
 }
+.toast {
+    background: linear-gradient(to left, #81c784, transparent);
+    color: red;
+    text-transform: uppercase;
+    font-size: large;
+    word-break: break-word;
+}
 .switch label input[type=checkbox]:checked+.lever {
 background-color:#e8f5e9;
 }
