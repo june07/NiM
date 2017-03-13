@@ -46,7 +46,7 @@ ngApp
             start: [$scope.bg.settings.checkInterval],
             step: 1,
             range: {
-                'min': [3],
+                'min': [1],
                 'max': [300]
             },
             tooltips: true
