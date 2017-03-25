@@ -46,15 +46,16 @@ ngApp
             start: [$scope.bg.settings.checkInterval],
             step: 1,
             range: {
-                'min': [3],
-                'max': [300]
+                'min': [1],
+                'max': [30]
             },
+            format: wNumb( { decimals: 2, encoder: function(value) { return value * 0.5 } }),
             tooltips: true
         });
         var rangeSliderValueElement = $window.document.getElementById('checkInterval-value');
         slider.noUiSlider.on('update', function(values, handle) {
             rangeSliderValueElement.innerHTML = values[handle];
-            $scope.bg.settings.checkInterval = parseInt(values[handle]);
+            $scope.bg.settings.checkInterval = parseInt(values[handle] * 2);
         });
         slider.noUiSlider.on('set', function(values, handle) {
             $window._gaq.push(['_trackEvent', 'User Event', 'checkInterval-value', values[handle], undefined, true]);

@@ -3,10 +3,11 @@
     "ecmaFeatures": {},
     "plugins": [ "json", "angular" ],
     "globals": {
-  "angular": false,
+  "angular": true,
   "module": false,
   "require": false,
-  "setInterval": false,
+  "setTimeout": true,
+  "setInterval": true,
     "clearInterval": false,
     "console": false,
   "process": false,
