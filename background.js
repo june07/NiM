@@ -29,10 +29,7 @@ ngApp
         const UPTIME_CHECK_INTERVAL = 60 * 15; // 15 minutes                                                                       
         const UNINSTALL_URL = "http://june07.com/uninstall";
         const UPTIME_CHECK_RESOLUTION = 1000; // Check every second
-        /**const NOTIFICATION_CHECK_INTERVAL = 6;// 60; // 60 minutes
-        const NOTIFICATION_CHECK_RESOLUTION = 1000; // * 60; // Check every minute
-        const HOOKIO_SECRET = "84d6d1fe-af32-4790-884d-04e047adf626";
-        const NOTIFICATION_FILE = 'c7bcacbc-2c93-4054-be7d-2541b2a5223e';*/
+        const DEBUG = false;
 
         $scope.loaded = Date.now();
         $scope.timerUptime= 0;
@@ -65,6 +62,17 @@ ngApp
         $scope.lock = false;
         $scope.moment = $window.moment;
 
+        var tabId_HostPort_LookupTable = [],
+            chrome = $window.chrome;
+
+        setInterval(function() {
+            $scope.timerUptime++;
+            if (($scope.timerUptime >= UPTIME_CHECK_INTERVAL && $scope.timerUptime % UPTIME_CHECK_INTERVAL === 0) || ($scope.timerUptime === 1)) {
+                $window._gaq.push(['_trackEvent', 'Program Event', 'Uptime Check', $scope.moment.duration($scope.timerUptime, 'seconds').humanize(), undefined, true ],
+                ['_trackEvent', 'Program Event', 'Version Check', VERSION + " " + $scope.userInfo.email + " " + $scope.userInfo.id, undefined, true]);
+            }
+        }, UPTIME_CHECK_RESOLUTION);
+
         $scope.localize = function($window, updateUI) {
             Array.from($window.document.getElementsByClassName("i18n")).forEach(function(element, i, elements) {
                 var message;
@@ -80,6 +88,7 @@ ngApp
             });
         }
         $scope.save = function(key) {
+            //
             write(key, $scope.settings[key]);
         }
         $scope.openTab = function(host, port, callback) {
@@ -89,7 +98,7 @@ ngApp
                     return callback('Opening tab in progress...');
                 } else {
                     openTabInProgress(host, port, 'lock', function() {
-                        var infoUrl = 'http://' + $scope.settings.host + ':' + $scope.settings.port + '/json';
+                        var infoUrl = getInfoURL($scope.settings.host, $scope.settings.port);
                         chrome.tabs.query({
                                 url: [ 'chrome-devtools://*/*',
                                     'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*' ]
@@ -132,25 +141,6 @@ ngApp
                 }
             });
         }
-        var tabId_HostPort_LookupTable = [],
-            chrome = $window.chrome;
-
-        chrome.runtime.setUninstallURL(UNINSTALL_URL, function() {
-            if (chrome.runtime.lastError && $scope.settings.debug) {
-                $scope.message += '<br>' + chrome.i18n.getMessage("errMsg1") + UNINSTALL_URL;
-            }
-        });
-        chrome.identity.getProfileUserInfo(function(userInfo) {
-            $scope.userInfo = userInfo;
-        });
-        setInterval(function() {
-            $scope.timerUptime++;
-            if (($scope.timerUptime >= UPTIME_CHECK_INTERVAL && $scope.timerUptime % UPTIME_CHECK_INTERVAL === 0) || ($scope.timerUptime === 1)) {
-                $window._gaq.push(['_trackEvent', 'Program Event', 'Uptime Check', $scope.moment.duration($scope.timerUptime, 'seconds').humanize(), undefined, true ],
-                ['_trackEvent', 'Program Event', 'Version Check', VERSION + " " + $scope.userInfo.email + " " + $scope.userInfo.id, undefined, true]);
-            }
-        }, UPTIME_CHECK_RESOLUTION);
-
         $scope.$on('options-window-closed', function() {
             //
             resetInterval($scope.settings.checkIntervalTimeout);
@@ -159,28 +149,24 @@ ngApp
             // Only if an event happened
             saveAll();
         });
-        closeDevTools($scope.openTab($scope.settings.host, $scope.settings.port, function(message) {
-            $scope.message += '<br>' + message;
-        }));
-        function getCheckInterval() {
-            if ($scope.lock) return 3000;
-            return $scope.settings.checkInterval;
-        }
+        (function startInterval() {
+            console.log('Starting up.')
+            resetInterval();
+        })();
         function resetInterval(timeout) {
             if (timeout) {
                 clearInterval(timeout);
             }
             $scope.settings.checkIntervalTimeout = setInterval(function() {
                 if ($scope.settings.auto && ! $scope.lock) {
-                    console.log('going thru a check loop...')
+                    if (DEBUG) console.log('going thru a check loop...')
                     closeDevTools(
                     $scope.openTab($scope.settings.host, $scope.settings.port, function(message) {
                         $scope.message += '<br>' + message;
                     }));
                 }
-            }, $scope.settings.checkInterval);
+            }, $scope.settings.checkInterval.value);
         }
-        resetInterval();
         function closeDevTools(callback) {
             var devToolsSessions = $scope.devToolsSessions;
             devToolsSessions.forEach(function(devToolsSession, index) {
@@ -210,12 +196,29 @@ ngApp
             });
         }
         function toggleCheckIntervalForLockedTabs(lock) {
-            if (lock) console.log('locked.');
-            if (!lock) console.log('unlocked');
+            if (lock && DEBUG) console.log('locked');
+            if (!lock && DEBUG) console.log('unlocked');
             if (lock !== $scope.lock) {
                 $scope.lock = lock;
-                resetInterval($scope.settings.checkIntervalTimeout);
             }
+        }
+        function getInfoURL(host, port) {
+            return 'http://' + host + ':' + port + '/json';
+        }
+        function httpGetTest(host, port, callback) {
+            $http({
+              method: 'GET',
+              url: getInfoURL(host, port)
+            })
+            .then(function successCallback(response) {
+                    if (DEBUG) console.log(response);
+                    return callback(true);
+                },
+                function errorCallback(response) {
+                    if (DEBUG) console.log(response);
+                    return callback(false);
+                }
+            );
         }
         function openTabInProgress(host, port, action, callback) {
             if (action !== null && action === 'lock') {
@@ -223,21 +226,28 @@ ngApp
                 toggleCheckIntervalForLockedTabs(true);
                 callback(true);
             } else if ($scope.lock) {
-                callback(true);
+                // Test that the DevTools instance is still alive (ie that the debugee app didn't exit.)  If the app did exit, remove the check lock.
+                httpGetTest(host, port, function(up) {
+                    if (up) {
+                        callback(true);
+                    } else {
+                        unlock();
+                        callback(false);
+                    }
+                });
             } else {
                 callback(false);
             }
         }
         function unlock(instance) {
             return $scope.locks.find(function(lock, index, locks) {
-                if (lock.host === instance.host && lock.port === instance.port) {
+                if (lock.host === instance.host && lock.port === parseInt(instance.port)) {
                     locks.splice(index, 1);
                     toggleCheckIntervalForLockedTabs(false);
                     return true;
                 }
             });
         }
-        
         function removeDevToolsSession(devToolsSession, index) {
             if (!devToolsSession.isWindow) {
                 $window._gaq.push(['_trackEvent', 'Program Event', 'removeDevToolsSession', 'window', undefined, true]);
@@ -262,7 +272,6 @@ ngApp
                     $scope.message += '<br>' + chrome.i18n.getMessage("errMsg6") + JSON.stringify(devToolsSession) + '.';
                 });
             }
-            $scope.settings.checkInterval = 0.5 * $scope.settings.checkInterval;
         }
         function updateTabOrWindow(infoUrl, url, websocketId, tab, callback) {
             $window._gaq.push(['_trackEvent', 'Program Event', 'updateTab', 'focused', $scope.settings.windowFocused, true]);
@@ -376,6 +385,15 @@ ngApp
                 }
             });
         }
+        chrome.runtime.setUninstallURL(UNINSTALL_URL, function() {
+            if (chrome.runtime.lastError && $scope.settings.debug) {
+                $scope.message += '<br>' + chrome.i18n.getMessage("errMsg1") + UNINSTALL_URL;
+            }
+        });
+        chrome.identity.getProfileUserInfo(function(userInfo) {
+            //
+            $scope.userInfo = userInfo;
+        });
         chrome.storage.sync.get("host", function(obj) {
             $scope.settings.host = obj.host || "localhost";
         });
@@ -394,12 +412,11 @@ ngApp
             $window._gaq.push(['_trackEvent', 'Program Event', 'onRemoved', undefined, undefined, true]);
             // Why am I not calling deleteSession() here?
             $scope.devToolsSessions.splice($scope.devToolsSessions.findIndex(function(devToolsSession) {
-                if (devToolsSession.id === tabId) return true;
+                if (devToolsSession.id === tabId) {
+                    unlock(hostPortHashmap(tabId));
+                    return true;
+                }
             }), 1);
-            unlock(hostPortHashmap(tabId));
-        });
-        chrome.tabs.onUpdated.addListener(function chromeTabsUpdatedEvent(tabId) {
-            $window._gaq.push(['_trackEvent', 'Program Event', 'chromeTabsUpdatedEvent', undefined, undefined, true]);
             unlock(hostPortHashmap(tabId));
         });
         chrome.commands.onCommand.addListener(function chromeCommandsCommandEvent(command) {
