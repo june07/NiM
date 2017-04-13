@@ -87,24 +87,24 @@
                     <div id="checkInterval" ng-model="bg.settings.checkInterval"></div>
                 </li>
             </ul>
-            <div id="modal1" class="modal">
-            <div class="modal-content">
             
             <ul class="collection with-header">
-                <li class="collection-header" id="collections-header"><span class="i18n">debugging</span></li>
-                <li class="collection-item">
-                    <div class="switch right">
-                        <label><span class="i18n">off</span>
-                            <input type="checkbox" ng-model="bg.settings.debug" id="Show debug window" class="ga-track">
-                            <span class="lever"></span><span class="i18n">on</span>
-                        </label>
+            <div id="modal1" class="modal">
+            <div class="modal-content">
+                <li class="collection-header" id="collections-header-debugging"><span class="i18n">debugging</span></li>
+                <li class="collection-item"><p>Debugging tutorial: <a href="https://june07.com/nim/debug">https://june07.com/nim/debug</a>.</p></li>
+                <li class="collection-item bottom">
+                    <span class="i18n">debugVerbosity</span>
+                    <div class="right">
+                        <span class="badge new i18n" data-badge-caption="verbosity" id="debugVerbosityBadge"></span>
                     </div>
-                    <span class="i18n">showDebugWindow</span>
+                    <div id="debugVerbosity" ng-model="bg.settings.debugVerbosity"></div>
                 </li>
-            </ul>
+
 
             </div>
             </div>
+                        </ul>
         </div>
         <div class="col s1"></div>
     </div>

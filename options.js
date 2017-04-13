@@ -60,6 +60,24 @@ ngApp
         slider.noUiSlider.on('set', function(values, handle) {
             $window._gaq.push(['_trackEvent', 'User Event', 'checkInterval-value', values[handle], undefined, true]);
         });
+        var sliderDebugVerbosity = $window.document.getElementById('debugVerbosity');
+        $window.noUiSlider.create(sliderDebugVerbosity, {
+            start: [$scope.bg.settings.debugVerbosity],
+            step: 1,
+            range: {
+                'min': [0],
+                'max': [10]
+            },
+            tooltips: true
+        });
+        var rangeSliderValueElementDebugVerbosity = $window.document.getElementById('debugVerbosityBadge');
+        sliderDebugVerbosity.noUiSlider.on('update', function(values, handle) {
+            rangeSliderValueElementDebugVerbosity.innerHTML = values[handle];
+            $scope.bg.settings.debugVerbosity = values[handle];
+        });
+        sliderDebugVerbosity.noUiSlider.on('set', function(values, handle) {
+            $window._gaq.push(['_trackEvent', 'User Event', 'debugVerbosityBadge', values[handle], undefined, true]);
+        });
         $scope.saveButtonHandler = function() {
             $window._gaq.push(['_trackEvent', 'save button', 'clicked']);
             $scope.bg.$emit('options-window-closed');
