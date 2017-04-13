@@ -141,9 +141,9 @@
     "message": "Debugging",
     "description": "Debugging."
   },
-  "showDebugWindow": {
-    "message": "Show Debug Window.",
-    "description": "Show debug window."
+  "debugVerbosity": {
+    "message": "Debugging Verbosity.",
+    "description": "Debugging verbosity."
   },
   "save": {
     "message": "Save",

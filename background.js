@@ -29,8 +29,7 @@ ngApp
         const UPTIME_CHECK_INTERVAL = 60 * 15; // 15 minutes                                                                       
         const UNINSTALL_URL = "http://june07.com/uninstall";
         const UPTIME_CHECK_RESOLUTION = 1000; // Check every second
-        const DEBUG = 3;
-        const DEVEL = true;
+        const DEVEL = false;
 
         $scope.loaded = Date.now();
         $scope.timerUptime= 0;
@@ -38,15 +37,15 @@ ngApp
         $scope.settings = {
             host: "localhost",
             port: "9229",
-            auto: false,
+            auto: true,
             checkInterval: 500,
+            debugVerbosity: 0,
             checkIntervalTimeout: null,
-            debug: false,
             newWindow: false,
             autoClose: false,
             tabActive: true,
             windowFocused: true,
-            localDevTools: false,
+            localDevTools: true,
             notifications: {
                 showMessage: false,
                 lastHMAC: 0
@@ -66,7 +65,9 @@ ngApp
         var tabId_HostPort_LookupTable = [],
             backoffTable = [],
             chrome = $window.chrome,
-            SingletonHttpGet = httpGetTestSingleton();
+            SingletonHttpGet = httpGetTestSingleton(),
+            SingletonOpenTabInProgress = openTabInProgressSingleton(),
+            triggerTabUpdate = false;
 
         setInterval(function() {
             $scope.timerUptime++;
@@ -95,7 +96,7 @@ ngApp
             write(key, $scope.settings[key]);
         }
         $scope.openTab = function(host, port, callback) {
-            openTabInProgress(host, port, null)
+            SingletonOpenTabInProgress.getInstance(host, port, null)
             .then(function(value) {
                 var //inprogress = value.status,
                     message = value.message;
@@ -103,7 +104,7 @@ ngApp
                     //
                     return callback(message);
                 } else {
-                    openTabInProgress(host, port, 'lock')
+                    SingletonOpenTabInProgress.getInstance(host, port, 'lock')
                     .then(function() {
                         var infoUrl = getInfoURL($scope.settings.host, $scope.settings.port);
                         chrome.tabs.query({
@@ -131,6 +132,18 @@ ngApp
                                     $window._gaq.push(['_trackEvent', 'Program Event', 'openTab', 'Non-existing tab.', undefined, true]);
                                     if (tab.length === 0) {
                                         createTabOrWindow(infoUrl, url, websocketId)
+                                        .then(function(tab) {
+                                            var tabToUpdate = tab;
+                                            chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
+                                                if (triggerTabUpdate && tabId === tabToUpdate.id && changeInfo.status === 'complete') {
+                                                    triggerTabUpdate = false;
+                                                    saveSession(url, infoUrl, websocketId, tabToUpdate.id);
+                                                    callback(tabToUpdate.url);
+                                                } else if (!triggerTabUpdate && tabId === tabToUpdate.id) {
+                                                    console.log('Loading updated tab [' + tabId + ']...');
+                                                }
+                                            });
+                                        })
                                         .then(callback);
                                     } else {
                                         updateTabOrWindow(infoUrl, url, websocketId, tab[0], callback);
@@ -193,7 +206,7 @@ ngApp
             }
             $scope.settings.checkIntervalTimeout = setInterval(function() {
                 if ($scope.settings.auto && ! $scope.lock) {
-                    if (DEBUG >= 2) console.log('resetInterval going thru a check loop...')
+                    if ($scope.settings.debugVerbosity >= 2) console.log('resetInterval going thru a check loop...')
                     closeDevTools(
                     $scope.openTab($scope.settings.host, $scope.settings.port, function(message) {
                         $scope.message += '<br>' + message;
@@ -205,7 +218,7 @@ ngApp
                     */
                     SingletonHttpGet.getInstance({ host: $scope.settings.host, port: $scope.settings.port });
                 }
-            }, $scope.settings.checkInterval.value);
+            }, $scope.settings.checkInterval);
         }
         function httpGetTestSingleton() {
             var promise;
@@ -222,18 +235,18 @@ ngApp
                     port = instance.port;
 
                 if (promise !== undefined) {
-                    if (DEBUG >= 3) console.log("httpGetTestSingleton promise not settled.");
+                    if ($scope.settings.debugVerbosity >= 3) console.log("httpGetTestSingleton promise not settled.");
                 } else {
                     promise = httpGetTest(host, port)
                     .then(function(up) {
-                        if (DEBUG >= 2) console.log('Going thru a check loop [2nd]...')
+                        if ($scope.settings.debugVerbosity >= 2) console.log('Going thru a check loop [2nd]...')
                         var devToolsSession = $scope.devToolsSessions.find(function(session) {
                             if (session.infoUrl === getInfoURL($scope.settings.host, $scope.settings.port)) return true;
                         })
                         if (!up && (devToolsSession !== undefined)) {
                             closeDefunctDevTools(instance);
                         } else if (!up) {
-                            if (DEBUG >= 2) console.log('No DevTools instance detected.  Skipping [1st] check loop...')
+                            if ($scope.settings.debugVerbosity >= 2) console.log('No DevTools instance detected.  Skipping [1st] check loop...')
                         } else if (up && (devToolsSession !== undefined)) {
                             getTabsCurrentSocketId(devToolsSession.infoUrl)
                             .then(function(socketId) {
@@ -247,7 +260,7 @@ ngApp
                         promise = value;
                     })
                     .catch(function(error) {
-                        if (DEBUG >= 2) console.log('ERROR: ' + error);
+                        if ($scope.settings.debugVerbosity >= 2) console.log('ERROR: ' + error);
                     });
                     return promise;
                 }
@@ -266,7 +279,7 @@ ngApp
         function delay(milliseconds) {
             return $q(function(resolve) {
                 var interval;
-                if (DEBUG) {
+                if ($scope.settings.debugVerbosity) {
                     interval = setInterval(function() {
                         console.log(".");
                     }, 200)
@@ -307,9 +320,10 @@ ngApp
                         })
                         .catch(function(error) {
                             if (error.status === -1) {
+                                if ($scope.settings.debugVerbosity >= 9) console.log("ERROR [line 324]");
                                 removeDevToolsSession(devToolsSession, index);
                             } else {
-                                $scope.message += '<br>' + chrome.i18n.getMessage("errMsg3") + (devToolsSession.isWindow ? 'window' : 'tab') + error;
+                                if ($scope.settings.debugVerbosity >= 9) console.log('<br>' + chrome.i18n.getMessage("errMsg3") + (devToolsSession.isWindow ? 'window' : 'tab') + error);
                             }
                         });
                 }
@@ -319,8 +333,8 @@ ngApp
             });
         }
         function toggleCheckIntervalForLockedTabs(lock) {
-            if (lock && DEBUG) console.log('locked');
-            if (!lock && DEBUG) console.log('unlocked');
+            if (lock && $scope.settings.debugVerbosity >= 3) console.log('locked');
+            if (!lock && $scope.settings.debugVerbosity >= 3) console.log('unlocked');
             if (lock !== $scope.lock) {
                 $scope.lock = lock;
             }
@@ -352,6 +366,7 @@ ngApp
             });
         }
         function sameInstance(instance1, instance2) {
+            if (instance1 === undefined || instance2 === undefined) return false;
             if ((instance1.host === instance2.host) && (instance1.port == instance2.port)) return true;
             return false; 
         }
@@ -368,7 +383,7 @@ ngApp
                         });
                     },
                     function errorCallback(response) {
-                        if (DEBUG >= 5) console.log(response);
+                        if ($scope.settings.debugVerbosity >= 5) console.log(response);
                         return resolve(false);
                     }
                 )
@@ -376,6 +391,25 @@ ngApp
                     reject(error);
                 });
             });
+        }
+        function openTabInProgressSingleton() {
+            var promise;
+
+            function createInstance(host, port, action) {
+                if (promise === undefined) {
+                    promise = openTabInProgress(host, port, action)
+                    .then(function(value) {
+                        promise = undefined;
+                        return value;
+                    });
+                }
+                return promise;
+            }
+            return {
+                getInstance: function(host, port, action) {
+                    return createInstance(host, port, action);
+                }
+            }
         }
         function openTabInProgress(host, port, action) {
             return new Promise(function(resolve) {
@@ -468,12 +502,7 @@ ngApp
                         return deleteSession(tab.id);
                     }
                 }
-                chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
-                    if (tabId === tabToUpdate.id && changeInfo.status === 'complete') {
-                         saveSession(url, infoUrl, websocketId, tabToUpdate.id);
-                        callback(tabToUpdate.url);
-                    }
-                });
+                triggerTabUpdate = true;
             });
         }
         function createTabOrWindow(infoUrl, url, websocketId) {
@@ -486,7 +515,7 @@ ngApp
                     }, function(window) {
                         /* Is window.id going to cause id conflicts with tab.id?!  Should I be grabbing a tab.id here as well or instead of window.id? */
                         saveSession(url, infoUrl, websocketId, window.id);
-                        resolve(window.url);
+                        resolve(window);
                     });
                 } else {
                     $window._gaq.push(['_trackEvent', 'Program Event', 'createTab', 'focused', $scope.settings.windowFocused, true]);
@@ -495,7 +524,7 @@ ngApp
                         active: $scope.settings.tabActive,
                     }, function(tab) {
                         saveSession(url, infoUrl, websocketId, tab.id);
-                        resolve(tab.url);
+                        resolve(tab);
                     });
                 }
                 if (DEVEL) selenium({ openedInstance: getInstance() });
@@ -572,7 +601,7 @@ ngApp
             chrome.storage.sync.set({
                 [key]: obj
             }, function() {
-                if ($scope.settings.debug) {
+                if ($scope.settings.debugVerbosity >= 5) {
                     //console.log("saved key: [" + JSON.stringify(key) + "] obj: [" + obj + ']');
                 }
             });
@@ -594,8 +623,8 @@ ngApp
             });
         }
         chrome.runtime.setUninstallURL(UNINSTALL_URL, function() {
-            if (chrome.runtime.lastError && $scope.settings.debug) {
-                $scope.message += '<br>' + chrome.i18n.getMessage("errMsg1") + UNINSTALL_URL;
+            if (chrome.runtime.lastError) {
+                if ($scope.settings.debugVerbosity >= 5) console.log(chrome.i18n.getMessage("errMsg1") + UNINSTALL_URL);
             }
         });
         chrome.identity.getProfileUserInfo(function(userInfo) {
@@ -614,7 +643,7 @@ ngApp
             for (key in changes) {
                 if (key === 'autoClose') SingletonHttpGet.closeDefunctDevTools({ host: $scope.settings.host, port: $scope.settings.port });
                 var storageChange = changes[key];
-                if ($scope.settings.debug) console.log(chrome.i18n.getMessage("errMsg5", [key, namespace, storageChange.oldValue, storageChange.newValue]));
+                if ($scope.settings.debugVerbosity >= 5) console.log(chrome.i18n.getMessage("errMsg5", [key, namespace, storageChange.oldValue, storageChange.newValue]));
             }
         });
         chrome.tabs.onRemoved.addListener(function chromeTabsRemovedEvent(tabId) {
