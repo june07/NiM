@@ -1,6 +1,6 @@
 {
   "name": "NIM",
-  "version": "0.12.5",
+  "version": "0.13.0",
   "description": "Node.js Inspector (v8 --inspect) Monitor.  Monitor the integrated Node V8 inspector and auto open Chrome DevTools",
   "main": "nim.js",
   "dependencies": {
@@ -41,7 +41,8 @@
     "load-grunt-tasks": "^3.5.2",
     "materialize-css": "^0.98.0",
     "mocha": ">=1.20.0",
-    "picker.js": "^0.1.11"
+    "picker.js": "^0.1.11",
+    "selenium-webdriver": "^3.3.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

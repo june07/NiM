@@ -1,10 +1,10 @@
-Node.js Inspector Manager - NIM
+Node.js Inspector Manager - NiM
 
-NIM streamlines your Node.js development cycle when using Chrome DevTools Inspector.
+NiM streamlines your Node.js development cycle when using Chrome DevTools Inspector.
 
-NIM manages the Chrome DevTools window/tab life-cycle leaving you with more ability to focus on what matters... debugging your code.  You no longer need to copy/paste DevTools URL's or continue opening/closing tabs/windows.
+NiM manages the Chrome DevTools window/tab life-cycle leaving you with more ability to focus on what matters... debugging your code.  You no longer need to copy/paste DevTools URL's or continue opening/closing tabs/windows.
 
-NIM automatically detects the URL that is generated when running node (locally or remotely) with --inspect option. NIM provides you with the option of automatically opening and closing Chrome DevTools in a tab or window. Just toggle the Manual/Auto setting and then start a debugging session.  DevTools will open either on clicking the "Open DevTools" button or after the specified timeout period.  If set to auto close, once you end your debugging session, DevTools will close automatically.
+NiM automatically detects the URL that is generated when running node (locally or remotely) with --inspect option. NiM provides you with the option of automatically opening and closing Chrome DevTools in a tab or window. Just toggle the Manual/Auto setting and then start a debugging session.  DevTools will open either on clicking the "Open DevTools" button or after the specified timeout period.  If set to auto close, once you end your debugging session, DevTools will close automatically.
 
 Use in 3 easy steps:
  1. Install
@@ -27,14 +27,17 @@ Further to better serve and understand my user base the following permission is 
 
 The following URL will provide what I feel to be an informed viewpoint on the whole matter of permissions:  https://palant.de/2016/07/02/why-mozilla-shouldn-t-copy-chrome-s-permission-prompt-for-extensions
 
-No information will ever be shared with 3rd parties.  Further the source is open and available on GitHub.  However should you still prefer it, a version is available which does not require sharing your email address: http://june07.com/nim11.  I will maintain the code (bug fixes), however feature additions will only be made to this branch.  Please feel free to reach out to me 667@june07.com if you have any other concerns as I am open to discussion.  Should any policies change there will be notice given of such changes.
+No information will ever be shared with 3rd parties.  Further the source is open and available on GitHub.  However should you still prefer it, a version is available which does not require sharing your email address: http://june07.com/NiM11.  I will maintain the code (bug fixes), however feature additions will only be made to this branch.  Please feel free to reach out to me 667@june07.com if you have any other concerns as I am open to discussion.  Should any policies change there will be notice given of such changes.
 
 At the time of writing, the v8 --inspect option is fairly new. See https://nodejs.org/api/debugger.html#debugger_v8_inspector_integration_for_node_js for additional details on the option.d
 
-If you enjoy using NIM please give us a 5 star rating and/or a G+1.  Any and all feedback is encouraged and welcome.  667@june07.com  Thank you in advance.
+If you enjoy using NiM please give us a 5 star rating and/or a G+1.  Any and all feedback is encouraged and welcome.  667@june07.com  Thank you in advance.
 
-This project is open source and available at https://github.com/june07/NIM.
+This project is open source and available at https://github.com/june07/NiM.
 
+[0.13.0-Beta1] - 2017-04-12
+Added
+- Faster polling (GitHub - Allow users to pick faster polling rate #13)
 [0.12.5] - 2017-03-10
 Fixed
 - Not a bug per se but I've received a lot of feedback about it so I added some alerting under certain situations.  One being when the user is trying to connect to a non-existant DevTools instance, and/or one on the wrong host, port, etc.
@@ -46,8 +49,8 @@ Fixed
 - GitHub Issue #11 opened by wesbos.
 [0.12.1] - 2017-02-28
 Fixed
-- Improve German localization https://github.com/june07/NIM/pull/9, Thank you to hpohlmeyer!
-- Improve Chinese localization https://github.com/june07/NIM/pull/10, Thank you to jingsam!
+- Improve German localization https://github.com/june07/NiM/pull/9, Thank you to hpohlmeyer!
+- Improve Chinese localization https://github.com/june07/NiM/pull/10, Thank you to jingsam!
 [0.12.0] - 2017-02-09
 Added
 - Version update progress metric capture.
@@ -58,12 +61,12 @@ Added
 - Better langauge support with the addition of 20 more language translations.  Arabic, Czech, Danish, Greek, Estonian, Finnish, Hebrew, Hungarian, Croatian, Indonesian, Latvian, Dutch, Norwegian, Romanian, Slovak, Swedish, Thai, Turkish, Ukrainian, and Vietnamese!  
 [0.10.0] - 2017-01-30
 Added
-- This release includes a lot of UI changes, hopefully, all to the better.  The color scheme has changed slightly to match that of the main NIM icon.  A floating material style button has been added to the lower right corner of the popup to facilitate access to current and possible future features without being disruptive to the UI.  Currently, there is a button for the settings modal as well as well as a button for a new feature, the notification area.  Again, the notification area was meant to be very non-intrusive and to allow for easier communication to users about important issues.  Finally a Google+ Platform link was added to make it even easier to add those stellar reviews and 5 star ratings <i class=\"emo-thumbsup\"></i>.  The donation link was also changed partially in response to user feedback about making some additions to that area.
+- This release includes a lot of UI changes, hopefully, all to the better.  The color scheme has changed slightly to match that of the main NiM icon.  A floating material style button has been added to the lower right corner of the popup to facilitate access to current and possible future features without being disruptive to the UI.  Currently, there is a button for the settings modal as well as well as a button for a new feature, the notification area.  Again, the notification area was meant to be very non-intrusive and to allow for easier communication to users about important issues.  Finally a Google+ Platform link was added to make it even easier to add those stellar reviews and 5 star ratings <i class=\"emo-thumbsup\"></i>.  The donation link was also changed partially in response to user feedback about making some additions to that area.
 [0.9.3] - 2017-01-19
 Fixed
 - There was a "bug" where if a user was debugging remotely and did not forward the DevTools port along with the websocket port, the local websocket port would not be translated.  This was fixed.
 Changed
-- Japanese localization improvements https://github.com/june07/NIM/pull/6, Thank you to ABCanG!
+- Japanese localization improvements https://github.com/june07/NiM/pull/6, Thank you to ABCanG!
 Added
 - Keyboard Shortcut Ctrl-I for opening DevTools.
 - Hitting the Enter key for "host" or "port" input on the popup will open DevTools.
@@ -80,7 +83,7 @@ Added
 Fixed
 - Language support for Portuguese and Chinese.
 - Chrome tab not closing properly when using Nodemon #1
-- Improve ja localization https://github.com/june07/NIM/pull/3, Thank you to onionmk2!
+- Improve ja localization https://github.com/june07/NiM/pull/3, Thank you to onionmk2!
 [0.8.0] - 2016-12-11
 Added
 - Support for 10 additional languages. Danish, Spanish, French, Italian, Japanese, Korean, Polish, Portuguese, Russian, and Chinese
@@ -97,4 +100,4 @@ Added
 Added
 - The option of auto closing the Chrome DevTools session (tab or window).
 
-Complete changelog: https://github.com/june07/NIM/blob/master/CHANGELOG.md
+Complete changelog: https://github.com/june07/NiM/blob/master/CHANGELOG.md

@@ -44,17 +44,18 @@ ngApp
         var slider = $window.document.getElementById('checkInterval');
         $window.noUiSlider.create(slider, {
             start: [$scope.bg.settings.checkInterval],
-            step: 1,
+            step: 500,
             range: {
-                'min': [3],
-                'max': [300]
+                'min': [500],
+                'max': [30000]
             },
+            format: wNumb( { decimals: 2, encoder: function(value) { return value * .001 } }),
             tooltips: true
         });
         var rangeSliderValueElement = $window.document.getElementById('checkInterval-value');
         slider.noUiSlider.on('update', function(values, handle) {
             rangeSliderValueElement.innerHTML = values[handle];
-            $scope.bg.settings.checkInterval = parseInt(values[handle]);
+            $scope.bg.settings.checkInterval = values[handle] * 1000;
         });
         slider.noUiSlider.on('set', function(values, handle) {
             $window._gaq.push(['_trackEvent', 'User Event', 'checkInterval-value', values[handle], undefined, true]);

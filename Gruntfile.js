@@ -126,6 +126,12 @@ module.exports = function (grunt) {
             replacements: [{
               pattern: /const VERSION \= \'\'/,
               replacement: 'const VERSION = \''+ pkg.version +'\''
+            },
+            { pattern: /const DEBUG \= [0-9]/,
+              replacement: 'const DEBUG = 0'
+            },
+            { pattern: /const DEVEL \= true/,
+              replacement: 'const DEVEL = false'
             }]
           }
         }

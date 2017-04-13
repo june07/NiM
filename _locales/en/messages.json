@@ -8,11 +8,11 @@
     "description": "Message to display when there are no notifications."
   },
   "appName": {
-    "message": "NIM (Node Inspector Manager)",
+    "message": "NiM (Node.js V8 --inspector Manager) Beta",
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
-    "message": "NIM",
+    "message": "NiM",
     "description": "The short title."
   },
   "appDescription": {
