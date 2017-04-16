@@ -492,12 +492,12 @@ ngApp
                 });
             }
         }
-        function updateTabOrWindow(infoUrl, url, websocketId, tab, callback) {
+        function updateTabOrWindow(infoUrl, url, websocketId, tab) {
             $window._gaq.push(['_trackEvent', 'Program Event', 'updateTab', 'focused', $scope.settings.windowFocused, true]);
             chrome.tabs.update(tab.id, {
                 url: url,
                 active: $scope.settings.tabActive,
-            }, function(tabToUpdate) {
+            }, function() {
                 if (chrome.runtime.lastError) {
                     // In the event a tab is closed between the last check and now, just delete the session and wait until the next check loop.
                     if (chrome.runtime.lastError.message.toLowerCase().includes("no tab ")) {
