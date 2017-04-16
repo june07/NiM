@@ -69,6 +69,7 @@ ngApp
             SingletonOpenTabInProgress = openTabInProgressSingleton(),
             triggerTabUpdate = false;
 
+        restoreSettings();
         setInterval(function() {
             $scope.timerUptime++;
             if (($scope.timerUptime >= UPTIME_CHECK_INTERVAL && $scope.timerUptime % UPTIME_CHECK_INTERVAL === 0) || ($scope.timerUptime === 1)) {
@@ -165,6 +166,7 @@ ngApp
         }
         $scope.$on('options-window-closed', function() {
             //
+            saveAll();
             resetInterval($scope.settings.checkIntervalTimeout);
         });
         $scope.$on('options-window-focusChanged', function() {
@@ -601,9 +603,16 @@ ngApp
             chrome.storage.sync.set({
                 [key]: obj
             }, function() {
-                if ($scope.settings.debugVerbosity >= 4) {
-                    //console.log("saved key: [" + JSON.stringify(key) + "] obj: [" + obj + ']');
-                }
+                if ($scope.settings.debugVerbosity >= 4) console.log("saved key: [" + JSON.stringify(key) + "] obj: [" + obj + ']');
+            });
+        }
+        function restoreSettings() {
+            console.log('Restoring saved settings.');
+            chrome.storage.sync.get(function(sync) {
+                var keys = Object.keys(sync);
+                keys.forEach(function(key) {
+                    $scope.settings[key] = sync[key];
+                });
             });
         }
         function saveAll() {
