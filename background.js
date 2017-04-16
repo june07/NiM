@@ -206,7 +206,7 @@ ngApp
             }
             $scope.settings.checkIntervalTimeout = setInterval(function() {
                 if ($scope.settings.auto && ! $scope.lock) {
-                    if ($scope.settings.debugVerbosity >= 2) console.log('resetInterval going thru a check loop...')
+                    if ($scope.settings.debugVerbosity >= 6) console.log('resetInterval going thru a check loop...')
                     closeDevTools(
                     $scope.openTab($scope.settings.host, $scope.settings.port, function(message) {
                         $scope.message += '<br>' + message;
@@ -235,18 +235,18 @@ ngApp
                     port = instance.port;
 
                 if (promise !== undefined) {
-                    if ($scope.settings.debugVerbosity >= 3) console.log("httpGetTestSingleton promise not settled.");
+                    if ($scope.settings.debugVerbosity >= 6) console.log("httpGetTestSingleton promise not settled.");
                 } else {
                     promise = httpGetTest(host, port)
                     .then(function(up) {
-                        if ($scope.settings.debugVerbosity >= 2) console.log('Going thru a check loop [2nd]...')
+                        if ($scope.settings.debugVerbosity >= 7) console.log('Going thru a check loop [2nd]...')
                         var devToolsSession = $scope.devToolsSessions.find(function(session) {
                             if (session.infoUrl === getInfoURL($scope.settings.host, $scope.settings.port)) return true;
                         })
                         if (!up && (devToolsSession !== undefined)) {
                             closeDefunctDevTools(instance);
                         } else if (!up) {
-                            if ($scope.settings.debugVerbosity >= 2) console.log('No DevTools instance detected.  Skipping [1st] check loop...')
+                            if ($scope.settings.debugVerbosity >= 7) console.log('No DevTools instance detected.  Skipping [1st] check loop...')
                         } else if (up && (devToolsSession !== undefined)) {
                             getTabsCurrentSocketId(devToolsSession.infoUrl)
                             .then(function(socketId) {
@@ -260,7 +260,7 @@ ngApp
                         promise = value;
                     })
                     .catch(function(error) {
-                        if ($scope.settings.debugVerbosity >= 2) console.log('ERROR: ' + error);
+                        if ($scope.settings.debugVerbosity >= 6) console.log('ERROR: ' + error);
                     });
                     return promise;
                 }
@@ -333,8 +333,8 @@ ngApp
             });
         }
         function toggleCheckIntervalForLockedTabs(lock) {
-            if (lock && $scope.settings.debugVerbosity >= 3) console.log('locked');
-            if (!lock && $scope.settings.debugVerbosity >= 3) console.log('unlocked');
+            if (lock && $scope.settings.debugVerbosity >= 6) console.log('locked');
+            if (!lock && $scope.settings.debugVerbosity >= 6) console.log('unlocked');
             if (lock !== $scope.lock) {
                 $scope.lock = lock;
             }
@@ -383,7 +383,7 @@ ngApp
                         });
                     },
                     function errorCallback(response) {
-                        if ($scope.settings.debugVerbosity >= 5) console.log(response);
+                        if ($scope.settings.debugVerbosity >= 6) console.log(response);
                         return resolve(false);
                     }
                 )
@@ -601,7 +601,7 @@ ngApp
             chrome.storage.sync.set({
                 [key]: obj
             }, function() {
-                if ($scope.settings.debugVerbosity >= 5) {
+                if ($scope.settings.debugVerbosity >= 4) {
                     //console.log("saved key: [" + JSON.stringify(key) + "] obj: [" + obj + ']');
                 }
             });
@@ -643,7 +643,7 @@ ngApp
             for (key in changes) {
                 if (key === 'autoClose') SingletonHttpGet.closeDefunctDevTools({ host: $scope.settings.host, port: $scope.settings.port });
                 var storageChange = changes[key];
-                if ($scope.settings.debugVerbosity >= 5) console.log(chrome.i18n.getMessage("errMsg5", [key, namespace, storageChange.oldValue, storageChange.newValue]));
+                if ($scope.settings.debugVerbosity >= 4) console.log(chrome.i18n.getMessage("errMsg5", [key, namespace, storageChange.oldValue, storageChange.newValue]));
             }
         });
         chrome.tabs.onRemoved.addListener(function chromeTabsRemovedEvent(tabId) {
