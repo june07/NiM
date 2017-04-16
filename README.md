@@ -1,5 +1,5 @@
 [NIM Homepage](http://june07.com/nim)
-![alt text](http://nim.ucraft.com/images/logo.png?v=1481652763 "NIM Logo (lettering)")
+![NiM Logo](http://june07.github.io/image/smallPromoTile.png)
 # NIM (Node Inspection Monitor)
 #### NIM streamlines your Node.js development cycle when using Node V8 Inspector "--inspect" and Chrome DevTools.
 
