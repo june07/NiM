@@ -1,8 +1,8 @@
 {
-  "name": "NIM",
-  "version": "0.13.2",
-  "description": "Node.js Inspector (v8 --inspect) Monitor.  Monitor the integrated Node V8 inspector and auto open Chrome DevTools",
-  "main": "nim.js",
+  "name": "NiM",
+  "version": "0.13.3",
+  "description": "Node.js --inspector Manager.  Manages the integrated Node V8 inspector Chrome Developer Tools",
+  "main": "background.js",
   "dependencies": {
     "angular": "^1.5.8",
     "angular-animate": "^1.5.8",

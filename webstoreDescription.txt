@@ -1,4 +1,4 @@
-Node.js Inspector Manager - NiM
+Node.js --inspector Manager - NiM
 
 NiM streamlines your Node.js development cycle when using Chrome DevTools Inspector.
 
@@ -35,9 +35,12 @@ If you enjoy using NiM please give us a 5 star rating and/or a G+1.  Any and all
 
 This project is open source and available at https://github.com/june07/NiM.
 
-[0.13.0-Beta1] - 2017-04-12
+[0.13.3] - 2017-04-17
 Added
 - Faster polling (GitHub - Allow users to pick faster polling rate #13)
+- Better debugging options for NiM itself using DevTools instead of the popup window.  See https://june07.com/nim/debug for details.
+Fixed
+- Bug where settings were not being saved upon restart of Chrome.
 [0.12.5] - 2017-03-10
 Fixed
 - Not a bug per se but I've received a lot of feedback about it so I added some alerting under certain situations.  One being when the user is trying to connect to a non-existant DevTools instance, and/or one on the wrong host, port, etc.
