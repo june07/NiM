@@ -5,15 +5,19 @@ module.exports = function (grunt) {
   var pkg = grunt.file.readJSON('package.json');
   var mnf = grunt.file.readJSON('manifest.json');
   var fileMaps = {
-      browserify: {},
-      uglify: {}
+    transpile: {},
+    browserify: {},
+    uglify: {}
   };
-  var file, files = grunt.file.expand({}, ['js/**/*.js, *.js']);
-  for (var i = 0; i < files.length; i++) {
+  //var file, files = grunt.file.expand({}, ['js/**/*.js']);
+  /*for (var i = 0; i < files.length; i++) {
       file = files[i];
       fileMaps.browserify['build/unpacked-dev/js/' + file] = 'js/' + file;
-      fileMaps.uglify['build/unpacked-prod/js/' + file] = 'build/unpacked-dev/js/' + file;
-  }
+      fileMaps.uglify['build/unpacked-prod/js/' + file] = 'js/' + file;
+  }*/
+  fileMaps.uglify['build/unpacked-prod/background.min.js'] = 'build/unpacked-dev/background.js';
+  fileMaps.uglify['build/unpacked-prod/popup.min.js'] = 'build/unpacked-dev/popup.js';
+  fileMaps.uglify['build/unpacked-prod/options.min.js'] = 'build/unpacked-dev/options.js';
   grunt.initConfig({
       clean: [ 'build/**/*'],
       mkdir: {
@@ -44,9 +48,16 @@ module.exports = function (grunt) {
       processhtml: {
         dist: {
           files: {
-            'build/unpacked-prod/background.html': ['background.html'],
-            'build/unpacked-prod/popup.html': ['popup.html'],
-            'build/unpacked-prod/options.html': ['options.html']
+            'build/unpacked-prod/background.html': ['build/unpacked-dev/background.html'],
+            'build/unpacked-prod/popup.html': ['build/unpacked-dev/popup.html'],
+            'build/unpacked-prod/options.html': ['build/unpacked-dev/options.html']
+          }
+        },
+        min: {
+          files: {
+            'build/unpacked-prod/background.html': ['build/unpacked-dev/background.html'],
+            'build/unpacked-prod/popup.html': ['build/unpacked-dev/popup.html'],
+            'build/unpacked-prod/options.html': ['build/unpacked-dev/options.html']
           }
         }
       },
@@ -54,7 +65,7 @@ module.exports = function (grunt) {
         main: {
           files: [{
               expand: true,
-              src: ['js/**/*.js', '*.js', '*.html', 'css/**/*.css', '*.css', 'icon/*', 'font/*', 'image/*', 'manifest.json', 'LICENSE', '_locales/**/*', '!Gruntfile.js', '!i18n_config.js'],
+              src: ['js/**/*.js', '*.js', '*.html', 'css/**/*.css', '*.css', 'icon/*', 'font/*', 'image/*', 'manifest.json', 'LICENSE', '_locales/**/*', '!Gruntfile.js', '!i18n_config.js', '!notifications*.js'],
               dest: 'build/unpacked-dev/'
           }]
         },
@@ -63,6 +74,14 @@ module.exports = function (grunt) {
               expand: true,
               cwd: 'build/unpacked-dev/',
               src: ['js/**/*.js', '*.js', 'icon/*', 'font/*', 'image/*', 'manifest.json', 'LICENSE', '_locales/**/*', '!js/dev/**'],
+              dest: 'build/unpacked-prod/'
+          }]
+        },
+        min: {
+          files: [{
+              expand: true,
+              cwd: 'build/unpacked-dev/',
+              src: ['js/**/*.js', 'icon/*', 'font/*', 'image/*', 'manifest.json', 'LICENSE', '_locales/**/*', '!js/dev/**'],
               dest: 'build/unpacked-prod/'
           }]
         },
@@ -101,6 +120,19 @@ module.exports = function (grunt) {
           files: [ { expand: true, cwd: './build/unpacked-prod/', src: ['**'] } ]
         }
       },
+      babel: {
+        options: {
+          sourceMap: true,
+          presets: ['babel-preset-env']
+        },
+        dist: {
+          files: [
+            { 'build/unpacked-dev/background.js': 'background.js' }, 
+            { 'build/unpacked-dev/popup.js': 'popup.js' },
+            { 'build/unpacked-dev/options.js': 'options.js' }
+          ]
+        }
+      },
       uglify: {
           min: {
               files: fileMaps.uglify
@@ -120,7 +152,6 @@ module.exports = function (grunt) {
         dist: {
           files: {
             'build/unpacked-dev/': 'background.js',
-            'build/unpacked-prod/': 'background.js'
           },
           options: {
             replacements: [{
@@ -169,7 +200,8 @@ module.exports = function (grunt) {
   );
   grunt.registerTask('test', ['eslint']);
   grunt.registerTask('test-cont', ['test', 'watch']);
-  grunt.registerTask('default', ['clean', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'copy:prod', 'string-replace', 'processhtml:dist', 'cssmin', 'uglify', 'exec', 'compress']);
+  grunt.registerTask('min', ['clean', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'copy:min', 'string-replace', 'processhtml:dist', 'processhtml:min', 'cssmin', 'babel', 'uglify', 'exec', 'compress']);
+  grunt.registerTask('default', ['clean', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'copy:prod', 'string-replace', 'processhtml:dist', 'cssmin', 'exec', 'compress']);
   grunt.file.write('build/unpacked-dev/manifest.json', JSON.stringify(mnf, null, 4) + '\n');
   grunt.log.ok('manifest.json generated');
 }
