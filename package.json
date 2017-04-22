@@ -1,8 +1,8 @@
 {
-  "name": "NIM",
-  "version": "0.12.4",
-  "description": "Node.js Inspector (v8 --inspect) Monitor.  Monitor the integrated Node V8 inspector and auto open Chrome DevTools",
-  "main": "nim.js",
+  "name": "NiM",
+  "version": "0.13.4",
+  "description": "Node.js --inspector Manager.  Manages the integrated Node V8 inspector Chrome Developer Tools",
+  "main": "background.js",
   "dependencies": {
     "angular": "^1.5.8",
     "angular-animate": "^1.5.8",
@@ -16,9 +16,12 @@
     "requirejs": "^2.3.2"
   },
   "devDependencies": {
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-es2015": "^6.24.1",
     "eslint-plugin-angular": "^1.4.1",
     "eslint-plugin-json": "^1.2.0",
     "grunt": "~0.4.1",
+    "grunt-babel": "^6.0.0",
     "grunt-chrome-compile": "^0.2.2",
     "grunt-contrib-clean": "~0.4.0",
     "grunt-contrib-compress": "~0.5.0",
@@ -42,7 +45,8 @@
     "materialize-css": "^0.98.0",
     "mocha": ">=1.20.0",
     "picker.js": "^0.1.11",
-    "selenium-webdriver": "^3.3.0"
+    "selenium-webdriver": "^3.3.0",
+    "uglify-js": "^2.8.22"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -141,7 +141,7 @@ ngApp
                                                     saveSession(url, infoUrl, websocketId, tabToUpdate.id);
                                                     callback(tabToUpdate.url);
                                                 } else if (!triggerTabUpdate && tabId === tabToUpdate.id) {
-                                                    console.log('Loading updated tab [' + tabId + ']...');
+                                                    if ($scope.settings.debugVerbosity >= 6) console.log('Loading updated tab [' + tabId + ']...');
                                                 }
                                             });
                                         })
@@ -199,7 +199,7 @@ ngApp
             }
         }
         (function startInterval() {
-            console.log('Starting up.')
+            if ($scope.settings.debugVerbosity >= 1) console.log('Starting up.')
             resetInterval();
         })();
         function resetInterval(timeout) {
@@ -283,7 +283,7 @@ ngApp
                 var interval;
                 if ($scope.settings.debugVerbosity) {
                     interval = setInterval(function() {
-                        console.log(".");
+                        if ($scope.settings.debugVerbosity >= 7) console.log('.');
                     }, 200)
                 }
                 setTimeout(function() {
@@ -607,7 +607,7 @@ ngApp
             });
         }
         function restoreSettings() {
-            console.log('Restoring saved settings.');
+            if ($scope.settings.debugVerbosity >= 1) console.log('Restoring saved settings.');
             chrome.storage.sync.get(function(sync) {
                 var keys = Object.keys(sync);
                 keys.forEach(function(key) {
