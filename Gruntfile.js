@@ -6,15 +6,24 @@ module.exports = function (grunt) {
   var mnf = grunt.file.readJSON('manifest.json');
   var fileMaps = {
     transpile: {},
-    browserify: {},
     uglify: {}
   };
-  //var file, files = grunt.file.expand({}, ['js/**/*.js']);
-  /*for (var i = 0; i < files.length; i++) {
-      file = files[i];
-      fileMaps.browserify['build/unpacked-dev/js/' + file] = 'js/' + file;
-      fileMaps.uglify['build/unpacked-prod/js/' + file] = 'js/' + file;
-  }*/
+  var jsDeps = [
+              'angular.min.js',
+              'angular-animate.min.js',
+              'angular-moment.min.js',
+              'bootstrap-notify.min.js',
+              'jquery.min.js',
+              'materialize.min.js',
+              'moment.min.js',
+              'nouislider.min.js',
+              'perfect-scrollbar.jquery.min.js',
+              'perfect-scrollbar.min.js',
+              'wnumb.js'
+  ];
+  jsDeps;
+  fileMaps.uglify['build/unpacked-dev/js/wnumb.min.js'] = 'build/unpacked-dev/js/wnumb.js';
+  fileMaps.uglify['build/unpacked-dev/js/googleanalytics.min.js'] = 'build/unpacked-dev/js/googleanalytics.js';
   fileMaps.uglify['build/unpacked-prod/background.min.js'] = 'build/unpacked-dev/background.js';
   fileMaps.uglify['build/unpacked-prod/popup.min.js'] = 'build/unpacked-dev/popup.js';
   fileMaps.uglify['build/unpacked-prod/options.min.js'] = 'build/unpacked-dev/options.js';
@@ -66,24 +75,33 @@ module.exports = function (grunt) {
           files: [{
               expand: true,
               src: ['js/**/*.js', '*.js', '*.html', 'css/**/*.css', '*.css', 'icon/*', 'font/*', 'image/*', 'manifest.json', 'LICENSE', '_locales/**/*', '!Gruntfile.js', '!i18n_config.js', '!notifications*.js'],
-              dest: 'build/unpacked-dev/'
-          }]
+              dest: 'build/unpacked-dev/' },
+          { expand: true,
+            cwd: 'css/vendor/',
+            src: 'font/**',
+            dest: 'build/unpacked-dev/' }]
         },
         prod: {
           files: [{
               expand: true,
               cwd: 'build/unpacked-dev/',
               src: ['js/**/*.js', '*.js', 'icon/*', 'font/*', 'image/*', 'manifest.json', 'LICENSE', '_locales/**/*', '!js/dev/**'],
-              dest: 'build/unpacked-prod/'
-          }]
+              dest: 'build/unpacked-prod/' },
+          { expand: true,
+            cwd: 'css/vendor/',
+            src: 'font/**',
+            dest: '/build/unpacked-prod/' }]
         },
         min: {
           files: [{
               expand: true,
               cwd: 'build/unpacked-dev/',
-              src: ['js/**/*.js', 'icon/*', 'font/*', 'image/*', 'manifest.json', 'LICENSE', '_locales/**/*', '!js/dev/**'],
-              dest: 'build/unpacked-prod/'
-          }]
+              src: ['js/**/*.min.js', 'icon/*', 'font/*', 'image/*', 'manifest.json', 'LICENSE', '_locales/**/*', '!js/dev/**'],
+              dest: 'build/unpacked-prod/' },
+          { expand: true,
+            cwd: 'css/vendor/',
+            src: 'font/**',
+            dest: 'build/unpacked-prod/' }]
         },
         artifact: {
           files: [{
@@ -93,17 +111,6 @@ module.exports = function (grunt) {
               dest: process.env.CIRCLE_ARTIFACTS
           }]
         }
-      },
-      browserify: {
-          build: {
-              files: fileMaps.browserify,
-              options: {
-                  browserifyOptions: {
-                      debug: true, // for source maps
-                      standalone: pkg['export-symbol']
-                  }
-              }
-          }
       },
       exec: {
           crx: {
@@ -169,10 +176,45 @@ module.exports = function (grunt) {
       },
       watch: {
           js: {
-              files: ['package.json', 'lint-options.json', 'Gruntfile.js', '**/*.js',
-          '**/*.json'],
+              files: ['package.json', 'lint-options.json', 'Gruntfile.js', '**/*.js', '**/*.json'],
               tasks: ['test']
           }
+      },
+      npmcopy: {
+        js: {
+          options: {
+              // Task-specific options go here 
+              destPrefix: "js"
+          },
+          files: {
+              // Target-specific file lists and/or options go here 
+              'angular.min.js': 'angular/angular.min.js',
+              'angular-animate.min.js': 'angular-animate/angular-animate.min.js',
+              'angular-moment.min.js': 'angular-moment/angular-moment.min.js',
+              'bootstrap-notify.min.js': 'bootstrap-notify/bootstrap-notify.min.js',
+              'jquery.min.js': 'jquery/dist/jquery.min.js',
+              'materialize.min.js': 'materialize-css/dist/js/materialize.min.js',
+              'moment.min.js': 'moment/min/moment.min.js',
+              'nouislider.min.js': 'nouislider/distribute/nouislider.min.js',
+              'perfect-scrollbar.jquery.min.js': 'perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js',
+              'perfect-scrollbar.min.js': 'perfect-scrollbar/dist/js/perfect-scrollbar.min.js',
+              'wnumb.js': 'wnumb/wNumb.js'
+          }
+        },
+        css: {
+          options: {
+              // Task-specific options go here 
+              destPrefix: "css/vendor"
+          },
+          files: {
+              // Target-specific file lists and/or options go here
+              'materialize.min.css': 'materialize-css/dist/css/materialize.min.css',
+              'options/nouislider.min.css': 'nouislider/distribute/nouislider.min.css',
+              'popup/animate.min.css': 'animate.css/animate.min.css',
+              'popup/bootstrap.min.css': 'bootstrap/dist/css/bootstrap.min.css',
+              'popup/perfect-scrollbar.min.css': 'perfect-scrollbar/dist/css/perfect-scrollbar.min.css',
+          }
+        }
       }
   });
   grunt.registerTask(
@@ -200,8 +242,8 @@ module.exports = function (grunt) {
   );
   grunt.registerTask('test', ['eslint']);
   grunt.registerTask('test-cont', ['test', 'watch']);
-  grunt.registerTask('min', ['clean', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'copy:min', 'string-replace', 'processhtml:dist', 'processhtml:min', 'cssmin', 'babel', 'uglify', 'exec', 'compress']);
-  grunt.registerTask('default', ['clean', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'copy:prod', 'string-replace', 'processhtml:dist', 'cssmin', 'exec', 'compress']);
+  grunt.registerTask('min', ['clean', 'npmcopy', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'string-replace', 'processhtml:dist', 'processhtml:min', 'cssmin', 'babel', 'uglify', 'copy:min', 'exec', 'compress']);
+  grunt.registerTask('default', ['clean', 'npmcopy', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'copy:prod', 'string-replace', 'processhtml:dist', 'cssmin', 'exec', 'compress']);
   grunt.file.write('build/unpacked-dev/manifest.json', JSON.stringify(mnf, null, 4) + '\n');
   grunt.log.ok('manifest.json generated');
 }

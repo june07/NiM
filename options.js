@@ -50,7 +50,7 @@ ngApp
                 'max': [30000]
             },
             format: wNumb( { decimals: 2, encoder: function(value) { return value * .001 } }),
-            tooltips: true
+            tooltips: false
         });
         var rangeSliderValueElement = $window.document.getElementById('checkInterval-value');
         slider.noUiSlider.on('update', function(values, handle) {
@@ -68,7 +68,7 @@ ngApp
                 'min': [0],
                 'max': [10]
             },
-            tooltips: true
+            tooltips: false
         });
         var rangeSliderValueElementDebugVerbosity = $window.document.getElementById('debugVerbosityBadge');
         sliderDebugVerbosity.noUiSlider.on('update', function(values, handle) {
