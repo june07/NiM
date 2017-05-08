@@ -57,7 +57,6 @@ ngApp
         $scope.changeObject;
         $scope.userInfo;
         $scope.sessionlessTabs = [];
-        $scope.message;
         $scope.locks = [];
         $scope.lock = false;
         $scope.moment = $window.moment;
@@ -211,7 +210,7 @@ ngApp
                     if ($scope.settings.debugVerbosity >= 6) console.log('resetInterval going thru a check loop...')
                     closeDevTools(
                     $scope.openTab($scope.settings.host, $scope.settings.port, function(message) {
-                        $scope.message += '<br>' + message;
+                        if ($scope.settings.debugVerbosity >= 3) console.log(message);
                     }));
                 } else if ($scope.settings.auto && $scope.lock) {
                     /** If the $scope.lock is set then we still have to check for disconnects on the client side via httpGetTest().
@@ -229,7 +228,7 @@ ngApp
                 unlock(instance);
                 closeDevTools(function() {
                     var message = 'Closed defunct DevTools session.';
-                    $scope.message += '<br>' + message;
+                    if ($scope.settings.debugVerbosity >= 3) console.log(message);
                 });
             }
             function createInstance(instance) {
@@ -477,7 +476,7 @@ ngApp
                         }
                     }
                     $scope.devToolsSessions.splice(index, 1);
-                    $scope.message += '<br>' + chrome.i18n.getMessage("errMsg2") + JSON.stringify(devToolsSession) + '.';
+                    if ($scope.settings.debugVerbosity >= 3) console.log(chrome.i18n.getMessage("errMsg2") + JSON.stringify(devToolsSession) + '.');
                 });
             } else {
                 $window._gaq.push(['_trackEvent', 'Program Event', 'removeDevToolsSession', 'tab', undefined, true]);
@@ -488,7 +487,7 @@ ngApp
                         }
                     }
                     $scope.devToolsSessions.splice(index, 1);
-                    $scope.message += '<br>' + chrome.i18n.getMessage("errMsg6") + JSON.stringify(devToolsSession) + '.';
+                    if ($scope.settings.debugVerbosity >= 3) console.log(chrome.i18n.getMessage("errMsg6") + JSON.stringify(devToolsSession) + '.');
                 });
             }
         }
@@ -672,7 +671,7 @@ ngApp
                     $scope.save("host");
                     $scope.save("port");
                     $scope.openTab($scope.settings.host, $scope.settings.port, function (result) {
-                        $scope.message += '<br>' + result + '.';
+                        if ($scope.settings.debugVerbosity >= 3) console.log(result);
                     });
                     $window._gaq.push(['_trackEvent', 'User Event', 'OpenDevTools', 'Keyboard Shortcut Used', undefined, true]); break;
             }
