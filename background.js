@@ -39,7 +39,7 @@ ngApp
             port: "9229",
             auto: true,
             checkInterval: 500,
-            debugVerbosity: 5,
+            debugVerbosity: 9,
             checkIntervalTimeout: null,
             newWindow: false,
             autoClose: false,
@@ -454,7 +454,7 @@ ngApp
             if ($scope.locks !== undefined) {
                 return $scope.locks.find(function(lock, index, locks) {
                     if (lock !== undefined && instance !== undefined) {
-                        if (lock.host === instance.host && lock.port === parseInt(instance.port)) {
+                        if (lock.host === instance.host && parseInt(lock.port) === parseInt(instance.port)) {
                             locks.splice(index, 1);
                             toggleCheckIntervalForLockedTabs(false);
                             return true;

@@ -22,8 +22,8 @@ module.exports = function (grunt) {
               'wnumb.js'
   ];
   jsDeps;
-  fileMaps.uglify['build/unpacked-dev/js/wnumb.min.js'] = 'build/unpacked-dev/js/wnumb.js';
-  fileMaps.uglify['build/unpacked-dev/js/googleanalytics.min.js'] = 'build/unpacked-dev/js/googleanalytics.js';
+  fileMaps.uglify['build/unpacked-prod/js/wnumb.min.js'] = 'build/unpacked-dev/js/wnumb.js';
+  fileMaps.uglify['build/unpacked-prod/js/googleanalytics.min.js'] = 'build/unpacked-dev/js/googleanalytics.js';
   fileMaps.uglify['build/unpacked-prod/background.min.js'] = 'build/unpacked-dev/background.js';
   fileMaps.uglify['build/unpacked-prod/popup.min.js'] = 'build/unpacked-dev/popup.js';
   fileMaps.uglify['build/unpacked-prod/options.min.js'] = 'build/unpacked-dev/options.js';
@@ -99,9 +99,9 @@ module.exports = function (grunt) {
               src: ['js/**/*.min.js', 'icon/*', 'font/*', 'image/*', 'manifest.json', 'LICENSE', '_locales/**/*', '!js/dev/**'],
               dest: 'build/unpacked-prod/' },
           { expand: true,
-            cwd: 'css/vendor/',
-            src: 'font/**',
-            dest: 'build/unpacked-prod/' }]
+            cwd: 'build/unpacked-dev/css/',
+            src: ['nim.min.css', 'vendor-options.min.css', 'vendor-popup.min.css', 'vendor.min.css'],
+            dest: 'build/unpacked-prod/css/' }]
         },
         artifact: {
           files: [{
@@ -148,10 +148,10 @@ module.exports = function (grunt) {
       cssmin: {
         target: {
           files: [ 
-            { 'build/unpacked-prod/css/vendor-popup.min.css' : 'css/vendor/popup/*.css' },
-            { 'build/unpacked-prod/css/vendor-options.min.css' : 'css/vendor/options/*.css' },
-            { 'build/unpacked-prod/css/vendor.min.css' : 'css/vendor/*.css' },
-            { 'build/unpacked-prod/css/nim.min.css' : 'css/*.css' }
+            { 'build/unpacked-dev/css/vendor-popup.min.css' : 'css/vendor/popup/*.css' },
+            { 'build/unpacked-dev/css/vendor-options.min.css' : 'css/vendor/options/*.css' },
+            { 'build/unpacked-dev/css/vendor.min.css' : 'css/vendor/*.css' },
+            { 'build/unpacked-dev/css/nim.min.css' : 'css/*.css' }
           ]
         }
       },
@@ -165,8 +165,8 @@ module.exports = function (grunt) {
               pattern: /const VERSION \= \'\'/,
               replacement: 'const VERSION = \''+ pkg.version +'\''
             },
-            { pattern: /const DEBUG \= [0-9]/,
-              replacement: 'const DEBUG = 0'
+            { pattern: /debugVerbosity: [0-9]/,
+              replacement: 'debugVerbosity: 0'
             },
             { pattern: /const DEVEL \= true/,
               replacement: 'const DEVEL = false'
@@ -208,11 +208,11 @@ module.exports = function (grunt) {
           },
           files: {
               // Target-specific file lists and/or options go here
-              'materialize.min.css': 'materialize-css/dist/css/materialize.min.css',
-              'options/nouislider.min.css': 'nouislider/distribute/nouislider.min.css',
+              'materialize.css': 'materialize-css/dist/css/materialize.css',
+              'options/nouislider.css': 'nouislider/distribute/nouislider.css',
               'popup/animate.min.css': 'animate.css/animate.min.css',
               'popup/bootstrap.min.css': 'bootstrap/dist/css/bootstrap.min.css',
-              'popup/perfect-scrollbar.min.css': 'perfect-scrollbar/dist/css/perfect-scrollbar.min.css',
+              'popup/perfect-scrollbar.css': 'perfect-scrollbar/dist/css/perfect-scrollbar.css',
           }
         }
       }
