@@ -58,7 +58,6 @@ ngApp
         $scope.userInfo;
         $scope.sessionlessTabs = [];
         $scope.locks = [];
-        $scope.lock = false;
         $scope.moment = $window.moment;
 
         var tabId_HostPort_LookupTable = [],
@@ -206,14 +205,14 @@ ngApp
                 clearInterval(timeout);
             }
             $scope.settings.checkIntervalTimeout = setInterval(function() {
-                if ($scope.settings.auto && ! $scope.lock) {
+                if ($scope.settings.auto && ! isLocked(getInstance())) {
                     if ($scope.settings.debugVerbosity >= 6) console.log('resetInterval going thru a check loop...')
                     closeDevTools(
                     $scope.openTab($scope.settings.host, $scope.settings.port, function(message) {
                         if ($scope.settings.debugVerbosity >= 3) console.log(message);
                     }));
-                } else if ($scope.settings.auto && $scope.lock) {
-                    /** If the $scope.lock is set then we still have to check for disconnects on the client side via httpGetTest().
+                } else if ($scope.settings.auto && isLocked(getInstance())) {
+                    /** If the isLocked(getInstance()) is set then we still have to check for disconnects on the client side via httpGetTest().
                     until there exists an event for the DevTools websocket disconnect.  Currently there doesn't seem to be one
                     that we can use simultanous to DevTools itself as only one connection to the protocol is allowed at a time.
                     */
@@ -333,13 +332,6 @@ ngApp
                 }
             });
         }
-        function toggleCheckIntervalForLockedTabs(lock) {
-            if (lock && $scope.settings.debugVerbosity >= 6) console.log('locked');
-            if (!lock && $scope.settings.debugVerbosity >= 6) console.log('unlocked');
-            if (lock !== $scope.lock) {
-                $scope.lock = lock;
-            }
-        }
         function getInfoURL(host, port) {
             return 'http://' + host + ':' + port + '/json';
         }
@@ -417,15 +409,15 @@ ngApp
                 var instance = { host: host, port: port };
 
                 if (action !== null && action === 'lock') {
-                    toggleCheckIntervalForLockedTabs(true);
                     $scope.locks.push({ host: instance.host, port: instance.port, tabStatus: 'loading' }); 
                     resolve(true);
-                } else if ($scope.lock) {
+                } else if (isLocked(getInstance())) {
                     // Test that the DevTools instance is still alive (ie that the debugee app didn't exit.)  If the app did exit, remove the check lock.
                     //SingletonHttpGet2.getInstance(instance, callback);                    
                         httpGetTest(instance.host, instance.port)
                         .then(function(up) {
-                            if (up && !isLocked(instance)) {
+                            var locked = isLocked(instance) || false;
+                            if (up && locked) {
                                 resolve({ inprogress: true, message: 'Opening tab in progress...' });
                             } else if (!up && !isLocked(instance)) {
                                 resolve({ inprogress: false, message: chrome.i18n.getMessage("errMsg7", [host, port]) });
@@ -456,13 +448,11 @@ ngApp
                     if (lock !== undefined && instance !== undefined) {
                         if (lock.host === instance.host && parseInt(lock.port) === parseInt(instance.port)) {
                             locks.splice(index, 1);
-                            toggleCheckIntervalForLockedTabs(false);
                             return true;
                         }
                     }
                 });
             } else {
-                toggleCheckIntervalForLockedTabs(false);
                 return true;
             }
         }
