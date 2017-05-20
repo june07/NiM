@@ -242,8 +242,7 @@ module.exports = function (grunt) {
   );
   grunt.registerTask('test', ['eslint']);
   grunt.registerTask('test-cont', ['test', 'watch']);
-  grunt.registerTask('min', ['clean', 'npmcopy', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'string-replace', 'processhtml:dist', 'processhtml:min', 'cssmin', 'babel', 'uglify', 'copy:min', 'exec', 'compress']);
-  grunt.registerTask('default', ['clean', 'npmcopy', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'copy:prod', 'string-replace', 'processhtml:dist', 'cssmin', 'exec', 'compress']);
+  grunt.registerTask('default', ['clean', 'npmcopy', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'string-replace', 'processhtml:dist', 'processhtml:min', 'cssmin', 'babel', 'uglify', 'copy:min', 'exec', 'compress']);
   grunt.file.write('build/unpacked-dev/manifest.json', JSON.stringify(mnf, null, 4) + '\n');
   grunt.log.ok('manifest.json generated');
 }
