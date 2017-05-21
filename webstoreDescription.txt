@@ -2,6 +2,8 @@ Node.js --inspector Manager - NiM
 
 NiM streamlines your Node.js development cycle when using Chrome DevTools Inspector.
 
+NiM provides extended capabilities even compared with the new chrome://inspect option.  Check out what Paul Irish of the Google Chrome team wrote about NiM... https://twitter.com/june07t/status/861664828909264896 .
+
 NiM manages the Chrome DevTools window/tab life-cycle leaving you with more ability to focus on what matters... debugging your code.  You no longer need to copy/paste DevTools URL's or continue opening/closing tabs/windows.
 
 NiM automatically detects the URL that is generated when running node (locally or remotely) with --inspect option. NiM provides you with the option of automatically opening and closing Chrome DevTools in a tab or window. Just toggle the Manual/Auto setting and then start a debugging session.  DevTools will open either on clicking the "Open DevTools" button or after the specified timeout period.  If set to auto close, once you end your debugging session, DevTools will close automatically.
@@ -35,6 +37,12 @@ If you enjoy using NiM please give us a 5 star rating and/or a G+1.  Any and all
 
 This project is open source and available at https://github.com/june07/NiM.
 
+[0.13.7] - 2017-05-22
+Fixed
+- Reload loop in some cases.
+[0.13.6] - 2017-05-21
+Fixed
+- Stuck in a locked state in some cases.
 [0.13.5] - 2017-05-08
 Fixed
 - Pretty major bug related to locking fixed.
