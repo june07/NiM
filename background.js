@@ -65,7 +65,8 @@ ngApp
             chrome = $window.chrome,
             SingletonHttpGet = httpGetTestSingleton(),
             SingletonOpenTabInProgress = openTabInProgressSingleton(),
-            triggerTabUpdate = false;
+            triggerTabUpdate = false,
+            websocketIdLastLoaded = null;
 
         restoreSettings();
         setInterval(function() {
@@ -482,10 +483,12 @@ ngApp
             }
         }
         function updateTabOrWindow(infoUrl, url, websocketId, tab) {
+            if (websocketId === websocketIdLastLoaded) return;
             $window._gaq.push(['_trackEvent', 'Program Event', 'updateTab', 'focused', $scope.settings.windowFocused, true]);
             chrome.tabs.update(tab.id, {
                 url: url,
                 active: $scope.settings.tabActive,
+                selected: $scope.settings.tabActive,
             }, function() {
                 if (chrome.runtime.lastError) {
                     // In the event a tab is closed between the last check and now, just delete the session and wait until the next check loop.
@@ -493,6 +496,7 @@ ngApp
                         return deleteSession(tab.id);
                     }
                 }
+                websocketIdLastLoaded = websocketId;
                 triggerTabUpdate = true;
             });
         }
