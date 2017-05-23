@@ -154,10 +154,12 @@ ngApp
                                             }, function callback(tab) {
                                                 // Resolve otherwise let the event handler resolve
                                                 tab = tab[0];
-                                                if (tab.active || $scope.settings.tabActive) {
+                                                if (tab.active) {
                                                     chrome.windows.get(tab.windowId, function(window) {
                                                         if (window.focused) return resolve();
                                                     });
+                                                } else if ($scope.settings.windowFocused) {
+                                                    return resolve();
                                                 }
                                                 addPromiseToUpdateTabOrWindow(tab, promiseToUpdateTabOrWindow);
                                             });
