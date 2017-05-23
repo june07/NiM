@@ -39,7 +39,7 @@ This project is open source and available at https://github.com/june07/NiM.
 
 [0.13.8] - 2017-05-23
 Fixed
-- TabActive setting not working.  Error was due to what I believe is a bug in the Chrome code base...?  Anyhow this works around the dependancy.
+- "Make Window Focused" option not working.  Error was due to what I believe is a bug in the Chrome code base...?  Anyhow this works around the dependancy.
 [0.13.7] - 2017-05-22
 Fixed
 - Reload loop in some cases.
