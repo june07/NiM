@@ -148,21 +148,21 @@ ngApp
                                         .then(callback);
                                     } else {
                                         // If the tab has focus then issue this... otherwise wait until it has focus (ie event listener for window event.  If another request comes in while waiting, just update the request with the new info but still wait if focus is not present.
-                                        var promiseToUpdateTabOrWindow = new Promise(function(resolve, reject) {
+                                        var promiseToUpdateTabOrWindow = new Promise(function(resolve) {
                                             chrome.tabs.query({
                                                 url: [ 'chrome-devtools://*/*', 'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*' ]
                                             }, function callback(tab) {
                                                 // Resolve otherwise let the event handler resolve
                                                 tab = tab[0];
                                                 if (tab.active || $scope.settings.tabActive) {
-                                                    var activeWindow = chrome.windows.get(tab.windowId, function(window) {
+                                                    chrome.windows.get(tab.windowId, function(window) {
                                                         if (window.focused) return resolve();
                                                     });
                                                 }
                                                 addPromiseToUpdateTabOrWindow(tab, promiseToUpdateTabOrWindow);
                                             });
                                         })
-                                        .then(function(value) {
+                                        .then(function() {
                                             updateTabOrWindow(infoUrl, url, websocketId, tab[0], callback);
                                         });
                                     }
@@ -542,11 +542,11 @@ ngApp
                 if (DEVEL) selenium({ openedInstance: getInstance() });
             });
         }
-        function resolveTabPromise(tabId) {
+        function resolveTabPromise(tab) {
             var tabsPromise = promisesToUpdateTabsOrWindows.find(function(tabPromise) {
                 if (tab.id === tabPromise.tab.id) return true;
             });
-            if (tabsPromise !== undefined) tabPromise.promise.resolve();
+            if (tabsPromise !== undefined) tabsPromise.promise.resolve();
         }
         function addPromiseToUpdateTabOrWindow(tab, promise) {
             var found = promisesToUpdateTabsOrWindows.find(function(tabToUpdate, index, array) {
