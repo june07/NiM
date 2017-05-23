@@ -62,6 +62,7 @@ ngApp
 
         var tabId_HostPort_LookupTable = [],
             backoffTable = [],
+            promisesToUpdateTabsOrWindows = [],
             chrome = $window.chrome,
             SingletonHttpGet = httpGetTestSingleton(),
             SingletonOpenTabInProgress = openTabInProgressSingleton(),
@@ -146,7 +147,24 @@ ngApp
                                         })
                                         .then(callback);
                                     } else {
-                                        updateTabOrWindow(infoUrl, url, websocketId, tab[0], callback);
+                                        // If the tab has focus then issue this... otherwise wait until it has focus (ie event listener for window event.  If another request comes in while waiting, just update the request with the new info but still wait if focus is not present.
+                                        var promiseToUpdateTabOrWindow = new Promise(function(resolve, reject) {
+                                            chrome.tabs.query({
+                                                url: [ 'chrome-devtools://*/*', 'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*' ]
+                                            }, function callback(tab) {
+                                                // Resolve otherwise let the event handler resolve
+                                                tab = tab[0];
+                                                if (tab.active || $scope.settings.tabActive) {
+                                                    var activeWindow = chrome.windows.get(tab.windowId, function(window) {
+                                                        if (window.focused) return resolve();
+                                                    });
+                                                }
+                                                addPromiseToUpdateTabOrWindow(tab, promiseToUpdateTabOrWindow);
+                                            });
+                                        })
+                                        .then(function(value) {
+                                            updateTabOrWindow(infoUrl, url, websocketId, tab[0], callback);
+                                        });
                                     }
                                     //unlock(host, port);
                                 })
@@ -488,7 +506,6 @@ ngApp
             chrome.tabs.update(tab.id, {
                 url: url,
                 active: $scope.settings.tabActive,
-                selected: $scope.settings.tabActive,
             }, function() {
                 if (chrome.runtime.lastError) {
                     // In the event a tab is closed between the last check and now, just delete the session and wait until the next check loop.
@@ -513,7 +530,7 @@ ngApp
                         resolve(window);
                     });
                 } else {
-                    $window._gaq.push(['_trackEvent', 'Program Event', 'createTab', 'focused', $scope.settings.windowFocused, true]);
+                    $window._gaq.push(['_trackEvent', 'Program Event', 'createTab', 'focused', $scope.settings.tabActive, true]);
                     chrome.tabs.create({
                         url: url,
                         active: $scope.settings.tabActive,
@@ -524,6 +541,20 @@ ngApp
                 }
                 if (DEVEL) selenium({ openedInstance: getInstance() });
             });
+        }
+        function resolveTabPromise(tabId) {
+            var tabsPromise = promisesToUpdateTabsOrWindows.find(function(tabPromise) {
+                if (tab.id === tabPromise.tab.id) return true;
+            });
+            if (tabsPromise !== undefined) tabPromise.promise.resolve();
+        }
+        function addPromiseToUpdateTabOrWindow(tab, promise) {
+            var found = promisesToUpdateTabsOrWindows.find(function(tabToUpdate, index, array) {
+                if (tabToUpdate.tab.id === tab.id) {
+                    array[index] = { tab: tab, promise: promise };
+                }
+            });
+            if (found === undefined) promisesToUpdateTabsOrWindows.push({ tab: tab, promise: promise });
         }
         function deleteSession(id) {
             var existingIndex;
@@ -658,6 +689,9 @@ ngApp
                 }
             }), 1);
             //unlock(hostPortHashmap(tabId));
+        });
+        chrome.tabs.onActivated.addListener(function chromeTabsActivatedEvent(tabId) {
+            resolveTabPromise(tabId);
         });
         chrome.commands.onCommand.addListener(function chromeCommandsCommandEvent(command) {
             switch (command) {
