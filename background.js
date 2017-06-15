@@ -171,7 +171,7 @@ ngApp
                                 })
                                 .catch(function(error) {
                                     if (error.status === -1) {
-                                        var message = chrome.i18n.getMessage("errMsg4");
+                                        var message = chrome.i18n.getMessage("errMsg4"); // Connection to DevTools host was aborted.  Check your host and port.
                                         callback(message);
                                     } else {
                                         callback(error);
