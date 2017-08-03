@@ -1,10 +1,26 @@
+<<<<<<< HEAD
+=======
+# This is a sample build configuration for JavaScript.
+# Check our guides at https://confluence.atlassian.com/x/14UWN for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: node:6.9.4
+
+>>>>>>> 92dcf72218dee3743b7f9e6159cbcc186cbc4513
 pipelines:
   default:
     - step:
         caches:
           - node
+<<<<<<< HEAD
         script:
           - npm install -g grunt-cli
           - npm install
           - npm version patch -m "Bitbucket pipeline upgrade to %s"
           - grunt
+=======
+        script: # Modify the commands below to build your repository.
+          - npm install
+          - npm test
+>>>>>>> 92dcf72218dee3743b7f9e6159cbcc186cbc4513
