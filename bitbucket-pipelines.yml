@@ -1,0 +1,10 @@
+pipelines:
+  default:
+    - step:
+        caches:
+          - node
+        script:
+          - npm install -g grunt-cli
+          - npm install
+          - npm version patch -m "Bitbucket pipeline upgrade to %s"
+          - grunt
