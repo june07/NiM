@@ -1,10 +1,10 @@
 {
   "donationModalHeader": {
-    "message": "Las donaciones son apreciadas",
+    "message": "Les donacions són apreciades",
     "description": "Donation modal header."
   },
   "noNotifications": {
-    "message": "No hay notificaciones.",
+    "message": "No hi ha notificacions.",
     "description": "Message to display when there are no notifications."
   },
   "appName": {
@@ -16,11 +16,11 @@
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Extensión para la apertura automática de un inspector (ChromeDevtools V8) para Node.js (node --inspect).",
+    "message": "Extensió par a la apertura automàtica d'un inspector (ChromeDevtools V8) per Node.js (node --inspect).",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {
-    "message": "NIM (Node Inspector Manager) - Página de opciones",
+    "message": "NIM (Node Inspector Manager) - Página de opcions",
     "description": "Title shown on options page."
   },
   "defaultTitle": {
@@ -28,35 +28,35 @@
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Error configurando la URL de desinstalación: ",
+    "message": "Error configurant la URL de desinstal·lació: ",
     "description": "Error message."
   },
   "errMsg2": {
-    "message": "Pestaña cerrada para la sesión de DevTools: ",
+    "message": "Pestanya tancada par a la sessió de DevTools: ",
     "description": "Error message."
   },
   "errMsg6": {
-    "message": "Ventana cerrada para la sesión de DevTools: ",
+    "message": "Finestra tancada par a la sessió de DevTools: ",
     "description": "Error message."
   },
   "errMsg3": {
-    "message": "Error al intentar cerrar automáticamente",
+    "message": "Error al intentar tancar automàticament",
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "Conexión al servidor DevTools abortada. Compruebe el host y el puerto.",
+    "message": "Connexió al servidor DevTools avortada. Comprovi el host y el port.",
     "description": "Error message."
   },
   "errMsg5": {
-    "message": "DevTools ya está abierto.",
+    "message": "DevTools ja està obert.",
     "description": "Error message."
   },
   "errMsg7": {
-    "message": "DevTools ya está abierto.",
+    "message": "DevTools ja està obert.",
     "description": "Error message."
   },
   "errMsg8": {
-    "message": "DevTools ya está abierto.",
+    "message": "DevTools ja està obert.",
     "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
     "placeholders": {
       "key": {
@@ -74,11 +74,11 @@
     }
   },
   "port": {
-    "message": "Puerto",
+    "message": "Port",
     "description": "Port."
   },
   "hostname": {
-    "message": "Nombre de host",
+    "message": "Nom de host",
     "description": "Hostname."
   },
   "manual": {
@@ -94,15 +94,15 @@
     "description": "Donate."
   },
   "enabled": {
-    "message": "Habilitado",
+    "message": "Activat",
     "description": "Enabled."
   },
   "uptime": {
-    "message": "El tiempo de actividad",
+    "message": "El temps d'activitat",
     "description": "Uptime."
   },
   "options": {
-    "message": "Opciones",
+    "message": "Opcions",
     "description": "Options."
   },
   "general": {
@@ -110,39 +110,39 @@
     "description": "General."
   },
   "on": {
-    "message": "Activado",
+    "message": "Activat",
     "description": "On."
   },
   "off": {
-    "message": "Desactivado",
+    "message": "Desactivat",
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "Abrir en una nueva Ventana.",
+    "message": "Obrir en una nova finestra.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
-    "message": "Hacer que la ventana se ponga en primer plano.",
+    "message": "Fer que la finestra es posi en primer pla.",
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "Hacer que la pestaña se ponga en primer plano.",
+    "message": "Fer que la pestanya es posi en primer pla.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
-    "message": "Cerrar automáticamente.",
+    "message": "Tancar automàticament.",
     "description": "Auto close the Inspector."
   },
   "secondsBetweenInspectorChecks": {
-    "message": "Intervalo de comprobación.",
+    "message": "Interval de comprovació.",
     "description": "Seconds between Inspector checks."
   },
   "debugging": {
-    "message": "Depuración",
+    "message": "Depuració",
     "description": "Debugging."
   },
   "showDebugWindow": {
-    "message": "Mostrar la ventana de depuración.",
+    "message": "Mostrar la finestra de depuració.",
     "description": "Show debug window."
   },
   "save": {
@@ -150,23 +150,23 @@
     "description": "Save."
   },
   "openDevtools": {
-    "message": "Abrir DevTools",
+    "message": "Obrir DevTools",
     "description": "Open DevTools"
   },
   "addTab": {
-    "message": "Agregar pestaña",
+    "message": "Afegir pestanya",
     "description": "Add Tab"
   },
   "seconds": {
-    "message": "Segundos",
+    "message": "Segons",
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "Usar DevTools local.",
+    "message": "Emprar DevTools local.",
     "description": "Use local DevTools."
   },
   "autoIncrement": {
-    "message": "Incremento automático de Host/Puerto.",
+    "message": "Increment automàtic de Host/Port.",
     "description": "Auto increment host and/or port."
   }
 }
