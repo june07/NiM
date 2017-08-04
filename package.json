@@ -47,7 +47,6 @@
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "load-grunt-tasks": "^3.5.2",
-    "materialize-css": "^0.98.0",
     "mocha": ">=1.20.0",
     "picker.js": "^0.1.11",
     "selenium-webdriver": "^3.3.0",

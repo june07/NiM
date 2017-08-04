@@ -7,5 +7,5 @@ pipelines:
         script:
           - npm install -g grunt-cli
           - npm install
-          - npm version patch -m "Bitbucket pipeline upgrade to %s"
+          - npm version
           - grunt
