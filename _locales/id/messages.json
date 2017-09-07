@@ -8,7 +8,7 @@
     "description": "Message to display when there are no notifications."
   },
   "appName": {
-    "message": "NIM (Node Inspektur Manager)",
+    "message": "Node.js V8 --inspektur Manager (NiM)",
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
@@ -28,7 +28,7 @@
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Kesalahan pengaturan uninstall URL: ",
+    "message": "Kesalahan pengaturan pencopotan pemasangan URL: ",
     "description": "Error message."
   },
   "errMsg2": {
@@ -40,11 +40,11 @@
     "description": "Error message."
   },
   "errMsg3": {
-    "message": "Kesalahan ketika mencoba untuk auto dekat ",
+    "message": "Kesalahan ketika mencoba untuk menutup otomatis ",
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "Koneksi ke DevTools tuan rumah dibatalkan. Check host dan port.",
+    "message": "Koneksi ke DevTools host dibatalkan. Cek host dan port.",
     "description": "Error message."
   },
   "errMsg5": {
@@ -110,15 +110,15 @@
     "description": "General."
   },
   "on": {
-    "message": "Pada",
+    "message": "Nyala",
     "description": "On."
   },
   "off": {
-    "message": "Off",
+    "message": "Mati",
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "Terbuka di Jendela Baru.",
+    "message": "Buka di Jendela Baru.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
@@ -126,7 +126,7 @@
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "Membuat Tab Active.",
+    "message": "Membuat Tab Aktif.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
@@ -134,7 +134,7 @@
     "description": "Auto close the Inspector."
   },
   "secondsBetweenInspectorChecks": {
-    "message": "Check Interval.",
+    "message": "Cek Interval.",
     "description": "Seconds between Inspector checks."
   },
   "debugging": {
@@ -166,7 +166,7 @@
     "description": "Use local DevTools."
   },
   "autoIncrement": {
-    "message": "Auto Increment Host/Port.",
+    "message": "Penambahan Otomatis Host/Port.",
     "description": "Auto increment host and/or port."
   }
 }
