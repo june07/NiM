@@ -4,39 +4,39 @@
     "description": "Donation modal header."
   },
   "noNotifications": {
-    "message": "Нет никаких уведомлений.",
+    "message": "Уведомления отсутствуют.",
     "description": "Message to display when there are no notifications."
   },
   "appName": {
-    "message": "Ним (узел Диспетчер инспектор)",
+    "message": "Node.js V8 --inspector Manager (NiM)",
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
-    "message": "Ним",
+    "message": "NIM",
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Расширение для автоматического запуска инспектор V8 для Node.js отладка",
+    "message": "Расширение для автоматического запуска инспектора V8 для отладки Node.js",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {
-    "message": "Ним (узел Диспетчер инспектор) - страница варианта",
+    "message": "NIM (Node Inspector Manager) - Опции",
     "description": "Title shown on options page."
   },
   "defaultTitle": {
-    "message": "Ним (узел Диспетчер инспектор)",
+    "message": "NIM (Node Inspector Manager)",
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Ошибка установки удалить URL-адрес: ",
+    "message": "Ошибка установки URL для удаления: ",
     "description": "Error message."
   },
   "errMsg2": {
-    "message": "Закрытую вкладку для инструменты разработчика сессии: ",
+    "message": "Закрыта вкладка для сессии Интрументов Разработчика: ",
     "description": "Error message."
   },
   "errMsg6": {
-    "message": "Закрытые окна инструментов разработчика сессии: ",
+    "message": "Закрыто окно для сессии Интрументов Разработчика: ",
     "description": "Error message."
   },
   "errMsg3": {
@@ -44,19 +44,19 @@
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "Подключение к инструменты разработчика узел было прервано. Проверьте ваш хост и порт.",
+    "message": "Подключение к хосту Интрументов Разработчика было прервано. Проверьте ваш хост и порт.",
     "description": "Error message."
   },
   "errMsg5": {
-    "message": "Инструменты разработчика уже открыта.",
+    "message": "Инструменты Разработчика уже открыты.",
     "description": "Error message."
   },
   "errMsg7": {
-    "message": "Инструменты разработчика уже открыта.",
+    "message": "Инструменты Разработчика уже открыты.",
     "description": "Error message."
   },
   "errMsg8": {
-    "message": "Инструменты разработчика уже открыта.",
+    "message": "Инструменты Разработчика уже открыты.",
     "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
     "placeholders": {
       "key": {
@@ -78,11 +78,11 @@
     "description": "Port."
   },
   "hostname": {
-    "message": "Имя",
+    "message": "Имя хоста",
     "description": "Hostname."
   },
   "manual": {
-    "message": "Руководство",
+    "message": "Вручную",
     "description": "Manual."
   },
   "auto": {
@@ -102,7 +102,7 @@
     "description": "Uptime."
   },
   "options": {
-    "message": "Варианты",
+    "message": "Настройки",
     "description": "Options."
   },
   "general": {
@@ -110,11 +110,11 @@
     "description": "General."
   },
   "on": {
-    "message": "На",
+    "message": "Вкл.",
     "description": "On."
   },
   "off": {
-    "message": "От",
+    "message": "Выкл.",
     "description": "Off."
   },
   "openInspectorNewWindow": {
@@ -122,19 +122,19 @@
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
-    "message": "Сделать Окно.",
+    "message": "Сфокусироваться на окне.",
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "Сделать Вкладку Активной.",
+    "message": "Сделать вкладку активной.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
-    "message": "Автоматически Закрыть.",
+    "message": "Автоматически закрывать.",
     "description": "Auto close the Inspector."
   },
   "secondsBetweenInspectorChecks": {
-    "message": "Проверить Интервал.",
+    "message": "Интервал проверки.",
     "description": "Seconds between Inspector checks."
   },
   "debugging": {
@@ -150,11 +150,11 @@
     "description": "Save."
   },
   "openDevtools": {
-    "message": "Откройте Devtools",
+    "message": "Открыть Инструменты Разработчика",
     "description": "Open DevTools"
   },
   "addTab": {
-    "message": "Добавить Закладку",
+    "message": "Добавить Вкладку",
     "description": "Add Tab"
   },
   "seconds": {
@@ -162,7 +162,7 @@
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "Использовать Местные Инструменты Разработчика.",
+    "message": "Использовать локальные Инструменты Разработчика.",
     "description": "Use local DevTools."
   },
   "autoIncrement": {
