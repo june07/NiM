@@ -30,6 +30,7 @@ ngApp
         const UNINSTALL_URL = "http://june07.com/uninstall";
         const UPTIME_CHECK_RESOLUTION = 1000; // Check every second
         const DEVEL = false;
+        const IP_PATTERN = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
 
         $scope.loaded = Date.now();
         $scope.timerUptime= 0;
@@ -121,10 +122,12 @@ ngApp
                                 .then(function openDevToolsFrontend(json) {
                                     if (!json.data[0].devtoolsFrontendUrl) return callback(chrome.i18n.getMessage("errMsg7", [host, port]));
                                     var url = json.data[0].devtoolsFrontendUrl
-                                    .replace("127.0.0.1:9229", host + ":" + port)
-                                        .replace("localhost:9229", host + ":" + port)
-                                        .replace("127.0.0.1:" + port, host + ":" + port) // In the event that remote debugging is being used and the infoUrl port (by default 80) is not forwarded.
+                                    var inspectIP = url.match(IP_PATTERN)[0];
+                                    url = url
+                                        .replace("localhost:9229", host + ":" + port) // When localhost is being used, set the given host and port
                                         .replace("localhost:" + port, host + ":" + port)  // A check for just the port change must be made.
+                                        .replace(inspectIP + ":9229", host + ":" + port) // In the event that remote debugging is being used and the infoUrl port (by default 80) is not forwarded.
+                                        .replace(inspectIP + ":" + port, host + ":" + port) // A check for just the port change must be made.
                                     if ($scope.settings.localDevTools)
                                         url = url.replace('https://chrome-devtools-frontend.appspot.com', 'chrome-devtools://devtools/remote');
                                     var websocketId = json.data[0].id;
