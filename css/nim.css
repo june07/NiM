@@ -6,6 +6,33 @@ body {
     width:500px;
     margin:0;
 }
+div > div > div.noUi-handle.noUi-handle-lower {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  width: 21px;
+  height: 21px;
+  background-color: #4caf50;
+  border-radius: 21px;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4);
+  left: -5px;
+  top: -8.5px;
+  transition: left 0.3s ease, background .3s ease, box-shadow 0.1s ease;
+  border: none;
+}
+div > div > div.noUi-handle:after, .noUi-handle:before {
+    display: none;
+}
+div.noUi-base {
+    background-color: #818181;
+    border-radius: 15px;
+    border: none;
+    height: 5px;
+    margin-top: 15px;
+}
+.noUi-target {
+    all: unset;
+}
 .toast {
     background: linear-gradient(to left, #81c784, transparent);
     color: red;
@@ -69,13 +96,13 @@ div.container.footer-text {
 }
 
 #options-page #checkInterval-value {
-    background-color: #aed581;
+    background-color: #81c784;
     font-size: 16px;
 }
 
 #options-page #options-header {
     padding: 15px 0px 15px 0px;
-    background-color: #9ccc65;
+    background-color: #4caf50;
 }
 
 #options-page #collections-header {
@@ -90,7 +117,7 @@ div.container.footer-text {
     padding: 10px;
 }
 #debugVerbosityBadge {
-    background-color: #9ccc65;
+    background-color: #81c784;
 }
 label {
     font-size: 16px;
@@ -99,10 +126,15 @@ label {
 
 #options-page .noUi-target .range-label {
     background-color: #4caf50;
-}
-
-#options-page .noUi-handle-lower {
-    background-color: #33691e;
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    top: -17px;
+    left: -2px;
+    border-radius: 50%;
+    transition: border-radius 250ms cubic-bezier(0.215, 0.61, 0.355, 1) 0ms, transform cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: scale(.5) rotate(-45deg);
+    transform-origin: 50% 100%
 }
 
 .message {

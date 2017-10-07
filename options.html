@@ -1,10 +1,15 @@
 <!doctype html>
+<!-- build:[src]:min ./js/googleanalytics.min.js -->
 <script type="text/javascript" src="./js/googleanalytics.js"></script>
+<!-- /build -->
 <script type="text/javascript" src="./js/jquery.min.js"></script>
 <script type="text/javascript" src="./js/angular.min.js"></script>
 <script type="text/javascript" src="./js/materialize.min.js"></script>
 <script type="text/javascript" src="./js/nouislider.min.js"></script>
 <script type="text/javascript" src="./js/angular-animate.min.js"></script>
+<!-- build:[src]:min ./js/wnumb.min.js -->
+<script type="text/javascript" src="./js/wnumb.js"></script>
+<!-- /build -->
 <!-- build:[src]:min options.min.js -->
 <script type="text/javascript" src="options.js"></script>
 <!-- /build -->
@@ -89,7 +94,6 @@
                     <div id="checkInterval" ng-model="bg.settings.checkInterval"></div>
                 </li>
             </ul>
-            
             <ul class="collection with-header">
             <div id="modal1" class="modal">
             <div class="modal-content">
@@ -102,16 +106,14 @@
                     </div>
                     <div id="debugVerbosity" ng-model="bg.settings.debugVerbosity"></div>
                 </li>
-
-
             </div>
             </div>
-                        </ul>
+            </ul>
         </div>
         <div class="col s1"></div>
     </div>
     <div class="row">
-        <div class="col s12 center"> <a class="btn light-green lighten-1" id="save button" value="Save Options" ng-click="saveButtonHandler()"><span class="i18n">save</span></a>
+        <div class="col s12 center"> <a class="btn green" id="save button" value="Save Options" ng-click="saveButtonHandler()"><span class="i18n">save</span></a>
         </div>
     </div>
     </div>

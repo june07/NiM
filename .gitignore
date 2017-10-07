@@ -37,15 +37,13 @@ node_modules
 */.DS_Store
 */*/.DS_Store
 
-# Any zip files of releases
-*.zip
 artwork/
 unpacked.crx
 unpacked.pem
 unpacked/
-!build/
-!build/*.zip
-build/*
+! build/
+! build/*.zip
+build/unpacked*
 *.pem
 js/moment.min.js
 js/
@@ -57,5 +55,4 @@ tmp/
 dist/
 yarn.lock
 .env.js
-webstoreDescription.txt
-Gruntfile.js
+.npmignore

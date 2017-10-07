@@ -12,7 +12,7 @@
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
-    "message": "NIM",
+    "message": "NiM",
     "description": "The short title."
   },
   "appDescription": {
@@ -168,5 +168,9 @@
   "autoIncrement": {
     "message": "Auto Increment Host/Port.",
     "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Open the DevTools Window.",
+    "description": "Open the DevTools window."
   }
 }

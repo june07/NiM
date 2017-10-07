@@ -39,7 +39,7 @@ ngApp
             port: "9229",
             auto: true,
             checkInterval: 500,
-            debugVerbosity: 0,
+            debugVerbosity: 9,
             checkIntervalTimeout: null,
             newWindow: false,
             autoClose: false,
@@ -57,7 +57,6 @@ ngApp
         $scope.changeObject;
         $scope.userInfo;
         $scope.sessionlessTabs = [];
-        $scope.message;
         $scope.locks = [];
         $scope.moment = $window.moment;
 
@@ -149,21 +148,23 @@ ngApp
                                         .then(callback);
                                     } else {
                                         // If the tab has focus then issue this... otherwise wait until it has focus (ie event listener for window event.  If another request comes in while waiting, just update the request with the new info but still wait if focus is not present.
-                                        var promiseToUpdateTabOrWindow = new Promise(function(resolve, reject) {
+                                        var promiseToUpdateTabOrWindow = new Promise(function(resolve) {
                                             chrome.tabs.query({
                                                 url: [ 'chrome-devtools://*/*', 'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*' ]
                                             }, function callback(tab) {
                                                 // Resolve otherwise let the event handler resolve
                                                 tab = tab[0];
-                                                if (tab.active || $scope.settings.tabActive) {
-                                                    var activeWindow = chrome.windows.get(tab.windowId, function(window) {
+                                                if (tab.active) {
+                                                    chrome.windows.get(tab.windowId, function(window) {
                                                         if (window.focused) return resolve();
                                                     });
+                                                } else if ($scope.settings.windowFocused) {
+                                                    return resolve();
                                                 }
                                                 addPromiseToUpdateTabOrWindow(tab, promiseToUpdateTabOrWindow);
                                             });
                                         })
-                                        .then(function(value) {
+                                        .then(function() {
                                             updateTabOrWindow(infoUrl, url, websocketId, tab[0], callback);
                                         });
                                     }
@@ -229,7 +230,7 @@ ngApp
                     if ($scope.settings.debugVerbosity >= 6) console.log('resetInterval going thru a check loop...')
                     closeDevTools(
                     $scope.openTab($scope.settings.host, $scope.settings.port, function(message) {
-                        $scope.message += '<br>' + message;
+                        if ($scope.settings.debugVerbosity >= 3) console.log(message);
                     }));
                 } else if ($scope.settings.auto && isLocked(getInstance())) {
                     /** If the isLocked(getInstance()) is set then we still have to check for disconnects on the client side via httpGetTest().
@@ -247,7 +248,7 @@ ngApp
                 unlock(instance);
                 closeDevTools(function() {
                     var message = 'Closed defunct DevTools session.';
-                    $scope.message += '<br>' + message;
+                    if ($scope.settings.debugVerbosity >= 3) console.log(message);
                 });
             }
             function createInstance(instance) {
@@ -466,7 +467,7 @@ ngApp
             if ($scope.locks !== undefined) {
                 return $scope.locks.find(function(lock, index, locks) {
                     if (lock !== undefined && instance !== undefined) {
-                        if (lock.host === instance.host && lock.port === parseInt(instance.port)) {
+                        if (lock.host === instance.host && parseInt(lock.port) === parseInt(instance.port)) {
                             locks.splice(index, 1);
                             return true;
                         }
@@ -486,7 +487,7 @@ ngApp
                         }
                     }
                     $scope.devToolsSessions.splice(index, 1);
-                    $scope.message += '<br>' + chrome.i18n.getMessage("errMsg2") + JSON.stringify(devToolsSession) + '.';
+                    if ($scope.settings.debugVerbosity >= 3) console.log(chrome.i18n.getMessage("errMsg2") + JSON.stringify(devToolsSession) + '.');
                 });
             } else {
                 $window._gaq.push(['_trackEvent', 'Program Event', 'removeDevToolsSession', 'tab', undefined, true]);
@@ -497,7 +498,7 @@ ngApp
                         }
                     }
                     $scope.devToolsSessions.splice(index, 1);
-                    $scope.message += '<br>' + chrome.i18n.getMessage("errMsg6") + JSON.stringify(devToolsSession) + '.';
+                    if ($scope.settings.debugVerbosity >= 3) console.log(chrome.i18n.getMessage("errMsg6") + JSON.stringify(devToolsSession) + '.');
                 });
             }
         }
@@ -543,11 +544,11 @@ ngApp
                 if (DEVEL) selenium({ openedInstance: getInstance() });
             });
         }
-        function resolveTabPromise(tabId) {
+        function resolveTabPromise(tab) {
             var tabsPromise = promisesToUpdateTabsOrWindows.find(function(tabPromise) {
                 if (tab.id === tabPromise.tab.id) return true;
             });
-            if (tabsPromise !== undefined) tabPromise.promise.resolve();
+            if (tabsPromise !== undefined) tabsPromise.promise.resolve();
         }
         function addPromiseToUpdateTabOrWindow(tab, promise) {
             var found = promisesToUpdateTabsOrWindows.find(function(tabToUpdate, index, array) {
@@ -700,7 +701,7 @@ ngApp
                     $scope.save("host");
                     $scope.save("port");
                     $scope.openTab($scope.settings.host, $scope.settings.port, function (result) {
-                        $scope.message += '<br>' + result + '.';
+                        if ($scope.settings.debugVerbosity >= 3) console.log(result);
                     });
                     $window._gaq.push(['_trackEvent', 'User Event', 'OpenDevTools', 'Keyboard Shortcut Used', undefined, true]); break;
             }

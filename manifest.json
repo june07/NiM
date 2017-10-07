@@ -2,8 +2,8 @@
     "manifest_version": 2,
     "name": "__MSG_appName__",
     "short_name": "__MSG_appShortName__",
-    "version": "0.13.4",
-    "version_name": "0.13.4",
+    "version": "0.13.8",
+    "version_name": "0.13.8",
     "default_locale": "en",
     "description": "__MSG_appDescription__",
     "author": "June07 <667@june07.com> (http://june07.com/)",
@@ -40,7 +40,7 @@
                 "default": "Ctrl+I",
                 "mac": "Command+I"
             },
-            "description": "Open the DevTools Window"
+            "description": "__MSG_keyCtrlI__"
         }
     }
 }
