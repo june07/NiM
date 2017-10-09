@@ -120,6 +120,13 @@ module.exports = function (grunt) {
                 'move D:\\code\\nim\\build\\unpacked-prod.pem D:\\code\\nim\\build\\' + pkg.name + '-' + pkg.version + '.pem'
               ].join(' & ')
           },
+          crxosx: {
+            command: [
+              '"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome" --pack-extension=build/unpacked-prod',
+                'mv build/unpacked-prod.crx build/' + pkg.name + '-' + pkg.version + '.crx',
+                'mv build/unpacked-prod.pem build/' + pkg.name + '-' + pkg.version + '.pem'
+              ].join(' && ')
+          }
       },
       compress: {
         main: {
@@ -242,7 +249,8 @@ module.exports = function (grunt) {
   );
   grunt.registerTask('test', ['eslint']);
   grunt.registerTask('test-cont', ['test', 'watch']);
-  grunt.registerTask('default', ['clean', 'npmcopy', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'string-replace', 'processhtml:dist', 'processhtml:min', 'cssmin', 'babel', 'uglify', 'copy:min', 'exec', 'compress']);
+  grunt.registerTask('default', ['clean', 'npmcopy', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'string-replace', 'processhtml:dist', 'processhtml:min', 'cssmin', 'babel', 'uglify', 'copy:min', 'exec:crx', 'compress']);
+  grunt.registerTask('defaultosx', ['clean', 'npmcopy', 'test', 'mkdir:unpacked', 'copy:main', 'manifest', 'mkdir:js', 'string-replace', 'processhtml:dist', 'processhtml:min', 'cssmin', 'babel', 'uglify', 'copy:min', 'exec:crxosx', 'compress']);
   grunt.file.write('build/unpacked-dev/manifest.json', JSON.stringify(mnf, null, 4) + '\n');
   grunt.log.ok('manifest.json generated');
 }

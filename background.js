@@ -30,7 +30,7 @@ ngApp
         const UNINSTALL_URL = "http://june07.com/uninstall";
         const UPTIME_CHECK_RESOLUTION = 1000; // Check every second
         const DEVEL = false;
-        const IP_PATTERN = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/;
+        const IP_PATTERN = /(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])/;
 
         $scope.loaded = Date.now();
         $scope.timerUptime= 0;

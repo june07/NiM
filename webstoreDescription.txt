@@ -37,6 +37,13 @@ If you enjoy using NiM please give us a 5 star rating and/or a G+1.  Any and all
 
 This project is open source and available at https://github.com/june07/NiM.
 
+[0.13.11] - 2017-10-08
+Fixed
+- Regression error from yesterdays push.  Regex should not have started and ended from beginnnig and ending of line respectively.
+[0.13.9] - 2017-10-07
+Changed
+- Improve Indonesian localization https://github.com/june07/Node.js-inspector-Manager-NiM-/pull/25,  and improved remote debugging host https://github.com/june07/Node.js-inspector-Manager-NiM-/pull/26.  Thank you to fatkhanfauzi for both PRs!
+- Improve Russian localization https://github.com/june07/Node.js-inspector-Manager-NiM-/pull/22, Thank you to artofvs!
 [0.13.8] - 2017-05-23
 Fixed
 - "Make Window Focused" option not working.  Error was due to what I believe is a bug in the Chrome code base...?  Anyhow this works around the dependancy.

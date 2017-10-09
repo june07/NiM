@@ -1,6 +1,6 @@
 {
   "name": "NiM",
-  "version": "0.13.8",
+  "version": "0.13.12",
   "description": "Node.js --inspector Manager.  Manages the integrated Node V8 inspector Chrome Developer Tools",
   "main": "background.js",
   "dependencies": {
