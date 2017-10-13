@@ -1,14 +1,14 @@
 {
   "donationModalHeader": {
-    "message": "Donaties Gewaardeerd",
+    "message": "Donaties worden gewaardeerd",
     "description": "Donation modal header."
   },
   "noNotifications": {
-    "message": "Er zijn geen meldingen.",
+    "message": "Er zijn geen berichten.",
     "description": "Message to display when there are no notifications."
   },
   "appName": {
-    "message": "NIM (Knooppunt Inspecteur Manager)",
+    "message": "Node --inspect Manager (NiM)",
     "description": "The title of the extension displayed in the web store."
   },
   "appShortName": {
@@ -16,35 +16,35 @@
     "description": "The short title."
   },
   "appDescription": {
-    "message": "Uitbreiding voor automatisch starten V8 Inspecteur voor Node.js foutopsporing",
+    "message": "Beheerd DevTools met node v8 inspector (node --inspect)",
     "description": "A description of the extension displayed in the web store."
   },
   "pageOptionsTitle": {
-    "message": "NIM (Knooppunt Inspecteur Manager) - Pagina Opties",
+    "message": "Node --inspect Manager (NiM) - Pagina Opties",
     "description": "Title shown on options page."
   },
   "defaultTitle": {
-    "message": "NIM (Knooppunt Inspecteur Manager)",
+    "message": "Node --inspect Manager (NiM)",
     "description": "Title shown in tooltip."
   },
   "errMsg1": {
-    "message": "Fout bij het instellen verwijder URL: ",
+    "message": "Fout bij het instellen van de deinstalatie url: ",
     "description": "Error message."
   },
   "errMsg2": {
-    "message": "Gesloten tabblad voor DevTools sessie: ",
+    "message": "Tabblad gesloten voor de DevTools: ",
     "description": "Error message."
   },
   "errMsg6": {
-    "message": "Gesloten venster voor DevTools sessie: ",
+    "message": "Venster gesloten voor de DevTools: ",
     "description": "Error message."
   },
   "errMsg3": {
-    "message": "Fout tijdens het automatisch sluiten ",
+    "message": "Automatish sluiten mislukt",
     "description": "Error message."
   },
   "errMsg4": {
-    "message": "Verbinding met DevTools host was afgebroken. Controleer uw host en poort.",
+    "message": "Verbinding met de DevTools host was afgebroken. Controleer uw host en poort.",
     "description": "Error message."
   },
   "errMsg5": {
@@ -86,7 +86,7 @@
     "description": "Manual."
   },
   "auto": {
-    "message": "Auto",
+    "message": "Automatish",
     "description": "Auto."
   },
   "donate": {
@@ -110,7 +110,7 @@
     "description": "General."
   },
   "on": {
-    "message": "Op",
+    "message": "Aan",
     "description": "On."
   },
   "off": {
@@ -118,15 +118,15 @@
     "description": "Off."
   },
   "openInspectorNewWindow": {
-    "message": "Openen in een Nieuw Venster.",
+    "message": "Open in een Nieuw Venster.",
     "description": "Open Inspector in a new window."
   },
   "makeInspectorWindowFocused": {
-    "message": "Zorg Venster Gericht.",
+    "message": "Focus venster.",
     "description": "Make Inspector window focused."
   },
   "makeInspectorTabActive": {
-    "message": "Maak Dan Van Tab Actief Is.",
+    "message": "Maak het tabblad actief.",
     "description": "Make Inspector tab active."
   },
   "autoCloseInspector": {
@@ -138,11 +138,11 @@
     "description": "Seconds between Inspector checks."
   },
   "debugging": {
-    "message": "Foutopsporing",
+    "message": "Debugging",
     "description": "Debugging."
   },
   "showDebugWindow": {
-    "message": "Show Debug Venster.",
+    "message": "Laat Debug venster zien.",
     "description": "Show debug window."
   },
   "save": {
@@ -162,11 +162,11 @@
     "description": "Seconds badge label."
   },
   "localDevTools": {
-    "message": "Gebruik Van Lokale DevTools.",
+    "message": "Gebruik Lokale DevTools.",
     "description": "Use local DevTools."
   },
   "autoIncrement": {
-    "message": "Auto Increment Host/Poort.",
+    "message": "Automatish host/Poort aanvullen.",
     "description": "Auto increment host and/or port."
   }
 }
