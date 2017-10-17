@@ -51,6 +51,7 @@ ngApp
                 showMessage: false,
                 lastHMAC: 0
             },
+            chromeNotifications: true,
             autoIncrement: {type: 'port', name: 'Port'} // both | host | port | false
         };
         $scope.notifications;
@@ -698,6 +699,14 @@ ngApp
         chrome.tabs.onActivated.addListener(function chromeTabsActivatedEvent(tabId) {
             resolveTabPromise(tabId);
         });
+        chrome.notifications.onButtonClicked.addListener(function chromeNotificationButtonClicked(notificationId, buttonIndex) {
+            if (buttonIndex === 0) {
+                $scope.settings.chromeNotifications = false;
+                $scope.save('chromeNotifications');
+            } else if (buttonIndex === 1) {
+                chrome.tabs.create({ url: 'chrome://extensions/configureCommands' });
+            }
+        });
         chrome.commands.onCommand.addListener(function chromeCommandsCommandEvent(command) {
             switch (command) {
                 case "open-devtools":
@@ -706,7 +715,21 @@ ngApp
                     $scope.openTab($scope.settings.host, $scope.settings.port, function (result) {
                         if ($scope.settings.debugVerbosity >= 3) console.log(result);
                     });
-                    $window._gaq.push(['_trackEvent', 'User Event', 'OpenDevTools', 'Keyboard Shortcut Used', undefined, true]); break;
+                    if ($scope.settings.chromeNotifications) {
+                        chrome.commands.getAll(function(commands) {
+                            var shortcut = commands[1];
+
+                            chrome.notifications.create('', {
+                                type: 'basic',
+                                iconUrl:  'icon/icon128.png',
+                                title: 'NiM owns the (' + shortcut.shortcut + ') shortcut.',
+                                message: '"' + shortcut.description + '"',
+                                buttons: [ { title: 'Disable this notice.' }, { title: 'Change the shortcut.' } ]
+                            },  function(notificationId) {});
+                        });
+                    }
+                    $window._gaq.push(['_trackEvent', 'User Event', 'OpenDevTools', 'Keyboard Shortcut Used', undefined, true]);
+                break;
             }
         });
     }]);
