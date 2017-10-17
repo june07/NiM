@@ -64,6 +64,9 @@ ngApp
                   $scope.message = result;
             });
         };
+        $scope.switchHandler = function() {
+            $scope.bg.save("auto");
+        }
         $scope.track = function (url) {
             $window._gaq.push(['_trackPageview', url]);
         };
