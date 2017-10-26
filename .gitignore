@@ -56,3 +56,5 @@ dist/
 yarn.lock
 .env.js
 .npmignore
+pinegrow.json
+package-lock.json
