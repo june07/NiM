@@ -77,9 +77,9 @@
     "message": "Λιμάνι",
     "description": "Port."
   },
-  "hostname": {
-    "message": "Hostname",
-    "description": "Hostname."
+  "host": {
+    "message": "Host",
+    "description": "Host."
   },
   "manual": {
     "message": "Εγχειρίδιο",

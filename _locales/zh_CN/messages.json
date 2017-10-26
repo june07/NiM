@@ -69,9 +69,9 @@
     "message": "端口",
     "description": "Port."
   },
-  "hostname": {
+  "host": {
     "message": "主机",
-    "description": "Hostname."
+    "description": "Host."
   },
   "manual": {
     "message": "手动",

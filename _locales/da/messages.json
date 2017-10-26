@@ -77,9 +77,9 @@
     "message": "Port",
     "description": "Port."
   },
-  "hostname": {
+  "host": {
     "message": "Værtsnavn",
-    "description": "Hostname."
+    "description": "Host."
   },
   "manual": {
     "message": "Manuel",

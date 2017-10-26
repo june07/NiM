@@ -77,9 +77,9 @@
     "message": "ميناء",
     "description": "Port."
   },
-  "hostname": {
+  "host": {
     "message": "اسم المضيف",
-    "description": "Hostname."
+    "description": "Host."
   },
   "manual": {
     "message": "دليل",

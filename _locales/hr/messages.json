@@ -77,9 +77,9 @@
     "message": "Luka",
     "description": "Port."
   },
-  "hostname": {
+  "host": {
     "message": "Naziv",
-    "description": "Hostname."
+    "description": "Host."
   },
   "manual": {
     "message": "Vodič",

@@ -77,9 +77,9 @@
     "message": "트",
     "description": "Port."
   },
-  "hostname": {
+  "host": {
     "message": "호스트명",
-    "description": "Hostname."
+    "description": "Host."
   },
   "manual": {
     "message": "설명",

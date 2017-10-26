@@ -77,9 +77,9 @@
     "message": "พอร์ต",
     "description": "Port."
   },
-  "hostname": {
+  "host": {
     "message": "ชื่อโฮสต์",
-    "description": "Hostname."
+    "description": "Host."
   },
   "manual": {
     "message": "ป้อนเอง",

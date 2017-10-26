@@ -77,9 +77,9 @@
     "message": "Port",
     "description": "Port."
   },
-  "hostname": {
+  "host": {
     "message": "Tên máy",
-    "description": "Hostname."
+    "description": "Host."
   },
   "manual": {
     "message": "Hướng dẫn sử dụng",

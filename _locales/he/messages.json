@@ -77,9 +77,9 @@
     "message": "נמל",
     "description": "Port."
   },
-  "hostname": {
+  "host": {
     "message": "שם מארח",
-    "description": "Hostname."
+    "description": "Host."
   },
   "manual": {
     "message": "מדריך",
