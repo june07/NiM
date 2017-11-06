@@ -21,7 +21,7 @@
  *    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *    SOFTWARE.
 */
-var ngApp = angular.module('NimOptionsApp', ['ngAnimate']);
+var ngApp = angular.module('NimOptionsApp', []);
 ngApp
     .controller('nimOptionsController', ['$scope', '$window', function($scope, $window) {
         $scope.bg = $window.chrome.extension.getBackgroundPage().angular.element('#nim').scope();
