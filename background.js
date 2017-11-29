@@ -26,7 +26,8 @@ ngApp
     .run(function() {})
     .controller('nimController', ['$scope', '$window', '$http', '$q', function($scope, $window, $http, $q) {
         const VERSION = ''; // Filled in by Grunt
-        const UPTIME_CHECK_INTERVAL = 60 * 15; // 15 minutes                                                                       
+        const UPTIME_CHECK_INTERVAL = 60 * 15; // 15 minutes 
+        const INSTALL_URL = "http://june07.com/blog/nim-install";
         const UNINSTALL_URL = "http://june07.com/uninstall";
         const UPTIME_CHECK_RESOLUTION = 1000; // Check every second
         const DEVEL = false;
@@ -661,6 +662,9 @@ ngApp
                 console.dir(response);
             });
         }
+        chrome.runtime.onInstalled.addListener(function installed() {
+                chrome.tabs.create({ url: INSTALL_URL});
+        });
         chrome.runtime.setUninstallURL(UNINSTALL_URL, function() {
             if (chrome.runtime.lastError) {
                 if ($scope.settings.debugVerbosity >= 5) console.log(chrome.i18n.getMessage("errMsg1") + UNINSTALL_URL);
