@@ -7,6 +7,8 @@ NIM manages the Chrome DevTools window/tab lifecycle leaving you with more abili
 
 # Setup
 
+<iframe src="https://june07.com/blog/nim-inline-install/"></iframe>
+
 NIM automatically detects the URL that is generated when running node (locally or remotely) with --inspect option. NIM provides you with the option of automatically opening and closing Chrome DevTools in a tab or window. Just toggle the Manual/Auto setting and then start a debugging session.  DevTools will open either on clicking the "Open DevTools" button or after the specified timeout period.  If set to auto close, once you end your debugging session, DevTools will close automatically.
  * Manage and monitor local and remote debugging sessions
  * Manual or automatic control of DevTools interface
