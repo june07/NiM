@@ -1,3 +1,6 @@
+[Chrome Web Store](https://chrome.google.com/webstore/detail/gnhhdgbaldcilmgcpfddgdbkhjohddkj)
+![](https://img.shields.io/chrome-web-store/users/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/rating/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/stars/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg)
+
 [NIM Homepage](http://june07.com/nim)
 ![NiM Logo](http://june07.github.io/image/smallPromoTile.png)
 # NIM (Node Inspection Monitor)
