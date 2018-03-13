@@ -2,14 +2,14 @@
 
 [NIM Homepage](http://june07.com/nim)
 ![NiM Logo](http://june07.github.io/image/smallPromoTile.png)
-# NIM (Node Inspection Monitor)
-### NIM streamlines your Node.js development cycle when using Node V8 Inspector "--inspect" and Chrome DevTools.
+# NiM (Node.js V8 --inspector Manager)
+### NiM streamlines your Node.js development cycle when using Node V8 Inspector "--inspect" and Chrome DevTools.
 
 ------------------------
 
-NIM manages the Chrome DevTools window/tab lifecycle leaving you with more ability to focus on what matters... debugging your code.  You no longer need to copy/paste DevTools URL's or continue opening/closeing tabs/windows.
+NiM manages the Chrome DevTools window/tab lifecycle leaving you with more ability to focus on what matters... debugging your code.  You no longer need to copy/paste DevTools URL's or continue opening/closeing tabs/windows.
 
-NIM automatically detects the URL that is generated when running node (locally or remotely) with --inspect option. NIM provides you with the option of automatically opening and closing Chrome DevTools in a tab or window. Just toggle the Manual/Auto setting and then start a debugging session.  DevTools will open either on clicking the "Open DevTools" button or after the specified timeout period.  If set to auto close, once you end your debugging session, DevTools will close automatically.
+NiM automatically detects the URL that is generated when running node (locally or remotely) with --inspect option. NIM provides you with the option of automatically opening and closing Chrome DevTools in a tab or window. Just toggle the Manual/Auto setting and then start a debugging session.  DevTools will open either on clicking the "Open DevTools" button or after the specified timeout period.  If set to auto close, once you end your debugging session, DevTools will close automatically.
  
  * Manage and monitor local and remote debugging sessions
  * Manual or automatic control of DevTools interface
