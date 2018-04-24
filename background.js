@@ -123,7 +123,7 @@ ngApp
                                 })
                                 .then(function openDevToolsFrontend(json) {
                                     if (!json.data[0].devtoolsFrontendUrl) return callback(chrome.i18n.getMessage("errMsg7", [host, port]));
-                                    var url = json.data[0].devtoolsFrontendUrl
+                                    var url = json.data[0].devtoolsFrontendUrl.replace(/ws=localhost/, 'ws=127.0.0.1');
                                     var inspectIP = url.match(IP_PATTERN)[0];
                                     url = url
                                         .replace("localhost:9229", host + ":" + port) // When localhost is being used, set the given host and port
