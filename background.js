@@ -126,8 +126,6 @@ ngApp
                                     var url = json.data[0].devtoolsFrontendUrl.replace(/ws=localhost/, 'ws=127.0.0.1');
                                     var inspectIP = url.match(IP_PATTERN)[0];
                                     url = url
-                                        .replace("localhost:9229", host + ":" + port) // When localhost is being used, set the given host and port
-                                        .replace("localhost:" + port, host + ":" + port)  // A check for just the port change must be made.
                                         .replace(inspectIP + ":9229", host + ":" + port) // In the event that remote debugging is being used and the infoUrl port (by default 80) is not forwarded.
                                         .replace(inspectIP + ":" + port, host + ":" + port) // A check for just the port change must be made.
                                     if ($scope.settings.localDevTools)
