@@ -3,14 +3,14 @@
 <!-- build:[src]:min ./js/googleanalytics.min.js -->
 <script type="text/javascript" src="./js/googleanalytics.js"></script>
 <!-- /build -->
-<script type="text/javascript" src="./js/jquery.min.js"></script>
-<script type="text/javascript" src="./js/angular.min.js"></script>
-<script type="text/javascript" src="./js/materialize.min.js"></script>
-<script type="text/javascript" src="./js/moment.min.js"></script>
-<script type="text/javascript" src="./js/angular-moment.min.js"></script>
-<script type="text/javascript" src="./js/perfect-scrollbar.jquery.min.js"></script>
-<script type="text/javascript" src="./js/perfect-scrollbar.min.js"></script>
-<script type="text/javascript" src="./js/bootstrap-notify.min.js"></script>
+<script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="./node_modules/angular/angular.min.js"></script>
+<script type="text/javascript" src="./node_modules/materialize-css/dist/js/materialize.min.js"></script>
+<script type="text/javascript" src="./node_modules/moment/min/moment.min.js"></script>
+<script type="text/javascript" src="./node_modules/angular-moment/angular-moment.min.js"></script>
+<script type="text/javascript" src="./node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
+<script type="text/javascript" src="./node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="./node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
 <!-- build:[src]:min popup.min.js -->
 <script type="text/javascript" src="popup.js"></script>
 <!-- /build -->
@@ -21,12 +21,12 @@
         </title>
         <!-- build:css ./css/vendor-popup.min.css -->
         <link rel="stylesheet" href="./css/vendor/popup/fontello.css">
-        <link rel="stylesheet" href="./css/vendor/popup/bootstrap.min.css">
-        <link rel="stylesheet" href="./css/vendor/popup/perfect-scrollbar.min.css">
+        <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css">
         <!-- /build -->
         <!-- build:css ./css/vendor.min.css -->
         <link rel="stylesheet" href="./css/vendor/font.css">
-        <link rel="stylesheet" href="./css/vendor/materialize.css">
+        <link rel="stylesheet" href="./node_modules/materialize-css/dist/css/materialize.min.css">
         <!-- /build -->
         <!-- build:css ./css/nim.min.css -->
         <link rel="stylesheet" href="./css/nim.css">
@@ -167,8 +167,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col l2 m1"></div>
-                <div class="col s11 m12 l12">
+                <div class="col s11 m11 l11">
                     <form>
                         <div class="row">
                             <div class="input-field col s6">
@@ -195,20 +194,21 @@
                         </div>
                     </form>
                 </div>
-                <div class="col m1 l2"></div>
             </div>
             <div class="row row-footer">
-                <footer class="page-footer grey lighten-3">
-                    <div class="footer-copyright">
-                        <div class="container footer-text">
-                            <a id="site-href" target="_blank" href="https://june07.com">© 2016-2017 June07</a>
-                            <div class="right">
-                                <div id="g-plusone" class="g-plusone" data-align="right" expandTo="bottom, left, top, right" data-href="https://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj"></div>
-                                <a class="btn green lighten-2" href="#modal2" id="donate-button"><span class="i18n">Donate</span></a>
+                <div class="col">
+                    <footer class="page-footer grey lighten-3">
+                        <div class="footer-copyright">
+                            <div class="container footer-text">
+                                <a id="site-href" target="_blank" href="https://june07.com">© 2016-2017 June07</a>
+                                <div class="right">
+                                    <div id="g-plusone" class="g-plusone" data-align="right" expandTo="bottom, left, top, right" data-href="https://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj"></div>
+                                    <a class="btn green lighten-2" href="#modal2" id="donate-button"><span class="i18n">Donate</span></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </footer>
+                    </footer>
+                </div>
             </div>
         </div>
         <div class="card green container-message" ng-if="bg.settings.debug">

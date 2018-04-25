@@ -358,3 +358,6 @@ td.active-cell {
 #modal2 > div.modal-content > div.page-header > h3 {
     font-size: 26px !important;
 }
+body > div.container.container-page > div:nth-child(2) > div > form > div:nth-child(1) {
+    padding: 0 25px 0 25px;
+}
