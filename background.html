@@ -1,20 +1,23 @@
 <!doctype html>
-<!-- build:[src]:min js/googleanalytics.min.js -->
-<script type="text/javascript" src="./js/googleanalytics.js"></script>
-<!-- /build -->
-<!-- build:[src]:min js/ -->
-<script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
-<script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
-<script type="text/javascript" src="node_modules/moment/min/moment.min.js"></script>
-<!-- /build -->
-<!-- build:[src]:min background.min.js -->
-<script type="text/javascript" src="background.js"></script>
-<!-- /build -->
-<html ng-app="NimBackgroundApp" ng-csp>
-	<head>
-	    <title>Node.js Inspector Monitor - Background Page</title>
-	</head>
-	<body id="nim" ng-controller="nimController as main">
-	</body>
+<html ng-app="NimBackgroundApp" ng-csp id="background-page">
+
+<head>
+    <!-- build:[src]:min js/googleanalytics.min.js -->
+    <script type="text/javascript" src="./js/googleanalytics.js"></script>
+    <!-- /build -->
+    <!-- build:[src]:min js/ -->
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
+    <script type="text/javascript" src="node_modules/moment/min/moment.min.js"></script>
+    <!-- /build -->
+    <!-- build:[src]:min background.min.js -->
+    <script type="text/javascript" src="background.js"></script>
+    <!-- /build -->
+    <title>Node.js Inspector Monitor - Background Page</title>
+</head>
+
+<body id="nim" ng-controller="nimController as main">
+</body>
+
 </html>

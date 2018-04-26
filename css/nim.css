@@ -41,15 +41,11 @@ div.noUi-base {
     word-break: break-word;
 }
 .switch label input[type=checkbox]:checked+.lever {
-background-color:#e8f5e9;
+    background-color:#e8f5e9;
 }
 
 .switch label input[type=checkbox]:checked+.lever:after {
-background-color:#4caf50;
-}
-
-div.container.footer-text {
-    width: 80%;
+    background-color:#4caf50;
 }
 #options-page div.row {
     margin-bottom: 15px;
@@ -57,9 +53,10 @@ div.container.footer-text {
 
 #options-page body {
     width: 100%;
+    min-width: 600px;
     height: 700px !important;
     max-height: 800px !important;
-    min-height: 700px !important;
+    min-height: 400px !important;
     overflow: hidden;
 }
 
@@ -76,7 +73,7 @@ div.container.footer-text {
 
 #options-page body li.collection-item {
     font-size: 16px;
-    padding: 10px 17px 15px 17px;
+    padding: 15px 17px 15px 17px;
     margin: 0px 0px 0px 0px;
 }
 
@@ -115,6 +112,11 @@ div.container.footer-text {
     font-weight: bold;
     background-color: #e0e0e0;
     padding: 10px;
+    overflow: none;
+}
+#options-page-ads-iframe {
+    width: 100%;
+    height: 300px;
 }
 #debugVerbosityBadge {
     background-color: #81c784;
@@ -192,9 +194,12 @@ label {
 }
 
 .animate-swing-show.ng-hide {
+    line-height: 0px;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
     opacity: 0;
     transform: rotateY(-90deg);
-    transition: all 0.2s cubic-bezier(.36, -0.64, .34, 1.76);
+    transition: all 0.5s cubic-bezier(.36, -0.64, .34, 1.76);
 }
 
 .animate-swing-show {
@@ -292,10 +297,8 @@ thead tr th {
     font-weight: lighter;
 }
 #donate-button {
-    height: 26px;
-    padding: 0 10px 0 10px;
-    line-height: 28px;
-    margin-left: 5px;
+    height: auto;
+    line-height: inherit;
 }
 #modal2 > div > div.page-header {
     padding: 10px 0 0 0;
@@ -360,4 +363,28 @@ td.active-cell {
 }
 body > div.container.container-page > div:nth-child(2) > div > form > div:nth-child(1) {
     padding: 0 25px 0 25px;
+}
+#bitcoin-donate-button img {
+    width: 100px;
+}
+#metamask-donate-button img {
+    width: 100px;
+}
+#g-plusone {
+    margin: auto;
+}
+#popup-page #footer-buttons {
+    display: flex;
+}
+#popup-page #footer-buttons .footer-button {
+    padding: 0px 5px 0px 5px;
+}
+#popup-page #twitter-button iframe {
+    vertical-align: middle;
+}
+#popup-page .footer-copyright {
+    padding-right: 20px;
+}
+#donation-container > div > div.col-xs-3 {
+    min-width: 70px;
 }

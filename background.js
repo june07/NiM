@@ -41,7 +41,7 @@ ngApp
             port: "9229",
             auto: true,
             checkInterval: 500,
-            debugVerbosity: 9,
+            debugVerbosity: 0,
             checkIntervalTimeout: null,
             newWindow: false,
             autoClose: false,

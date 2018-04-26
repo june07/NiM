@@ -108,6 +108,9 @@ ngApp
         $window.document.querySelector('#modal3 > div.modal-header > button').addEventListener('click', function() {
           $('#modal3').modal('close');
         });
+        $window.document.querySelector('#modal4 > div.modal-header > button').addEventListener('click', function() {
+          $('#modal4').modal('close');
+        });
         $window.document.querySelector('#options-button').addEventListener('click', function() {
           if (chrome.runtime.openOptionsPage) {
             // New way to open options pages, if supported (Chrome 42+).

@@ -33,7 +33,7 @@
     "background": {
         "page": "background.html"
     },
-    "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.google-analytics.com https://ssl.google-analytics.com https://june07.github.io https://apis.google.com https://button.flattr.com https://www.paypalobjects.com https://apis.google.com; object-src 'self' https://www.google-analytics.com https://ssl.google-analytics.com;",
+    "content_security_policy": "script-src 'self' 'unsafe-eval' 'sha256-AQgt3c0/TG0FRK6THPGo+MkkH7odzkPJFCcY+h2NtGE=' https://www.gstatic.com https://www.google-analytics.com https://ssl.google-analytics.com https://june07.github.io https://apis.google.com https://button.flattr.com https://www.paypalobjects.com https://platform.twitter.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; object-src 'self' https://www.google-analytics.com https://ssl.google-analytics.com;",
     "commands": {
         "open-devtools": {
             "suggested_key": {
