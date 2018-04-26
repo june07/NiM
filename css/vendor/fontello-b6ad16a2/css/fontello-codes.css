@@ -1,0 +1,8 @@
+
+.icon-wrench:before { content: '\e800'; } /* '' */
+.icon-up-open-big:before { content: '\e801'; } /* '' */
+.icon-down-open-big:before { content: '\e802'; } /* '' */
+.icon-cancel:before { content: '\e805'; } /* '' */
+.icon-inbox:before { content: '\e806'; } /* '' */
+.icon-chat-empty:before { content: '\f0e6'; } /* '' */
+.icon-sliders:before { content: '\f1de'; } /* '' */
