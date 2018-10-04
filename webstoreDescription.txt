@@ -37,6 +37,14 @@ If you enjoy using NiM please give us a 5 star rating and/or a G+1.  Any and all
 
 This project is open source and available at https://github.com/june07/NiM.
 
+[0.15.1] - 2018-06-07
+Updated
+- Added update_url per https://productforums.google.com/forum/?hl=en#!topic/chrome/kGgLwnrDKpQ;context-place=forum/chrome in hopes to fix https://github.com/june07/NiM/issues/34
+[0.15.0] - 2018-04-26
+Updated
+- Polish languge updates.  Thank you @kubeek  https://github.com/june07/NiM/pull/44
+Fixed
+- Breaking change in Chrome Version 66.0.3359.117 (Official Build) (64-bit) see https://github.com/june07/NiM/issues/47 and https://github.com/june07/NiM/issues/46 for more info.
 [0.14.5] - 2017-11-28
 Updated
 - Changed default setting back to "auto" .

@@ -10,9 +10,13 @@
         "setInterval": true,
         "clearTimeout": true,
         "wNumb": true,
+        "XMLHttpRequest": true,
+        "$": true,
         "clearInterval": false,
         "console": false,
         "process": false,
+        "btoa": true,
+        "jSHA", true
     },
   "env": { "es6": true },
     "rules": {

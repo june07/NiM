@@ -1,9 +1,34 @@
+ul #dropdown1 {
+    width: unset !important;
+}
+#devToolsBadge {
+    padding-right: 100px;
+    float: right;
+}
+span #devToolsBadgeLabel {
+    background-color: #81c784;
+    color: white;
+}
+#devtools-panel body #header {
+    width: 800px;
+    margin: auto;
+    font-size: medium;
+    line-height: 1;
+}
+#devtools-panel body #header #logo {
+    width: 150px;
+    margin: 20px auto;
+}
+#devtools-panel body #content {
+    width: 100%;
+    margin: auto;
+}
 body {
     font-family: 'Open Sans Condensed', sans-serif;
     font-size: 24px;
     padding: 0px 0px 0px 0px;
     height: 100%;
-    width:500px;
+    width:700px;
     margin:0;
 }
 div > div > div.noUi-handle.noUi-handle-lower {
@@ -50,13 +75,10 @@ div.noUi-base {
 #options-page div.row {
     margin-bottom: 15px;
 }
-
 #options-page body {
     width: 100%;
     min-width: 600px;
-    height: 700px !important;
-    max-height: 800px !important;
-    min-height: 400px !important;
+    min-height: 1024px !important;
     overflow: hidden;
 }
 
@@ -101,17 +123,32 @@ div.noUi-base {
     padding: 15px 0px 15px 0px;
     background-color: #4caf50;
 }
-
 #options-page #collections-header {
-    font-size: 14px;
+    font-size: 20px;
     font-weight: bold;
     background-color: #e0e0e0;
+    padding: 20px 2f0px;
+    overflow: none;
 }
 #options-page #collections-header-debugging {
-    font-size: 14px;
+    font-size: 20px;
     font-weight: bold;
     background-color: #e0e0e0;
-    padding: 10px;
+    padding: 20px 20px;
+    overflow: none;
+}
+#options-page #collections-header-rtc {
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #e0e0e0;
+    padding: 20px 20px;
+    overflow: none;
+}
+#options-page #collections-header-customDevToolsURL {
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #e0e0e0;
+    padding: 20px 20px;
     overflow: none;
 }
 #options-page-ads-iframe {
@@ -125,7 +162,6 @@ label {
     font-size: 16px;
     font-weight: normal !important;
 }
-
 #options-page .noUi-target .range-label {
     background-color: #4caf50;
     position: absolute;
@@ -138,7 +174,9 @@ label {
     transform: scale(.5) rotate(-45deg);
     transform-origin: 50% 100%
 }
-
+#options-page #devtools_url {
+    font-size: 24px !important;
+}
 .message {
     font-size: 14px;
 }
@@ -222,10 +260,6 @@ body#nim {
 .material-icons#additionalOptions {
     line-height: inherit;
 }
-.modal {
-    width: 90%;
-}
-
 .alert {
     width: 70%;
     top: 1px !important;
@@ -244,7 +278,16 @@ body#nim {
 .fixed-action-btn.horizontal ul li {
     margin: 0 0 0 0 !important;
 }
-.modal {
+#options-page .modal {
+    margin: 0 auto !important;
+    opacity: 0.9 !important;
+    width: 50%;
+    top: 10 !important;
+    max-height: 90%;
+    overflow: hidden;
+    margin: inherit;
+}
+#popup-page .modal {
     opacity: 0.9 !important;
     width: 100%;
     top: 0 !important;
@@ -373,6 +416,19 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
 #g-plusone {
     margin: auto;
 }
+#popup-page .nav-pills a {
+    font-variant: all-small-caps;
+    color: green;
+}
+#popup-page div#mainControlTabs {
+    margin: 0 10px 0 10px;
+}
+#popup-page .tabs .tab a {
+    color: #66bb6a;
+}
+#popup-page .tabs .indicator {
+    background-color: #43a047;
+}
 #popup-page #footer-buttons {
     display: flex;
 }
@@ -387,4 +443,42 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
 }
 #donation-container > div > div.col-xs-3 {
     min-width: 70px;
+}
+#nim-version {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: small;
+}
+#scaled-frame { width: 950px; height: 490px; border: 0px; }
+#scaled-frame {
+    zoom: 0.75;
+    -moz-transform: scale(0.75);
+    -moz-transform-origin: 0 0;
+    -o-transform: scale(0.75);
+    -o-transform-origin: 0 0;
+    -webkit-transform: scale(0.75);
+    -webkit-transform-origin: 0 0;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+ #scaled-frame  { zoom: 1;  }
+}
+#modal4 > div.modal-header > h5 {
+    margin: 0 auto;
+}
+#realtime-collaboration-disabled {
+    margin: 100px auto;
+}
+.rtc-credentials-table-cell i {
+    background: #e8f5e9;
+}
+#coming-soon {
+}
+#coming-soon font {
+    display: table;
+    font-size: 40px;
+    margin: 0 auto;
+    padding: 50px;
+    font-variant-caps: all-petite-caps;
 }

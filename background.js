@@ -25,22 +25,33 @@ var ngApp = angular.module('NimBackgroundApp', []);
 ngApp
     .run(function() {})
     .controller('nimController', ['$scope', '$window', '$http', '$q', function($scope, $window, $http, $q) {
-        const VERSION = ''; // Filled in by Grunt
+        const VERSION = '0.0.0'; // Filled in by Grunt
         const UPTIME_CHECK_INTERVAL = 60 * 15; // 15 minutes 
-        const INSTALL_URL = "http://june07.com/blog/nim-install";
-        const UNINSTALL_URL = "http://june07.com/uninstall";
+        const INSTALL_URL = "https://bit.ly/2HBlRs1";
+        const UNINSTALL_URL = "https://bit.ly/2vUcRNn";
+        const JUNE07_ANALYTICS_URL = 'https://analytics.june07.com/uninstall';
+        const SHORTNER_SERVICE_URL = 'https://shortnr.june07.com/api'
         const UPTIME_CHECK_RESOLUTION = 1000; // Check every second
-        const DEVEL = false;
+        const DEVEL = true;
         const IP_PATTERN = /(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])/;
+        const devToolsURL_Regex = /(chrome-devtools:\/\/|https:\/\/).*(inspector.html|js_app.html)/;
+
+        $window.chrome.management.getSelf((ExtensionInfo) => {
+            $scope.ExtensionInfo = ExtensionInfo;
+        });
+        getChromeIdentity()
 
         $scope.loaded = Date.now();
-        $scope.timerUptime= 0;
+        $scope.timerUptime = 0;
         $scope.timerNotification = 0;
+        $scope.VERSION = VERSION;
         $scope.settings = {
+            DEVEL: DEVEL,
             host: "localhost",
             port: "9229",
             auto: true,
             checkInterval: 500,
+            remoteProbeInterval: 10000,
             debugVerbosity: 0,
             checkIntervalTimeout: null,
             newWindow: false,
@@ -53,8 +64,17 @@ ngApp
                 lastHMAC: 0
             },
             chromeNotifications: true,
-            autoIncrement: {type: 'port', name: 'Port'} // both | host | port | false
+            autoIncrement: {type: 'port', name: 'Port'}, // both | host | port | false
+            collaboration: false,
+
+            localDevToolsOptions: [
+                { 'id': '0', 'name': 'default', 'url': '', 'selected': true },
+                { 'id': '1', 'name': 'appspot', 'url': 'https://chrome-devtools-frontend.appspot.com/serve_file/@a10b9cedb40738cb152f8148ddab4891df876959/inspector.html' },
+                { 'id': '2', 'name': 'custom', 'url': '' }
+            ]
+
         };
+        $scope.remoteTabs = [];
         $scope.notifications;
         $scope.devToolsSessions = [];
         $scope.changeObject;
@@ -62,8 +82,13 @@ ngApp
         $scope.sessionlessTabs = [];
         $scope.locks = [];
         $scope.moment = $window.moment;
+        $scope.getDevToolsOption = function() {
+            return $scope.settings.localDevToolsOptions.find((option) => {
+                return option.selected;
+            });
+        };
 
-        var tabId_HostPort_LookupTable = [],
+        let tabId_HostPort_LookupTable = [],
             backoffTable = [],
             promisesToUpdateTabsOrWindows = [],
             chrome = $window.chrome,
@@ -120,67 +145,70 @@ ngApp
                                     method: "GET",
                                     url: infoUrl,
                                     responseType: "json"
-                                })
-                                .then(function openDevToolsFrontend(json) {
-                                    if (!json.data[0].devtoolsFrontendUrl) return callback(chrome.i18n.getMessage("errMsg7", [host, port]));
-                                    var url = json.data[0].devtoolsFrontendUrl.replace(/ws=localhost/, 'ws=127.0.0.1');
-                                    var inspectIP = url.match(IP_PATTERN)[0];
-                                    url = url
-                                        .replace(inspectIP + ":9229", host + ":" + port) // In the event that remote debugging is being used and the infoUrl port (by default 80) is not forwarded.
-                                        .replace(inspectIP + ":" + port, host + ":" + port) // A check for just the port change must be made.
-                                    if ($scope.settings.localDevTools)
-                                        url = url.replace('https://chrome-devtools-frontend.appspot.com', 'chrome-devtools://devtools/remote');
-                                    var websocketId = json.data[0].id;
-                                    /** May be a good idea to put this somewhere further along the chain in case tab/window creation fails,
-                                    in which case this entry will need to be removed from the array */
-                                    $window._gaq.push(['_trackEvent', 'Program Event', 'openTab', 'Non-existing tab.', undefined, true]);
-                                    if (tab.length === 0) {
-                                        createTabOrWindow(infoUrl, url, websocketId)
-                                        .then(function(tab) {
-                                            var tabToUpdate = tab;
-                                            chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
-                                                if (triggerTabUpdate && tabId === tabToUpdate.id && changeInfo.status === 'complete') {
-                                                    triggerTabUpdate = false;
-                                                    saveSession(url, infoUrl, websocketId, tabToUpdate.id);
-                                                    callback(tabToUpdate.url);
-                                                } else if (!triggerTabUpdate && tabId === tabToUpdate.id) {
-                                                    if ($scope.settings.debugVerbosity >= 6) console.log('Loading updated tab [' + tabId + ']...');
-                                                }
-                                            });
-                                        })
-                                        .then(callback);
-                                    } else {
-                                        // If the tab has focus then issue this... otherwise wait until it has focus (ie event listener for window event.  If another request comes in while waiting, just update the request with the new info but still wait if focus is not present.
-                                        var promiseToUpdateTabOrWindow = new Promise(function(resolve) {
-                                            chrome.tabs.query({
-                                                url: [ 'chrome-devtools://*/*', 'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*' ]
-                                            }, function callback(tab) {
-                                                // Resolve otherwise let the event handler resolve
-                                                tab = tab[0];
-                                                if (tab.active) {
-                                                    chrome.windows.get(tab.windowId, function(window) {
-                                                        if (window.focused) return resolve();
-                                                    });
-                                                } else if ($scope.settings.windowFocused) {
-                                                    return resolve();
-                                                }
-                                                addPromiseToUpdateTabOrWindow(tab, promiseToUpdateTabOrWindow);
-                                            });
-                                        })
-                                        .then(function() {
-                                            updateTabOrWindow(infoUrl, url, websocketId, tab[0], callback);
+                            })
+                            .then(function openDevToolsFrontend(json) {
+                                if (!json.data[0].devtoolsFrontendUrl) return callback(chrome.i18n.getMessage("errMsg7", [host, port]));
+                                $scope.settings.localDevToolsOptions[0].url = json.data[0].devtoolsFrontendUrl.split('?')[0];
+                                var url = json.data[0].devtoolsFrontendUrl.replace(/ws=localhost/, 'ws=127.0.0.1');
+                                var inspectIP = url.match(IP_PATTERN)[0];
+                                url = url
+                                    .replace(inspectIP + ":9229", host + ":" + port) // In the event that remote debugging is being used and the infoUrl port (by default 80) is not forwarded.
+                                    .replace(inspectIP + ":" + port, host + ":" + port) // A check for just the port change must be made.
+                                if ($scope.settings.localDevTools)
+                                    url = url.replace(devToolsURL_Regex, $scope.getDevToolsOption().url);
+                                if ($scope.settings.bugfix)
+                                    url = url.replace('', '');
+                                var websocketId = json.data[0].id;
+                                /** May be a good idea to put this somewhere further along the chain in case tab/window creation fails,
+                                in which case this entry will need to be removed from the array */
+                                $window._gaq.push(['_trackEvent', 'Program Event', 'openTab', 'Non-existing tab.', undefined, true]);
+                                if (tab.length === 0) {
+                                    createTabOrWindow(infoUrl, url, websocketId)
+                                    .then(function(tab) {
+                                        var tabToUpdate = tab;
+                                        chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
+                                            if (triggerTabUpdate && tabId === tabToUpdate.id && changeInfo.status === 'complete') {
+                                                triggerTabUpdate = false;
+                                                saveSession(url, infoUrl, websocketId, tabToUpdate.id);
+                                                callback(tabToUpdate.url);
+                                            } else if (!triggerTabUpdate && tabId === tabToUpdate.id) {
+                                                if ($scope.settings.debugVerbosity >= 6) console.log('Loading updated tab [' + tabId + ']...');
+                                            }
                                         });
-                                    }
-                                    //unlock(host, port);
-                                })
-                                .catch(function(error) {
-                                    if (error.status === -1) {
-                                        var message = chrome.i18n.getMessage("errMsg4"); // Connection to DevTools host was aborted.  Check your host and port.
-                                        callback(message);
-                                    } else {
-                                        callback(error);
-                                    }
-                                });
+                                    })
+                                    .then(callback);
+                                } else {
+                                    // If the tab has focus then issue this... otherwise wait until it has focus (ie event listener for window event.  If another request comes in while waiting, just update the request with the new info but still wait if focus is not present.
+                                    var promiseToUpdateTabOrWindow = new Promise(function(resolve) {
+                                        chrome.tabs.query({
+                                            url: [ 'chrome-devtools://*/*', 'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*' ]
+                                        }, function callback(tab) {
+                                            // Resolve otherwise let the event handler resolve
+                                            tab = tab[0];
+                                            if (tab.active) {
+                                                chrome.windows.get(tab.windowId, function(window) {
+                                                    if (window.focused) return resolve();
+                                                });
+                                            } else if ($scope.settings.windowFocused) {
+                                                return resolve();
+                                            }
+                                            addPromiseToUpdateTabOrWindow(tab, promiseToUpdateTabOrWindow);
+                                        });
+                                    })
+                                    .then(function() {
+                                        updateTabOrWindow(infoUrl, url, websocketId, tab[0], callback);
+                                    });
+                                }
+                                //unlock(host, port);
+                            })
+                            .catch(function(error) {
+                                if (error.status === -1) {
+                                    var message = chrome.i18n.getMessage("errMsg4"); // Connection to DevTools host was aborted.  Check your host and port.
+                                    callback({ statusText: message });
+                                } else {
+                                    callback(error);
+                                }
+                            });
                         });
                     });
                 }
@@ -356,8 +384,9 @@ ngApp
                 }
             });
         }
-        function getInfoURL(host, port) {
-            return 'http://' + host + ':' + port + '/json';
+        function getInfoURL(host, port, protocol) {
+            if (protocol === undefined) protocol = 'http';
+            return protocol + '://' + host + ':' + port + '/json';
         }
         function getInstance() {
             return { host: $scope.settings.host, port: $scope.settings.port }
@@ -544,7 +573,6 @@ ngApp
                         resolve(tab);
                     });
                 }
-                if (DEVEL) selenium({ openedInstance: getInstance() });
             });
         }
         function resolveTabPromise(tab) {
@@ -645,32 +673,143 @@ ngApp
             });
         }
         function saveAll() {
-            var keys = Object.keys($scope.settings);
-            keys.forEach(function(key) {
-                if (!$scope.changeObject || !$scope.changeObject[key] || ($scope.settings[key] !== $scope.changeObject[key].newValue)) {
-                    write(key, $scope.settings[key]);
+            saveAllToChromeStorage($scope.settings, 'settings');
+        }
+        function saveAllToChromeStorage(saveme_object, saveme_name) {
+            var keys = Object.keys(saveme_object);
+
+            switch (saveme_name) {
+                case 'settings': {
+                    keys.forEach(function(key) {
+                        if (!$scope.changeObject || !$scope.changeObject[key] || ($scope.settings[key] !== $scope.changeObject[key].newValue)) {
+                            write(key, $scope.settings[key]);
+                        }
+                    });
+                    setUninstallURL(); break;
                 }
-            });
-        }
-        function selenium(message) {
-            const CHROME_AUTOMATION_EXTENSION_ID = 'aapnijgdinlhnhlmodcfapnahmbfebeb';
-            var port = chrome.runtime.connect(CHROME_AUTOMATION_EXTENSION_ID);
-            port.postMessage(message);
-            port.onMessage(function seleniumResponse(response) {
-                console.dir(response);
-            });
-        }
-        chrome.runtime.onInstalled.addListener(function installed() {
-                chrome.tabs.create({ url: INSTALL_URL});
-        });
-        chrome.runtime.setUninstallURL(UNINSTALL_URL, function() {
-            if (chrome.runtime.lastError) {
-                if ($scope.settings.debugVerbosity >= 5) console.log(chrome.i18n.getMessage("errMsg1") + UNINSTALL_URL);
             }
-        });
-        chrome.identity.getProfileUserInfo(function(userInfo) {
-            //
-            $scope.userInfo = userInfo;
+        }
+        function generateRandomPassword() {
+            let password = $window.pwgen(20);
+            return password;
+        }
+        function tinySettingsJSON(callback) {
+            let tinySettings = {};
+            Object.assign(tinySettings, $scope.settings);
+            Object.entries(tinySettings).forEach((entry, index, tinySettings) => {
+                if (entry[1] === true) entry[1] = 't';
+                if (entry[1] === false) entry[1] = 'f';
+
+                switch(entry[0]) {
+                    case 'host': entry[0] = 'h'; break;
+                    case 'port': entry[0] = 'p'; break;
+                    case 'checkInterval': entry[0] = 'ci'; break;
+                    case 'debugVerbosity': entry[0] = 'dv'; break;
+                    case 'checkIntervalTimeout': entry[0] = 'cit'; break;
+                    case 'newWindow': entry[0] = 'nw'; break;
+                    case 'autoClose': entry[0] = 'ac'; break;
+                    case 'tabActive': entry[0] = 'ta'; break;
+                    case 'windowFocused': entry[0] = 'wf'; break;
+                    case 'localDevTools': entry[0] = 'ldt'; break;
+                    case 'notifications': entry[0] = 'n'; break;
+                    case 'showMessage': entry[0] = 'sm'; break;
+                    case 'lastHMAC': entry[0] = 'lh'; break;
+                    case 'chromeNotifications': entry[0] = 'cn'; break;
+                    case 'autoIncrement': entry[0] = 'ai'; break;
+                    case 'collaboration': entry[0] = 'c'; break;
+                    case 'loginRefreshInterval': entry[0] = 'lri'; break;
+                    case 'tokenRefreshInterval': entry[0] = 'tri'; break;
+                }
+                if (index === tinySettings.length-1) callback(JSON.stringify(tinySettings));
+            });
+        }
+        function formatParams() {
+            return new Promise((resolve) => {
+                tinySettingsJSON((tinyJSON) => {
+                    resolve('s=' + tinyJSON + '&ui=' + JSON.stringify($scope.userInfo));
+                });
+            });
+        }
+        function generateUninstallURL() {
+            return new Promise((resolve) => {
+                formatParams()
+                .then((params) => {
+                    // This function is needed per chrome.runtime.setUninstallURL limitation: Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and implement surveys. Maximum 255 characters.
+                    return generateShortLink(JUNE07_ANALYTICS_URL + '?app=nim&redirect=' + btoa(UNINSTALL_URL) + '&a=' + btoa(params))
+                })
+                .then((shortURL) => {
+                    resolve(shortURL);
+                    //return UNINSTALL_URL + encodeURIComponent('app=nim&a=' + btoa(params));
+                });
+            });
+        }
+        function generateShortLink(longURL) {
+            return new Promise((resolve) => {
+                let xhr = new XMLHttpRequest();
+                let json = JSON.stringify({
+                  "url": longURL
+                });
+                xhr.responseType = 'text';
+                xhr.open("POST", SHORTNER_SERVICE_URL);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onload = function () {
+                    let returnTEXT = xhr.response;
+                    if (xhr.readyState == 4 && xhr.status == 200 || xhr.status == 201) {
+                        resolve(returnTEXT);
+                    } else {
+                        console.log('ERROR: ' + JSON.stringify(returnTEXT));
+                        resolve(UNINSTALL_URL);
+                    }
+                }
+                xhr.send(json);
+            });
+        }
+        function setUninstallURL() {
+            getChromeIdentity()
+            .then(() => { return generateUninstallURL() })
+            .then((url) => {
+                $scope.uninstallURL = url;
+                chrome.runtime.setUninstallURL(url, function() {
+                    if (chrome.runtime.lastError) {
+                        if ($scope.settings.debugVerbosity >= 5) console.log(chrome.i18n.getMessage("errMsg1") + UNINSTALL_URL);
+                    }
+                });
+            });
+        }
+        setUninstallURL();
+        function analytics(properties) {
+            let xhr = new XMLHttpRequest();
+            let json = JSON.stringify({
+                'source': 'nim',
+                'userInfo': $scope.userInfo,
+                'onInstalledReason': properties.onInstalledReason
+            });
+            xhr.responseType = 'json';
+            xhr.open("POST", JUNE07_ANALYTICS_URL);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onload = function () {
+                let returnJSON = xhr.response;
+                if (xhr.readyState == 4 && xhr.status == "200") {
+                    console.log('data returned:', returnJSON);
+                } else {
+                    console.log('error: ' + JSON.stringify(returnJSON));
+                }
+            }
+            xhr.send(json);
+        }
+        function getChromeIdentity() {
+            return new Promise((resolve) => {
+                $window.chrome.identity.getProfileUserInfo(function(userInfo) {
+                    $scope.userInfo = userInfo;
+                    resolve(userInfo);
+                });
+            });
+        }
+        chrome.runtime.onInstalled.addListener(function installed(details) {
+            if (details.onInstalledReason === 'install') {
+                chrome.tabs.create({ url: INSTALL_URL});
+            }
+            analytics({ 'onInstalledReason': details.onInstalledReason });
         });
         chrome.storage.sync.get("host", function(obj) {
             $scope.settings.host = obj.host || "localhost";
@@ -696,7 +835,6 @@ ngApp
                     return true;
                 }
             }), 1);
-            //unlock(hostPortHashmap(tabId));
         });
         chrome.tabs.onActivated.addListener(function chromeTabsActivatedEvent(tabId) {
             resolveTabPromise(tabId);

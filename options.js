@@ -32,8 +32,10 @@ ngApp
             {id: 'port', name: 'Port'},
             {id: 'false', name: 'False'},
         ];
+        $scope.window = $window;
 
-        var $ = $window.$;
+        var $ = $window.$,
+            chrome = $window.chrome;
 
         $($window.document).ready(function() {
             $('.modal').modal();
@@ -80,10 +82,21 @@ ngApp
         });
         $scope.saveButtonHandler = function() {
             $window._gaq.push(['_trackEvent', 'save button', 'clicked']);
-            $scope.bg.$emit('options-window-closed');
-            $window.close();
+            chrome.tabs.query({url: chrome.runtime.getURL('options.html')}, (tabs)=>{
+                chrome.tabs.remove(tabs[0].id, () => {
+                    $scope.bg.$emit('options-window-closed');
+                });
+            });
         };
-
+        $scope.setDevToolsOption = function(optionIndex) {
+            $scope.bg.settings.localDevToolsOptions.forEach((option, i) => {
+                if (i === optionIndex) option.selected = true;
+                else option.selected = false;
+            });
+        };
+        $scope.resetDevToolsOption = function() {
+            if (!$scope.bg.settings.localDevTools) $scope.setDevToolsOption(0);
+        }
         function trackInputClick(e) {
             $window._gaq.push(['_trackEvent', e.target.id, 'clicked']);
         }
@@ -94,5 +107,8 @@ ngApp
         }
         for (var i = 0; i < userInputs.length; i++) {
             userInputs[i].addEventListener('click', trackInputClickListener);
+        }
+        $scope.fix = function() {
+            $('.dropdown-button').dropdown();
         }
     }]);

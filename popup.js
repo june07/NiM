@@ -21,7 +21,7 @@
  *    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *    SOFTWARE.
 */
-var ngApp = angular.module('NimPopupApp', ['angularMoment']);
+var ngApp = angular.module('NimPopupApp', ['angularMoment', 'ui.bootstrap']);
 ngApp
     .filter('stringLimit', ['$filter', function($filter) {
        return function(input, limit, ellipses) {
@@ -59,7 +59,7 @@ ngApp
             $scope.bg.save("host");
             $scope.bg.save("port");
             $scope.bg.openTab($scope.bg.settings.host, $scope.bg.settings.port, function (error, result) {
-                if (error) showErrorMessage(error);
+                if (error) showErrorMessage(error.statusText);
                 else
                   $scope.message = result;
             });
@@ -108,25 +108,8 @@ ngApp
         $window.document.querySelector('#modal3 > div.modal-header > button').addEventListener('click', function() {
           $('#modal3').modal('close');
         });
-        $window.document.querySelector('#modal4 > div.modal-header > button').addEventListener('click', function() {
+        $window.document.querySelector('#modal4 > div.modal-header > button.close').addEventListener('click', function() {
           $('#modal4').modal('close');
-        });
-        $window.document.querySelector('#options-button').addEventListener('click', function() {
-          if (chrome.runtime.openOptionsPage) {
-            // New way to open options pages, if supported (Chrome 42+).
-            chrome.runtime.openOptionsPage();
-          } else {
-            // Reasonable fallback.
-            $window.open(chrome.runtime.getURL('options.html'));
-          }
-        });
-        $('.modal').modal({
-          dismissible: true, // Modal can be dismissed by clicking outside of the modal
-          opacity: .5, // Opacity of modal background
-          in_duration: 300, // Transition in duration
-          out_duration: 200, // Transition out duration
-          starting_top: '4%', // Starting top style attribute
-          ending_top: '10%' // Ending top style attribute
         });
         $window.document.querySelector('#options-button').addEventListener('click', function() {
           if (chrome.runtime.openOptionsPage) {
@@ -151,4 +134,13 @@ ngApp
         });
         $('#modal1').perfectScrollbar();
         $('#modal2').perfectScrollbar();
+        $scope.openOptionsPage = function() {
+          if (chrome.runtime.openOptionsPage) {
+            // New way to open options pages, if supported (Chrome 42+).
+            chrome.runtime.openOptionsPage();
+          } else {
+            // Reasonable fallback.
+            $window.open(chrome.runtime.getURL('options.html'));
+          }
+        };
     }]);

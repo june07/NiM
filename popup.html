@@ -10,25 +10,22 @@
     <!-- build:[src] js/ -->
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
-    <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
     <script type="text/javascript" src="node_modules/moment/min/moment.min.js"></script>
     <script type="text/javascript" src="node_modules/angular-moment/angular-moment.min.js"></script>
     <script type="text/javascript" src="node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
     <script type="text/javascript" src="node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.min.js"></script>
     <script type="text/javascript" src="node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
+    <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.js"></script>
+    <script type="text/javascript" src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
     <!-- /build -->
-    <!-- BEGIN chat script tags -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chat-engine@0.8.4/dist/chat-engine.min.js" type="text/javascript"></script>
-    <!-- END chat script tags -->
     <!-- build:[src]:min popup.min.js -->
     <script type="text/javascript" src="popup.js"></script>
     <!-- /build -->
+    <!-- build:[src]:min superlatus.min.js -->
     <script type="text/javascript" src="js/superlatus.js"></script>
-
+    <!-- /build -->
+    <link rel="stylesheet" href="css/vendor/fontello-e67980dd/css/fontello.css">
     <!-- build:css css/vendor-popup.min.css -->
-    <link rel="stylesheet" href="css/vendor/fontello-b6ad16a2/css/fontello.css">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css">
     <!-- /build -->
@@ -46,70 +43,18 @@
     <!-- Modal Structure Chat BEGIN -->
     <div id="modal4" class="modal">
         <div class="modal-header">
+            <h5 class="modal-title"><span class="i18n">realtimeCollaboration</span></h5>
+            <button ng-if="bg.settings.collaboration" type="button" aria-label="Open in Browser Window Button" data-toggle="tooltip" data-placement="left" title="Open in Browser Window">
+                <span aria-hidden="true"><i class="icon-window"></i></span>
+            </button>
             <button type="button" class="close" aria-label="Close">
                 <span class="close-x" aria-hidden="true"><i class="icon-cancel"></i></span>
             </button>
         </div>
         <div class="modal-content">
-            <div class="container clearfix">
-                <div class="people-list" id="people-list">
-                    <ul class="list">
-                    </ul>
-                </div>
-                <div class="chat">
-                    <div class="chat-header clearfix">
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
-                        <div class="chat-about">
-                            <div class="chat-with">ChatEngine Demo Chat</div>
-                        </div>
-                    </div>
-                    <div class="chat-history">
-                        <ul></ul>
-                    </div>
-                    <form id="sendMessage" class="chat-message clearfix">
-                        <input type="text" name="message-to-send" id="message-to-send" placeholder="Type your message" rows="1"></input>
-                        <input type="submit" value="Send"></input>
-                    </form>
-                    <!-- end chat-message -->
-                </div>
-                <!-- end chat -->
+            <div>
             </div>
-            <!-- end container -->
-            <script id="message-template" type="text/x-handlebars-template">
-                <li class="clearfix">
-                    <div class="message-data align-right">
-                        <span class="message-data-time">{{time}}, Today</span> &nbsp; &nbsp;
-                        <span class="message-data-name">{{user.first}}</span> <i class="fa fa-circle me"></i>
-                    </div>
-                    <div class="message other-message float-right">
-                        {{messageOutput}}
-                    </div>
-                </li>
-            </script>
-            <script id="message-response-template" type="text/x-handlebars-template">
-                <li>
-                    <div class="message-data">
-                        <span class="message-data-name"><i class="fa fa-circle online"></i> {{user.first}}</span>
-                        <span class="message-data-time">{{time}}, Today</span>
-                    </div>
-                    <div class="message my-message">
-                        {{messageOutput}}
-                    </div>
-                </li>
-            </script>
-            <script id="person-template" type="text/x-handlebars-template">
-                {{#if state.full}}
-                <li class="clearfix" id="{{uuid}}">
-                    <img src="{{state.avatar}}" alt="avatar" />
-                    <div class="about">
-                        <div class="name">{{state.full}}</div>
-                        <div class="status">
-                            <i class="fa fa-circle online"></i> online
-                        </div>
-                    </div>
-                </li>
-                {{/if}}
-            </script>
+            <div ng-if="!bg.settings.collaboration" id="realtime-collaboration-disabled">Real-time Collaboration is disabled.  Enable it from <a ng-click="openOptionsPage()" class="open-options" href="">NiM's options page.</a></div>
         </div>
     </div>
     <!-- Modal Structure Chat END -->
@@ -187,6 +132,14 @@
             <div id="donation-container" class="container">
                 <div class="row">
                     <div class="col-xs-3">
+                        Patreon
+                    </div>
+                    <div class="col-xs-8">
+                        <a class="donate-button" id="patreon-donate-button" href="https://www.patreon.com/bePatron?c=1859117" target="_blank"><img height="44px" src="https://june07.github.io/image/downloads_wordmark_navy.png" alt="Patreon logo" title="Patreon link" border="0"></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">
                         Paypal
                     </div>
                     <div class="col-xs-8">
@@ -212,7 +165,7 @@
                     </div>
                     <div class="col-xs-8">
                         <a class="donate-button" id="bitcoin-donate-button" href="https://gateway.gear.mycelium.com/widgets/dfcf0217aea4d3b0ebcd4b3406522ae5f334f9ba681f912f2c3264eea7ce8c97" target="_blank"><img src="./image/Bitcoin_logo.svg"></a>
-                        <a class="donate-button" id="metamask-donate-button" href="https://june07.com/crypto/metamaskpay.html?amount=1&payee=0x69F3C9210091A0E5cb7D01459683447173D4BDDA" target="_blank"><img src="./image/ethereum-seeklogo.com.svg"></a>
+                        <a class="donate-button" id="metamask-donate-button" href="https://bit.ly/2rdmXEz" target="_blank"><img src="./image/ethereum-seeklogo.com.svg"></a>
                     </div>
                 </div>
             </div>
@@ -225,13 +178,13 @@
                     <a class="btn-floating green lighten-5"> <i class="large"></i> </a>
                     <ul>
                         <li>
-                            <a class="btn-floating green lighten-1" id="chat-button"><i class="icon-chat-empty"></i></a>
+                            <a class="btn-floating green lighten-1 modal-trigger ga-track" id="chat-button" href="#modal4"><i class="icon-chat-empty"></i></a>
                         </li>
                         <li>
-                            <a ng-if="bg.notifications" href="#modal1" class="btn btn-floating green lighten-2"><i class="icon-inbox"></i></a>
+                            <a ng-if="bg.notifications" href="#modal1" class="btn btn-floating green lighten-2 modal-trigger"><i class="icon-inbox"></i></a>
                         </li>
                         <li>
-                            <a class="btn-floating green lighten-1" id="options-button"><i class="icon-sliders"></i></a>
+                            <a class="btn-floating green lighten-1 ga-track" id="options-button"><i class="icon-sliders"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -239,35 +192,52 @@
                 <div class="header left valign">
                     <span class="i18n">appName</span>
                 </div>
+                <div id="nim-version"><p>{{bg.VERSION}}</p></div>
             </div>
         </div>
-        <div class="row">
-            <div class="col s11 m11 l11">
-                <form>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input placeholder="localhost" pattern="((^(([0-9]|[1-9][0-9]|1([0-1][0-9]|2[0-6]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))|127\.0\.0\.([0-1]))$)|(^(1(2[8-9]|[3-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))$)|localhost|^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$)" id="hostname" type="text" class="validate card-title input-text ga-track" ng-model="bg.settings.host">
-                            <font color="#9e9e9e"><span class="i18n">Host</span></font>
-                        </div>
-                        <div class="input-field col s6">
-                            <input id="port" type="text" class="validate card-title input-text ga-track" value placeholder="9229" pattern="([1-9]|[1-8][0-9]|9[0-9]|[1-8][0-9]{2}|9[0-8][0-9]|99[0-9]|[1-8][0-9]{3}|9[0-8][0-9]{2}|99[0-8][0-9]|999[0-9]|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])" ng-model="bg.settings.port">
-                            <font color="#9e9e9e"><span class="i18n">Port</span></font>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12 center">
-                            <span class="waves-effect waves-light"><input type="button" id="open devtools" value="Open DevTools" ng-disabled="bg.settings.auto" class="btn green lighten-1 ga-track i18n" ng-click="clickHandler()"></span>
-                            <div id="autoManualSwitch" class="switch" ng-true-value="true" ng-false-value="false">
-                                <label>
-                                    <span class="i18n">Manual</span>
-                                    <input id="auto switch" type="checkbox" ng-model="bg.settings.auto" class="ga-track" ng-click="switchHandler()">
-                                    <span class="lever"></span>
-                                    <span class="i18n">Auto</span>
-                                </label>
+        <div class="row main">
+            <div class="col" id="mainControlTabs">
+                <uib-tabset type="pills">
+                    <uib-tab heading="{{ bg.remoteTabs.length !== 0 ? 'Local' : ''}}">
+                        <form>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input placeholder="localhost" pattern="((^(([0-9]|[1-9][0-9]|1([0-1][0-9]|2[0-6]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))|127\.0\.0\.([0-1]))$)|(^(1(2[8-9]|[3-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))$)|localhost|^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$)" id="hostname" type="text" class="validate card-title input-text ga-track" ng-model="bg.settings.host">
+                                    <font color="#9e9e9e"><span class="i18n">Host</span></font>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input id="port" type="text" class="validate card-title input-text ga-track" value placeholder="9229" pattern="([1-9]|[1-8][0-9]|9[0-9]|[1-8][0-9]{2}|9[0-8][0-9]|99[0-9]|[1-8][0-9]{3}|9[0-8][0-9]{2}|99[0-8][0-9]|999[0-9]|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])" ng-model="bg.settings.port">
+                                    <font color="#9e9e9e"><span class="i18n">Port</span></font>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 center">
+                                    <span class="waves-effect waves-light"><input type="button" id="open devtools" value="Open DevTools" ng-disabled="bg.settings.auto" class="btn green lighten-1 ga-track i18n" ng-click="clickHandler()"></span>
+                                    <div id="autoManualSwitch" class="switch" ng-true-value="true" ng-false-value="false">
+                                        <label>
+                                            <span class="i18n">Manual</span>
+                                            <input id="auto switch" type="checkbox" ng-model="bg.settings.auto" class="ga-track" ng-click="switchHandler()">
+                                            <span class="lever"></span>
+                                            <span class="i18n">Auto</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </uib-tab>
+                    <uib-tab index="$index + 1" ng-repeat="tab in bg.remoteTabs" heading="{{tab.title}}">
+                        <div id="remote-control-interface">
+                            <div class="row">
+                                <div class="col">Connection Info</div>
+                                <div class="col">Detected On</div>
+                            </div>
+                            <div class="row" ng-repeat="conn in tab.connections">
+                                <div class="col"><a href="">{{ conn.host + ':' + conn.port }}</a></div>
+                                <div class="col">{{ conn.detectionTime | date : 'medium' }}</div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </uib-tab>
+                </uib-tabset>
             </div>
         </div>
         <div class="row row-footer">
@@ -281,8 +251,8 @@
                             <div id="google-button" class="footer-button">
                                 <div id="g-plusone" class="g-plusone" data-align="right" expandTo="bottom, left, top, right" data-href="https://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj"></div>
                             </div>
-                            <div id="donate-button" class="footer-button"><a class="btn green lighten-2" href="#modal2" id="donate-button"><span class="i18n">Donate</span></a></div>
-                            <div id="twitter-button" class="footer-button"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-text='SUPERLATUS {"what": "NiM"}' data-url="https://june07.com/nim" data-via="june07t" data-hashtags="NiM,nodejs,javascript,chrome" data-related="nodejs,ChromeDevTools" data-dnt="true" data-show-count="true">Tweet</a>
+                            <div id="donate-button" class="footer-button"><a class="btn green lighten-2 modal-trigger ga-track" href="#modal2" id="donate-button"><span class="i18n">Donate</span></a></div>
+                            <div id="twitter-button" class="footer-button"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button ga-track" data-size="large" data-text='SUPERLATUS {"what": "NiM"}' data-url="https://june07.com/nim" data-via="june07t" data-hashtags="NiM,nodejs,javascript,chrome" data-related="nodejs,ChromeDevTools" data-dnt="true" data-show-count="true">Tweet</a>
                                 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                             </div>
                         </div>

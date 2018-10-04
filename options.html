@@ -11,6 +11,7 @@
     <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
     <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
     <script type="text/javascript" src="node_modules/nouislider/distribute/nouislider.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-animate/angular-animate.min.js"></script>
     <!-- /build -->
     <!-- build:[src]:min js/wNumb.min.js -->
     <script type="text/javascript" src="./js/wNumb.js"></script>
@@ -18,15 +19,14 @@
     <!-- build:[src]:min options.min.js -->
     <script type="text/javascript" src="options.js"></script>
     <!-- /build -->
-
-
     <!-- build:css css/vendor-options.min.css -->
-    <link rel="stylesheet" href="css/vendor/fontello-b6ad16a2/css/fontello.css">
+    <link rel="stylesheet" href="css/vendor/fontello-e67980dd/css/fontello.css">
     <link rel="stylesheet" href="node_modules/nouislider/distribute/nouislider.css">
     <!-- /build -->
     <!-- build:css css/vendor.min.css -->
     <link rel="stylesheet" href="css/vendor/font.css">
     <link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">
+    <link rel="stylesheet" href="node_modules/angular/angular-csp.css">
     <!-- /build -->
     <!-- build:css css/nim.min.css -->
     <link rel="stylesheet" href="css/nim.css">
@@ -44,7 +44,7 @@
             <div class="col s10">
                 <ul class="collection with-header swing">
                     <li class="collection-header" id="collections-header"><span class="i18n">general</span>
-                        <a href="#modal1" class="additional-options"><i class="tiny icon-wrench right" id="additionalOptions"></i></a>
+                        <a href="#modal1" class="additional-options modal-trigger"><i class="tiny icon-wrench right" id="additionalOptions"></i></a>
                     </li>
                     <li class="collection-item">
                         <div class="switch right">
@@ -85,11 +85,31 @@
                     <li class="collection-item">
                         <div class="switch right">
                             <label><span class="i18n">off</span>
-                                <input type="checkbox" ng-model="bg.settings.localDevTools" id="Local DevTools" class="ga-track">
+                                <input type="checkbox" ng-click="resetDevToolsOption()" ng-model="bg.settings.localDevTools" id="Local DevTools" class="ga-track">
                                 <span class="lever"></span><span class="i18n">on</span>
                             </label>
                         </div>
-                        <span class="i18n">localDevTools</span>
+                        <div ng-if="!bg.settings.localDevTools">
+                            <span>{{ window.chrome.i18n.getMessage("defaultDevTools") }}</span>
+                            <span id="devToolsBadge">DevTools Version ({{ bg.getDevToolsOption().name }}): <span id="devToolsBadgeLabel" class="badge">{{ bg.getDevToolsOption().url }}</span></span>
+                        </div>
+                        <a ng-hide="!bg.settings.localDevTools" class="dropdown-button" href="#" data-activates="dropdown1">
+                            <span id="selectDevToolsVersion">{{ window.chrome.i18n.getMessage("selectDevToolsVersion") }}</span>
+                            <span  id="devToolsBadge">DevTools Version ({{ bg.getDevToolsOption().name }}): <span id="devToolsBadgeLabel" class="badge">{{ bg.getDevToolsOption().url }}</span></span>
+                        </a>
+                        <ul id="dropdown1" class="dropdown-content">
+                            <li><a href="#!" ng-click="setDevToolsOption(1)">{{ bg.settings.localDevToolsOptions[1].name }}: {{ bg.settings.localDevToolsOptions[1].url }} </a></li>
+                            <li><a href="#modal3" ng-click="setDevToolsOption(2)" class="modal-trigger">{{ bg.settings.localDevToolsOptions[2].name }}: {{ bg.settings.localDevToolsOptions[2].url }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="collection-item">
+                        <div class="switch right">
+                            <label><span class="i18n">off</span>
+                                <input disabled type="checkbox" ng-model="bg.settings.collaboration" id="Real-time Collaboration" class="ga-track">
+                                <span class="lever"></span><span class="i18n">on</span>
+                            </label>
+                        </div>
+                        <a href="#modal2" class="modal-trigger"><span class="i18n">optionsRealtimeCollaboration</span></a>
                     </li>
                     <li class="collection-item bottom">
                         <span class="i18n">secondsBetweenInspectorChecks</span>
@@ -98,23 +118,6 @@
                         </div>
                         <div id="checkInterval" ng-model="bg.settings.checkInterval"></div>
                     </li>
-                </ul>
-                <ul class="collection with-header">
-                    <div id="modal1" class="modal">
-                        <div class="modal-content">
-                            <li class="collection-header" id="collections-header-debugging"><span class="i18n">debugging</span></li>
-                            <li class="collection-item">
-                                <p>Debugging tutorial: <a href="https://june07.com/nim/debug">https://june07.com/nim/debug</a>.</p>
-                            </li>
-                            <li class="collection-item bottom">
-                                <span class="i18n">debugVerbosity</span>
-                                <div class="right">
-                                    <span class="badge new i18n" data-badge-caption="verbosity" id="debugVerbosityBadge"></span>
-                                </div>
-                                <div id="debugVerbosity" ng-model="bg.settings.debugVerbosity"></div>
-                            </li>
-                        </div>
-                    </div>
                 </ul>
             </div>
             <div class="col s1"></div>
@@ -125,7 +128,48 @@
         </div>
         <div class="row">
             <div>
-                <iframe id="options-page-ads-iframe" frameborder="0" src="https://june07.github.io/nim/options-page-ads.html"></iframe>
+                <iframe id="options-page-ads-iframe" frameborder="0" src="https://june07.github.io/nim/options-page-ads-dev.html"></iframe>
+            </div>
+        </div>
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <ul class="collection with-header">
+                    <li class="collection-header" id="collections-header-debugging"><span class="i18n">debugging</span></li>
+                    <li class="collection-item">
+                        <p>Debugging tutorial: <a href="https://june07.com/nim/debug">https://june07.com/nim/debug</a>.</p>
+                    </li>
+                    <li class="collection-item bottom">
+                        <span class="i18n">debugVerbosity</span>
+                        <div class="right">
+                            <span class="badge new i18n" data-badge-caption="verbosity" id="debugVerbosityBadge"></span>
+                        </div>
+                        <div id="debugVerbosity" ng-model="bg.settings.debugVerbosity"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="modal2" class="modal">
+            <div class="modal-content">
+                <ul class="collection with-header">
+                    <li class="collection-header" id="collections-header-rtc"><span class="i18n">optionsRealtimeCollaboration</span></li>
+                    <li class="collection-item" id="coming-soon">
+                        <div class="row">
+                            <font>Awesome Feature Coming Soon!</font>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            </ul>
+        </div>
+        <div id="modal3" class="modal">
+            <div class="modal-content">
+                <ul class="collection with-header">
+                    <li class="collection-header" id="collections-header-customDevToolsURL"><span class="i18n">optionsCustomDevToolsURL</span></li>
+                    <li class="collection-item">
+                        <input placeholder="" ng-model="bg.settings.localDevToolsOptions[2].url" id="devtools_url" type="url" class="validate">
+                        <label for="devtools_url">DevTools URL</label>
+                    </li>
+                </ul>
             </div>
         </div>
 </body>
