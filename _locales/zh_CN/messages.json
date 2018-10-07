@@ -1,4 +1,12 @@
 {
+  "donationModalHeader": {
+    "message": "给捐很感激",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "没有警报",
+    "description": "Message to display when there are no notifications."
+  },
   "appName": {
     "message": "NIM(Node.js 调试管理工具)",
     "description": "The title of the extension displayed in the web store."
@@ -15,6 +23,12 @@
     "message": "NIM(Node.js 调试管理工具)-选项页",
     "description": "Title shown on options page."
   },
+  
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inspector Manager (NiM) - DevTools 面板",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  
   "defaultTitle": {
     "message": "NIM(Node.js 调试管理工具)",
     "description": "Title shown in tooltip."
@@ -133,6 +147,12 @@
     "message": "调试",
     "description": "Debugging."
   },
+  
+  "debugVerbosity": {
+    "message": "调试赘言",
+    "description": "Debugging verbosity."
+  },
+  
   "showDebugWindow": {
     "message": "显示调试窗口",
     "description": "Show debug window."
@@ -144,13 +164,57 @@
   "openDevtools": {
     "message": "打开DevTools",
     "description": "Open DevTools"
+    
+    "addTab": {
+    "message": "加护耳",
+    "description": "Add Tab"
+  },
+    
   },
   "seconds": {
     "message": "几秒钟",
     "description": "Seconds badge label."
+    
+    "defaultDevTools": {
+    "message": "用国外DevTools.",
+    "description": "Use alternate DevTools."
+  },
+    
+    "autoIncrement": {
+    "message": "自动递增 主机/端口",
+    "description": "Auto increment host and/or port."
+  },
+
+
+  "keyCtrlI": {
+    "message": "打开DevTools窗户.",
+    "description": "Open the DevTools window."
+  },
+
+ "realtimeCollaboration": {
+    "message": "NiM 真时合作",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+
+"optionsRealtimeCollaboration": {
+    "message": "真时合作",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+
+    
   },
   "localDevTools": {
     "message": "使用本地DevTools",
     "description": "Use local DevTools."
   }
 }
+
+"selectDevToolsVersion": {
+    "message": "选DevTools版",
+    "description": "Select the devtools version to use for inspection"
+  },
+
+"optionsCustomDevToolsURL": {
+    "message": "风俗 DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
