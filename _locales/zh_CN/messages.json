@@ -164,17 +164,15 @@
   "openDevtools": {
     "message": "打开DevTools",
     "description": "Open DevTools"
-    
+  },
     "addTab": {
     "message": "加护耳",
     "description": "Add Tab"
   },
-    
-  },
   "seconds": {
     "message": "几秒钟",
     "description": "Seconds badge label."
-    
+  },
     "defaultDevTools": {
     "message": "用国外DevTools.",
     "description": "Use alternate DevTools."
@@ -184,37 +182,28 @@
     "message": "自动递增 主机/端口",
     "description": "Auto increment host and/or port."
   },
-
-
   "keyCtrlI": {
     "message": "打开DevTools窗户.",
     "description": "Open the DevTools window."
   },
-
- "realtimeCollaboration": {
+  "realtimeCollaboration": {
     "message": "NiM 真时合作",
     "description": "NiM Real-time Collaboration Header Title."
   },
-
-"optionsRealtimeCollaboration": {
+  "optionsRealtimeCollaboration": {
     "message": "真时合作",
     "description": "Options page label for Real-time Collaboration Setting."
-  },
-
-    
   },
   "localDevTools": {
     "message": "使用本地DevTools",
     "description": "Use local DevTools."
-  }
-}
-
-"selectDevToolsVersion": {
+  },
+  "selectDevToolsVersion": {
     "message": "选DevTools版",
     "description": "Select the devtools version to use for inspection"
   },
-
-"optionsCustomDevToolsURL": {
+  "optionsCustomDevToolsURL": {
     "message": "风俗 DevTools.",
     "description": "Lable for custom DevTools settings modal input"
   }
+}
