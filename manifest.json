@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "__MSG_appName__",
-    "version": "0.15.0",
+    "version": "1.2.0",
     "default_locale": "en",
     "description": "__MSG_appDescription__",
     "author": "June07 <667@june07.com> (http://june07.com/)",
@@ -41,5 +41,5 @@
     "permissions": ["*://*/", "storage", "background", "tabs", "identity", "identity.email", "notifications"],
     "short_name": "__MSG_appShortName__",
     "update_url": "http://google.com",
-    "version_name": "0.15.0"
+    "version_name": "1.2.0"
 }
