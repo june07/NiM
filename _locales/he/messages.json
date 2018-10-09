@@ -23,6 +23,10 @@
     "message": "נים (צומת מפקח מנהל) - דף אפשרויות",
     "description": "Title shown on options page."
   },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - מנהל ספקטרום (NiM) - לוח DevTools",
+    "description": "Title shown on the chrome devtools panel."
+  },
   "defaultTitle": {
     "message": "נים (צומת מפקח מנהל)",
     "description": "Title shown in tooltip."
@@ -141,9 +145,9 @@
     "message": "איתור באגים",
     "description": "Debugging."
   },
-  "showDebugWindow": {
-    "message": "הצג חלון ניפוי באגים.",
-    "description": "Show debug window."
+  "debugVerbosity": {
+    "message": "איתור שגיאות באגים.",
+    "description": "Debugging verbosity."
   },
   "save": {
     "message": "להציל",
@@ -161,12 +165,32 @@
     "message": "שניות",
     "description": "Seconds badge label."
   },
-  "localDevTools": {
-    "message": "שימוש מקומי DevTools.",
-    "description": "Use local DevTools."
+  "defaultDevTools": {
+    "message": "השתמש ב- DevTools חלופי.",
+    "description": "Use alternate DevTools."
   },
   "autoIncrement": {
     "message": "אוטומטי תוספת מארח/יציאה.",
     "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "פתח את החלון DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM שיתוף פעולה בזמן אמת",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "שיתוף פעולה בזמן אמת.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "בחר גרסה DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Custom DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
   }
 }

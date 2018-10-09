@@ -23,6 +23,10 @@
     "message": "(Düğüm Müfettiş Yöneticisi) NİM - Seçenekleri Sayfası",
     "description": "Title shown on options page."
   },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - Bilgi Yöneticisi (NiM) - DevTools Paneli",
+    "description": "Title shown on the chrome devtools panel."
+  },
   "defaultTitle": {
     "message": "(Düğüm Müfettiş Yöneticisi)NİM",
     "description": "Title shown in tooltip."
@@ -141,9 +145,9 @@
     "message": "Hata ayıklama",
     "description": "Debugging."
   },
-  "showDebugWindow": {
-    "message": "Hata Ayıklama Penceresini Göster.",
-    "description": "Show debug window."
+  "debugVerbosity": {
+    "message": "Debugging Verbosity.",
+    "description": "Debugging verbosity."
   },
   "save": {
     "message": "Kaydet",
@@ -161,12 +165,32 @@
     "message": "Saniye",
     "description": "Seconds badge label."
   },
-  "localDevTools": {
-    "message": "Yerel DevTools Kullanın.",
-    "description": "Use local DevTools."
+  "defaultDevTools": {
+    "message": "Alternatif DevTools'u kullanın.",
+    "description": "Use alternate DevTools."
   },
   "autoIncrement": {
     "message": "Otomatik Artan Host/Port.",
     "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "DevTools Penceresini açın.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM Gerçek Zamanlı İşbirliği",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Gerçek Zamanlı İşbirliği.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "DevTools Sürümü'nü seçin.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Özel DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
   }
 }

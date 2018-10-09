@@ -23,6 +23,10 @@
     "message": "NIM (Node Inspector Manager) - Опции",
     "description": "Title shown on options page."
   },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - менеджер инспекторов (NiM) - панель DevTools",
+    "description": "Title shown on the chrome devtools panel."
+  },
   "defaultTitle": {
     "message": "NIM (Node Inspector Manager)",
     "description": "Title shown in tooltip."
@@ -141,9 +145,9 @@
     "message": "Отладка",
     "description": "Debugging."
   },
-  "showDebugWindow": {
-    "message": "Показать Окно Отладки.",
-    "description": "Show debug window."
+  "debugVerbosity": {
+    "message": "Отладка многословия.",
+    "description": "Debugging verbosity."
   },
   "save": {
     "message": "Сохранить",
@@ -161,12 +165,32 @@
     "message": "Секунд",
     "description": "Seconds badge label."
   },
-  "localDevTools": {
-    "message": "Использовать локальные Инструменты Разработчика.",
-    "description": "Use local DevTools."
+  "defaultDevTools": {
+    "message": "Используйте альтернативные DevTools.",
+    "description": "Use alternate DevTools."
   },
   "autoIncrement": {
     "message": "Автоинкремент Хост/Порт.",
     "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Откройте окно DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "Совместная работа в режиме реального времени NiM",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Совместная работа в режиме реального времени.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Выберите версию DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Пользовательские DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
   }
 }

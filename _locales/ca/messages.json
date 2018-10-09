@@ -23,6 +23,10 @@
     "message": "NIM (Node Inspector Manager) - Página de opcions",
     "description": "Title shown on options page."
   },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - Manager de l'explorador (NiM) - DevTools Panel",
+    "description": "Title shown on the chrome devtools panel."
+  },
   "defaultTitle": {
     "message": "NIM (Node Inspector Manager)",
     "description": "Title shown in tooltip."
@@ -141,9 +145,9 @@
     "message": "Depuració",
     "description": "Debugging."
   },
-  "showDebugWindow": {
-    "message": "Mostrar la finestra de depuració.",
-    "description": "Show debug window."
+  "debugVerbosity": {
+    "message": "Depuració de la verbositat.",
+    "description": "Debugging verbosity."
   },
   "save": {
     "message": "Guardar",
@@ -161,12 +165,32 @@
     "message": "Segons",
     "description": "Seconds badge label."
   },
-  "localDevTools": {
-    "message": "Emprar DevTools local.",
-    "description": "Use local DevTools."
+  "defaultDevTools": {
+    "message": "Utilitzeu DevTools alternatius.",
+    "description": "Use alternate DevTools."
   },
   "autoIncrement": {
     "message": "Increment automàtic de Host/Port.",
     "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Obriu la finestra DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM Col·laboració en temps real",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Col·laboració en temps real.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Seleccioneu la versió de DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "DevTools personalitzats.",
+    "description": "Lable for custom DevTools settings modal input"
   }
 }

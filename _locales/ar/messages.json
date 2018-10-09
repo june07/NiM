@@ -23,6 +23,10 @@
     "message": "نيم (عقدة المفتش مدير) - صفحة خيارات",
     "description": "Title shown on options page."
   },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inspector Manager (NiM) - DevToolsفريق",
+    "description": "Title shown on the chrome devtools panel."
+  },
   "defaultTitle": {
     "message": "نيم (عقدة المفتش مدير)",
     "description": "Title shown in tooltip."
@@ -145,6 +149,10 @@
     "message": "عرض إطار التصحيح.",
     "description": "Show debug window."
   },
+  "debugVerbosity": {
+    "message": "التصحيح الإسهاب.",
+    "description": "Debugging verbosity."
+  },
   "save": {
     "message": "حفظ",
     "description": "Save."
@@ -161,12 +169,32 @@
     "message": "ثانية",
     "description": "Seconds badge label."
   },
-  "localDevTools": {
-    "message": "استخدام المحلية DevTools.",
-    "description": "Use local DevTools."
+  "defaultDevTools": {
+    "message": "استخدم DevTools البديل.",
+    "description": "Use alternate DevTools."
   },
   "autoIncrement": {
     "message": "السيارات زيادة المضيف/الميناء.",
     "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "افتح نافذة DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM التعاون في الوقت الفعلي",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "التعاون في الوقت الفعلي.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "حدد إصدار DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "مخصص DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
   }
 }

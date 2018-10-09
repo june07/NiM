@@ -23,6 +23,10 @@
     "message": "ĐÂY (Nút thanh Tra Lý) - Trang lựa Chọn",
     "description": "Title shown on options page."
   },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - Trình quản lý thư mục (NiM) - Bảng điều khiển DevTools",
+    "description": "Title shown on the chrome devtools panel."
+  },
   "defaultTitle": {
     "message": "ĐÂY (Nút thanh Tra Lý)",
     "description": "Title shown in tooltip."
@@ -141,9 +145,9 @@
     "message": "Gỡ",
     "description": "Debugging."
   },
-  "showDebugWindow": {
-    "message": "Show Gỡ Cửa Sổ.",
-    "description": "Show debug window."
+  "debugVerbosity": {
+    "message": "Debb Verbosity.",
+    "description": "Debugging verbosity."
   },
   "save": {
     "message": "Tiết kiệm",
@@ -161,12 +165,32 @@
     "message": "Giây",
     "description": "Seconds badge label."
   },
-  "localDevTools": {
-    "message": "Sử Dụng Địa Phương!.",
-    "description": "Use local DevTools."
+  "defaultDevTools": {
+    "message": "Sử dụng Alternate DevTools.",
+    "description": "Use alternate DevTools."
   },
   "autoIncrement": {
     "message": "Tự Động Tăng Chủ/Cảng.",
     "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Mở cửa sổ DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "Hợp tác thời gian thực của NiM",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Cộng tác trong thời gian thực.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Chọn phiên bản DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Tùy chỉnh DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
   }
 }

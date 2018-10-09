@@ -141,9 +141,9 @@
     "message": "Feilsøking",
     "description": "Debugging."
   },
-  "showDebugWindow": {
-    "message": "Vis Debug-Vinduet.",
-    "description": "Show debug window."
+  "debugVerbosity": {
+    "message": "Debugging Verbosity.",
+    "description": "Debugging verbosity."
   },
   "save": {
     "message": "Lagre",
@@ -161,12 +161,32 @@
     "message": "Sekunder",
     "description": "Seconds badge label."
   },
-  "localDevTools": {
-    "message": "Bruk Lokale DevTools.",
-    "description": "Use local DevTools."
+  "defaultDevTools": {
+    "message": "Bruk Alternativ DevTools.",
+    "description": "Use alternate DevTools."
   },
   "autoIncrement": {
     "message": "Auto Increment Vert/Port.",
     "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Åpne DevTools-vinduet.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM Real-time Collaboration",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Real-time Collaboration.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Velg DevTools Version.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Egendefinerte DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
   }
 }

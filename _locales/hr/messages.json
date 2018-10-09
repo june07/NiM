@@ -23,6 +23,10 @@
     "message": "Njim (čvor Upravitelj inspektor) - stranica smještajna",
     "description": "Title shown on options page."
   },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - upravitelj preglednika (NiM) - DevTools ploča",
+    "description": "Title shown on the chrome devtools panel."
+  },
   "defaultTitle": {
     "message": "Njim (čvor Upravitelj inspektor)",
     "description": "Title shown in tooltip."
@@ -141,9 +145,9 @@
     "message": "Otkrivanje pogrešaka",
     "description": "Debugging."
   },
-  "showDebugWindow": {
-    "message": "Prikaži Prozor Za Ispravljanje Pogrešaka.",
-    "description": "Show debug window."
+  "debugVerbosity": {
+    "message": "Ispravljanje pogrešnošću.",
+    "description": "Debugging verbosity."
   },
   "save": {
     "message": "Spremi",
@@ -161,12 +165,32 @@
     "message": "Sekundi",
     "description": "Seconds badge label."
   },
-  "localDevTools": {
-    "message": "Koristiti Lokalne Razvojne Alate.",
-    "description": "Use local DevTools."
+  "defaultDevTools": {
+    "message": "Koristite alternativne DevTools.",
+    "description": "Use alternate DevTools."
   },
   "autoIncrement": {
     "message": "Автоинкремент Host/Port.",
     "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Otvorite DevTools prozor.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM Suradnja u stvarnom vremenu",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Suradnja u stvarnom vremenu.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Odaberite DevTools verziju.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Prilagođeni DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
   }
 }

@@ -23,6 +23,10 @@
     "message": "NIM (Node Inspektør Manager) - Indstillinger Side",
     "description": "Title shown on options page."
   },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inspector Manager (NiM) - DevTools Panel",
+    "description": "Title shown on the chrome devtools panel."
+  },
   "defaultTitle": {
     "message": "NIM (Node Inspektør Manager)",
     "description": "Title shown in tooltip."
@@ -141,9 +145,9 @@
     "message": "Debugging",
     "description": "Debugging."
   },
-  "showDebugWindow": {
-    "message": "Vis Debug-Vinduet.",
-    "description": "Show debug window."
+  "debugVerbosity": {
+    "message": "Debugging Verbosity.",
+    "description": "Debugging verbosity."
   },
   "save": {
     "message": "Spar",
@@ -161,12 +165,32 @@
     "message": "Sekunder",
     "description": "Seconds badge label."
   },
-  "localDevTools": {
-    "message": "Brug Lokale DevTools.",
-    "description": "Use local DevTools."
+  "defaultDevTools": {
+    "message": "Brug Alternate DevTools.",
+    "description": "Use alternate DevTools."
   },
   "autoIncrement": {
     "message": "Auto Increment Vært/Port.",
     "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Åbn vinduet DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM Real-time Collaboration",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Real-time Collaboration.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Vælg DevTools Version.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Brugerdefinerede DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
   }
 }

@@ -23,6 +23,10 @@
     "message": "NIM (Mezglu Inspektors Vadītājs) - Iespēja Lapa",
     "description": "Title shown on options page."
   },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inpector pārvaldnieks (NiM) - DevTools panelis",
+    "description": "Title shown on the chrome devtools panel."
+  },
   "defaultTitle": {
     "message": "NIM (Mezglu Inspektors Vadītājs)",
     "description": "Title shown in tooltip."
@@ -141,9 +145,9 @@
     "message": "Atkļūdošanas",
     "description": "Debugging."
   },
-  "showDebugWindow": {
-    "message": "Rādīt Atkļūdošanas Logu.",
-    "description": "Show debug window."
+  "debugVerbosity": {
+    "message": "Atkļūdošanas verbosity.",
+    "description": "Debugging verbosity."
   },
   "save": {
     "message": "Saglabāt",
@@ -161,12 +165,32 @@
     "message": "Sekundes",
     "description": "Seconds badge label."
   },
-  "localDevTools": {
-    "message": "Izmantot Vietējās DevTools.",
-    "description": "Use local DevTools."
+  "defaultDevTools": {
+    "message": "Izmantojiet alternatīvu DevTools.",
+    "description": "Use alternate DevTools."
   },
   "autoIncrement": {
     "message": "Auto Pieauguma Uzņēmēja/Ostas.",
     "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Atveriet DevTools logu.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM reāllaika sadarbība",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Reāllaika sadarbība.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Atlasiet DevTools versiju.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Pielāgots DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
   }
 }
