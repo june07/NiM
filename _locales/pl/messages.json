@@ -23,6 +23,14 @@
     "message": "NIM (Node Inspector Manager) - ustawienia",
     "description": "Title shown on options page."
   },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inspector Manager (NiM) - DevTools Panel",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inspector Manager (NiM) - Panel DevTools",
+    "description": "Title shown on the chrome devtools panel."
+  },
   "defaultTitle": {
     "message": "NIM (Node Inspector Manager)",
     "description": "Title shown in tooltip."
@@ -141,9 +149,9 @@
     "message": "Debugowanie",
     "description": "Debugging."
   },
-  "showDebugWindow": {
-    "message": "Pokaż okno debugowania.",
-    "description": "Show debug window."
+  "debugVerbosity": {
+    "message": "Debugowanie gadatliwości.",
+    "description": "Debugging verbosity."
   },
   "save": {
     "message": "Zapisz",
@@ -161,12 +169,32 @@
     "message": "Druga",
     "description": "Seconds badge label."
   },
-  "localDevTools": {
-    "message": "Korzystaj z lokalnych narzędzi deweloperskich",
-    "description": "Use local DevTools."
+  "defaultDevTools": {
+    "message": "Użyj alternatywnych narzędzi DevTools.",
+    "description": "Use alternate DevTools."
   },
   "autoIncrement": {
     "message": "Automatycznie zwiększaj post i/oraz port.",
     "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Otwórz okno DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM Współdziałanie w czasie rzeczywistym",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Współdziałanie w czasie rzeczywistym",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Wybierz wersję DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Niestandardowe narzędzia DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
   }
 }

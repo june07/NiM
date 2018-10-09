@@ -23,6 +23,10 @@
     "message": "Ним (вузол Диспетчер інспектор) - сторінка варіанти",
     "description": "Title shown on options page."
   },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - диспетчер диспетчера (NiM) - панель DevTools",
+    "description": "Title shown on the chrome devtools panel."
+  },
   "defaultTitle": {
     "message": "Ним (вузол Диспетчер інспектор)",
     "description": "Title shown in tooltip."
@@ -141,9 +145,9 @@
     "message": "Налагодження",
     "description": "Debugging."
   },
-  "showDebugWindow": {
-    "message": "Показати Вікно Налагодження.",
-    "description": "Show debug window."
+  "debugVerbosity": {
+    "message": "Налагодження багатослівності.",
+    "description": "Debugging verbosity."
   },
   "save": {
     "message": "Зберегти",
@@ -161,12 +165,32 @@
     "message": "Секунд",
     "description": "Seconds badge label."
   },
-  "localDevTools": {
-    "message": "Використовувати Місцеві Інструменти Розробника.",
-    "description": "Use local DevTools."
+  "defaultDevTools": {
+    "message": "Використовуйте альтернативні DevTools.",
+    "description": "Use alternate DevTools."
   },
   "autoIncrement": {
     "message": "Автоинкремент Хост/Порт.",
     "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Відкрийте вікно DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM в режимі реального часу співробітництво",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Співпраця в реальному часі.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Виберіть версію DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Користувальницькі DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
   }
 }

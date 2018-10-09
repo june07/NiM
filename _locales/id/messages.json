@@ -23,6 +23,10 @@
     "message": "NIM (Node Inspektur Manager) - Halaman Pilihan",
     "description": "Title shown on options page."
   },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --Manpector Manager (NiM) - DevTools Panel",
+    "description": "Title shown on the chrome devtools panel."
+  },
   "defaultTitle": {
     "message": "NIM (Node Inspektur Manager)",
     "description": "Title shown in tooltip."
@@ -141,9 +145,9 @@
     "message": "Debugging",
     "description": "Debugging."
   },
-  "showDebugWindow": {
-    "message": "Tampilkan Jendela Debug.",
-    "description": "Show debug window."
+  "debugVerbosity": {
+    "message": "Debugging Verbosity.",
+    "description": "Debugging verbosity."
   },
   "save": {
     "message": "Simpan",
@@ -161,12 +165,32 @@
     "message": "Detik",
     "description": "Seconds badge label."
   },
-  "localDevTools": {
-    "message": "Menggunakan Lokal DevTools.",
-    "description": "Use local DevTools."
+  "defaultDevTools": {
+    "message": "Gunakan DevTools Alternatif.",
+    "description": "Use alternate DevTools."
   },
   "autoIncrement": {
     "message": "Penambahan Otomatis Host/Port.",
     "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Buka Jendela DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "Kolaborasi Real-time NiM",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Kolaborasi Real-time.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Pilih Versi DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Custom DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
   }
 }
