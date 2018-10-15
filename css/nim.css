@@ -482,3 +482,9 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
     padding: 50px;
     font-variant-caps: all-petite-caps;
 }
+#nim-custom-devtools-url-blogpost {
+    text-transform: uppercase;
+    font-style: italic;
+    font-size: small;
+    vertical-align: super;
+}

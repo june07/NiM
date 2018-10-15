@@ -45,6 +45,14 @@ ngApp
         $scope.timerUptime = 0;
         $scope.timerNotification = 0;
         $scope.VERSION = VERSION;
+        $scope.settingsRevised = {
+            localDevToolsOptions: [
+                { 'id': '0', 'name': 'default', 'url': '', 'selected': true },
+                { 'id': '1', 'name': 'appspot', 'url': 'https://chrome-devtools-frontend.appspot.com/serve_file/@548c459fb7741b83bd517b12882f533b04a5513e/inspector.html' },
+                { 'id': '2', 'name': 'june07', 'url': 'https://chrome-devtools-frontend.june07.com/front_end/inspector.html' },
+                { 'id': '3', 'name': 'custom', 'url': '' },
+            ]
+        };
         $scope.settings = {
             DEVEL: DEVEL,
             host: "localhost",
@@ -66,13 +74,7 @@ ngApp
             chromeNotifications: true,
             autoIncrement: {type: 'port', name: 'Port'}, // both | host | port | false
             collaboration: false,
-
-            localDevToolsOptions: [
-                { 'id': '0', 'name': 'default', 'url': '', 'selected': true },
-                { 'id': '1', 'name': 'appspot', 'url': 'https://chrome-devtools-frontend.appspot.com/serve_file/@a10b9cedb40738cb152f8148ddab4891df876959/inspector.html' },
-                { 'id': '2', 'name': 'custom', 'url': '' }
-            ]
-
+            localDevToolsOptions: $scope.settingsRevised.localDevToolsOptions
         };
         $scope.remoteTabs = [];
         $scope.notifications;
@@ -138,6 +140,7 @@ ngApp
                         var infoUrl = getInfoURL($scope.settings.host, $scope.settings.port);
                         chrome.tabs.query({
                                 url: [ 'chrome-devtools://*/*',
+                                    'https://chrome-devtools-frontend.june07.com/*' + host + ':' + port + '*',
                                     'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*' ]
                         }, function(tab) {
                             if ($http.pendingRequests.length !== 0) return
@@ -672,6 +675,9 @@ ngApp
                 });
             });
         }
+        function updateSettings() {
+            write('localDevToolsOptions', $scope.settingsRevised.localDevToolsOptions);
+        }
         function saveAll() {
             saveAllToChromeStorage($scope.settings, 'settings');
         }
@@ -810,6 +816,9 @@ ngApp
                 chrome.tabs.create({ url: INSTALL_URL});
             }
             analytics({ 'onInstalledReason': details.onInstalledReason });
+            if (details.onInstalledReason === 'update') {
+                updateSettings();
+            }
         });
         chrome.storage.sync.get("host", function(obj) {
             $scope.settings.host = obj.host || "localhost";

@@ -99,7 +99,8 @@
                         </a>
                         <ul id="dropdown1" class="dropdown-content">
                             <li><a href="#!" ng-click="setDevToolsOption(1)">{{ bg.settings.localDevToolsOptions[1].name }}: {{ bg.settings.localDevToolsOptions[1].url }} </a></li>
-                            <li><a href="#modal3" ng-click="setDevToolsOption(2)" class="modal-trigger">{{ bg.settings.localDevToolsOptions[2].name }}: {{ bg.settings.localDevToolsOptions[2].url }}</a></li>
+                            <li><a href="#!" ng-click="setDevToolsOption(2)">{{ bg.settings.localDevToolsOptions[2].name }}: {{ bg.settings.localDevToolsOptions[2].url }} </a></li>
+                            <li><a href="#modal3" ng-click="setDevToolsOption(3)" class="modal-trigger">{{ bg.settings.localDevToolsOptions[3].name }}: {{ bg.settings.localDevToolsOptions[3].url }}</a></li>
                         </ul>
                     </li>
                     <li class="collection-item">
@@ -167,7 +168,7 @@
                     <li class="collection-header" id="collections-header-customDevToolsURL"><span class="i18n">optionsCustomDevToolsURL</span></li>
                     <li class="collection-item">
                         <input placeholder="" ng-model="bg.settings.localDevToolsOptions[2].url" id="devtools_url" type="url" class="validate">
-                        <label for="devtools_url">DevTools URL</label>
+                        <label for="devtools_url">DevTools URL <span id="nim-custom-devtools-url-blogpost"><a href="https://june07.com/blog/nim-custom-devtools-url" target="_blank">(Not sure what to put here...)</a></span></label>
                     </li>
                 </ul>
             </div>
