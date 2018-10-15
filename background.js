@@ -34,7 +34,7 @@ ngApp
         const UPTIME_CHECK_RESOLUTION = 1000; // Check every second
         const DEVEL = true;
         const IP_PATTERN = /(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])/;
-        const devToolsURL_Regex = /(chrome-devtools:\/\/|https:\/\/).*(inspector.html|js_app.html)/;
+        const devToolsURL_Regex = /(chrome-devtools:\/\/|https:\/\/chrome-devtools-frontend(.appspot.com|.june07.com)).*(inspector.html|js_app.html)/;
 
         $window.chrome.management.getSelf((ExtensionInfo) => {
             $scope.ExtensionInfo = ExtensionInfo;
@@ -89,6 +89,12 @@ ngApp
                 return option.selected;
             });
         };
+        $scope.validateCustomDevToolsURL = function() {
+            if ($scope.settings.localDevToolsOptions[3].url === undefined)
+                $scope.settings.localDevToolsOptions[3].url = $scope.settings.localDevToolsOptions[1].url;
+            else if (!$scope.settings.localDevToolsOptions[3].url.match(devToolsURL_Regex))
+                $scope.settings.localDevToolsOptions[3].url = $scope.settings.localDevToolsOptions[1].url;
+        }
 
         let tabId_HostPort_LookupTable = [],
             backoffTable = [],
@@ -184,7 +190,9 @@ ngApp
                                     // If the tab has focus then issue this... otherwise wait until it has focus (ie event listener for window event.  If another request comes in while waiting, just update the request with the new info but still wait if focus is not present.
                                     var promiseToUpdateTabOrWindow = new Promise(function(resolve) {
                                         chrome.tabs.query({
-                                            url: [ 'chrome-devtools://*/*', 'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*' ]
+                                            url: [ 'chrome-devtools://*/*',
+                                                'https://chrome-devtools-frontend.june07.com/*' + host + ':' + port + '*',
+                                                'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*' ]
                                         }, function callback(tab) {
                                             // Resolve otherwise let the event handler resolve
                                             tab = tab[0];

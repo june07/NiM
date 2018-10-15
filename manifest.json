@@ -40,6 +40,5 @@
     "options_page": "options.html",
     "permissions": ["*://*/", "storage", "background", "tabs", "identity", "identity.email", "notifications"],
     "short_name": "__MSG_appShortName__",
-    "update_url": "http://google.com",
     "version_name": "1.2.0"
 }

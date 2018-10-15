@@ -167,8 +167,9 @@
                 <ul class="collection with-header">
                     <li class="collection-header" id="collections-header-customDevToolsURL"><span class="i18n">optionsCustomDevToolsURL</span></li>
                     <li class="collection-item">
-                        <input placeholder="" ng-model="bg.settings.localDevToolsOptions[2].url" id="devtools_url" type="url" class="validate">
+                        <input placeholder="" ng-model="bg.settings.localDevToolsOptions[3].url" id="devtools_url" type="url" class="validate" pattern="(chrome-devtools:\/\/|https:\/\/chrome-devtools-frontend(.appspot.com|.june07.com)).*(inspector.html|js_app.html)" ng-pattern="(chrome-devtools:\/\/|https:\/\/chrome-devtools-frontend(.appspot.com|.june07.com)).*(inspector.html|js_app.html)">
                         <label for="devtools_url">DevTools URL <span id="nim-custom-devtools-url-blogpost"><a href="https://june07.com/blog/nim-custom-devtools-url" target="_blank">(Not sure what to put here...)</a></span></label>
+                        <div><a class="btn green" id="save-button-custom-devtools" value="Save Custom DevTools" ng-click="saveCustomDevToolsButtonHandler()"><span class="i18n">save</span></a></div>
                     </li>
                 </ul>
             </div>

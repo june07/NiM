@@ -488,3 +488,7 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
     font-size: small;
     vertical-align: super;
 }
+#save-button-custom-devtools {
+    margin: 0 auto;
+    display: table;
+}

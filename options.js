@@ -40,6 +40,11 @@ ngApp
         $($window.document).ready(function() {
             $('.modal').modal();
         });
+        $($window.document).ready(function() {
+            $('#modal3').modal({
+                dismissible: false
+            });
+        });
         $($window).blur(function() {
             $scope.bg.$emit('options-window-focusChanged');
         });
@@ -88,6 +93,11 @@ ngApp
                 });
             });
         };
+        $scope.saveCustomDevToolsButtonHandler = function() {
+            $window._gaq.push(['_trackEvent', 'save-button-custom-devtools', 'clicked']);
+            $scope.bg.validateCustomDevToolsURL();
+            $('#modal3').modal('close');
+        }
         $scope.setDevToolsOption = function(optionIndex) {
             $scope.bg.settings.localDevToolsOptions.forEach((option, i) => {
                 if (i === optionIndex) option.selected = true;
