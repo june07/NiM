@@ -59,6 +59,7 @@ ngApp
             $scope.bg.save("host");
             $scope.bg.save("port");
             $scope.bg.openTab($scope.bg.settings.host, $scope.bg.settings.port, function (error, result) {
+                if (error && typeof error === "string") showErrorMessage(error);
                 if (error) showErrorMessage(error.statusText);
                 else
                   $scope.message = result;
