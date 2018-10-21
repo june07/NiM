@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "შემოწირულობების დასაფასებელია",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "არ არსებობს შეტყობინებები.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "Node.js V8 --ინსპექტორი მენეჯერი (NiM)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NiM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "ახერხებს DevTools ერთად კვანძის V8 ინსპექტორი (კვანძის --შეამოწმოს) გამართვის სამუშაოს",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "Node.js V8 --ინსპექტორი მენეჯერი (NiM) - ვარიანტი გვერდი",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --ინსპექტორი მენეჯერი (NiM) - DevTools პანელი",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "Node.js V8 --ინსპექტორი მენეჯერი (NiM)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "შეცდომა გარემოში წაშალოთ URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "დახურული tab DevTools სხდომაზე: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "დაიხურა ფანჯარა DevTools სხდომაზე: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "შეცდომა, ხოლო ცდილობს auto close ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "კავშირი DevTools მასპინძელი იყო შეწყვეტილია. შეამოწმეთ თქვენი მასპინძელი და პორტი.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools უკვე გახსნა.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools უკვე გახსნა.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools უკვე გახსნა.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "პორტი",
+    "description": "Port."
+  },
+  "host": {
+    "message": "მასპინძელი",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "მექანიკური",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "ავტო",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "დავეხმაროთ",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "ჩართულია",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Uptime",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "პარამეტრები",
+    "description": "Options."
+  },
+  "general": {
+    "message": "ზოგადი",
+    "description": "General."
+  },
+  "on": {
+    "message": "On",
+    "description": "On."
+  },
+  "off": {
+    "message": "Off",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Open in a New Window.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "რათა ფანჯარა ორიენტირებული.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "რათა Tab აქტიური.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Close ავტომატურად.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "შეამოწმეთ ინტერვალით.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "გამართვის",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "გამართვის Verbosity.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "შენახვა",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "ღია DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "რჩეულებში Tab",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "წამი",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "გამოიყენეთ ალტერნატიული DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "ავტო ნამატი მასპინძელი/პორტი.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "გახსნა DevTools ფანჯარა.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM Real-time თანამშრომლობა",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Real-time თანამშრომლობით.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "აირჩიეთ DevTools ვერსია.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "საბაჟო DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}
