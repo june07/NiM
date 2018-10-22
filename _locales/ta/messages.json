@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "நன்கொடைகள் பாராட்டப்பட்டது",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "எந்த அறிவிப்புகள்.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "Node.js V8 --இன்ஸ்பெக்டர் மேலாளர் (நில்)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NiM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "நிர்வகிக்கும் DevTools கொண்டு முனை V8 இன்ஸ்பெக்டர் (முனை-ஆய்வு) பிழைதிருத்தம் முறையை",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "Node.js V8 --இன்ஸ்பெக்டர் மேலாளர் (நில்) - விருப்பங்கள் பக்கம்",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --இன்ஸ்பெக்டர் மேலாளர் (நில்) - DevTools குழு",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "Node.js V8 --இன்ஸ்பெக்டர் மேலாளர் (நில்)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "அமைப்பதில் பிழை நீக்க URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "மூடிய தாவலை DevTools அமர்வு: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "மூடிய ஜன்னல் DevTools அமர்வு: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "பிழை முயன்ற போது ஆட்டோ நெருங்கிய ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "இணைப்பு DevTools புரவலன் இருந்தது கலைந்தது. காசோலை உங்கள் சேவையகம் மற்றும் போர்ட்.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools ஏற்கனவே திறந்த.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools ஏற்கனவே திறந்த.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools ஏற்கனவே திறந்த.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "போர்ட்",
+    "description": "Port."
+  },
+  "host": {
+    "message": "புரவலன்",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "கையேடு",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "வாகன",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "தானம்",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "செயல்படுத்தப்படும்",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "இயக்க நேரம்",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "விருப்பங்கள்",
+    "description": "Options."
+  },
+  "general": {
+    "message": "பொது",
+    "description": "General."
+  },
+  "on": {
+    "message": "அன்று",
+    "description": "On."
+  },
+  "off": {
+    "message": "ஆஃப்",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "ஒரு புதிய சாளரத்தில் திறக்க.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "செய்ய ஜன்னல் கவனம்.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "செய்ய தாவலை செயலில்.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "தானாக மூட.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "காசோலை இடைவெளி.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "பிழைதிருத்தம்",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "பிழைதிருத்தம் தேவைக்கும் அதிகமான சொற்கள்.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "சேமிக்க",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "திறந்த DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "சேர்க்க தாவல்",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "விநாடிகள்",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "பயன்படுத்த மாற்று DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "கார் சம்பள உயர்வு புரவலன்/போர்ட்.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "திறக்க DevTools ஜன்னல்.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM ரியல்-நேரம் ஒத்துழைப்பு",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "ரியல்-நேரம் இணைந்து.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "தேர்வு DevTools பதிப்பு.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "விருப்ப DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}
