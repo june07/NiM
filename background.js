@@ -568,7 +568,8 @@ ngApp
                     $window._gaq.push(['_trackEvent', 'Program Event', 'createWindow', 'focused', $scope.settings.windowFocused, true]);
                     chrome.windows.create({
                         url: url,
-                        focused: $scope.settings.windowFocused,
+												focused: $scope.settings.windowFocused,
+												type: 'panel'
                     }, function(window) {
                         /* Is window.id going to cause id conflicts with tab.id?!  Should I be grabbing a tab.id here as well or instead of window.id? */
                         saveSession(url, infoUrl, websocketId, window.id);
