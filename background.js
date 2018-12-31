@@ -110,7 +110,7 @@ ngApp
             $scope.timerUptime++;
             if (($scope.timerUptime >= UPTIME_CHECK_INTERVAL && $scope.timerUptime % UPTIME_CHECK_INTERVAL === 0) || ($scope.timerUptime === 1)) {
                 $window._gaq.push(['_trackEvent', 'Program Event', 'Uptime Check', $scope.moment.duration($scope.timerUptime, 'seconds').humanize(), undefined, true ],
-                ['_trackEvent', 'Program Event', 'Version Check', VERSION + " " + $scope.userInfo.email + " " + $scope.userInfo.id, undefined, true]);
+                ['_trackEvent', 'Program Event', 'Version Check', VERSION + " " + $scope.userInfo.id, undefined, true]);
             }
         }, UPTIME_CHECK_RESOLUTION);
 
