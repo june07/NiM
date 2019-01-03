@@ -1,11 +1,16 @@
 ![](https://img.shields.io/chrome-web-store/v/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/users/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/rating/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/stars/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/rating-count/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) 
 
-[NIM Homepage](http://june07.com/nim)
+## [NIM Homepage](http://june07.com/nim)
 ![NiM Logo](http://june07.github.io/image/smallPromoTile.png)
 # NiM (Node.js V8 --inspector Manager)
-### NiM streamlines your Node.js development cycle when using Node V8 Inspector "--inspect" and Chrome DevTools.
+## NiM streamlines your Node.js development cycle when using Node V8 Inspector "--inspect" and Chrome DevTools.
 
 ------------------------
+
+### Blog Posts:
+* Why I wrote NiM http://june07.com/blog/inspect-broke-my-workflow/
+* Custom DevTools feature: http://june07.com/blog/nim-custom-devtools-url/
+
 
 NiM manages the Chrome DevTools window/tab lifecycle leaving you with more ability to focus on what matters... debugging your code.  You no longer need to copy/paste DevTools URL's or continue opening/closeing tabs/windows.
 
