@@ -44,4 +44,6 @@ Simple and basic... just install the Chrome Extension in any of the following wa
 
 Any and all feedback is encouraged and welcome.  [Send us an email!](mailto:667@june07.com)
 
+<iframe src="https://june07.github.io/nim/options-page-ads-dev.html"></iframe>
+
 
