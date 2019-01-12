@@ -44,4 +44,4 @@ Simple and basic... just install the Chrome Extension in any of the following wa
 
 Any and all feedback is encouraged and welcome.  [Send us an email!](mailto:667@june07.com)
 
-![https://june07.com/blog/ipv4/?utm_source=NiM&utm_medium=options%20page&utm_campaign=ipv4&utm_content=2](https://june07.github.io/image/EVERYTHING.jpg)
+[![IPv4 Lease](https://june07.github.io/image/EVERYTHING.jpg)](https://june07.com/blog/ipv4/?utm_source=NiM&utm_medium=options%20page&utm_campaign=ipv4&utm_content=2)
