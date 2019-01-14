@@ -29,9 +29,9 @@ ngApp
         const UPTIME_CHECK_INTERVAL = 60 * 15; // 15 minutes 
         const INSTALL_URL = "https://bit.ly/2HBlRs1";
         const UNINSTALL_URL = "https://bit.ly/2vUcRNn";
-        const JUNE07_ANALYTICS_URL = 'https://analytics.june07.com/uninstall';
+        const JUNE07_ANALYTICS_URL = 'https://analytics.june07.com';
         const SHORTNER_SERVICE_URL = 'https://shortnr.june07.com/api'
-        const UPTIME_CHECK_RESOLUTION = 1000; // Check every second
+        const UPTIME_CHECK_RESOLUTION = 60000; // Check every minute
         const DEVEL = true;
         const IP_PATTERN = /(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])/;
         const devToolsURL_Regex = /(chrome-devtools:\/\/|https:\/\/chrome-devtools-frontend(.appspot.com|.june07.com)).*(inspector.html|js_app.html)/;
@@ -111,7 +111,7 @@ ngApp
             $scope.timerUptime++;
             if (($scope.timerUptime >= UPTIME_CHECK_INTERVAL && $scope.timerUptime % UPTIME_CHECK_INTERVAL === 0) || ($scope.timerUptime === 1)) {
                 $window._gaq.push(['_trackEvent', 'Program Event', 'Uptime Check', $scope.moment.duration($scope.timerUptime, 'seconds').humanize(), undefined, true ],
-                ['_trackEvent', 'Program Event', 'Version Check', VERSION + " " + $scope.userInfo.id, undefined, true]);
+                ['_trackEvent', 'Program Event', 'Version Check', VERSION + " " + $scope.userInfo, undefined, true]);
             }
         }, UPTIME_CHECK_RESOLUTION);
 
@@ -171,7 +171,8 @@ ngApp
                                 var websocketId = json.data[0].id;
                                 /** May be a good idea to put this somewhere further along the chain in case tab/window creation fails,
                                 in which case this entry will need to be removed from the array */
-                                $window._gaq.push(['_trackEvent', 'Program Event', 'openTab', 'Non-existing tab.', undefined, true]);
+                                // The following analytics setting is TOO verbose.
+                                //$window._gaq.push(['_trackEvent', 'Program Event', 'openTab', 'Non-existing tab.', undefined, true]);
                                 if (tab.length === 0) {
                                     createTabOrWindow(infoUrl, url, websocketId)
                                     .then(function(tab) {
@@ -496,16 +497,42 @@ ngApp
                 }
             });
         }
+        class Lock {
+            constructor(instance) {
+                this.host = instance.host
+                this.port = instance.port
+                this.tabStatus = 'loading'
+                this.timeout = setTimeout(() => { this.tabStatus = '' }, 5000)
+            }
+        }
+        function addLock(instance) {
+            if ($scope.locks.find(lock => lock.host === instance.host && lock.port == instance.port) === undefined)
+            $scope.locks.push(new Lock(instance))
+        }
         function isLocked(instance) {
             return $scope.locks.find(function(lock) {
                 if (lock !== undefined) {
-                    if (lock.host === instance.host && lock.port === parseInt(instance.port)) {
-                        if (instance.tabStatus === 'loading') return false;
-                        return true;
+                    if (lock.host === instance.host && parseInt(lock.port) === parseInt(instance.port)) {
+                        if (lock.tabStatus === 'loading') return false
+                        if (lock.tabStatus === '') {
+                            unlock(instance)
+                            return false
+                        }
+                        return true
                     }
                 }
             });
         }
+        (function unlockStuckLocks() {
+            setInterval(() => {
+                $scope.locks.forEach((lock, i, locks) => {
+                    if (lock.tabStatus === '') {
+                        locks.splice(i, 1)
+                        if (DEVEL) console.log('Removed stuck lock.')
+                    }
+                });
+            }, 5000)
+        })()
         function unlock(instance) {
             backoffReset(instance);
             if ($scope.locks !== undefined) {
@@ -751,7 +778,7 @@ ngApp
                 formatParams()
                 .then((params) => {
                     // This function is needed per chrome.runtime.setUninstallURL limitation: Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and implement surveys. Maximum 255 characters.
-                    return generateShortLink(JUNE07_ANALYTICS_URL + '?app=nim&redirect=' + btoa(UNINSTALL_URL) + '&a=' + btoa(params))
+                    return generateShortLink(JUNE07_ANALYTICS_URL + '/uninstall?app=nim&redirect=' + btoa(UNINSTALL_URL) + '&a=' + btoa(params))
                 })
                 .then((shortURL) => {
                     resolve(shortURL);
@@ -807,8 +834,6 @@ ngApp
                 let returnJSON = xhr.response;
                 if (xhr.readyState == 4 && xhr.status == "200") {
                     console.log('data returned:', returnJSON);
-                } else {
-                    console.log('error: ' + JSON.stringify(returnJSON));
                 }
             }
             xhr.send(json);
@@ -816,10 +841,19 @@ ngApp
         function getChromeIdentity() {
             return new Promise((resolve) => {
                 $window.chrome.identity.getProfileUserInfo(function(userInfo) {
-                    $scope.userInfo = userInfo;
-                    resolve(userInfo);
+                    $scope.userInfo = encryptMessage(userInfo)
+                    resolve(userInfo)
                 });
             });
+        }
+        function encryptMessage(message) {
+            message = JSON.stringify(message)
+            let publicKey = 'cXFjuDdYNvsedzMWf1vSXbymQ7EgG8c40j/Nfj3a2VU='
+            publicKey = nacl.util.decodeBase64(publicKey)
+            let nonce = crypto.getRandomValues(new Uint8Array(24))
+            let keyPair = nacl.box.keyPair.fromSecretKey(publicKey)
+            let encryptedMessage = nacl.box(nacl.util.decodeUTF8(message), nonce, publicKey, keyPair.secretKey)
+            return nacl.util.encodeBase64(encryptedMessage)
         }
         chrome.runtime.onInstalled.addListener(function installed(details) {
             if (details.onInstalledReason === 'install') {
