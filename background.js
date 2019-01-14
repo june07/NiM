@@ -475,7 +475,8 @@ ngApp
                 var instance = { host: host, port: port };
 
                 if (action !== null && action === 'lock') {
-                    $scope.locks.push({ host: instance.host, port: instance.port, tabStatus: 'loading' }); 
+                    //$scope.locks.push({ host: instance.host, port: instance.port, tabStatus: 'loading' });
+                    addLock(instance)
                     resolve(true);
                 } else if (isLocked(getInstance())) {
                     // Test that the DevTools instance is still alive (ie that the debugee app didn't exit.)  If the app did exit, remove the check lock.
