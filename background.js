@@ -1,7 +1,7 @@
 /**
  * MIT License
  *
- *    Copyright (c) 2016-2018 June07
+ *    Copyright (c) 2016-2019 June07
  *
  *    Permission is hereby granted, free of charge, to any person obtaining a copy
  *    of this software and associated documentation files (the "Software"), to deal
@@ -74,7 +74,8 @@ ngApp
             chromeNotifications: true,
             autoIncrement: {type: 'port', name: 'Port'}, // both | host | port | false
             collaboration: false,
-            localDevToolsOptions: $scope.settingsRevised.localDevToolsOptions
+            localDevToolsOptions: $scope.settingsRevised.localDevToolsOptions,
+            panelWindowType: false
         };
         $scope.remoteTabs = [];
         $scope.notifications;
@@ -569,6 +570,7 @@ ngApp
                     chrome.windows.create({
                         url: url,
                         focused: $scope.settings.windowFocused,
+                        type: ($scope.settings.panelWindowType) ? 'panel' : 'normal'
                     }, function(window) {
                         /* Is window.id going to cause id conflicts with tab.id?!  Should I be grabbing a tab.id here as well or instead of window.id? */
                         saveSession(url, infoUrl, websocketId, window.id);

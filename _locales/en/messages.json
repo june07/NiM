@@ -192,5 +192,9 @@
   "optionsCustomDevToolsURL": {
     "message": "Custom DevTools.",
     "description": "Lable for custom DevTools settings modal input"
+  },
+  "inspectorWindowStyle": {
+    "message": "Panel style window.",
+    "description": "Panel style window"
   }
 }

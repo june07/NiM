@@ -58,3 +58,4 @@ yarn.lock
 .npmignore
 pinegrow.json
 package-lock.json
+.env
