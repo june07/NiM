@@ -60,6 +60,7 @@ ngApp
             auto: true,
             checkInterval: 500,
             remoteProbeInterval: 10000,
+            localSessionTimeout: DEVEL ? 7*24*60*60000 : 7*24*60*60000,
             debugVerbosity: 0,
             checkIntervalTimeout: null,
             newWindow: false,
@@ -78,6 +79,12 @@ ngApp
             panelWindowType: false
         };
         $scope.remoteTabs = [];
+        $scope.localSessions = [];
+        $scope.state = {
+            popup: {
+                selectedTab: undefined
+            }
+        }
         $scope.notifications;
         $scope.devToolsSessions = [];
         $scope.changeObject;
@@ -104,9 +111,12 @@ ngApp
             SingletonHttpGet = httpGetTestSingleton(),
             SingletonOpenTabInProgress = openTabInProgressSingleton(),
             triggerTabUpdate = false,
-            websocketIdLastLoaded = null;
+            websocketIdLastLoaded = null,
+            tabNotificationListeners = [];
+        $scope.tabId_HostPort_LookupTable = tabId_HostPort_LookupTable;
 
         restoreSettings();
+        updateInternalSettings() // This function is needed for settings that aren't yet configurable via the UI.  Otherwise the new unavailable setting will continue to be reset with whatever was saved vs the defaults.
         setInterval(function() {
             $scope.timerUptime++;
             if (($scope.timerUptime >= UPTIME_CHECK_INTERVAL && $scope.timerUptime % UPTIME_CHECK_INTERVAL === 0) || ($scope.timerUptime === 1)) {
@@ -115,6 +125,53 @@ ngApp
             }
         }, UPTIME_CHECK_RESOLUTION);
 
+        class Timer {
+            constructor(args) {
+                let self = this;
+                self.sessionID = args.sessionID;
+                self.expired = false;
+                self.elapsed = 0;
+                self.timeout = $scope.settings.localSessionTimeout;
+                self.timerID = setTimeout(() => { $scope.updateLocalSessions(self.sessionID) }, self.timeout);
+                setInterval(() => {
+                    self.elapsed = self.elapsed + 1000;
+                    if (self.getRemainingTime() <= 0) self.expired = true;
+                }, 1000);
+            }
+            clearTimer() {
+                let self = this;
+                clearInterval(self.timerID);
+            }
+            getRemainingTime() {
+                let self = this;
+                return self.timeout - self.elapsed;
+            }
+        }
+        $scope.updateLocalSessions = function(expired) {
+            if (expired) return $scope.localSessions.splice($scope.localSessions.findIndex(session => session.id === expired.id), 1);
+            
+            let localSessions = $scope.devToolsSessions.filter(session => session.infoUrl.search(/\/\/n2p.june07.com\/json\//) === -1);
+            localSessions = localSessions.map((session) => {
+                session.timer = new Timer({sessionID: session.id});
+                return session;
+            });
+            $scope.localSessions = localSessions.concat($scope.localSessions);
+            localSessions = [];
+            return $scope.localSessions = $scope.localSessions.filter((session, i) => {
+                if (i === 0) {
+                    localSessions.push(session);
+                    return true;
+                }
+                let match = localSessions.find(s => s.infoUrl === session.infoUrl);
+                if (match === undefined) {
+                    localSessions.push(session);
+                    return true;
+                } else {
+                    session.timer.clearTimer();
+                    return false;
+                }
+            });
+        }
         $scope.localize = function($window, updateUI) {
             Array.from($window.document.getElementsByClassName("i18n")).forEach(function(element, i, elements) {
                 var message;
@@ -136,19 +193,20 @@ ngApp
         $scope.openTab = function(host, port, callback) {
             SingletonOpenTabInProgress.getInstance(host, port, null)
             .then(function(value) {
-                var //inprogress = value.status,
-                    message = value.message;
-                if (message !== undefined) {
-                    //
-                    return callback(message);
+                if (value.message !== undefined) {
+                    return callback(value.message);
                 } else {
                     SingletonOpenTabInProgress.getInstance(host, port, 'lock')
                     .then(function() {
-                        var infoUrl = getInfoURL($scope.settings.host, $scope.settings.port);
+                        var infoUrl = getInfoURL(host, port);
                         chrome.tabs.query({
                                 url: [ 'chrome-devtools://*/*',
-                                    'https://chrome-devtools-frontend.june07.com/*' + host + ':' + port + '*',
-                                    'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*' ]
+                                'https://chrome-devtools-frontend.june07.com/*localhost:' + port + '*',
+                                'https://chrome-devtools-frontend.appspot.com/*localhost:' + port + '*',
+                                'https://chrome-devtools-frontend.june07.com/*' + host + ':' + port + '*',
+                                'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*',
+                                'https://chrome-devtools-frontend.june07.com/*' + host + '/ws/' + port + '*',
+                                'https://chrome-devtools-frontend.appspot.com/*' + host + '/ws/' + port + '*']
                         }, function(tab) {
                             if ($http.pendingRequests.length !== 0) return
                             $http({
@@ -193,8 +251,12 @@ ngApp
                                     var promiseToUpdateTabOrWindow = new Promise(function(resolve) {
                                         chrome.tabs.query({
                                             url: [ 'chrome-devtools://*/*',
-                                                'https://chrome-devtools-frontend.june07.com/*' + host + ':' + port + '*',
-                                                'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*' ]
+                                            'https://chrome-devtools-frontend.june07.com/*localhost:' + port + '*',
+                                            'https://chrome-devtools-frontend.appspot.com/*localhost:' + port + '*',
+                                            'https://chrome-devtools-frontend.june07.com/*' + host + ':' + port + '*',
+                                            'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*',
+                                            'https://chrome-devtools-frontend.june07.com/*' + host + '/ws/' + port + '*',
+                                            'https://chrome-devtools-frontend.appspot.com/*' + host + '/ws/' + port + '*']
                                         }, function callback(tab) {
                                             // Resolve otherwise let the event handler resolve
                                             tab = tab[0];
@@ -236,6 +298,69 @@ ngApp
             // Only if an event happened
             saveAll();
         });
+        $scope.tabNotification = function(instance) {
+            let tabId = $scope.tabId_HostPort_LookupTable.find(r => r.host === instance.host && r.port == instance.port);
+            if (tabId === undefined) return;
+            tabId = tabId.id;
+            let nodeProgram = $scope.devToolsSessions.find(r => r.id === tabId);
+            nodeProgram = (nodeProgram !== undefined && nodeProgram.nodeInspectMetadataJSON) ? nodeProgram.nodeInspectMetadataJSON.title : 'NiM';
+            let jsInject = `
+            debugger
+            window.nimTabNotification = (window.nimTabNotification === undefined) ? {} : window.nimTabNotification;
+            function createLinkElement(type) {
+                let link = document.createElement('link')
+                link.type = 'image/x-icon';
+                link.rel = 'shortcut icon';
+                link.id = 'NiMFavicon';
+                if (type === 'nim') link.href = 'https://june07.github.io/image/icon/favicon16.ico';
+                else link.href = 'https://chrome-devtools-frontend.appspot.com/favicon.ico';
+                return link;
+            }
+            var original = { title: document.URL, link: createLinkElement() }
+            var NiM = { title: '` + nodeProgram + `', link: createLinkElement('nim') }
+
+            var icon, title;
+            var interval = setInterval(function() {
+                icon = (icon === original.link) ? NiM.link : original.link;
+                title = (title === original.title) ? NiM.title : original.title;
+                document.title = title;
+                var favicon = document.getElementById('NiMFavicon');
+                if (favicon) document.getElementsByTagName('head')[0].removeChild(favicon);
+                document.getElementsByTagName('head')[0].appendChild(icon);
+            }, 500);
+            setTimeout(() => {
+                window.unBlink(` + tabId + `);
+            }, 30000);
+            window.unBlink = (tabId) => {
+                clearInterval(nimTabNotification[tabId].interval);
+                document.title = original.title;
+                document.getElementsByTagName('head')[0].appendChild(NiM.link);
+            }
+            window.nimTabNotification[` + tabId + `] = { interval };
+            `;
+
+            chrome.tabs.executeScript(tabId, { code: jsInject, allFrames: true }, () => {
+                tabNotificationListenerManager(tabId);
+                console.log('Blinking tab.');
+            });
+        }
+        function tabNotificationListenerManager(tabId, action) {
+            if (action === undefined) {
+                tabNotificationListeners[tabId] = {
+                    ['fn' + tabId]: function(activeInfo) {
+                        if (activeInfo.tabId === tabId) {
+                            chrome.tabs.executeScript(tabId, { code: 'window.unBlink(' + tabId + ')' }, () => {
+                                tabNotificationListenerManager(tabId, 'remove');
+                                console.log('Stopped blinking tab.');
+                            });
+                        }
+                    }
+                }
+                chrome.tabs.onActivated.addListener(tabNotificationListeners[tabId]['fn' + tabId]);
+            } else if (action === 'remove') {
+                chrome.tabs.onActivated.removeListener(tabNotificationListeners[tabId]);
+            }
+        }
         function Backoff(instance, min, max) {
             return {
                 max: max,
@@ -452,17 +577,18 @@ ngApp
             });
         }
         function openTabInProgressSingleton() {
-            var promise;
+            var promise = {};
 
             function createInstance(host, port, action) {
-                if (promise === undefined) {
-                    promise = openTabInProgress(host, port, action)
+                if (promise[host] === undefined) promise[host] = {};
+                if (Object.keys(promise[host]).find(key => key === host) === undefined) {
+                    promise[host][port] = openTabInProgress(host, port, action)
                     .then(function(value) {
-                        promise = undefined;
+                        promise[host][port] = undefined;
                         return value;
                     });
                 }
-                return promise;
+                return promise[host][port];
             }
             return {
                 getInstance: function(host, port, action) {
@@ -626,6 +752,7 @@ ngApp
             var found = promisesToUpdateTabsOrWindows.find(function(tabToUpdate, index, array) {
                 if (tabToUpdate.tab.id === tab.id) {
                     array[index] = { tab: tab, promise: promise };
+                    return true;
                 }
             });
             if (found === undefined) promisesToUpdateTabsOrWindows.push({ tab: tab, promise: promise });
@@ -712,6 +839,11 @@ ngApp
                     $scope.settings[key] = sync[key];
                 });
             });
+        }
+        function updateInternalSettings() {
+            if (DEVEL) {
+                $scope.settings.localSessionTimeout = 7*24*60*60000
+            }
         }
         function updateSettings() {
             write('localDevToolsOptions', $scope.settingsRevised.localDevToolsOptions);

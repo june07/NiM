@@ -16,7 +16,8 @@
     <script type="text/javascript" src="node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.min.js"></script>
     <script type="text/javascript" src="node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
     <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.js"></script>
-    <script type="text/javascript" src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="node_modules/tippy.js/dist/tippy.all.min.js" defer></script>
+    <script type="text/javascript" src="node_modules/animejs/anime.min.js" defer></script>
     <!-- /build -->
     <!-- build:[src]:min popup.min.js -->
     <script type="text/javascript" src="popup.js"></script>
@@ -28,10 +29,15 @@
     <!-- build:css css/vendor-popup.min.css -->
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css">
+    <link rel="stylesheet" href="css/vendor/popup/loading.css">
+    <link rel="stylesheet" href="css/vendor/popup/loading-btn.css">
     <!-- /build -->
     <!-- build:css css/vendor.min.css -->
     <link rel="stylesheet" href="css/vendor/font.css">
     <link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">
+    <link rel="stylesheet" href="node_modules/angular/angular-csp.css">
+    <link rel="stylesheet" href="node_modules/tippy.js/dist/tippy.css">
+
     <!-- /build -->
     <!-- build:css css/nim.min.css -->
     <link rel="stylesheet" href="css/nim.css">
@@ -197,47 +203,77 @@
         </div>
         <div class="row main">
             <div class="col" id="mainControlTabs">
-                <uib-tabset type="pills">
-                    <uib-tab heading="{{ bg.remoteTabs.length !== 0 ? 'Local' : ''}}">
-                        <form>
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <input placeholder="localhost" pattern="((^(([0-9]|[1-9][0-9]|1([0-1][0-9]|2[0-6]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))|127\.0\.0\.([0-1]))$)|(^(1(2[8-9]|[3-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))$)|localhost|^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$)" id="hostname" type="text" class="validate card-title input-text ga-track" ng-model="bg.settings.host">
-                                    <font color="#9e9e9e"><span class="i18n">Host</span></font>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input id="port" type="text" class="validate card-title input-text ga-track" value placeholder="9229" pattern="([1-9]|[1-8][0-9]|9[0-9]|[1-8][0-9]{2}|9[0-8][0-9]|99[0-9]|[1-8][0-9]{3}|9[0-8][0-9]{2}|99[0-8][0-9]|999[0-9]|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])" ng-model="bg.settings.port">
-                                    <font color="#9e9e9e"><span class="i18n">Port</span></font>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s12 center">
-                                    <span class="waves-effect waves-light"><input type="button" id="open devtools" value="Open DevTools" ng-disabled="bg.settings.auto" class="btn green lighten-1 ga-track i18n" ng-click="clickHandler()"></span>
-                                    <div id="autoManualSwitch" class="switch" ng-true-value="true" ng-false-value="false">
-                                        <label>
-                                            <span class="i18n">Manual</span>
-                                            <input id="auto switch" type="checkbox" ng-model="bg.settings.auto" class="ga-track" ng-click="switchHandler()">
-                                            <span class="lever"></span>
-                                            <span class="i18n">Auto</span>
-                                        </label>
+                <ul class="tabs">
+                    <li class="tab"><a href="#home" ng-class="bg.state.popup.selectedTab === 'home' ? 'active' : ''">Home</a></li>
+                    <li class="tab"><a href="#ltab" ng-class="bg.state.popup.selectedTab === 'ltab' ? 'active' : ''">Localhost</a></li>
+                </ul>
+                <!-- beginning of tab set -->
+                <div id="tabs">
+                    <div id="home">
+                        <div id="local-control-input">
+                            <form>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input placeholder="localhost" pattern="((^(([0-9]|[1-9][0-9]|1([0-1][0-9]|2[0-6]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))|127\.0\.0\.([0-1]))$)|(^(1(2[8-9]|[3-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))\.([0-9]|[1-9][0-9]|1([0-9][0-9])|2([0-4][0-9]|5[0-5]))$)|localhost|^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$)" id="hostname" type="text" class="validate card-title input-text ga-track" ng-model="bg.settings.host">
+                                        <font color="#9e9e9e"><span class="i18n">Host</span></font>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="port" type="text" class="validate card-title input-text ga-track" value placeholder="9229" pattern="([1-9]|[1-8][0-9]|9[0-9]|[1-8][0-9]{2}|9[0-8][0-9]|99[0-9]|[1-8][0-9]{3}|9[0-8][0-9]{2}|99[0-8][0-9]|999[0-9]|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])" ng-model="bg.settings.port">
+                                        <font color="#9e9e9e"><span class="i18n">Port</span></font>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                    </uib-tab>
-                    <uib-tab index="$index + 1" ng-repeat="tab in bg.remoteTabs" heading="{{tab.title}}">
-                        <div id="remote-control-interface">
-                            <div class="row">
-                                <div class="col">Connection Info</div>
+                                <div class="row">
+                                    <div class="col s12 center">
+                                        <span class="waves-effect waves-light"><input type="button" id="open devtools" value="Open DevTools" ng-disabled="bg.settings.auto" class="btn green lighten-1 ga-track i18n" ng-click="clickHandler()"></span>
+                                        <div id="autoManualSwitch" class="switch" ng-true-value="true" ng-false-value="false">
+                                            <label>
+                                                <span class="i18n">Manual</span>
+                                                <input id="auto switch" type="checkbox" ng-model="bg.settings.auto" class="ga-track" ng-click="switchHandler()">
+                                                <span class="lever"></span>
+                                                <span class="i18n">Auto</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="ltab">
+                        <div id="local-control-interface">
+                            <!--<div class="row header">
+                                <div class="col">Node Application Info</div>
+                                <div class="col">Status</div>
+                                <div class="col open">Open</div>
                                 <div class="col">Detected On</div>
+                            </div>-->
+                            <div class="row" id="no-connections-detected" ng-if="bg.localSessions.length === 0">
+                                <h1 class="ml11">
+                                  <span class="text-wrapper">
+                                    <span class="line line1"></span>
+                                    <span class="letters">| No detected connections</span>
+                                  </span>
+                                </h1>
                             </div>
-                            <div class="row" ng-repeat="conn in tab.connections">
-                                <div class="col"><a href="">{{ conn.host + ':' + conn.port }}</a></div>
-                                <div class="col">{{ conn.detectionTime | date : 'medium' }}</div>
+                            <div class="row" ng-repeat="s in bg.localSessions track by $index">
+                                <div class="col appinfo"><img class="bulletPointIcon" src="./icon/icon16.png"/><span class="tippy" data-tippy-content="#tippyTemplateLocal{{$index}}"> {{ s.nodeInspectMetadataJSON.title }}</span></div>
+                                    <div id="tippyTemplateLocal{{$index}}">
+                                        <div class="row">
+                                            <div class="col s2">Source:</div>
+                                            <div class="col s10 value">{{ s.nodeInspectMetadataJSON.url }}</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col s2">Debugger URL:</div>
+                                            <div class="col s10 value">{{ s.url }}</div>
+                                        </div>
+                                    </div>
+                                <div class="col"></div>
+                                <div class="col open"><span class="waves-effect waves-light"><input type="button" id="open devtools local" value="DevTools" class="btn btn-sm green lighten-1 ga-track i18n" ng-click="clickHandlerOpenLocalDevTools(s.url)"></span></div>
+                                <div class="col"></div>
                             </div>
                         </div>
-                    </uib-tab>
-                </uib-tabset>
+                    </div>
+                </div>
+                <!-- end of tab set -->
             </div>
         </div>
         <div class="row row-footer">
@@ -266,6 +302,13 @@
             <p class="message"><span class="i18n">Enabled</span>: {{ bg.loaded | date:'yyyy-MM-dd HH:mm Z' }}
                 <br><span class="i18n">Uptime</span>: {{ bg.moment.duration(bg.timerUptime, 'seconds').humanize(); }}</p>
             <p class="message">{{bg.message}}</p>
+        </div>
+    </div>
+    <div id="modal5" class="modal">
+        <div class="modal-header">
+            <h5 class="modal-title"></h5>
+        </div>
+        <div class="modal-content">
         </div>
     </div>
 </body>
