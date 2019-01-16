@@ -155,7 +155,8 @@ ngApp
                 session.timer = new Timer({sessionID: session.id});
                 return session;
             });
-            $scope.localSessions = localSessions.concat($scope.localSessions);
+            //$scope.localSessions = localSessions.concat($scope.localSessions);
+            $scope.localSessions = $scope.localSessions.concat(localSessions);
             localSessions = [];
             return $scope.localSessions = $scope.localSessions.filter((session, i) => {
                 if (i === 0) {
@@ -232,13 +233,13 @@ ngApp
                                 // The following analytics setting is TOO verbose.
                                 //$window._gaq.push(['_trackEvent', 'Program Event', 'openTab', 'Non-existing tab.', undefined, true]);
                                 if (tab.length === 0) {
-                                    createTabOrWindow(infoUrl, url, websocketId)
+                                    createTabOrWindow(infoUrl, url, websocketId, json.data[0])
                                     .then(function(tab) {
                                         var tabToUpdate = tab;
                                         chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
                                             if (triggerTabUpdate && tabId === tabToUpdate.id && changeInfo.status === 'complete') {
                                                 triggerTabUpdate = false;
-                                                saveSession(url, infoUrl, websocketId, tabToUpdate.id);
+                                                saveSession(url, infoUrl, websocketId, tabToUpdate.id, json.data[0]);
                                                 callback(tabToUpdate.url);
                                             } else if (!triggerTabUpdate && tabId === tabToUpdate.id) {
                                                 if ($scope.settings.debugVerbosity >= 6) console.log('Loading updated tab [' + tabId + ']...');
@@ -260,7 +261,7 @@ ngApp
                                         }, function callback(tab) {
                                             // Resolve otherwise let the event handler resolve
                                             tab = tab[0];
-                                            if (tab.active) {
+                                            if (tab && tab.active) {
                                                 chrome.windows.get(tab.windowId, function(window) {
                                                     if (window.focused) return resolve();
                                                 });
@@ -303,7 +304,7 @@ ngApp
             if (tabId === undefined) return;
             tabId = tabId.id;
             let nodeProgram = $scope.devToolsSessions.find(r => r.id === tabId);
-            nodeProgram = (nodeProgram !== undefined && nodeProgram.nodeInspectMetadataJSON) ? nodeProgram.nodeInspectMetadataJSON.title : 'NiM';
+            nodeProgram = (nodeProgram !== undefined) ? nodeProgram.nodeInspectMetadataJSON.title : 'NiM';
             let jsInject = `
             debugger
             window.nimTabNotification = (window.nimTabNotification === undefined) ? {} : window.nimTabNotification;
@@ -717,7 +718,7 @@ ngApp
                 triggerTabUpdate = true;
             });
         }
-        function createTabOrWindow(infoUrl, url, websocketId) {
+        function createTabOrWindow(infoUrl, url, websocketId, nodeInspectMetadataJSON) {
             return new Promise(function(resolve) {
                 if ($scope.settings.newWindow) {
                     $window._gaq.push(['_trackEvent', 'Program Event', 'createWindow', 'focused', $scope.settings.windowFocused, true]);
@@ -727,7 +728,7 @@ ngApp
                         type: ($scope.settings.panelWindowType) ? 'panel' : 'normal'
                     }, function(window) {
                         /* Is window.id going to cause id conflicts with tab.id?!  Should I be grabbing a tab.id here as well or instead of window.id? */
-                        saveSession(url, infoUrl, websocketId, window.id);
+                        saveSession(url, infoUrl, websocketId, window.id, nodeInspectMetadataJSON);
                         resolve(window);
                     });
                 } else {
@@ -736,7 +737,7 @@ ngApp
                         url: url,
                         active: $scope.settings.tabActive,
                     }, function(tab) {
-                        saveSession(url, infoUrl, websocketId, tab.id);
+                        saveSession(url, infoUrl, websocketId, tab.id, nodeInspectMetadataJSON);
                         resolve(tab);
                     });
                 }
@@ -771,7 +772,7 @@ ngApp
                 unlock(hostPortHashmap(existingSession.id));
             }
         }
-        function saveSession(url, infoUrl, websocketId, id) {
+        function saveSession(url, infoUrl, websocketId, id, nodeInspectMetadataJSON) {
             var existingIndex;
             var existingSession = $scope.devToolsSessions.find(function(session, index) {
                 if (session.id === id) {
@@ -786,7 +787,8 @@ ngApp
                     isWindow: $scope.settings.newWindow,
                     infoUrl: infoUrl,
                     id: id,
-                    websocketId: websocketId
+                    websocketId: websocketId,
+                    nodeInspectMetadataJSON: nodeInspectMetadataJSON
                 });
             } else {
                 $scope.devToolsSessions.push({
@@ -795,7 +797,8 @@ ngApp
                     isWindow: $scope.settings.newWindow,
                     infoUrl: infoUrl,
                     id: id,
-                    websocketId: websocketId
+                    websocketId: websocketId,
+                    nodeInspectMetadataJSON: nodeInspectMetadataJSON
                 });
             }
             hostPortHashmap(id, infoUrl);
@@ -806,6 +809,7 @@ ngApp
                 if (sameInstance(instance, instance2)) return session;
             });
         }*/
+        $scope.hostPortHashmap = hostPortHashmap
         function hostPortHashmap(id, infoUrl) {
             if (infoUrl === undefined) {
                 // Lookup a value

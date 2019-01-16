@@ -25,12 +25,10 @@
     <!-- build:[src]:min superlatus.min.js -->
     <script type="text/javascript" src="js/superlatus.js"></script>
     <!-- /build -->
-    <link rel="stylesheet" href="css/vendor/fontello-e67980dd/css/fontello.css">
+    <link rel="stylesheet" href="css/vendor/fontello-58946df5/css/fontello.css">
     <!-- build:css css/vendor-popup.min.css -->
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css">
-    <link rel="stylesheet" href="css/vendor/popup/loading.css">
-    <link rel="stylesheet" href="css/vendor/popup/loading-btn.css">
     <!-- /build -->
     <!-- build:css css/vendor.min.css -->
     <link rel="stylesheet" href="css/vendor/font.css">
@@ -255,7 +253,9 @@
                                 </h1>
                             </div>
                             <div class="row" ng-repeat="s in bg.localSessions track by $index">
-                                <div class="col appinfo"><img class="bulletPointIcon" src="./icon/icon16.png"/><span class="tippy" data-tippy-content="#tippyTemplateLocal{{$index}}"> {{ s.nodeInspectMetadataJSON.title }}</span></div>
+                                <div class="col appinfo"><img class="bulletPointIcon" src="./icon/icon16.png"/><span class="tippy" data-tippy-content="#tippyTemplateLocal{{$index}}"> {{ s.nodeInspectMetadataJSON.title }}
+                                      <span ng-bind="bg.hostPortHashmap(s.id).port" class="badge">port</span></span>
+                                </div>
                                     <div id="tippyTemplateLocal{{$index}}">
                                         <div class="row">
                                             <div class="col s2">Source:</div>
