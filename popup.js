@@ -94,6 +94,9 @@ ngApp
         else $scope.message = result;
       });
     }
+    $scope.clickHandlerRemoveLocalDevToolsSession = function(sessionID) {
+      $scope.bg.removeLocalSession(sessionID)
+    }
     $scope.switchHandler = function() {
         $scope.bg.save("auto");
     }

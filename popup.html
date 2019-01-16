@@ -254,7 +254,7 @@
                             </div>
                             <div class="row" ng-repeat="s in bg.localSessions track by $index">
                                 <div class="col appinfo"><img class="bulletPointIcon" src="./icon/icon16.png"/><span class="tippy" data-tippy-content="#tippyTemplateLocal{{$index}}"> {{ s.nodeInspectMetadataJSON.title }}
-                                      <span ng-bind="bg.hostPortHashmap(s.id).port" class="badge">port</span></span>
+                                      <span ng-bind="bg.getInstanceFromInfoURL(s.infoUrl).port" class="badge">inspect port</span></span>
                                 </div>
                                     <div id="tippyTemplateLocal{{$index}}">
                                         <div class="row">
@@ -267,7 +267,8 @@
                                         </div>
                                     </div>
                                 <div class="col"></div>
-                                <div class="col open"><span class="waves-effect waves-light"><input type="button" id="open devtools local" value="DevTools" class="btn btn-sm green lighten-1 ga-track i18n" ng-click="clickHandlerOpenLocalDevTools(s.url)"></span></div>
+                                <div class="col open"><span class="waves-effect waves-light"><input type="button" value="DevTools" class="btn btn-sm green lighten-1 ga-track i18n" ng-click="clickHandlerOpenLocalDevTools(s.url)"></span></div>
+                                <div class="col"><input type="button" value="Remove" class="btn red remove ga-track i18n" ng-click="clickHandlerRemoveLocalDevToolsSession(s.id)"></div>
                                 <div class="col"></div>
                             </div>
                         </div>

@@ -173,6 +173,16 @@ ngApp
                 }
             });
         }
+        $scope.removeLocalSession = function(id) {
+            let index = $scope.localSessions.findIndex(session => session.id == id)
+            if (index != -1) $scope.localSessions.splice(index, 1)
+            $scope.devToolsSessions.find((session, i) => {
+                if (session.id == id) {
+                    removeDevToolsSession(session, i)
+                }
+            })
+            
+        }
         $scope.localize = function($window, updateUI) {
             Array.from($window.document.getElementsByClassName("i18n")).forEach(function(element, i, elements) {
                 var message;
@@ -201,13 +211,19 @@ ngApp
                     .then(function() {
                         var infoUrl = getInfoURL(host, port);
                         chrome.tabs.query({
-                                url: [ 'chrome-devtools://*/*',
-                                'https://chrome-devtools-frontend.june07.com/*localhost:' + port + '*',
-                                'https://chrome-devtools-frontend.appspot.com/*localhost:' + port + '*',
+                            url: [// 'chrome-devtools://*/*',
+                                'chrome-devtools://*/*localhost:' + port + '*',
+                                'chrome-devtools://*/*' + host + ':' + port + '*',
+                                'chrome-devtools://*/*' + host + '/ws/' + port + '*',
+
+                                'https://chrome-devtools-frontend.june07.com/*localhost:' + port + '*',                                
                                 'https://chrome-devtools-frontend.june07.com/*' + host + ':' + port + '*',
-                                'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*',
                                 'https://chrome-devtools-frontend.june07.com/*' + host + '/ws/' + port + '*',
-                                'https://chrome-devtools-frontend.appspot.com/*' + host + '/ws/' + port + '*']
+
+                                'https://chrome-devtools-frontend.appspot.com/*localhost:' + port + '*',
+                                'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*',
+                                'https://chrome-devtools-frontend.appspot.com/*' + host + '/ws/' + port + '*'
+                            ]
                         }, function(tab) {
                             if ($http.pendingRequests.length !== 0) return
                             $http({
@@ -251,13 +267,19 @@ ngApp
                                     // If the tab has focus then issue this... otherwise wait until it has focus (ie event listener for window event.  If another request comes in while waiting, just update the request with the new info but still wait if focus is not present.
                                     var promiseToUpdateTabOrWindow = new Promise(function(resolve) {
                                         chrome.tabs.query({
-                                            url: [ 'chrome-devtools://*/*',
-                                            'https://chrome-devtools-frontend.june07.com/*localhost:' + port + '*',
-                                            'https://chrome-devtools-frontend.appspot.com/*localhost:' + port + '*',
-                                            'https://chrome-devtools-frontend.june07.com/*' + host + ':' + port + '*',
-                                            'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*',
-                                            'https://chrome-devtools-frontend.june07.com/*' + host + '/ws/' + port + '*',
-                                            'https://chrome-devtools-frontend.appspot.com/*' + host + '/ws/' + port + '*']
+                                            url: [// 'chrome-devtools://*/*',
+                                                'chrome-devtools://*/*localhost:' + port + '*',
+                                                'chrome-devtools://*/*' + host + ':' + port + '*',
+                                                'chrome-devtools://*/*' + host + '/ws/' + port + '*',
+
+                                                'https://chrome-devtools-frontend.june07.com/*localhost:' + port + '*',                                
+                                                'https://chrome-devtools-frontend.june07.com/*' + host + ':' + port + '*',
+                                                'https://chrome-devtools-frontend.june07.com/*' + host + '/ws/' + port + '*',
+
+                                                'https://chrome-devtools-frontend.appspot.com/*localhost:' + port + '*',
+                                                'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*',
+                                                'https://chrome-devtools-frontend.appspot.com/*' + host + '/ws/' + port + '*'
+                                            ]
                                         }, function callback(tab) {
                                             // Resolve otherwise let the event handler resolve
                                             tab = tab[0];
@@ -303,47 +325,55 @@ ngApp
             let tabId = $scope.tabId_HostPort_LookupTable.find(r => r.host === instance.host && r.port == instance.port);
             if (tabId === undefined) return;
             tabId = tabId.id;
-            let nodeProgram = $scope.devToolsSessions.find(r => r.id === tabId);
-            nodeProgram = (nodeProgram !== undefined) ? nodeProgram.nodeInspectMetadataJSON.title : 'NiM';
-            let jsInject = `
-            debugger
-            window.nimTabNotification = (window.nimTabNotification === undefined) ? {} : window.nimTabNotification;
-            function createLinkElement(type) {
-                let link = document.createElement('link')
-                link.type = 'image/x-icon';
-                link.rel = 'shortcut icon';
-                link.id = 'NiMFavicon';
-                if (type === 'nim') link.href = 'https://june07.github.io/image/icon/favicon16.ico';
-                else link.href = 'https://chrome-devtools-frontend.appspot.com/favicon.ico';
-                return link;
-            }
-            var original = { title: document.URL, link: createLinkElement() }
-            var NiM = { title: '` + nodeProgram + `', link: createLinkElement('nim') }
+            
+            // Currently not sure if chrome-devtools:// scheme can be injected into
+            chrome.tabs.get(tabId, (tab) => {
+                if (tab === undefined || tab.url.match(/chrome-devtools:\/\//)) {
+                    return
+                } else {
+                    var nodeProgram = $scope.devToolsSessions.find(r => r.id == tabId);
+                    nodeProgram = (nodeProgram !== undefined) ? nodeProgram.nodeInspectMetadataJSON.title : 'NiM';
+                    let jsInject = `
+                    debugger
+                    window.nimTabNotification = (window.nimTabNotification === undefined) ? {} : window.nimTabNotification;
+                    function createLinkElement(type) {
+                        let link = document.createElement('link')
+                        link.type = 'image/x-icon';
+                        link.rel = 'shortcut icon';
+                        link.id = 'NiMFavicon';
+                        if (type === 'nim') link.href = 'https://june07.github.io/image/icon/favicon16.ico';
+                        else link.href = 'https://chrome-devtools-frontend.appspot.com/favicon.ico';
+                        return link;
+                    }
+                    var original = { title: document.URL, link: createLinkElement() }
+                    var NiM = { title: '` + nodeProgram + `', link: createLinkElement('nim') }
 
-            var icon, title;
-            var interval = setInterval(function() {
-                icon = (icon === original.link) ? NiM.link : original.link;
-                title = (title === original.title) ? NiM.title : original.title;
-                document.title = title;
-                var favicon = document.getElementById('NiMFavicon');
-                if (favicon) document.getElementsByTagName('head')[0].removeChild(favicon);
-                document.getElementsByTagName('head')[0].appendChild(icon);
-            }, 500);
-            setTimeout(() => {
-                window.unBlink(` + tabId + `);
-            }, 30000);
-            window.unBlink = (tabId) => {
-                clearInterval(nimTabNotification[tabId].interval);
-                document.title = original.title;
-                document.getElementsByTagName('head')[0].appendChild(NiM.link);
-            }
-            window.nimTabNotification[` + tabId + `] = { interval };
-            `;
+                    var icon, title;
+                    var interval = setInterval(function() {
+                        icon = (icon === original.link) ? NiM.link : original.link;
+                        title = (title === original.title) ? NiM.title : original.title;
+                        document.title = title;
+                        var favicon = document.getElementById('NiMFavicon');
+                        if (favicon) document.getElementsByTagName('head')[0].removeChild(favicon);
+                        document.getElementsByTagName('head')[0].appendChild(icon);
+                    }, 500);
+                    setTimeout(() => {
+                        window.unBlink(` + tabId + `);
+                    }, 30000);
+                    window.unBlink = (tabId) => {
+                        clearInterval(nimTabNotification[tabId].interval);
+                        document.title = original.title;
+                        document.getElementsByTagName('head')[0].appendChild(NiM.link);
+                    }
+                    window.nimTabNotification[` + tabId + `] = { interval };
+                    `;
 
-            chrome.tabs.executeScript(tabId, { code: jsInject, allFrames: true }, () => {
-                tabNotificationListenerManager(tabId);
-                console.log('Blinking tab.');
-            });
+                    chrome.tabs.executeScript(tabId, { code: jsInject, allFrames: true }, () => {
+                        tabNotificationListenerManager(tabId);
+                        console.log('Blinking tab.');
+                    });
+                }
+            })
         }
         function tabNotificationListenerManager(tabId, action) {
             if (action === undefined) {
@@ -409,6 +439,24 @@ ngApp
                     */
                     SingletonHttpGet.getInstance({ host: $scope.settings.host, port: $scope.settings.port });
                 }
+                $scope.localSessions.forEach(function(localSession) {
+                    let instance = getInstanceFromInfoURL(localSession.infoUrl)
+                    if (instance.host === $scope.settings.host && instance.port == $scope.settings.port) return
+                    if (localSession.auto && ! isLocked(instance)) {
+                        if ($scope.settings.debugVerbosity >= 6) console.log('resetInterval going thru a check loop...')
+                        closeDevTools(
+                            $scope.openTab(instance.host, instance.port, function(message) {
+                                if ($scope.settings.debugVerbosity >= 3) console.log(message)
+                            })
+                        )
+                    } else if (localSession.auto && isLocked(instance)) {
+                        /** If the isLocked(getInstance()) is set then we still have to check for disconnects on the client side via httpGetTest().
+                        until there exists an event for the DevTools websocket disconnect.  Currently there doesn't seem to be one
+                        that we can use simultanous to DevTools itself as only one connection to the protocol is allowed at a time.
+                        */
+                        SingletonHttpGet.getInstance(instance);
+                    }
+                })
             }, $scope.settings.checkInterval);
         }
         function httpGetTestSingleton() {
@@ -527,6 +575,13 @@ ngApp
             if (protocol === undefined) protocol = 'http';
             return protocol + '://' + host + ':' + port + '/json';
         }
+        function getInstanceFromInfoURL(infoURL) {
+            infoURL = infoURL.replace(/https?:\/\//, '')
+            let host = infoURL.split(':')[0],
+                port = infoURL.split(':')[1].split('/')[0]
+            return { host, port }
+        }
+        $scope.getInstanceFromInfoURL = getInstanceFromInfoURL
         function getInstance() {
             return { host: $scope.settings.host, port: $scope.settings.port }
         }
@@ -783,6 +838,7 @@ ngApp
             if (existingSession) {
                 $scope.devToolsSessions.splice(existingIndex, 1, {
                     url: url,
+                    auto: $scope.settings.auto,
                     autoClose: $scope.settings.autoClose,
                     isWindow: $scope.settings.newWindow,
                     infoUrl: infoUrl,
@@ -793,6 +849,7 @@ ngApp
             } else {
                 $scope.devToolsSessions.push({
                     url: url,
+                    auto: $scope.settings.auto,
                     autoClose: $scope.settings.autoClose,
                     isWindow: $scope.settings.newWindow,
                     infoUrl: infoUrl,
@@ -809,7 +866,6 @@ ngApp
                 if (sameInstance(instance, instance2)) return session;
             });
         }*/
-        $scope.hostPortHashmap = hostPortHashmap
         function hostPortHashmap(id, infoUrl) {
             if (infoUrl === undefined) {
                 // Lookup a value
