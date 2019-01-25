@@ -50,7 +50,7 @@ ngApp
       return parts[parts.length-1];
     };
 })
-.controller('nimPopupController', ['$scope', '$window', '$interval', function ($scope, $window, $interval) {
+.controller('nimPopupController', ['$scope', '$window', function ($scope, $window) {
     $scope.sortType = 'date';
     $scope.sortReverse = true;
     $scope.active = "none";

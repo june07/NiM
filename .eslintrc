@@ -1,6 +1,5 @@
 {
     "parser": "espree",
-    "ecmaFeatures": {},
     "plugins": [ "json", "angular" ],
     "globals": {
         "angular": true,
@@ -16,7 +15,10 @@
         "console": false,
         "process": false,
         "btoa": true,
-        "jSHA", true
+        "jSHA": true,
+        "nacl": true,
+        "crypto": true,
+        "document": true
     },
   "env": { "es6": true },
     "rules": {
@@ -33,7 +35,7 @@
         "no-const-assign": "error",
         "no-constant-condition": "error",
         "no-continue": "off",
-        "no-control-regex": "error",
+        "no-control-regex": "warn",
         "no-debugger": "error",
         "no-delete-var": "error",
         "no-div-regex": "off",
