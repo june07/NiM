@@ -33,7 +33,7 @@ ngApp
         const SHORTNER_SERVICE_URL = 'https://shortnr.june07.com/api'
         const UPTIME_CHECK_RESOLUTION = 60000; // Check every minute
         const DEVEL = true;
-        const IP_PATTERN = /(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])/;
+        const SOCKET_PATTERN = /((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])):([0-9]+)/;
         const devToolsURL_Regex = /(chrome-devtools:\/\/|https:\/\/chrome-devtools-frontend(.appspot.com|.june07.com)).*(inspector.html|js_app.html)/;
 
         $window.chrome.management.getSelf((ExtensionInfo) => {
@@ -235,10 +235,11 @@ ngApp
                                 if (!json.data[0].devtoolsFrontendUrl) return callback(chrome.i18n.getMessage("errMsg7", [host, port]));
                                 $scope.settings.localDevToolsOptions[0].url = json.data[0].devtoolsFrontendUrl.split('?')[0];
                                 var url = json.data[0].devtoolsFrontendUrl.replace(/ws=localhost/, 'ws=127.0.0.1');
-                                var inspectIP = url.match(IP_PATTERN)[0];
+                                var inspectIP = url.match(SOCKET_PATTERN)[1];
+                                var inspectPORT = url.match(SOCKET_PATTERN)[5];
                                 url = url
-                                    .replace(inspectIP + ":9229", host + ":" + port) // In the event that remote debugging is being used and the infoUrl port (by default 80) is not forwarded.
-                                    .replace(inspectIP + ":" + port, host + ":" + port) // A check for just the port change must be made.
+                                    .replace(inspectIP + ":9229", host + ":" + port) // In the event that remote debugging is being used and the infoUrl port (by default 80) is not forwarded take a chance and pick the default.
+                                    .replace(inspectIP + ":" + inspectPORT, host + ":" + port) // A check for just the port change must be made.
                                 if ($scope.settings.localDevTools)
                                     url = url.replace(devToolsURL_Regex, $scope.getDevToolsOption().url);
                                 if ($scope.settings.bugfix)
