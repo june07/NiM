@@ -27,9 +27,8 @@ NiM automatically detects the URL that is generated when running node (locally o
 
 Simple and basic... just install the Chrome Extension in any of the following ways:
 
-1. Install via our site: [https://june07.com/blog/nim-inline-install](https://june07.com/blog/nim-inline-install) or...
-2. Install via Chrome Web Store: [https://chrome.google.com/webstore/detail/gnhhdgbaldcilmgcpfddgdbkhjohddkj](https://chrome.google.com/webstore/detail/gnhhdgbaldcilmgcpfddgdbkhjohddkj?hl=en) or...
-3. Download .crx file directly from releases as shown here:
+1. Install via Chrome Web Store: [https://chrome.google.com/webstore/detail/gnhhdgbaldcilmgcpfddgdbkhjohddkj](https://chrome.google.com/webstore/detail/gnhhdgbaldcilmgcpfddgdbkhjohddkj?hl=en) or...
+2. Download .crx file directly from releases as shown here:
 
 ![https://media.giphy.com/media/xT0xenBpYPF2F0j2fe/giphy.gif](https://media.giphy.com/media/xT0xenBpYPF2F0j2fe/giphy.gif)
 
