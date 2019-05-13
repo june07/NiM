@@ -18,6 +18,9 @@
     "moment": "*",
     "nouislider": "*",
     "perfect-scrollbar": "^0.8.1",
+    "popper.js": "^1.15.0",
+    "tippy.js": "^4.3.1",
+    "tweetnacl-util": "^0.15.0",
     "wnumb": "*"
   },
   "devDependencies": {
@@ -37,7 +40,7 @@
     "grunt-contrib-watch": "^1.1.0",
     "grunt-exec": "^3.0.0",
     "grunt-mkdir": "^1.0.0",
-    "grunt-npmcopy": "^0.1.0",
+    "grunt-npmcopy": "^0.2.0",
     "grunt-processhtml": "^0.4.1",
     "grunt-text-replace": "^0.4.0",
     "gruntify-eslint": "^4.0.0",

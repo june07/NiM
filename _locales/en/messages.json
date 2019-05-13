@@ -196,5 +196,9 @@
   "inspectorWindowStyle": {
     "message": "Panel style window.",
     "description": "Panel style window"
+  },
+  "optionsNiMSVSCode": {
+    "message": "VSCode Integration.",
+    "description": "Options page label for VSCode Integration."
   }
 }

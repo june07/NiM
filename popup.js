@@ -177,6 +177,7 @@ ngApp
       }
     };
     $($window.document).ready(() => {
+      if ($scope.bg.settings.nimsVscode.enabled) $scope.bg.NiMSVSCodeConnector.check();
       $('ul.tabs').tabs({ onShow: (tab) => {
         $scope.bg.updateLocalSessions();
         $scope.bg.state.popup.selectedTab = tab[0].id;
@@ -197,7 +198,7 @@ ngApp
     });
     $scope.initTippyTips = function() {
       $scope.tippyTips = $window.tippy('.tippy');
-      $scope.tippyTips.instances.forEach((tip) => {
+      $scope.tippyTips.forEach((tip) => {
         let el = document.querySelector('[id^=' + tip.props.content.substring(1) + ']');
         switch (tip.props.content) {
           case '#tippyTemplateGithubNodejsNodeIssues24085':

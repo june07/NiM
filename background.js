@@ -25,6 +25,22 @@ var ngApp = angular.module('NimBackgroundApp', []);
 ngApp
 .run(function() {})
 .controller('nimController', ['$scope', '$window', '$http', '$q', function($scope, $window, $http, $q) {
+    class NiMSVSCodeConnector {
+        constructor () {
+        }
+        check() {
+            $http({
+                method: "GET",
+                url: 'http://localhost:6607/json',
+                responseType: "json"
+            })
+            .then((json) => {
+                json.data.forEach(session => {
+                    saveSession(getDevToolsURL(session), 'http://' + session.inspectSocket + '/json', session.id, null, session)
+                })
+            });
+        }
+    }
     const VERSION = '0.0.0'; // Filled in by Grunt
     const UPTIME_CHECK_INTERVAL = 60 * 15; // 15 minutes 
     const INSTALL_URL = "https://bit.ly/2HBlRs1";
@@ -39,7 +55,8 @@ ngApp
     $window.chrome.management.getSelf((ExtensionInfo) => {
         $scope.ExtensionInfo = ExtensionInfo;
     });
-    getChromeIdentity()
+    getChromeIdentity();
+    $scope.NiMSVSCodeConnector = new NiMSVSCodeConnector();
 
     $scope.loaded = Date.now();
     $scope.timerUptime = 0;
@@ -76,7 +93,10 @@ ngApp
         autoIncrement: {type: 'port', name: 'Port'}, // both | host | port | false
         collaboration: false,
         localDevToolsOptions: $scope.settingsRevised.localDevToolsOptions,
-        panelWindowType: false
+        panelWindowType: false,
+        nimsVscode: {
+            enabled: true
+        }
     };
     $scope.remoteTabs = [];
     $scope.localSessions = [];
@@ -376,6 +396,13 @@ ngApp
             }
         })
     }
+    function getDevToolsURL(session) {
+        let url = session.devtoolsFrontendUrl;
+        // The following line is required because normally the host part of the URL is set dynamically in `function openDevToolsFrontend(json)`
+        if ($scope.getDevToolsOption() === '') $scope.settings.localDevToolsOptions[0].url = url.split('?')[0]; 
+        if ($scope.settings.localDevTools) url = url.replace(devToolsURL_Regex, $scope.getDevToolsOption().url);
+        return url;
+    }
     function tabNotificationListenerManager(tabId, action) {
         if (action === undefined) {
             tabNotificationListeners[tabId] = {
@@ -440,7 +467,7 @@ ngApp
                 */
                 SingletonHttpGet.getInstance({ host: $scope.settings.host, port: $scope.settings.port });
             }
-            $scope.localSessions.forEach(function(localSession) {
+            $scope.localSessions.filter(session => session.auto).forEach(function(localSession) {
                 let instance = getInstanceFromInfoURL(localSession.infoUrl)
                 if (instance.host === $scope.settings.host && instance.port == $scope.settings.port) return
                 if (localSession.auto && ! isLocked(instance)) {
@@ -831,7 +858,7 @@ ngApp
     function saveSession(url, infoUrl, websocketId, id, nodeInspectMetadataJSON) {
         var existingIndex;
         var existingSession = $scope.devToolsSessions.find(function(session, index) {
-            if (session.id === id) {
+            if (session.websocketId === websocketId) {
                 existingIndex = index;
                 return session;
             }
@@ -839,7 +866,7 @@ ngApp
         if (existingSession) {
             $scope.devToolsSessions.splice(existingIndex, 1, {
                 url: url,
-                auto: $scope.settings.auto,
+                auto: (existingSession.auto) ? existingSession.auto : $scope.settings.auto,
                 autoClose: $scope.settings.autoClose,
                 isWindow: $scope.settings.newWindow,
                 infoUrl: infoUrl,
@@ -850,7 +877,7 @@ ngApp
         } else {
             $scope.devToolsSessions.push({
                 url: url,
-                auto: $scope.settings.auto,
+                auto: (id === null) ? false : $scope.settings.auto,
                 autoClose: $scope.settings.autoClose,
                 isWindow: $scope.settings.newWindow,
                 infoUrl: infoUrl,

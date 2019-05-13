@@ -7,8 +7,8 @@
 
 # Blog Posts:
 ------------------------
-* Why I wrote NiM https://june07.com/blog/inspect-broke-my-workflow/
-* Custom DevTools feature: https://june07.com/blog/nim-custom-devtools-url/
+* Why I wrote NiM https://blog.june07.com/inspect-broke-my-workflow/
+* Custom DevTools feature: https://blog.june07.com/nim-custom-devtools-url/
 # Easier than about::inspect (chrome://inspect/#devices)
 ------------------------
 NiM manages the Chrome DevTools window/tab lifecycle leaving you with more ability to focus on what matters... debugging your code.  You no longer need to copy/paste DevTools URL's or continue opening/closeing tabs/windows.
@@ -27,17 +27,16 @@ NiM automatically detects the URL that is generated when running node (locally o
 
 Simple and basic... just install the Chrome Extension in any of the following ways:
 
-1. Install via our site: [https://june07.com/blog/nim-inline-install](https://june07.com/blog/nim-inline-install) or...
-2. Install via Chrome Web Store: [https://chrome.google.com/webstore/detail/gnhhdgbaldcilmgcpfddgdbkhjohddkj](https://chrome.google.com/webstore/detail/gnhhdgbaldcilmgcpfddgdbkhjohddkj?hl=en) or...
-3. Download .crx file directly from releases as shown here:
+1. Install via Chrome Web Store: [https://chrome.google.com/webstore/detail/gnhhdgbaldcilmgcpfddgdbkhjohddkj](https://chrome.google.com/webstore/detail/gnhhdgbaldcilmgcpfddgdbkhjohddkj?hl=en) or...
+2. Download .crx file directly from releases as shown here:
 
 ![https://media.giphy.com/media/xT0xenBpYPF2F0j2fe/giphy.gif](https://media.giphy.com/media/xT0xenBpYPF2F0j2fe/giphy.gif)
 
 --------------------------
 
 # Need Additional Information?
-* NiM post install page provides some help [https://june07.com/blog/nim-install](https://june07.com/blog/nim-install/)
-* Debugging NiM itself [https://june07.com/blog/debugging-nim](https://june07.com/blog/debugging-nim/)
+* NiM post install page provides some help [https://blog.june07.com/nim-install](https://blog.june07.com/nim-install/)
+* Debugging NiM itself [https://blog.june07.com/debugging-nim/](https://blog.june07.com/debugging-nim/)
 
 *Note: At the time of writing, the v8 --inspect option is fairly new. See https://nodejs.org/api/debugger.html#debugger_v8_inspector_integration_for_node_js for additional details on the option.*
 #### If you enjoy using NIM please [give us a 5 star rating and/or a G+1.](https://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj/reviewshttps://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj/reviews)
