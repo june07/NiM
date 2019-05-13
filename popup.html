@@ -16,7 +16,8 @@
     <script type="text/javascript" src="node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.min.js"></script>
     <script type="text/javascript" src="node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
     <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
-    <script type="text/javascript" src="node_modules/tippy.js/dist/tippy.all.min.js" defer></script>
+    <script type="text/javascript" src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script type="text/javascript" src="node_modules/tippy.js/umd/index.all.js" defer></script>
     <script type="text/javascript" src="node_modules/animejs/anime.min.js" defer></script>
     <!-- /build -->
     <!-- build:[src]:min popup.min.js -->
@@ -34,7 +35,6 @@
     <link rel="stylesheet" href="css/vendor/font.css">
     <link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">
     <link rel="stylesheet" href="node_modules/angular/angular-csp.css">
-    <link rel="stylesheet" href="node_modules/tippy.js/dist/tippy.css">
 
     <!-- /build -->
     <!-- build:css css/nim.min.css -->
@@ -253,21 +253,32 @@
                                 </h1>
                             </div>
                             <div class="row" ng-repeat="s in bg.localSessions track by $index">
-                                <div class="col appinfo"><img class="bulletPointIcon" src="./icon/icon16.png"/><span class="tippy" data-tippy-content="#tippyTemplateLocal{{$index}}"> {{ s.nodeInspectMetadataJSON.title }}
-                                      <span ng-bind="bg.getInstanceFromInfoURL(s.infoUrl).port" class="badge">inspect port</span></span>
+                                <div class="col appinfo">
+                                    <img class="bulletPointIcon" ng-src="{{ (s.nodeInspectMetadataJSON.nodeExeRunner) ? './icon/icon16vscode.png' : './icon/icon16.png' }}" />
+                                    <span class="tippy" data-tippy-content="#tippyTemplateLocal{{$index}}" ng-click="showTippy($event)"> {{ s.nodeInspectMetadataJSON.title }}
+                                        <span ng-bind="bg.getInstanceFromInfoURL(s.infoUrl).port" class="badge">inspect port</span>
+                                    </span>
                                 </div>
-                                    <div id="tippyTemplateLocal{{$index}}">
-                                        <div class="row">
-                                            <div class="col s2">Source:</div>
-                                            <div class="col s10 value">{{ s.nodeInspectMetadataJSON.url }}</div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col s2">Debugger URL:</div>
-                                            <div class="col s10 value">{{ s.url }}</div>
-                                        </div>
+                                <div id="tippyTemplateLocal{{$index}}">
+                                    <div class="row">
+                                        <div class="col s2">Source:</div>
+                                        <div class="col s10 value">{{ s.nodeInspectMetadataJSON.url }}</div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col s2">Debugger URL:</div>
+                                        <div class="col s10 value">{{ s.url }}</div>
+                                    </div>
+                                </div>
                                 <div class="col"></div>
-                                <div class="col open"><span class="waves-effect waves-light"><input type="button" value="DevTools" class="btn btn-sm green lighten-1 ga-track i18n" ng-click="clickHandlerOpenLocalDevTools(s.url)"></span></div>
+                                <div class="col auto">
+                                    <div class="switch right">
+                                        <label>
+                                            <input type="checkbox" ng-model="s.auto">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col open"><span class="waves-effect waves-light"><input ng-disabled="s.auto" type="button" value="DevTools" class="btn btn-sm green lighten-1 ga-track i18n" ng-click="clickHandlerOpenLocalDevTools(s.url)"></span></div>
                                 <div class="col"><input type="button" value="Remove" class="btn red remove ga-track i18n" ng-click="clickHandlerRemoveLocalDevToolsSession(s.id)"></div>
                                 <div class="col"></div>
                             </div>
@@ -285,9 +296,6 @@
                             <a id="site-href" target="_blank" href="https://june07.com">© 2016-2019 June07</a>
                         </div>
                         <div id="footer-buttons" class="right">
-                            <div id="google-button" class="footer-button">
-                                <div id="g-plusone" class="g-plusone" data-align="right" expandTo="bottom, left, top, right" data-href="https://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj"></div>
-                            </div>
                             <div id="donate-button" class="footer-button"><a class="btn green lighten-2 modal-trigger ga-track" href="#modal2" id="donate-button"><span class="i18n">Donate</span></a></div>
                             <div id="twitter-button" class="footer-button"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button ga-track" data-size="large" data-text='SUPERLATUS {"what": "NiM"}' data-url="https://june07.com/nim" data-via="june07t" data-hashtags="NiM,nodejs,javascript,chrome" data-related="nodejs,ChromeDevTools" data-dnt="true" data-show-count="true">Tweet</a>
                                 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
