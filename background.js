@@ -38,6 +38,9 @@ ngApp
                 json.data.forEach(session => {
                     saveSession(getDevToolsURL(session), 'http://' + session.inspectSocket + '/json', session.id, null, session)
                 })
+            })
+            .catch(error => {
+                if ($scope.settings.debugVerbosity >= 1) console.log(error);
             });
         }
     }
@@ -197,7 +200,7 @@ ngApp
         let index = $scope.localSessions.findIndex(session => session.id == id)
         if (index != -1) $scope.localSessions.splice(index, 1)
         $scope.devToolsSessions.find((session, i) => {
-            if (session.id == id) {
+            if (session.id !== null && session.id == id) {
                 removeDevToolsSession(session, i)
             }
         })
@@ -953,10 +956,6 @@ ngApp
             }
         }
     }
-    function generateRandomPassword() {
-        let password = $window.pwgen(20);
-        return password;
-    }
     function tinySettingsJSON(callback) {
         let tinySettings = {};
         Object.assign(tinySettings, $scope.settings);
@@ -1139,7 +1138,9 @@ ngApp
                             title: 'NiM owns the (' + shortcut.shortcut + ') shortcut.',
                             message: '"' + shortcut.description + '"',
                             buttons: [ { title: 'Disable this notice.' }, { title: 'Change the shortcut.' } ]
-                        },  function(notificationId) {});
+                        },  function(notificationId) {
+                            if ($scope.settings.debugVerbosity >= 4) console.log(notificationId);
+                        });
                     });
                 }
                 $window._gaq.push(['_trackEvent', 'User Event', 'OpenDevTools', 'Keyboard Shortcut Used', undefined, true]);
