@@ -10,7 +10,7 @@
 
 
 ## Blog Posts/Updates:
-Now itegrates with VSCode using NiMS [VScode Extension](http://bit.ly/2VwKeSZ) 
+Now itegrates with VSCode using NiMS [VSCode Extension](http://bit.ly/2VwKeSZ) 
 ![VSCode Integration](https://imgur.com/download/PRMn9md)
 * Why I wrote NiM https://blog.june07.com/inspect-broke-my-workflow/
 * Custom DevTools feature: https://blog.june07.com/nim-custom-devtools-url/
@@ -18,7 +18,7 @@ Now itegrates with VSCode using NiMS [VScode Extension](http://bit.ly/2VwKeSZ)
 
 NiM manages the Chrome DevTools window/tab lifecycle leaving you with more ability to focus on what matters... debugging your code.  You no longer need to copy/paste DevTools URL's or continue opening/closeing tabs/windows.
 
-NiM automatically detects the URL that is generated when running node (locally or remotely) with --inspect option. NIM provides you with the option of automatically opening and closing Chrome DevTools in a tab or window. Just toggle the Manual/Auto setting and then start a debugging session.  DevTools will open either on clicking the "Open DevTools" button or after the specified timeout period.  If set to auto close, once you end your debugging session, DevTools will close automatically.
+NiM automatically detects the URL that is generated when running node (locally or remotely) with --inspect option. NiM provides you with the option of automatically opening and closing Chrome DevTools in a tab or window. Just toggle the Manual/Auto setting and then start a debugging session.  DevTools will open either on clicking the "Open DevTools" button or after the specified timeout period.  If set to auto close, once you end your debugging session, DevTools will close automatically.
  
  * Manage and monitor local and remote debugging sessions
  * Manual or automatic control of DevTools interface
