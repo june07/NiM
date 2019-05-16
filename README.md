@@ -1,16 +1,19 @@
 ![](https://img.shields.io/chrome-web-store/v/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/users/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/rating/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/stars/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/rating-count/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) 
 
-## [NIM Homepage](https://june07.com/nim)
 ![NiM Logo](https://june07.github.io/image/smallPromoTile.png)
 # NiM (Node.js --inspector Manager)
-## Streamlines your development process
+###### Streamlines your development process
 
-# Blog Posts:
-------------------------
+* [Chrome Web Store](http://bit.ly/2W8hQG9) (works with any Chromium browsers: [Google's Chrome](https://www.google.com/chrome/), [Microsoft's Edge](https://www.microsoftedgeinsider.com/en-us/, ), [Opera](https://www.opera.com/), [Vivaldi](https://vivaldi.com/), [Brave](https://brave.com/), [Epic](https://www.epicbrowser.com/), and more...  )
+
+
+## Blog Posts/Updates:
+Now itegrates with VSCode using NiMS [VScode Extension](http://bit.ly/2VwKeSZ) 
+![VSCode Integration](https://imgur.com/download/PRMn9md)
 * Why I wrote NiM https://blog.june07.com/inspect-broke-my-workflow/
 * Custom DevTools feature: https://blog.june07.com/nim-custom-devtools-url/
-# Easier than about::inspect (chrome://inspect/#devices)
-------------------------
+## Easier than `about::inspect (chrome://inspect/#devices)`
+
 NiM manages the Chrome DevTools window/tab lifecycle leaving you with more ability to focus on what matters... debugging your code.  You no longer need to copy/paste DevTools URL's or continue opening/closeing tabs/windows.
 
 NiM automatically detects the URL that is generated when running node (locally or remotely) with --inspect option. NIM provides you with the option of automatically opening and closing Chrome DevTools in a tab or window. Just toggle the Manual/Auto setting and then start a debugging session.  DevTools will open either on clicking the "Open DevTools" button or after the specified timeout period.  If set to auto close, once you end your debugging session, DevTools will close automatically.
@@ -22,17 +25,18 @@ NiM automatically detects the URL that is generated when running node (locally o
  * Customize duration between v8 Inspector probes
  * Autosave settings
 
---------------------
-# Setup / Usage / How To
+
+## Setup / Usage / How To
 
 Simple and basic... just install the Chrome Extension in any of the following ways:
 
-1. Install via Chrome Web Store: [https://chrome.google.com/webstore/detail/gnhhdgbaldcilmgcpfddgdbkhjohddkj](https://chrome.google.com/webstore/detail/gnhhdgbaldcilmgcpfddgdbkhjohddkj?hl=en) or...
-2. Download .crx file directly from releases as shown here:
+1. Install via Chrome Web Store:
+    https://bit.ly/2W8hQG9 (https://chrome.google.com/webstore/detail/gnhhdgbaldcilmgcpfddgdbkhjohddkj)
+2. Or, download .crx file directly from releases as shown here:
 
 ![https://media.giphy.com/media/xT0xenBpYPF2F0j2fe/giphy.gif](https://media.giphy.com/media/xT0xenBpYPF2F0j2fe/giphy.gif)
 
---------------------------
+
 
 # Need Additional Information?
 * NiM post install page provides some help [https://blog.june07.com/nim-install](https://blog.june07.com/nim-install/)
