@@ -26,6 +26,7 @@ NiM automatically detects the URL that is generated when running node (locally o
  * Make DevTools focused or inactive on start
  * Customize duration between v8 Inspector probes
  * Autosave settings
+ * Debug node processes launched by [VSCode](https://imgur.com/download/PRMn9md)
 
 
 ## Setup / Usage / How To
