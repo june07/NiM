@@ -10,7 +10,7 @@
 
 
 ## Blog Posts/Updates:
-Now itegrates with VSCode using NiMS [VSCode Extension](http://bit.ly/2VwKeSZ) 
+Now integrates with VSCode using NiMS [VSCode Extension](http://bit.ly/2VwKeSZ) 
 ![VSCode Integration](https://imgur.com/download/PRMn9md)
 * Why I wrote NiM https://blog.june07.com/inspect-broke-my-workflow/
 * Custom DevTools feature: https://blog.june07.com/nim-custom-devtools-url/
