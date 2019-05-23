@@ -65,14 +65,6 @@ ngApp
     $scope.timerUptime = 0;
     $scope.timerNotification = 0;
     $scope.VERSION = VERSION;
-    $scope.settingsRevised = {
-        localDevToolsOptions: [
-            { 'id': '0', 'name': 'default', 'url': '', 'selected': true },
-            { 'id': '1', 'name': 'appspot', 'url': 'https://chrome-devtools-frontend.appspot.com/serve_file/@548c459fb7741b83bd517b12882f533b04a5513e/inspector.html' },
-            { 'id': '2', 'name': 'june07', 'url': 'https://chrome-devtools-frontend.june07.com/front_end/inspector.html' },
-            { 'id': '3', 'name': 'custom', 'url': '' },
-        ]
-    };
     $scope.settings = {
         DEVEL: DEVEL,
         host: "localhost",
@@ -95,12 +87,23 @@ ngApp
         chromeNotifications: true,
         autoIncrement: {type: 'port', name: 'Port'}, // both | host | port | false
         collaboration: false,
-        localDevToolsOptions: $scope.settingsRevised.localDevToolsOptions,
         panelWindowType: false,
         nimsVscode: {
             enabled: true
-        }
+        },
+        devToolsCompat: true,
+        localDevToolsOptionsSelectedIndex: 0 
     };
+    $scope.localDevToolsOptions = [
+        /* The url is set as a default to prevent a nasty case where an unset value results in an undefined which further results in runaway tabs opening.
+        *  Decided to use the devtoolsFrontendUrlCompat url as currently it's the one that works more fully (see https://blog.june07.com/missing/)
+        *  Todo: write a failsafe to prevent that condition too!
+        */
+        { 'id': '0', 'name': 'default', 'url': 'chrome-devtools://devtools/bundled/inspector.html', 'selected': true }, 
+        { 'id': '1', 'name': 'appspot', 'url': 'https://chrome-devtools-frontend.appspot.com/serve_file/@548c459fb7741b83bd517b12882f533b04a5513e/inspector.html' },
+        { 'id': '2', 'name': 'june07', 'url': 'https://chrome-devtools-frontend.june07.com/front_end/inspector.html' },
+        { 'id': '3', 'name': 'custom', 'url': '' },
+    ];
     $scope.remoteTabs = [];
     $scope.localSessions = [];
     $scope.state = {
@@ -116,15 +119,15 @@ ngApp
     $scope.locks = [];
     $scope.moment = $window.moment;
     $scope.getDevToolsOption = function() {
-        return $scope.settings.localDevToolsOptions.find((option) => {
+        return $scope.localDevToolsOptions.find((option) => {
             return option.selected;
         });
     };
     $scope.validateCustomDevToolsURL = function() {
-        if ($scope.settings.localDevToolsOptions[3].url === undefined)
-            $scope.settings.localDevToolsOptions[3].url = $scope.settings.localDevToolsOptions[1].url;
-        else if (!$scope.settings.localDevToolsOptions[3].url.match(devToolsURL_Regex))
-            $scope.settings.localDevToolsOptions[3].url = $scope.settings.localDevToolsOptions[1].url;
+        if ($scope.localDevToolsOptions[3].url === undefined)
+            $scope.localDevToolsOptions[3].url = $scope.localDevToolsOptions[1].url;
+        else if (!$scope.localDevToolsOptions[3].url.match(devToolsURL_Regex))
+            $scope.localDevToolsOptions[3].url = $scope.localDevToolsOptions[1].url;
     }
 
     let tabId_HostPort_LookupTable = [],
@@ -256,14 +259,14 @@ ngApp
                         })
                         .then(function openDevToolsFrontend(json) {
                             if (!json.data[0].devtoolsFrontendUrl) return callback(chrome.i18n.getMessage("errMsg7", [host, port]));
-                            $scope.settings.localDevToolsOptions[0].url = json.data[0].devtoolsFrontendUrl.split('?')[0];
+                            setDevToolsURL(json.data[0]);
                             var url = json.data[0].devtoolsFrontendUrl.replace(/ws=localhost/, 'ws=127.0.0.1');
                             var inspectIP = url.match(SOCKET_PATTERN)[1];
                             var inspectPORT = url.match(SOCKET_PATTERN)[5];
                             url = url
                                 .replace(inspectIP + ":9229", host + ":" + port) // In the event that remote debugging is being used and the infoUrl port (by default 80) is not forwarded take a chance and pick the default.
                                 .replace(inspectIP + ":" + inspectPORT, host + ":" + port) // A check for just the port change must be made.
-                            if ($scope.settings.localDevTools)
+                            if ($scope.settings.localDevTools || $scope.settings.devToolsCompat)
                                 url = url.replace(devToolsURL_Regex, $scope.getDevToolsOption().url);
                             if ($scope.settings.bugfix)
                                 url = url.replace('', '');
@@ -399,10 +402,23 @@ ngApp
             }
         })
     }
+    $scope.setDevToolsOption = function(optionIndex) {
+        $scope.localDevToolsOptions.forEach((option, i) => {
+            if (i === optionIndex) {
+                option.selected = true;
+                $scope.settings.localDevToolsOptionsSelectedIndex = optionIndex;
+            } else {
+                option.selected = false;
+            }
+        });
+    };
+    function setDevToolsURL(nodeJSONMeta) {
+        $scope.localDevToolsOptions[0].url = ($scope.settings.devToolsCompat) ? nodeJSONMeta.devtoolsFrontendUrlCompat.split('?')[0] : nodeJSONMeta.devtoolsFrontendUrl.split('?')[0];
+    }
     function getDevToolsURL(session) {
         let url = session.devtoolsFrontendUrl;
         // The following line is required because normally the host part of the URL is set dynamically in `function openDevToolsFrontend(json)`
-        if ($scope.getDevToolsOption() === '') $scope.settings.localDevToolsOptions[0].url = url.split('?')[0]; 
+        if ($scope.getDevToolsOption() === 'chrome-devtools://devtools/bundled/inspector.html') $scope.localDevToolsOptions[0].url = url.split('?')[0]; 
         if ($scope.settings.localDevTools) url = url.replace(devToolsURL_Regex, $scope.getDevToolsOption().url);
         return url;
     }
@@ -926,8 +942,9 @@ ngApp
         if ($scope.settings.debugVerbosity >= 1) console.log('Restoring saved settings.');
         chrome.storage.sync.get(function(sync) {
             var keys = Object.keys(sync);
-            keys.forEach(function(key) {
+            keys.forEach(function(key, i, keys) {
                 $scope.settings[key] = sync[key];
+                if (i === keys.length-1) $scope.setDevToolsOption($scope.settings.localDevToolsOptionsSelectedIndex);
             });
         });
     }
@@ -937,7 +954,6 @@ ngApp
         }
     }
     function updateSettings() {
-        write('localDevToolsOptions', $scope.settingsRevised.localDevToolsOptions);
     }
     function saveAll() {
         saveAllToChromeStorage($scope.settings, 'settings');
@@ -982,8 +998,17 @@ ngApp
                 case 'collaboration': entry[0] = 'c'; break;
                 case 'loginRefreshInterval': entry[0] = 'lri'; break;
                 case 'tokenRefreshInterval': entry[0] = 'tri'; break;
+                case 'remoteProbeInterval': entry[0] = 'r'; break;
+                case 'localSessionTimeout': entry[0] = 'l'; break;
+                case 'panelWindowType': entry[0] = 'pa'; break;
+                case 'nimsVscode': entry[0] = 'n'; break;
+                case 'devToolsCompat': entry[0] = 'd'; break;
+                case 'localDevToolsOptionsSelectedIndex': entry[0] = 'ld'; break;
             }
-            if (index === tinySettings.length-1) callback(JSON.stringify(tinySettings));
+            if (index === tinySettings.length-1) {
+                tinySettings.splice(tinySettings.findIndex(e => e[0] === 'DEVEL'), 1);
+                callback(JSON.stringify(tinySettings));
+            }
         });
     }
     function formatParams() {

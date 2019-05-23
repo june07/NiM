@@ -99,10 +99,7 @@ ngApp
             $('#modal3').modal('close');
         }
         $scope.setDevToolsOption = function(optionIndex) {
-            $scope.bg.settings.localDevToolsOptions.forEach((option, i) => {
-                if (i === optionIndex) option.selected = true;
-                else option.selected = false;
-            });
+            $scope.bg.setDevToolsOption(optionIndex);
         };
         $scope.resetDevToolsOption = function() {
             if (!$scope.bg.settings.localDevTools) $scope.setDevToolsOption(0);

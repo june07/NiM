@@ -692,3 +692,7 @@ input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):
     -webkit-box-shadow: 0 1px 0 0 #4CAF50;
     box-shadow: 0 1px 0 0 #4CAF50;
 }
+span#devToolsCompat {
+    float: right;
+    margin-right: 50px;
+}
