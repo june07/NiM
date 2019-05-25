@@ -200,5 +200,9 @@
   "optionsNiMSVSCode": {
     "message": "VSCode Integration.",
     "description": "Options page label for VSCode Integration."
+  },
+  "optionsWindowStateMaximized": {
+    "message": "Open in a Maximized Window.",
+    "description": "Options page label for windowStateMaximized setting."
   }
 }

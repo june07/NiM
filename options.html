@@ -73,6 +73,15 @@
                         </div>
                         <span class="i18n">inspectorWindowStyle</span>
                     </li>
+                    <li class="collection-item animate-swing-show" ng-show="bg.settings.newWindow">
+                        <div class="switch right">
+                            <label><span class="i18n">off</span>
+                                <input type="checkbox" ng-model="bg.settings.windowStateMaximized" id="Maximized window" class="ga-track">
+                                <span class="lever"></span><span class="i18n">on</span>
+                            </label>
+                        </div>
+                        <span class="i18n">optionsWindowStateMaximized</span>
+                    </li>
                     <li class="collection-item animate-swing-show" ng-show="!bg.settings.newWindow">
                         <div class="switch right">
                             <label><span class="i18n">off</span>

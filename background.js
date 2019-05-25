@@ -92,7 +92,8 @@ ngApp
             enabled: true
         },
         devToolsCompat: true,
-        localDevToolsOptionsSelectedIndex: 0 
+        localDevToolsOptionsSelectedIndex: 0,
+        windowStateMaximized: false
     };
     $scope.localDevToolsOptions = [
         /* The url is set as a default to prevent a nasty case where an unset value results in an undefined which further results in runaway tabs opening.
@@ -827,7 +828,8 @@ ngApp
                 chrome.windows.create({
                     url: url,
                     focused: $scope.settings.windowFocused,
-                    type: ($scope.settings.panelWindowType) ? 'panel' : 'normal'
+                    type: ($scope.settings.panelWindowType) ? 'panel' : 'normal',
+                    state: $scope.settings.windowStateMaximized ? chrome.windows.WindowState.MAXIMIZED : chrome.windows.WindowState.NORMAL
                 }, function(window) {
                     /* Is window.id going to cause id conflicts with tab.id?!  Should I be grabbing a tab.id here as well or instead of window.id? */
                     saveSession(url, infoUrl, websocketId, window.id, nodeInspectMetadataJSON);
@@ -1004,6 +1006,7 @@ ngApp
                 case 'nimsVscode': entry[0] = 'n'; break;
                 case 'devToolsCompat': entry[0] = 'd'; break;
                 case 'localDevToolsOptionsSelectedIndex': entry[0] = 'ld'; break;
+                case 'windowStateMaximized': entry[0] = 'w'; break;
             }
             if (index === tinySettings.length-1) {
                 tinySettings.splice(tinySettings.findIndex(e => e[0] === 'DEVEL'), 1);
