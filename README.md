@@ -8,6 +8,7 @@
 
 * [Chrome Web Store](http://bit.ly/2W8hQG9) (works with any Chromium browsers: [Google's Chrome](https://www.google.com/chrome/), [Microsoft's Edge](https://www.microsoftedgeinsider.com/en-us/, ), [Opera](https://www.opera.com/), [Vivaldi](https://vivaldi.com/), [Brave](https://brave.com/), [Epic](https://www.epicbrowser.com/), and more...  )
 
+    ***PLEASE NOTE***: Installing this via the Chrome Web Store does require the sharing of your email address with me (and only me).  You are given notice of this via the webstore, but it's become and remains such an issue that I feel the need to make it OVER-abundantly clear.  If you take issue with sharing your email address with me (mine is 667@june07.com by the way) please, I implore you to clone/fork a copy yourself and change what you don't like about the code and/or use alternate solutions (none of which are as good as NiM, but call me biased) including this guy's tool: https://github.com/cjihrig/node-v8-inspector.  Further feel free to contact me directly and have a chat.  Unlike the behemoths like Facebook, Google, Amazon that you probably (and without hesitation) share your email address with, I actually care about the concerns of the actual people who choose to use the code I wrote (~99%) and am responsible for.  Here is the privacy policy that goes along with NiM https://june07.com/privacypolicy.  Thank you so much.
 
 ## Blog Posts/Updates:
 Now integrates with VSCode using NiMS [VSCode Extension](http://bit.ly/2VwKeSZ) 
