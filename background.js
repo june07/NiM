@@ -138,7 +138,7 @@ ngApp
         SingletonHttpGet = httpGetTestSingleton(),
         SingletonOpenTabInProgress = openTabInProgressSingleton(),
         triggerTabUpdate = false,
-        websocketIdLastLoaded = null,
+        websocketIdLastLoaded = {},
         tabNotificationListeners = [];
     $scope.tabId_HostPort_LookupTable = tabId_HostPort_LookupTable;
 
@@ -805,7 +805,7 @@ ngApp
         }
     }
     function updateTabOrWindow(infoUrl, url, websocketId, tab) {
-        if (websocketId === websocketIdLastLoaded) return;
+        if (websocketId === websocketIdLastLoaded[infoUrl]) return;
         $window._gaq.push(['_trackEvent', 'Program Event', 'updateTab', 'focused', $scope.settings.windowFocused, true]);
         chrome.tabs.update(tab.id, {
             url: url,
@@ -817,7 +817,7 @@ ngApp
                     return deleteSession(tab.id);
                 }
             }
-            websocketIdLastLoaded = websocketId;
+            websocketIdLastLoaded[infoUrl] = websocketId;
             triggerTabUpdate = true;
         });
     }
