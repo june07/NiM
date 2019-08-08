@@ -101,10 +101,6 @@ ngApp
         windowStateMaximized: false,
         scheme: CHROME_VERSION > 75 ? DEVTOOLS_SCHEMES[1] : DEVTOOLS_SCHEMES[0]
     };
-    $scope.setScheme = function() {
-        $scope.settings.scheme = $scope.schemeFix ? DEVTOOLS_SCHEMES[1] : DEVTOOLS_SCHEMES[0];
-    }
-    $scope.schemeFix = false;
     $scope.localDevToolsOptions = [
         /* The url is set as a default to prevent a nasty case where an unset value results in an undefined which further results in runaway tabs opening.
         *  Decided to use the devtoolsFrontendUrlCompat url as currently it's the one that works more fully (see https://blog.june07.com/missing/)

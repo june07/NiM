@@ -18,7 +18,8 @@
         "jSHA": true,
         "nacl": true,
         "crypto": true,
-        "document": true
+        "document": true,
+        "navigator": true
     },
   "env": { "es6": true },
     "rules": {
