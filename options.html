@@ -114,6 +114,10 @@
                                 <input type="checkbox" id="devToolsCompatCheckbox" ng-model="bg.settings.devToolsCompat" />
                                 <label for="devToolsCompatCheckbox">DevToolsCompat</label>
                             </span>
+                            <span id="optionsSchemeFix">
+                                <input type="checkbox" id="optionsSchemeFixCheckbox" ng-click="bg.setScheme()" ng-model="bg.schemeFix" />
+                                <label class="i18n" for="optionsSchemeFixCheckbox">optionsSchemeFix</label>
+                            </span>
                             <span id="devToolsBadge">DevTools Version ({{ bg.getDevToolsOption().name }}): <span id="devToolsBadgeLabel" class="badge">{{ bg.getDevToolsOption().url }}</span></span>
                         </div>
                         <a ng-hide="!bg.settings.localDevTools" class="dropdown-button" href="#" data-activates="dropdown1">

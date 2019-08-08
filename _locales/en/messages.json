@@ -204,5 +204,9 @@
   "optionsWindowStateMaximized": {
     "message": "Open in a Maximized Window.",
     "description": "Options page label for windowStateMaximized setting."
+  },
+  "optionsSchemeFix": {
+    "message": "Chromium76+",
+    "description": "Options page label for optionsSchemeFix setting."
   }
 }

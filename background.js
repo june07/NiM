@@ -44,6 +44,7 @@ ngApp
             });
         }
     }
+    const CHROME_VERSION = /Chrome\/([0-9.]+)/.exec(navigator.userAgent)[1].split('.')[0];
     const VERSION = '0.0.0'; // Filled in by Grunt
     const UPTIME_CHECK_INTERVAL = 60 * 15; // 15 minutes 
     const INSTALL_URL = "https://bit.ly/2HBlRs1";
@@ -52,8 +53,12 @@ ngApp
     const SHORTNER_SERVICE_URL = 'https://shortnr.june07.com/api'
     const UPTIME_CHECK_RESOLUTION = 60000; // Check every minute
     const DEVEL = true;
+    const DEVTOOLS_SCHEMES = [
+        'chrome-devtools://',
+        'devtools://'
+    ];
     const SOCKET_PATTERN = /((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])):([0-9]+)/;
-    const devToolsURL_Regex = /(chrome-devtools:\/\/|https:\/\/chrome-devtools-frontend(.appspot.com|.june07.com)).*(inspector.html|js_app.html)/;
+    const devToolsURL_Regex = /(devtools:\/\/|chrome-devtools:\/\/|https:\/\/chrome-devtools-frontend(.appspot.com|.june07.com)).*(inspector.html|js_app.html)/;
 
     $window.chrome.management.getSelf((ExtensionInfo) => {
         $scope.ExtensionInfo = ExtensionInfo;
@@ -93,14 +98,19 @@ ngApp
         },
         devToolsCompat: true,
         localDevToolsOptionsSelectedIndex: 0,
-        windowStateMaximized: false
+        windowStateMaximized: false,
+        scheme: CHROME_VERSION > 75 ? DEVTOOLS_SCHEMES[1] : DEVTOOLS_SCHEMES[0]
     };
+    $scope.setScheme = function() {
+        $scope.settings.scheme = $scope.schemeFix ? DEVTOOLS_SCHEMES[1] : DEVTOOLS_SCHEMES[0];
+    }
+    $scope.schemeFix = false;
     $scope.localDevToolsOptions = [
         /* The url is set as a default to prevent a nasty case where an unset value results in an undefined which further results in runaway tabs opening.
         *  Decided to use the devtoolsFrontendUrlCompat url as currently it's the one that works more fully (see https://blog.june07.com/missing/)
         *  Todo: write a failsafe to prevent that condition too!
         */
-        { 'id': '0', 'name': 'default', 'url': 'chrome-devtools://devtools/bundled/inspector.html', 'selected': true }, 
+        { 'id': '0', 'name': 'default', 'url': $scope.settings.scheme + 'devtools/bundled/inspector.html', 'selected': true }, 
         { 'id': '1', 'name': 'appspot', 'url': 'https://chrome-devtools-frontend.appspot.com/serve_file/@548c459fb7741b83bd517b12882f533b04a5513e/inspector.html' },
         { 'id': '2', 'name': 'june07', 'url': 'https://chrome-devtools-frontend.june07.com/front_end/inspector.html' },
         { 'id': '3', 'name': 'custom', 'url': '' },
@@ -239,9 +249,9 @@ ngApp
                     var infoUrl = getInfoURL(host, port);
                     chrome.tabs.query({
                         url: [// 'chrome-devtools://*/*',
-                            'chrome-devtools://*/*localhost:' + port + '*',
-                            'chrome-devtools://*/*' + host + ':' + port + '*',
-                            'chrome-devtools://*/*' + host + '/ws/' + port + '*',
+                            $scope.settings.scheme + '*/*localhost:' + port + '*',
+                            $scope.settings.scheme + '*/*' + host + ':' + port + '*',
+                            $scope.settings.scheme + '*/*' + host + '/ws/' + port + '*',
 
                             'https://chrome-devtools-frontend.june07.com/*localhost:' + port + '*',                                
                             'https://chrome-devtools-frontend.june07.com/*' + host + ':' + port + '*',
@@ -295,10 +305,10 @@ ngApp
                                 // If the tab has focus then issue this... otherwise wait until it has focus (ie event listener for window event.  If another request comes in while waiting, just update the request with the new info but still wait if focus is not present.
                                 var promiseToUpdateTabOrWindow = new Promise(function(resolve) {
                                     chrome.tabs.query({
-                                        url: [// 'chrome-devtools://*/*',
-                                            'chrome-devtools://*/*localhost:' + port + '*',
-                                            'chrome-devtools://*/*' + host + ':' + port + '*',
-                                            'chrome-devtools://*/*' + host + '/ws/' + port + '*',
+                                        url: [// $scope.settings.scheme + */*',
+                                            $scope.settings.scheme + '*/*localhost:' + port + '*',
+                                            $scope.settings.scheme + '*/*' + host + ':' + port + '*',
+                                            $scope.settings.scheme + '*/*' + host + '/ws/' + port + '*',
 
                                             'https://chrome-devtools-frontend.june07.com/*localhost:' + port + '*',                                
                                             'https://chrome-devtools-frontend.june07.com/*' + host + ':' + port + '*',
@@ -356,7 +366,7 @@ ngApp
         
         // Currently not sure if chrome-devtools:// scheme can be injected into
         chrome.tabs.get(tabId, (tab) => {
-            if (tab === undefined || tab.url.match(/chrome-devtools:\/\//)) {
+            if (tab === undefined || $scope.settings.scheme === 0 ? tab.url.match(/chrome-devtools:\/\//) : tab.url.match(/devtools:\/\//)) {
                 return
             } else {
                 var nodeProgram = $scope.devToolsSessions.find(r => r.id == tabId);
@@ -419,7 +429,7 @@ ngApp
     function getDevToolsURL(session) {
         let url = session.devtoolsFrontendUrl;
         // The following line is required because normally the host part of the URL is set dynamically in `function openDevToolsFrontend(json)`
-        if ($scope.getDevToolsOption() === 'chrome-devtools://devtools/bundled/inspector.html') $scope.localDevToolsOptions[0].url = url.split('?')[0]; 
+        if ($scope.getDevToolsOption() === $scope.settings.scheme + 'devtools/bundled/inspector.html') $scope.localDevToolsOptions[0].url = url.split('?')[0]; 
         if ($scope.settings.localDevTools) url = url.replace(devToolsURL_Regex, $scope.getDevToolsOption().url);
         return url;
     }
