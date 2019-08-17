@@ -420,7 +420,7 @@ ngApp
         });
     };
     function setDevToolsURL(nodeJSONMeta) {
-        $scope.localDevToolsOptions[0].url = ($scope.settings.devToolsCompat) ? nodeJSONMeta.devtoolsFrontendUrlCompat.split('?')[0] : nodeJSONMeta.devtoolsFrontendUrl.split('?')[0];
+        $scope.localDevToolsOptions[0].url = ($scope.settings.devToolsCompat && nodeJSONMeta.devtoolsFrontendUrlCompat) ? nodeJSONMeta.devtoolsFrontendUrlCompat.split('?')[0] : nodeJSONMeta.devtoolsFrontendUrl.split('?')[0];
     }
     function getDevToolsURL(session) {
         let url = session.devtoolsFrontendUrl;
