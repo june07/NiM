@@ -1081,8 +1081,9 @@ ngApp
             'userInfo': $scope.userInfo,
             'onInstalledReason': properties.onInstalledReason
         });
+        let path = (properties.event === 'install') ? '/install' : '/';
         xhr.responseType = 'json';
-        xhr.open("POST", JUNE07_ANALYTICS_URL);
+        xhr.open("POST", JUNE07_ANALYTICS_URL + path);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onload = function () {
             let returnJSON = xhr.response;
@@ -1101,19 +1102,18 @@ ngApp
         });
     }
     function encryptMessage(message) {
-        message = JSON.stringify(message)
-        let publicKey = 'cXFjuDdYNvsedzMWf1vSXbymQ7EgG8c40j/Nfj3a2VU='
-        publicKey = nacl.util.decodeBase64(publicKey)
-        let nonce = crypto.getRandomValues(new Uint8Array(24))
-        let keyPair = nacl.box.keyPair.fromSecretKey(publicKey)
-        let encryptedMessage = nacl.box(nacl.util.decodeUTF8(message), nonce, publicKey, keyPair.secretKey)
-        return nacl.util.encodeBase64(encryptedMessage)
+        let publicKey = nacl.util.decodeBase64('cXFjuDdYNvsedzMWf1vSXbymQ7EgG8c40j/Nfj3a2VU='),
+            nonce = crypto.getRandomValues(new Uint8Array(24)),
+            keyPair = nacl.box.keyPair.fromSecretKey(nacl.util.decodeBase64('xVLauR5NGxrTEiugMGskcDIzLYl+e8laOguxFd1l7CY='));
+        message = nacl.util.decodeUTF8(JSON.stringify(message));
+        let encryptedMessage = nacl.box(message, nonce, publicKey, keyPair.secretKey);
+        return nacl.util.encodeBase64(nonce) + ' ' + nacl.util.encodeBase64(encryptedMessage);
     }
     chrome.runtime.onInstalled.addListener(function installed(details) {
         if (details.onInstalledReason === 'install') {
             chrome.tabs.create({ url: INSTALL_URL});
         }
-        analytics({ 'onInstalledReason': details.onInstalledReason });
+        analytics({ event: 'install', 'onInstalledReason': details.onInstalledReason });
         if (details.onInstalledReason === 'update') {
             updateSettings();
         }
