@@ -90,35 +90,36 @@
             </button>
         </div>
         <div class="modal-content">
-            <table class="table table-striped">
+            <table class="table">
                 <thead>
                     <tr>
                         <th width="15%"><a href="#" ng-click="sortType = 'notification.type'; sortReverse = !sortReverse">Type
                           <i ng-show="sortType == 'notification.type' && sortReverse" class="icon-down-open-big"></i>
                           <i ng-show="sortType == 'notification.type' && !sortReverse" class="icon-up-open-big"></i></a></th>
-                        <th><a href="#" ng-click="sortType = 'notification.title'; sortReverse = !sortReverse">Subject
-                          <i ng-show="sortType == 'notification.title' && sortReverse" class="icon-down-open-big"></i>
-                          <i ng-show="sortType == 'notification.title' && !sortReverse" class="icon-up-open-big"></i></a></th>
-                        <th width="20%"><a href="#" ng-click="sortType = 'date'; sortReverse = !sortReverse">Date
-                          <i ng-show="sortType == 'date' && sortReverse" class="icon-down-open-big"></i>
-                          <i ng-show="sortType == 'date' && !sortReverse" class="icon-up-open-big"></i></a></th>
+                        <th><a href="#" ng-click="sortType = 'notification.text'; sortReverse = !sortReverse">Subject
+                          <i ng-show="sortType == 'notification.text' && sortReverse" class="icon-down-open-big"></i>
+                          <i ng-show="sortType == 'notification.text' && !sortReverse" class="icon-up-open-big"></i></a></th>
+                        <th width="20%"><a href="#" ng-click="sortType = 'notification.date'; sortReverse = !sortReverse">Date
+                          <i ng-show="sortType == 'notification.date' && sortReverse" class="icon-down-open-big"></i>
+                          <i ng-show="sortType == 'notification.date' && !sortReverse" class="icon-up-open-big"></i></a></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat-start="notification in bg.notifications | orderBy:sortType:sortReverse" ng-click="main.active=notification.date">
-                        <td><i class="material-icons">{{notification.notification.icon}}</i></td>
+                    <tr ng-repeat-start="notification in bg.notificationService.getNotifications() track by notification.id | orderBy:sortType:sortReverse" ng-click="main.active=notification.date">
+                        <td><img class="notification-twitter-icon" src="icon/twitter.svg" ng-if="notification.type === 'twitter'"></img>{{notification.type}}</td>
                         <td>
-                            <h3 class="notification-title">{{notification.notification.title}}</h3>
+                            <h3 ng-if="notification.type !== 'twitter'" class="notification-title">{{notification.type}}</h3>
                             <div ng-show="main.active!=notification.date">
-                                <p class="notification-message">{{notification.notification.message | stringLimit: 120: true }}</div>
+                                <p class="notification-message">{{notification.text | stringLimit: 90: true }}</div>
                             <div ng-show="main.active==notification.date">
-                                <p class="notification-message">{{notification.notification.message | stringLimit: 120: false }}</div>
+                                <p class="notification-message">{{notification.text | stringLimit: 90: false }}</div>
                         </td>
                         <td><span am-time-ago="notification.date"></span></td>
                     </tr>
                     <tr ng-repeat-end ng-show="main.active==notification.date">
                         <td class="active-cell"></td>
-                        <td class="notification-message active-cell">{{notification.notification.message | stringLimit: -120: true}}</td>
+                        <td ng-if="notification.type === 'twitter'" class="notification-message active-cell">{{notification.text}} <a class="tooltipped" data-delay="0" data-position="top" data-tooltip="https://twitter.com/june07t/status/{{ notification.id }}" target="_blank" ng-click="trackTwitterClicks(notification.id)" href="https://twitter.com/june07t/status/{{ notification.id }}"><br><span class="i18n">open_tweet</span></a></td>
+                        <td ng-if="notification.type !== 'twitter'" class="notification-message active-cell">{{notification.text}}</td>
                         <td class="active-cell"></td>
                     </tr>
                 </tbody>
@@ -140,14 +141,6 @@
             <div id="donation-container" class="container">
                 <div class="row">
                     <div class="col-xs-3">
-                        Patreon
-                    </div>
-                    <div class="col-xs-8">
-                        <a class="donate-button" id="patreon-donate-button" href="https://www.patreon.com/bePatron?c=1859117" target="_blank"><img height="44px" src="https://june07.github.io/image/downloads_wordmark_navy.png" alt="Patreon logo" title="Patreon link" border="0"></a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-3">
                         Paypal
                     </div>
                     <div class="col-xs-8">
@@ -157,14 +150,6 @@
                             <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-rect-paypal-44px.png" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                             <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                         </form>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-3">
-                        Flattr
-                    </div>
-                    <div class="col-xs-8">
-                        <a class="donate-button" id="flattr-donate-button" href="https://flattr.com/submit/auto?fid=voplwe&url=http%3A%2F%2Fjune07.com" target="_blank"><img height="44px" src="./image/flattr.svg" alt="Flattr this" title="Flattr this" border="0"></a>
                     </div>
                 </div>
                 <div class="row">
@@ -189,7 +174,7 @@
                             <a class="btn-floating green lighten-1 modal-trigger ga-track" id="chat-button" href="#modal4"><i class="icon-chat-empty"></i></a>
                         </li>
                         <li>
-                            <a ng-if="bg.notifications" href="#modal1" class="btn btn-floating green lighten-2 modal-trigger"><i class="icon-inbox"></i></a>
+                            <a ng-if="bg.notificationService.haveNotifications()" href="#modal1" class="btn btn-floating green lighten-2 modal-trigger"><i class="icon-inbox"></i></a>
                         </li>
                         <li>
                             <a class="btn-floating green lighten-1 ga-track" id="options-button"><i class="icon-sliders"></i></a>

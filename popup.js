@@ -103,6 +103,9 @@ ngApp
     $scope.track = function (url) {
         $window._gaq.push(['_trackPageview', url]);
     };
+    $scope.trackTwitterClicks = function (id) {
+        $window._gaq.push(['_trackEvent', 'Social Event', 'Link Click', 'https://twitter.com/june07t/status/' + id, undefined, true]);
+    };
     function showErrorMessage(error) {
       $window.document.querySelector('#site-href').style.display = "none";
       $window.Materialize.toast(error, 5000);
@@ -161,6 +164,7 @@ ngApp
       starting_top: '4%', // Starting top style attribute
       ending_top: '10%', // Ending top style attribute
       ready: function() {
+        $scope.bg.localize($window, function() {});
         $scope.messageModalState = "open";
         if ($scope.notify) $scope.notify.close();
       }

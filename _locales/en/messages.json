@@ -208,5 +208,9 @@
   "optionsSchemeFix": {
     "message": "Chromium76+",
     "description": "Options page label for optionsSchemeFix setting."
+  },
+  "open_tweet": {
+    "message": "Open Tweet",
+    "description": "Tweet link button text."
   }
 }

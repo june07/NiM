@@ -315,6 +315,9 @@ i.small {
 .notification-message {
     font-size: small;
 }
+.notification-message.active-cell {
+    font-size: x-large;
+}
 .notification-title {
     font-size: large;
 }
@@ -364,13 +367,23 @@ thead tr th {
 }
 td.active-cell {
     border-top: 0 !important;
-    background-color: #dcedc8;
+    background-color: white;
 }
-#modal1 > div.modal-content > table > tbody > tr:nth-child(n) {
+#modal1 > .modal-header {
+    background: white;
+}
+#modal1 > div.modal-content > table > tbody > tr:nth-child(4n-1) {
     background-color: #f1f8e9;
 }
-#modal1 > div.modal-content > table > thead {
+#modal1 > div.modal-content > table > tbody > tr {
     background-color: #fafafa;
+}
+#modal1 > div.modal-content > table > thead {
+    background-color: #c5e1a5;
+}
+img.notification-twitter-icon {
+    width: 20px;
+    margin-right: 10px;
 }
 .modal-content {
     border-radius: 0;

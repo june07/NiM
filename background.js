@@ -44,15 +44,84 @@ ngApp
             });
         }
     }
+    class NotificationService {
+        constructor() {
+            this.notifications = [];
+            setTimeout(this.pullNotifications.bind(this), 5000);
+            setInterval(this.pullNotifications.bind(this), NOTIFICATION_CHECK_INTERVAL);
+            setInterval(this.pushUnpushedNotification.bind(this), NOTIFICATION_PUSH_INTERVAL);
+        }
+        pullNotifications() {
+            $http({
+                method: "GET",
+                url: MESSAGING_SERVICE_URL,
+                responseType: "json"
+            })
+            .then((json) => {
+                let gaArray = [];
+                gaArray.push(['_trackEvent', 'Program Event', 'Notification Service', 'Pulled Messages', parseInt(json.data.length), true]);
+                json.data.forEach(message => {
+                    if (this.notifications.find(notification => notification.type + ' ' + notification.id === message.type + ' ' + message.id) === undefined) {
+                        gaArray.push(['_trackEvent', 'Program Event', 'Notification Service', 'Pulled ' + message.type + ' ' + message.id, undefined, true]);
+                        this.notifications.push(message);
+                    }
+                });
+                $window._gaq.push(gaArray);
+                this.removeExpiredNotifications();
+            })
+            .catch(error => {
+                if ($scope.settings.debugVerbosity >= 1) console.log(error);
+            });
+        }
+        removeExpiredNotifications() {
+            let gaArray = [];
+            this.notifications = this.notifications.filter(notification => {
+                let remainingTime = Date.now() + NOTIFICATION_LIFETIME - notification.date;
+                let expired = (remainingTime > 0) ? false : true;
+                if ((DEVEL || $scope.settings.debugVerbosity >= 1) && expired) console.log(`Removing expired ${notification.type} notification ${notification.id}.`);
+                if (DEVEL || $scope.settings.debugVerbosity >= 1) console.log(`Notification lifetime for ${notification.type} notification ${notification.id}: ${$scope.moment.duration(remainingTime).humanize()}`);
+                gaArray.push(['_trackEvent', 'Program Event', 'Notification Service', 'Expired ' + notification.type + ' ' + notification.id, undefined, true]);
+                return !expired;
+            });
+            $window._gaq.push(gaArray);
+        }
+        addNotification(notification) {
+            let found = this.notifications.find();
+            if (found === undefined) notifications.push(notification);
+        }
+        getNotifications() {
+            return this.notifications;
+        }
+        getNotification(chromiumNotificationId) {
+            return this.notifications.find(notification => notification.chromiumNotificationId === chromiumNotificationId);
+        }
+        pushUnpushedNotification() {
+            let unpushed = this.notifications.find(notification => notification.pushed === undefined || notification.pushed !== true);
+            if (unpushed) {
+                pushNotification(unpushed);
+                unpushed.pushed = true;
+                $window._gaq.push(['_trackEvent', 'Program Event', 'Notification Service', 'Pushed ' + unpushed.type + ' ' + unpushed.id, undefined, true]);
+            }
+        }
+        haveNotifications() {
+            let count = parseInt(this.notifications.length);
+            $window._gaq.push(['_trackEvent', 'Program Event', 'Notification Service', 'Notifications', count, true]);
+            return count > 0 ? true : false;
+        }
+    }
+    const DEVEL = true;
     const CHROME_VERSION = /Chrome\/([0-9.]+)/.exec(navigator.userAgent)[1].split('.')[0];
     const VERSION = '0.0.0'; // Filled in by Grunt
     const UPTIME_CHECK_INTERVAL = 60 * 15; // 15 minutes 
-    const INSTALL_URL = "https://bit.ly/2HBlRs1";
+    const INSTALL_URL = "https://blog.june07.com/nim-install/?utm_source=nim&utm_medium=chrome_extension&utm_campaign=extension_install&utm_content=1";
     const UNINSTALL_URL = "https://bit.ly/2vUcRNn";
     const JUNE07_ANALYTICS_URL = 'https://analytics.june07.com';
-    const SHORTNER_SERVICE_URL = 'https://shortnr.june07.com/api'
+    const SHORTNER_SERVICE_URL = 'https://shortnr.june07.com/api';
+    const MESSAGING_SERVICE_URL = 'https://messenger.june07.com/notifications/nim';
     const UPTIME_CHECK_RESOLUTION = 60000; // Check every minute
-    const DEVEL = true;
+    const NOTIFICATION_CHECK_INTERVAL = DEVEL ? 5000 : 60 * 60000; // Check every hour
+    const NOTIFICATION_PUSH_INTERVAL = DEVEL ? 5000 : 60 * 60000; // Push new notifications no more than 1 every hour if there is a queue.
+    const NOTIFICATION_LIFETIME = DEVEL ? 3 * 60000 : 7 * 86400000;
     const DEVTOOLS_SCHEMES = [
         'chrome-devtools://',
         'devtools://'
@@ -65,7 +134,7 @@ ngApp
     });
     getChromeIdentity();
     $scope.NiMSVSCodeConnector = new NiMSVSCodeConnector();
-
+    $scope.notificationService = new NotificationService();
     $scope.loaded = Date.now();
     $scope.timerUptime = 0;
     $scope.timerNotification = 0;
@@ -118,7 +187,6 @@ ngApp
             selectedTab: undefined
         }
     }
-    $scope.notifications;
     $scope.devToolsSessions = [];
     $scope.changeObject;
     $scope.userInfo;
@@ -150,10 +218,11 @@ ngApp
 
     restoreSettings();
     updateInternalSettings() // This function is needed for settings that aren't yet configurable via the UI.  Otherwise the new unavailable setting will continue to be reset with whatever was saved vs the defaults.
+
     setInterval(function() {
         $scope.timerUptime++;
         if (($scope.timerUptime >= UPTIME_CHECK_INTERVAL && $scope.timerUptime % UPTIME_CHECK_INTERVAL === 0) || ($scope.timerUptime === 1)) {
-            $window._gaq.push(['_trackEvent', 'Program Event', 'Uptime Check', $scope.moment.duration($scope.timerUptime, 'seconds').humanize(), undefined, true ],
+            $window._gaq.push(['_trackEvent', 'Program Event', 'Uptime Check', $scope.moment.duration($scope.timerUptime, 'seconds').humanize(), $scope.timerUptime, true ],
             ['_trackEvent', 'Program Event', 'Version Check', VERSION + " " + $scope.userInfo, undefined, true]);
         }
     }, UPTIME_CHECK_RESOLUTION);
@@ -418,7 +487,7 @@ ngApp
                 option.selected = false;
             }
         });
-    };
+    }
     function setDevToolsURL(nodeJSONMeta) {
         $scope.localDevToolsOptions[0].url = ($scope.settings.devToolsCompat && nodeJSONMeta.devtoolsFrontendUrlCompat) ? nodeJSONMeta.devtoolsFrontendUrlCompat.split('?')[0] : nodeJSONMeta.devtoolsFrontendUrl.split('?')[0];
     }
@@ -1023,7 +1092,7 @@ ngApp
     function formatParams() {
         return new Promise((resolve) => {
             tinySettingsJSON((tinyJSON) => {
-                resolve('s=' + tinyJSON + '&ui=' + JSON.stringify($scope.userInfo));
+                resolve('s=' + tinyJSON + '&ui=' + encodeURIComponent($scope.userInfo));
             });
         });
     }
@@ -1109,12 +1178,65 @@ ngApp
         let encryptedMessage = nacl.box(message, nonce, publicKey, keyPair.secretKey);
         return nacl.util.encodeBase64(nonce) + ' ' + nacl.util.encodeBase64(encryptedMessage);
     }
+    function isATwitterFollower() {
+        return false;
+    }
+    function pushNotification(notification) {
+        let title = notification.type === 'twitter' ? '@june07t Tweeted' : 'NiM Notification',
+            button1 = notification.type === 'twitter' ? (isATwitterFollower() ? 'Like' : 'Follow') : '';
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl:  'icon/icon128.png',
+            title: title,
+            message: notification.text,
+            buttons: [ { title: button1, iconUrl: 'icon/twitter.svg' }, { title: 'Retweet' } ]
+        },  function(notificationId) {
+            $window._gaq.push(['_trackEvent', 'Notification Event', 'notification_created', 'type', notification.type, true]);
+            notification.chromiumNotificationId = notificationId;
+            notification.twitterButtonText = { button1 }
+            if ($scope.settings.debugVerbosity >= 4) console.log(notificationId);
+        });
+    }
+    chrome.notifications.onClicked.addListener(function onClickedHandler(notificationId, byUser) {
+        let notification = $scope.notificationService.getNotification(notificationId);
+        switch (notification.type) {
+            case 'twitter':
+                $window._gaq.push(['_trackEvent', 'Social Event', 'Link Click', 'https://twitter.com/june07t/status/' + notification.id, undefined, true]);
+                chrome.tabs.create({ url: 'https://twitter.com/june07t/status/' + notification.id }); break;
+        }
+    });
+    chrome.notifications.onButtonClicked.addListener(function chromeNotificationButtonClicked(notificationId, buttonIndex) {
+        let notification = $scope.notificationService.getNotification(notificationId);
+        switch (notification.type) {
+            case 'nim':
+                if (buttonIndex === 0) {
+                    $scope.settings.chromeNotifications = false;
+                    $scope.save('chromeNotifications');
+                } else if (buttonIndex === 1) {
+                    chrome.tabs.create({ url: 'chrome://extensions/configureCommands' });
+                } break;
+            case 'twitter':
+                if (buttonIndex === 0) {
+                    if (notification.twitterButtonText.button1 === 'Like') {
+                        $window._gaq.push(['_trackEvent', 'Social Event', 'Button Click', 'https://twitter.com/intent/like?tweet_id=' + notification.id, undefined, true]);
+                        chrome.tabs.create({ url: 'https://twitter.com/intent/like?tweet_id=' + notification.id, active: true });
+                    } else {
+                        $window._gaq.push(['_trackEvent', 'Social Event', 'Button Click', 'https://twitter.com/intent/follow?screen_name=june07t', undefined, true]);
+                        chrome.tabs.create({ url: 'https://twitter.com/intent/follow?screen_name=june07t', active: true });
+                    }
+                    break;
+                } else if (buttonIndex === 1) {
+                    $window._gaq.push(['_trackEvent', 'Social Event', 'Button Click', 'https://twitter.com/intent/retweet?tweet_id=' + notification.id, undefined, true]);
+                    chrome.tabs.create({ url: 'https://twitter.com/intent/retweet?tweet_id=' + notification.id, active: true }); break;
+                } break;
+        }
+    });
     chrome.runtime.onInstalled.addListener(function installed(details) {
-        if (details.onInstalledReason === 'install') {
+        if (details.reason === 'install') {
             chrome.tabs.create({ url: INSTALL_URL});
         }
-        analytics({ event: 'install', 'onInstalledReason': details.onInstalledReason });
-        if (details.onInstalledReason === 'update') {
+        analytics({ event: 'install', 'onInstalledReason': details.reason });
+        if (details.reason === 'update') {
             updateSettings();
         }
     });
@@ -1146,14 +1268,6 @@ ngApp
     chrome.tabs.onActivated.addListener(function chromeTabsActivatedEvent(tabId) {
         resolveTabPromise(tabId);
     });
-    chrome.notifications.onButtonClicked.addListener(function chromeNotificationButtonClicked(notificationId, buttonIndex) {
-        if (buttonIndex === 0) {
-            $scope.settings.chromeNotifications = false;
-            $scope.save('chromeNotifications');
-        } else if (buttonIndex === 1) {
-            chrome.tabs.create({ url: 'chrome://extensions/configureCommands' });
-        }
-    });
     chrome.commands.onCommand.addListener(function chromeCommandsCommandEvent(command) {
         switch (command) {
             case "open-devtools":
@@ -1173,6 +1287,7 @@ ngApp
                             message: '"' + shortcut.description + '"',
                             buttons: [ { title: 'Disable this notice.' }, { title: 'Change the shortcut.' } ]
                         },  function(notificationId) {
+                            $scope.notificationService.addNotification({ chromiumNotificationId, type: 'nim' });;
                             if ($scope.settings.debugVerbosity >= 4) console.log(notificationId);
                         });
                     });
