@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Ziedojumi Appreciated",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Nav paziņojumus.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "NIM (Mezglu Inspektors Vadītājs)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NIM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Pagarināt automātiski, uzsākot V8 Inspektors Node.js atkļūdošanas",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "NIM (Mezglu Inspektors Vadītājs) - Iespēja Lapa",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inpector pārvaldnieks (NiM) - DevTools panelis",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "NIM (Mezglu Inspektors Vadītājs)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Error setting atinstalēt URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Slēgta cilnes DevTools sesija: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Aizvērts logs DevTools sesija: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Kļūda, mēģinot auto aizvērt ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Savienojums DevTools uzņēmējas tika pārtraukta. Pārbaudiet savu uzņēmēja un ostas.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools ir jau atvērta.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools ir jau atvērta.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools ir jau atvērta.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Ostas",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Host",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Rokasgrāmata",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Auto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Ziedot",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Iespējota",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Uptime",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Iespējas",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Vispārīgi",
+    "description": "General."
+  },
+  "on": {
+    "message": "Par",
+    "description": "On."
+  },
+  "off": {
+    "message": "Off",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Atvērt Jaunā Logā.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Veikt Logu Vērsta.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Padarīt Cilnes Aktīvs.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Aizveras Automātiski.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Pārbaužu Intervāls.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Atkļūdošanas",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Atkļūdošanas verbosity.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Saglabāt",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Atvērt DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Pievienot Cilnes",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Sekundes",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Izmantojiet alternatīvu DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Auto Pieauguma Uzņēmēja/Ostas.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Atveriet DevTools logu.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM reāllaika sadarbība",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Reāllaika sadarbība.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Atlasiet DevTools versiju.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Pielāgots DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

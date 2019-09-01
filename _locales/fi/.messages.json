@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Lahjoituksia Arvostetaan",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Ei ole ilmoituksia.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "NIM (Solmu Tarkastaja Manager)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NIM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Laajennus automaattisesti käynnistää V8-Tarkastaja Node.js testaus",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "NIM (Solmu Tarkastaja Manager) - Asetukset Sivulla",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - tarkistuspäällikkö (NiM) - DevTools-paneeli",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "NIM (Solmu Tarkastaja Manager)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Virhe asetettaessa poista URL-osoite: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Suljettu välilehti DevTools-istunto: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Suljettu ikkuna DevTools-istunto: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Virhe kun yrittää auto lähellä ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Yhteys DevTools isäntä oli keskeytetty. Tarkista host ja port.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools on jo auki.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools on jo auki.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools on jo auki.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Port",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Host",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Manuaalinen",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Auto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Lahjoittaa",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Käytössä",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Käytettävyyttä",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Vaihtoehtoja",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Yleinen",
+    "description": "General."
+  },
+  "on": {
+    "message": "Päälle",
+    "description": "On."
+  },
+  "off": {
+    "message": "Pois",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Avaa Uudessa Ikkunassa.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Tee Ikkuna Keskittynyt.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Tee-Välilehden Aktiivinen.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Lähellä Automaattisesti.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Tarkista Välein.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Testaus",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Debugging Verbosity.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Tallenna",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Avaa DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Lisää-Välilehti",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Sekuntia",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Käytä vaihtoehtoisia DevTools-vaihtoehtoja.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Auto Increment Isäntä/Portti.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Avaa DevTools-ikkuna.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM-reaaliaikainen yhteistyö",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Reaaliaikainen yhteistyö.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Valitse DevTools-versio.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Custom DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

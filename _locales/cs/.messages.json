@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Dary Vítány",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Nejsou žádné oznámení.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "NIM (Node Inspector Správce)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NIM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Rozšíření pro automatické spouštění V8 Inspektor pro Node.js ladění",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "NIM (Node Inspector Správce) - Možnosti Stránky",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - správce monitoru (NiM) - panel DevTools",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "NIM (Node Inspector Správce)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Chyba nastavení odinstalovat URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Zavřeno tab pro DevTools zasedání: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Zavřené okno pro DevTools zasedání: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Chyba při pokusu o auto close ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Připojení k DevTools host byl přerušen. Zkontrolujte, zda vaše hostitele a portu.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools je již otevřena.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools je již otevřena.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools je již otevřena.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Port",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Host",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Manuální",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Auto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Darovat",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Povoleno",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Uptime",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Možnosti",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Obecné",
+    "description": "General."
+  },
+  "on": {
+    "message": "Na",
+    "description": "On."
+  },
+  "off": {
+    "message": "Off",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Otevřít v Novém Okně.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Aby Okna Soustředěný.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Aby Karta Aktivní.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Zavřít Automaticky.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Interval Kontroly.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Ladění",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Ladění výmluvnosti.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Uložit",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Otevřete DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Přidat Kartu",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Sekund",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Použijte nástroj Alternate DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Auto Přírůstek Hostitele/Portu.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Otevřete okno DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM spolupráce v reálném čase",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Spolupráce v reálném čase.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Vyberte verzi programu DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Vlastní DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

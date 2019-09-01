@@ -1,0 +1,197 @@
+{
+  "donationModalHeader": {
+    "message": "অনুদান প্রশংসা",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "আছে কোন বিজ্ঞপ্তি.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "Node.js V8 --পরিদর্শক ম্যানেজার (NiM)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NiM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "পরিচালনা DevTools সঙ্গে নোড V8 পরিদর্শক (নোড --পরিদর্শন) ডিবাগ কর্মপ্রবাহ",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "Node.js V8 --পরিদর্শক ম্যানেজার (NiM) - বিকল্প পৃষ্ঠা",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --পরিদর্শক ম্যানেজার (NiM) - DevTools প্যানেল",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "Node.js V8 --পরিদর্শক ম্যানেজার (NiM)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "ত্রুটি সেটিং আনইনস্টল URL-এ: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "ট্যাব বন্ধ জন্য DevTools সেশন: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "বন্ধ জানালা জন্য DevTools সেশন: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "ত্রুটি করার চেষ্টা করার সময় অটো বন্ধ ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "সংযোগ DevTools হোস্ট ছিল বন্ধ্যা. পরীক্ষা আপনার হোস্ট এবং পোর্ট.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools ইতিমধ্যে খোলা.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools ইতিমধ্যে খোলা.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools ইতিমধ্যে খোলা.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "পোর্ট",
+    "description": "Port."
+  },
+  "host": {
+    "message": "হোস্ট",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "ম্যানুয়াল",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "অটো",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "দান",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "সক্রিয়",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "আপটাইম",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "অপশন",
+    "description": "Options."
+  },
+  "general": {
+    "message": "সাধারণ",
+    "description": "General."
+  },
+  "on": {
+    "message": "উপর",
+    "description": "On."
+  },
+  "off": {
+    "message": "বন্ধ",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "একটি নতুন উইন্ডোতে খুলুন.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "করতে উইন্ডো দৃষ্টি নিবদ্ধ.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "করতে ট্যাব সক্রিয়.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "স্বয়ংক্রিয়ভাবে বন্ধ.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "চেক ব্যবধান.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "ডিবাগ",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "ডিবাগ Verbosity.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "সংরক্ষণ করুন",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "এমন DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "যোগ ট্যাব",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "সেকেন্ড",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "ব্যবহার বিকল্প DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "অটো বর্ধন হোস্ট/পোর্ট.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "খোলা DevTools উইন্ডো.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM বাস্তব সময় সহযোগিতা",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "রিয়েল টাইম সহযোগিতার.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "নির্বাচন DevTools সংস্করণ.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "কাস্টম DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}
+

@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "เงินบริจาคของรู้สึกขอบคุณ",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "ไม่มีการแจ้งให้ทราย",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "NIM(โหนดสารวัตรผู้จัดการ)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NIM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "ส่วนขยายสำหรับอัตโนมัติเริ่มการทำงาน V8 สำหรับสารวัตร Node.js การดีบั๊ก",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "NIM(โหนดสารวัตรผู้จัดการ)-ตัวเลือกหน้า",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - ตัวจัดการสมาร์ท (NiM) - แผงควบคุม DevTools",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "NIM(โหนดสารวัตรผู้จัดการ)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "เกิดข้อผิดพลาดในการตั้งค่าถอนการติดตั้งที่อยู่ URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "ปิดแท็บเพื่อ DevTools กลุ่มงาน: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "ปิดหน้าต่างสำหรับ DevTools กลุ่มงาน: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "เกิดข้อผิดพลาดขึ้นระหว่างพยายามที่จะปิดอัตโนมัติ ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "การเชื่อมต่อไป DevTools เครื่องก็ถูกยกเลิก เช็คของคุณเครื่องและพอร์ตนะ",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools คือถูกเปิดอยู่แล้ว",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools คือถูกเปิดอยู่แล้ว",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools คือถูกเปิดอยู่แล้ว",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "พอร์ต",
+    "description": "Port."
+  },
+  "host": {
+    "message": "ชื่อโฮสต์",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "ป้อนเอง",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "อัตโนมัติ",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "บริจาค",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "เปิดใช้งาน",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "เวลารวมตั้งแต่เริ่มระบบ",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "ตัวเลือก",
+    "description": "Options."
+  },
+  "general": {
+    "message": "ท่านนายพล",
+    "description": "General."
+  },
+  "on": {
+    "message": "บ",
+    "description": "On."
+  },
+  "off": {
+    "message": "อ",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "เปิดในหน้าต่างใหม่อน",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "ทำให้หน้าต่างรวมสติหน่อยได้ไหม",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "ทำให้แท็บทำงานอยู่นะ",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "ปิดโดยอัตโนมัติ",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "ตรวจทุกช่วงเวลานะ",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "การดีบั๊ก",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "แก้ปัญหาการแก้จุดบกพร่อง",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "บันทึก",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "เปิด DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "เพิ่มบนแท็บ",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "วินาที",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "ใช้ DevTools สำรอง",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "อัตโนมัติ Increment โฮสต์/พอร์ตนะ",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "เปิดหน้าต่าง DevTools",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "ความร่วมมือแบบเรียลไทม์แบบ NiM",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "การทำงานร่วมกันแบบเรียลไทม์",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "เลือกเวอร์ชัน DevTools",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Custom DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

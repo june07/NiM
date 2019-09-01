@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Đóng Góp Đánh Giá Cao",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Không có thông báo.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "ĐÂY (Nút thanh Tra Lý)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "KHẢ",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Mở rộng cho tự động khởi động động cơ V8 thanh Tra cho Node.js gỡ",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "ĐÂY (Nút thanh Tra Lý) - Trang lựa Chọn",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - Trình quản lý thư mục (NiM) - Bảng điều khiển DevTools",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "ĐÂY (Nút thanh Tra Lý)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Lỗi thiết lập hướng DẪN: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Đóng cửa tab cho! phiên: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Đóng cửa sổ! phiên: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Lỗi trong khi cố gắng để tự động đóng ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Kết nối đến! loạt đã bị hủy bỏ. Kiểm tra máy chủ và cổng.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "! Đã được mở.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "! Đã được mở.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "! Đã được mở.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Port",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Tên máy",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Hướng dẫn sử dụng",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Auto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Tặng",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Kích hoạt",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Thời gian hoạt động",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Lựa chọn",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Tổng",
+    "description": "General."
+  },
+  "on": {
+    "message": "Trên",
+    "description": "On."
+  },
+  "off": {
+    "message": "Tắt",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Mở một cửa Sổ Mới.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Làm Cho Cửa Sổ Tập Trung.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Hãy Tab Hoạt Động.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Gần Tự Động.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Kiểm Tra Khoảng Thời Gian.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Gỡ",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Debb Verbosity.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Tiết kiệm",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Mở!",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Thêm Tab",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Giây",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Sử dụng Alternate DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Tự Động Tăng Chủ/Cảng.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Mở cửa sổ DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "Hợp tác thời gian thực của NiM",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Cộng tác trong thời gian thực.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Chọn phiên bản DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Tùy chỉnh DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Donaties worden gewaardeerd",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Er zijn geen berichten.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "Node --inspect Manager (NiM)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NIM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Beheerd DevTools met node v8 inspector (node --inspect)",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "Node --inspect Manager (NiM) - Pagina Opties",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inspector Manager (NiM) - DevTools Panel",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "Node --inspect Manager (NiM)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Fout bij het instellen van de deinstalatie url: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Tabblad gesloten voor de DevTools: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Venster gesloten voor de DevTools: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Automatish sluiten mislukt",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Verbinding met de DevTools host was afgebroken. Controleer uw host en poort.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools is al open.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools is al open.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools is al open.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Poort",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Hostnaam",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Handleiding",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Automatish",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Doneren",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Ingeschakeld",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Uptime",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Opties",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Algemeen",
+    "description": "General."
+  },
+  "on": {
+    "message": "Aan",
+    "description": "On."
+  },
+  "off": {
+    "message": "Uit",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Open in een Nieuw Venster.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Focus venster.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Maak het tabblad actief.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Automatisch Sluiten.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Controle-Interval.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Debugging",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Debugging Breedsprakigheid.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Opslaan",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Open DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Tabblad Toevoegen",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Seconden",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Gebruik alternatieve DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Automatish host/Poort aanvullen.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Open het DevTools-venster.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM Realtime samenwerking",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Real-time samenwerking.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Selecteer DevTools-versie.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Aangepaste DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

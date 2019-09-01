@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Пожертвования Приветствуются",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Уведомления отсутствуют.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "Node.js V8 --inspector Manager (NiM)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NIM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Расширение для автоматического запуска инспектора V8 для отладки Node.js",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "NIM (Node Inspector Manager) - Опции",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - менеджер инспекторов (NiM) - панель DevTools",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "NIM (Node Inspector Manager)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Ошибка установки URL для удаления: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Закрыта вкладка для сессии Интрументов Разработчика: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Закрыто окно для сессии Интрументов Разработчика: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Ошибка при попытке автоматического закрытия ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Подключение к хосту Интрументов Разработчика было прервано. Проверьте ваш хост и порт.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "Инструменты Разработчика уже открыты.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "Инструменты Разработчика уже открыты.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "Инструменты Разработчика уже открыты.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Порт",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Имя хоста",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Вручную",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Авто",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Пожертвовать",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Включен",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Аптайм",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Настройки",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Общие",
+    "description": "General."
+  },
+  "on": {
+    "message": "Вкл.",
+    "description": "On."
+  },
+  "off": {
+    "message": "Выкл.",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Открыть в новом окне.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Сфокусироваться на окне.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Сделать вкладку активной.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Автоматически закрывать.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Интервал проверки.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Отладка",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Отладка многословия.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Сохранить",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Открыть Инструменты Разработчика",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Добавить Вкладку",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Секунд",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Используйте альтернативные DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Автоинкремент Хост/Порт.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Откройте окно DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "Совместная работа в режиме реального времени NiM",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Совместная работа в режиме реального времени.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Выберите версию DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Пользовательские DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

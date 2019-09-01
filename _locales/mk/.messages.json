@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Донации Ценети",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Не постојат известувања.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "Node.js V8 --инспектор Менаџер (NiM)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NiM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Успева DevTools со Јазол V8 Инспектор (јазол --увид) Дебагирање на Workflow",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "Node.js V8 --инспектор Менаџер (NiM) - Опции Страница",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --инспектор Менаџер (NiM) - DevTools Panel",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "Node.js V8 --инспектор Менаџер (NiM)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Грешка поставување деинсталирање URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Затворена табот за DevTools сесија: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Затворен прозорец за DevTools сесија: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Грешка додека се обидува да авто блиску ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Конекција за да DevTools домаќин беше aborted. Проверете го вашиот домаќин и порт.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools е веќе отворена.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools е веќе отворена.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools е веќе отворена.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Пристаниште",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Домаќин",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Упатство",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Авто",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Донирајте",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "От",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Времето во возна состојба",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Опции",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Општи",
+    "description": "General."
+  },
+  "on": {
+    "message": "На",
+    "description": "On."
+  },
+  "off": {
+    "message": "Исклучување",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Отвори во Нов Прозорец.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Направи Фокусиран Прозорец.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Направи Табот Активни.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Затвори Автоматски.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Интервал На Пров.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Дебагирање",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Дебагирање Verbosity.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Зачувајте",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Отворете DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Add Tab",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Секунди",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Користете Алтернативна DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Авто ''Increment '' Домаќин/Порта.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Отворете го DevTools Прозорец.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM Реално време Соработка",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Во реално време во Соработка.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Одберете DevTools Верзија.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Обичај DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

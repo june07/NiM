@@ -87,7 +87,7 @@ ngApp
         }
         addNotification(notification) {
             let found = this.notifications.find();
-            if (found === undefined) notifications.push(notification);
+            if (found === undefined) this.notifications.push(notification);
         }
         getNotifications() {
             return this.notifications;
@@ -1197,7 +1197,7 @@ ngApp
             if ($scope.settings.debugVerbosity >= 4) console.log(notificationId);
         });
     }
-    chrome.notifications.onClicked.addListener(function onClickedHandler(notificationId, byUser) {
+    chrome.notifications.onClicked.addListener(function onClickedHandler(notificationId) {
         let notification = $scope.notificationService.getNotification(notificationId);
         switch (notification.type) {
             case 'twitter':
@@ -1287,7 +1287,7 @@ ngApp
                             message: '"' + shortcut.description + '"',
                             buttons: [ { title: 'Disable this notice.' }, { title: 'Change the shortcut.' } ]
                         },  function(notificationId) {
-                            $scope.notificationService.addNotification({ chromiumNotificationId, type: 'nim' });;
+                            $scope.notificationService.addNotification({ chromiumNotificationId: notificationId, type: 'nim' });
                             if ($scope.settings.debugVerbosity >= 4) console.log(notificationId);
                         });
                     });

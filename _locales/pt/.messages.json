@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Doações Apreciado",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Não existem notificações.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "NIM (Nó Inspetor Manager)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NIM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Extensão para automaticamente lançamento V8 Inspetor Node.js depuração",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "NIM (Nó Inspetor Manager) - Opções de Página",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inspector Manager (NiM) - painel DevTools",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "NIM (Nó Inspetor Manager)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Erro de configuração de desinstalar URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Fechado guia para DevTools sessão: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Janela fechada para DevTools sessão: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Erro ao tentar fechar automaticamente ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Conexão para DevTools host foi anulada. Verifique o host e a porta.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools já está aberto.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools já está aberto.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools já está aberto.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Porta",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Host",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Manual",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Auto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Doar",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Habilitado",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Tempo de atividade",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Opções",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Geral",
+    "description": "General."
+  },
+  "on": {
+    "message": "No",
+    "description": "On."
+  },
+  "off": {
+    "message": "Fora",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Abrir em uma Nova Janela.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Faça Janela De Foco.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Guia Ativa.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Feche Automaticamente.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Intervalo De Verificação.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Depuração",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Depuração de verbosidade.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Salvar",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Abrir DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Adicionar Guia",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Segundos",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Use DevTools alternativos.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Auto Incremento Host/Port.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Abra a janela do DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "Colaboração em tempo real de NiM",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Colaboração em tempo real.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Selecione a versão DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Custom DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

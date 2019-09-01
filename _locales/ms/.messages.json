@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Sumbangan Dihargai",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Tidak ada pemberitahuan.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "Node.js V8 --inspektur Pengurus (NiM)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NiM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Menguruskan DevTools dengan Nod V8 Inspektur (nod-memeriksa) Debug Kerja",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "Node.js V8 --inspektur Pengurus (NiM) - Halaman Pilihan",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inspektur Pengurus (NiM) - DevTools Panel",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "Node.js V8 --inspektur Pengurus (NiM)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Ralat pembuangan CINA, ... ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Tab tertutup untuk DevTools sesi: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Jendela tertutup untuk DevTools sesi: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Ralat ketika cuba untuk auto dekat ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Sambungan ke DevTools tuan rumah telah digugurkan. Periksa tuan rumah anda dan pelabuhan.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools sudah terbuka.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools sudah terbuka.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools sudah terbuka.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Port",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Tuan rumah",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Manual",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Auto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Menderma",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Dibolehkan",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Masa hidup",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Pilihan",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Umum",
+    "description": "General."
+  },
+  "on": {
+    "message": "Pada",
+    "description": "On."
+  },
+  "off": {
+    "message": "Off",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Dibuka di Jendela yang Baru.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Membuat Tingkap Fokus.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Membuat Tab Aktif.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Tutup Secara Automatik.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Memeriksa Selang.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Debug",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Debug Penggunaan Terlalu Banyak Kata.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Simpan",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Buka DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Tambah Tab",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Saat",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Gunakan DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Auto Kenaikan Tuan/Pelabuhan.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Buka DevTools Jendela.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM Kerjasama masa Nyata",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Kerjasama masa nyata.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Pilih DevTools Versi.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Adat DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

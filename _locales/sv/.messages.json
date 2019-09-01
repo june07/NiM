@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Donationer Uppskattas",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Det finns inga meddelanden.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "NIM (Nod Inspektör Manager)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NIM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Förlängning för att automatiskt starta V8 Inspektör för Node.js felsökning",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "NIM (Nod Inspektör Manager) - Sidan Alternativ",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inspector Manager (NiM) - DevTools Panel",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "NIM (Nod Inspektör Manager)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Fel inställning avinstallera URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Stängd flik för DevTools session: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Stängt fönstret för DevTools session: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Fel när du försöker auto stäng ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Anslutning till DevTools värd avbröts. Kontrollera din värd och port.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools är redan öppen.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools är redan öppen.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools är redan öppen.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Port",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Host",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Manuell",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Auto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Donera",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Aktiverad",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Tillgänglighet",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Alternativ",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Allmänt",
+    "description": "General."
+  },
+  "on": {
+    "message": "På",
+    "description": "On."
+  },
+  "off": {
+    "message": "Mindre",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Öppna i ett Nytt Fönster.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Gör Fönstret I Fokus.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Se Fliken Aktiva.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Nära Automatiskt.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Kontrollera Intervall.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Felsökning",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Debugging Verbosity.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Spara",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Öppna DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Lägg Till Flik",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Sekunder",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Använd alternativa DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Auto Increment Vara Värd/Port.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Öppna devTools-fönstret.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM Real-time Collaboration",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Realtidssamarbete.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Välj DevTools Version.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Anpassade DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "donationModalHeader": {
+    "message": "التبرعات تقدير",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "لا توجد الإخطارات.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "نيم (عقدة المفتش مدير)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "نيم",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "تمديد تلقائيا إطلاق V8 المفتش Node.js التصحيح",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "نيم (عقدة المفتش مدير) - صفحة خيارات",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inspector Manager (NiM) - DevToolsفريق",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "نيم (عقدة المفتش مدير)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "خطأ في الإعداد إزالة عنوان URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "إغلاق علامة التبويب DevTools الدورة: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "أغلقت نافذة DevTools الدورة: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "حدث خطأ أثناء محاولة قريبة السيارات ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "اتصال DevTools المضيف تم إحباط. تحقق host و port.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools مفتوح بالفعل.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools مفتوح بالفعل.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools مفتوح بالفعل.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "ميناء",
+    "description": "Port."
+  },
+  "host": {
+    "message": "اسم المضيف",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "دليل",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "السيارات",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "التبرع",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "تمكين",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "الجهوزية",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "خيارات",
+    "description": "Options."
+  },
+  "general": {
+    "message": "العامة",
+    "description": "General."
+  },
+  "on": {
+    "message": "على",
+    "description": "On."
+  },
+  "off": {
+    "message": "قبالة",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "تفتح في نافذة جديدة.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "جعل نافذة تركيزا.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "جعل علامة التبويب النشطة.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "إغلاق تلقائيا.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "تحقق الفاصل.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "التصحيح",
+    "description": "Debugging."
+  },
+  "showDebugWindow": {
+    "message": "عرض إطار التصحيح.",
+    "description": "Show debug window."
+  },
+  "debugVerbosity": {
+    "message": "التصحيح الإسهاب.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "حفظ",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "فتح DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "إضافة علامة التبويب",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "ثانية",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "استخدم DevTools البديل.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "السيارات زيادة المضيف/الميناء.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "افتح نافذة DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM التعاون في الوقت الفعلي",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "التعاون في الوقت الفعلي.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "حدد إصدار DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "مخصص DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

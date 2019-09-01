@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Вітаються Пожертви",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Немає жодних повідомлень.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "Ним (вузол Диспетчер інспектор)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "Ним",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Розширення для автоматичного запуску інспектор V8 для Node.js налагодження",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "Ним (вузол Диспетчер інспектор) - сторінка варіанти",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - диспетчер диспетчера (NiM) - панель DevTools",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "Ним (вузол Диспетчер інспектор)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Помилка установки видалити URL-адреса: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Закриту вкладку інструменти розробника сесії: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Закриті вікна інструментів розробника сесії: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Помилка при спробі автоматичного закриття ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Підключення до інструменти розробника вузол було перервано. Перевірте ваш хост і порт.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "Інструменти розробника вже відкрита.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "Інструменти розробника вже відкрита.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "Інструменти розробника вже відкрита.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Порт",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Ім'я",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Керівництво",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Авто",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Пожертвувати",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Включений",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Аптайм",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Варіанти",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Загальні",
+    "description": "General."
+  },
+  "on": {
+    "message": "На",
+    "description": "On."
+  },
+  "off": {
+    "message": "Від",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Відкрити у новому вікні.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Зробити Вікно.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Зробити Вкладку Активною.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Автоматично Закрити.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Перевірити Інтервал.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Налагодження",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Налагодження багатослівності.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Зберегти",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Відкрийте Devtools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Додати Закладку",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Секунд",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Використовуйте альтернативні DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Автоинкремент Хост/Порт.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Відкрийте вікно DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM в режимі реального часу співробітництво",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Співпраця в реальному часі.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Виберіть версію DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Користувальницькі DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

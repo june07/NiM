@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Las donaciones son apreciadas",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "No hay notificaciones.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "NIM (Node Inspector Manager)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NIM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Extensión para la apertura automática de un inspector (ChromeDevtools V8) para Node.js (node --inspect).",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "NIM (Node Inspector Manager) - Página de opciones",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inspector Manager (NiM) - DevTools Panel",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "NIM (Node Inspector Manager)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Error configurando la URL de desinstalación: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Pestaña cerrada para la sesión de DevTools: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Ventana cerrada para la sesión de DevTools: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Error al intentar cerrar automáticamente",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Conexión al servidor DevTools abortada. Compruebe el host y el puerto.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools ya está abierto.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools ya está abierto.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools ya está abierto.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Puerto",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Nombre de host",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Manual",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Auto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Donar",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Habilitado",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "El tiempo de actividad",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Opciones",
+    "description": "Options."
+  },
+  "general": {
+    "message": "General",
+    "description": "General."
+  },
+  "on": {
+    "message": "Activado",
+    "description": "On."
+  },
+  "off": {
+    "message": "Desactivado",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Abrir en una nueva Ventana.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Hacer que la ventana se ponga en primer plano.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Hacer que la pestaña se ponga en primer plano.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Cerrar automáticamente.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Intervalo de comprobación.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Depuración",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Depuración de la verbosidad.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Guardar",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Abrir DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Agregar pestaña",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Segundos",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Utilice DevTools alternativos.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Incremento automático de Host/Puerto.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Abra la ventana de DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "Colaboración en tiempo real NiM",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Colaboración en tiempo real.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Seleccione la versión de DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "DevTools personalizados.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

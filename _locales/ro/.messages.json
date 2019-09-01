@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Donațiile Sunt Apreciate",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Nu există notificări.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "NIM (Nod Inspector Manager)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NIM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Extensie pentru a lansa în mod automat V8 Inspector pentru Node.js depanare",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "NIM (Nod Inspector Manager) - Pagina de Opțiuni",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - Manager de inspecție (NiM) - Panoul DevTools",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "NIM (Nod Inspector Manager)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Eroare de setare dezinstalare URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Fila închisă pentru DevTools sesiune: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Închise fereastra pentru DevTools sesiune: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Eroare în timp ce încerca să se auto închide ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Conexiune la DevTools gazdă a fost anulată. Verifică-ți gazdă și port.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools este deja deschis.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools este deja deschis.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools este deja deschis.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Port",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Host",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Manual",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Auto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Dona",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Activat",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Uptime",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Opțiuni",
+    "description": "Options."
+  },
+  "general": {
+    "message": "General",
+    "description": "General."
+  },
+  "on": {
+    "message": "Pe",
+    "description": "On."
+  },
+  "off": {
+    "message": "Off",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Deschide într-o Fereastră Nouă.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Face Fereastra Concentrat.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Face Fila Activă.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Aproape Automat.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Interval De Verificare.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Depanare",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Depanarea verbului.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Salva",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Deschide DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Adăugați Fila",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Secunde",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Utilizați DevTools alternativ.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Auto Increment Gazdă/Port.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Deschide fereastra DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "Colaborare NiM în timp real",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Colaborare în timp real.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Selectați versiunea DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "DevTools personalizate.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

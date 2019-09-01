@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "תרומות מוערכות",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "אין הודעות.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "נים (צומת מפקח מנהל)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "נים",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "הארכה אוטומטית השקת V8 המפקח על Node.js איתור באגים",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "נים (צומת מפקח מנהל) - דף אפשרויות",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - מנהל ספקטרום (NiM) - לוח DevTools",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "נים (צומת מפקח מנהל)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "שגיאה בהגדרת להסיר את כתובת האתר: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "סגור בכרטיסיה DevTools הפעלה: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "סגור את החלון DevTools הפעלה: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "שגיאה בעת אוטומטי קרוב ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "חיבור DevTools מארח בוטלה. בדוק את המארח ואת היציאה.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools כבר פתוח.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools כבר פתוח.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools כבר פתוח.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "נמל",
+    "description": "Port."
+  },
+  "host": {
+    "message": "שם מארח",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "מדריך",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "אוטומטי",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "לתרום",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "זמין",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Uptime",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "אפשרויות",
+    "description": "Options."
+  },
+  "general": {
+    "message": "כללי",
+    "description": "General."
+  },
+  "on": {
+    "message": "על",
+    "description": "On."
+  },
+  "off": {
+    "message": "חופש",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "פתח בחלון חדש.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "להפוך את חלון מרוכז.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "להפוך את הכרטיסייה הפעילה.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "לסגור באופן אוטומטי.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "בדוק מרווח.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "איתור באגים",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "איתור שגיאות באגים.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "להציל",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "פתח DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "הוספת טאב",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "שניות",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "השתמש ב- DevTools חלופי.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "אוטומטי תוספת מארח/יציאה.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "פתח את החלון DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM שיתוף פעולה בזמן אמת",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "שיתוף פעולה בזמן אמת.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "בחר גרסה DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Custom DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Δωρεές Εκτιμηθεί",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Δεν υπάρχουν ειδοποιήσεις.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "ΝΙΜ (Κόμβος Επιθεωρητής Manager)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "ΝΙΜ",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Παράταση για την αυτόματη έναρξη V8 Επιθεωρητή για Node.js τον εντοπισμό σφαλμάτων",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "ΝΙΜ (Κόμβος Επιθεωρητής Manager) - Σελίδα Επιλογές",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - Διαχειριστής ελέγχου (NiM) - Πίνακας DevTools",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "ΝΙΜ (Κόμβος Επιθεωρητής Manager)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Σφάλμα ρύθμισης απεγκαταστήσετε URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Κλειστό καρτέλα για DevTools συνεδρία: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Κλειστό παράθυρο για DevTools συνεδρία: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Σφάλμα κατά την προσπάθεια αυτόματος στενός ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Σύνδεση με DevTools υποδοχής ματαιώθηκε. Ελέγξτε υποδοχής και το λιμάνι.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools είναι ήδη ανοιχτό.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools είναι ήδη ανοιχτό.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools είναι ήδη ανοιχτό.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Λιμάνι",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Host",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Εγχειρίδιο",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Auto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Δωρεά",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Ενεργοποιημένη",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Uptime",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Επιλογές",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Γενικά",
+    "description": "General."
+  },
+  "on": {
+    "message": "Στις",
+    "description": "On."
+  },
+  "off": {
+    "message": "Από",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Ανοίξει σε ένα Νέο Παράθυρο.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Κάνει Παράθυρο Συγκεντρωμένοι.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Κάντε Tab Active.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Κλείνει Αυτόματα.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Ελέγξτε Διάστημα.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Τον εντοπισμό σφαλμάτων",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Επίπεδο εντοπισμού σφαλμάτων.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Αποθήκευση",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Ανοίξτε DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Προσθήκη Καρτέλας",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Δευτερόλεπτα",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Χρησιμοποιήστε εναλλακτικά εργαλεία DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Αυτόματη Αύξηση Υποδοχής/Λιμάνι.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Ανοίξτε το παράθυρο DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "Συνεργασία NiM σε πραγματικό χρόνο",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Συνεργασία σε πραγματικό χρόνο.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Επιλέξτε την έκδοση DevTools.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Ειδικά DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

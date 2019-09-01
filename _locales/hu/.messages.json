@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Adományok Értékelte",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Nincs értesítések.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "NIM (Csomópont Felügyelő Menedzser)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NIM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Kiterjesztés automatikusan indít V8 Felügyelő Node.js hibakeresés",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "NIM (Csomópont Felügyelő Manager) - Opciók Oldal",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 - ellenőrzéskezelő (NiM) - DevTools panel",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "NIM (Csomópont Felügyelő Menedzser)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Hiba beállítás uninstall URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Zárt lap DevTools ülés: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Zárt ablakon DevTools ülés: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Hibát, amíg megpróbál automatikus bezárás ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Kapcsolat DevTools fogadó lett szakítva. Ellenőrizze, hogy a gép portjára.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools már nyitva van.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools már nyitva van.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools már nyitva van.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Port",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Host",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Kézi",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Automatikus",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Adományoz",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Engedélyezett",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Uptime",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Lehetőségek",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Általános",
+    "description": "General."
+  },
+  "on": {
+    "message": "A",
+    "description": "On."
+  },
+  "off": {
+    "message": "Le",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Megnyílik egy Új Ablak.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Hogy Ablak Koncentrált.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Hogy Lap Aktív.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Zárja Be Automatikusan.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Ellenőrizze Intervallum.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Hibakeresés",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Verbosity hibakeresése.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Mentés",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Nyitva DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Lap Hozzáadása",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Másodperc",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Alternatív DevTools használata.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Automatikus Léptetés Host/Port.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Nyissa meg a DevTools ablakot.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM valós idejű együttműködés",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Valós idejű együttműködés.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Válassza a DevTools verziót.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Egyéni DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

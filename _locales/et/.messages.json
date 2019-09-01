@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Annetused Teretulnud",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Puuduvad teated.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "NIM (Node Inspektor Juhataja)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NIM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Pikendamine automaatselt käivitada V8 Inspektor Node.js silumine",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "NIM (Node Inspektor Manager) - Valikud Lehekülg",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inspector manager (NiM) - DevTools paneel",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "NIM (Node Inspektor Juhataja)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Viga millega uninstall URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Suletud tab DevTools istungil: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Suletud aken DevTools istungil: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Viga püüab auto lähedal ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Ühendus DevTools host oli katkestatud. Kontrollige oma host ja port.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools on juba avatud.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools on juba avatud.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools on juba avatud.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Sadam",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Host",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Manuaal",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Auto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Annetada",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Lubatud",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Uptime",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Valikud",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Üldine",
+    "description": "General."
+  },
+  "on": {
+    "message": "Kohta",
+    "description": "On."
+  },
+  "off": {
+    "message": "Maha",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Ava Uues Aknas.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Tee Aken Keskendunud.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Muuda Tab Aktiivne.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Automaatselt Sulguma.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Kontrollimise Intervall.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Silumine",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Silumiskõlblikkus.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Salvesta",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Avatud DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Lisada Kaardil",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Sekundit",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Kasutage Alternate DevToolsit.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Auto Juurdekasvu Host/Sadama.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Avage DevToolsi aken.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM reaalajas koostöö",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Reaalajas koostöö.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Valige DevTools versioon.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Kohandatud DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

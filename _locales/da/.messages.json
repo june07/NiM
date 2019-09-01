@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "Donationer Værdsat",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Der er ingen meddelelser.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "NIM (Node Inspektør Manager)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NIM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Udvidelse til automatisk at lancere V8 Inspektør for Node.js debugging",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "NIM (Node Inspektør Manager) - Indstillinger Side",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inspector Manager (NiM) - DevTools Panel",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "NIM (Node Inspektør Manager)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Fejl-indstillingen fjern-URL ' en: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Lukkede tab for DevTools session: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Lukkede vinduet for DevTools session: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Fejl, når du forsøger at auto luk ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Forbindelse til DevTools vært blev afbrudt. Tjek din host og port.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools er allerede åben.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools er allerede åben.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools er allerede åben.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Port",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Værtsnavn",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Manuel",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Auto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Donere",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Aktiveret",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Oppetid",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Valg",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Generelt",
+    "description": "General."
+  },
+  "on": {
+    "message": "På",
+    "description": "On."
+  },
+  "off": {
+    "message": "Off",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Åbn i et Nyt Vindue.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Gør Vinduet Fokuseret.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Gøre Fanen Aktiv.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Tæt Automatisk.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Check Interval.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Debugging",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Debugging Verbosity.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Spar",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Åben DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Tilføj Fane",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Sekunder",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Brug Alternate DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Auto Increment Vært/Port.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Åbn vinduet DevTools.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM Real-time Collaboration",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Real-time Collaboration.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Vælg DevTools Version.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Brugerdefinerede DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}

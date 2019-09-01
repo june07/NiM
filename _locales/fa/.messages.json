@@ -1,0 +1,196 @@
+{
+  "donationModalHeader": {
+    "message": "کمک های مالی قدردانی",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "وجود دارد هیچ اطلاعیه.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "Node.js V8 --بازرس مدیر (NiM)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NiM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "مدیریت DevTools با گره V8 بازرس (گره-بازرسی) اشکال زدایی گردش کار",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "Node.js V8 --بازرس مدیر (NiM) - گزینه های صفحه",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --بازرس مدیر (NiM) - DevTools پنل",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "Node.js V8 --بازرس مدیر (NiM)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "خطا در تنظیمات حذف آدرس: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "بسته tab برای DevTools جلسه: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "پنجره بسته برای DevTools جلسه: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "خطا در حالی که تلاش برای خودرو, ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "اتصال به DevTools میزبان سقط شد. بررسی خود را میزبان و پورت.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools است که در حال حاضر باز است.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools است که در حال حاضر باز است.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools است که در حال حاضر باز است.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "پورت",
+    "description": "Port."
+  },
+  "host": {
+    "message": "میزبان",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "دستی",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "خودرو",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "اهدا",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "فعال",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "آپ تایم",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "گزینه های",
+    "description": "Options."
+  },
+  "general": {
+    "message": "عمومی",
+    "description": "General."
+  },
+  "on": {
+    "message": "در",
+    "description": "On."
+  },
+  "off": {
+    "message": "خاموش",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "باز کردن در یک پنجره جدید.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "ایجاد پنجره متمرکز شده است.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "تب و فعال است.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "نزدیک به طور خودکار.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "بررسی فاصله است.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "اشکال زدایی",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "اشکال زدایی گزاف گویی.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "صرفه جویی در",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "باز DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "اضافه کردن تب",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "ثانیه",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "استفاده متناوب DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "خودکار افزایش میزبان/Port.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "باز DevTools پنجره.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "نیم زمان واقعی همکاری",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "زمان واقعی همکاری.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "انتخاب DevTools نسخه.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "سفارشی DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  }
+}
