@@ -51,6 +51,19 @@ ngApp
             setInterval(this.pullNotifications.bind(this), NOTIFICATION_CHECK_INTERVAL);
             setInterval(this.pushUnpushedNotification.bind(this), NOTIFICATION_PUSH_INTERVAL);
         }
+        saveNotifications() {
+            let notifications = JSON.stringify(this.notifications);
+            chrome.storage.local.set({ 'notifications': notifications }, () => {
+                $window._gaq.push(['_trackEvent', 'Program Event', 'Notification Service', 'Saving notifications.', this.notifications.length, true]);
+            });
+        }
+        loadNotifications() {
+            chrome.storage.local.get(['notifications'], notifications => {
+                if (Object.keys(notifications).length === 0) return;
+                this.notifications = notifications;
+                $window._gaq.push(['_trackEvent', 'Program Event', 'Notification Service', 'Loading notifications.', this.notifications.length, true]);
+            });
+        }
         pullNotifications() {
             $http({
                 method: "GET",
@@ -68,6 +81,7 @@ ngApp
                 });
                 $window._gaq.push(gaArray);
                 this.removeExpiredNotifications();
+                this.saveNotifications();
             })
             .catch(error => {
                 if ($scope.settings.debugVerbosity >= 1) console.log(error);
@@ -98,6 +112,10 @@ ngApp
         pushUnpushedNotification() {
             let unpushed = this.notifications.find(notification => notification.pushed === undefined || notification.pushed !== true);
             if (unpushed) {
+                if (! $scope.settings.notifications.enabled) {
+                    $window._gaq.push(['_trackEvent', 'Program Event', 'Notification Service', 'Push Notifications Disabled ' + unpushed.type + ' ' + unpushed.id, undefined, true]);
+                    return;
+                }
                 pushNotification(unpushed);
                 unpushed.pushed = true;
                 $window._gaq.push(['_trackEvent', 'Program Event', 'Notification Service', 'Pushed ' + unpushed.type + ' ' + unpushed.id, undefined, true]);
@@ -155,8 +173,9 @@ ngApp
         windowFocused: true,
         localDevTools: true,
         notifications: {
-            showMessage: false,
-            lastHMAC: 0
+            showMessage: true,
+            lastHMAC: 0,
+            enabled: true
         },
         chromeNotifications: true,
         autoIncrement: {type: 'port', name: 'Port'}, // both | host | port | false
@@ -1231,6 +1250,7 @@ ngApp
                 } break;
         }
     });
+    chrome.runtime.onInstalled.addListener($scope.notificationService.loadNotifications);
     chrome.runtime.onInstalled.addListener(function installed(details) {
         if (details.reason === 'install') {
             chrome.tabs.create({ url: INSTALL_URL});

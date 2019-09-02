@@ -212,5 +212,9 @@
   "open_tweet": {
     "message": "Open Tweet",
     "description": "Tweet link button text."
+  },
+  "optionsNotifications": {
+    "message": "Notifications",
+    "description": "Options page label for notifications."
   }
 }
