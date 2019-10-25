@@ -1,0 +1,220 @@
+{
+  "donationModalHeader": {
+    "message": "Rhoddion Gwerthfawrogi",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Nid oes unrhyw hysbysiadau.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "Node.js V8 --arolygydd Rheolwr (NiM)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NiM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Rheoli DevTools gyda'r Nod V8 Arolygydd (nod-archwilio) Debugging Llif gwaith",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "Node.js V8 --arolygydd Rheolwr (NiM) - Tudalen Dewisiadau",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --arolygydd Rheolwr (NiM) - DevTools Panel",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "Node.js V8 --arolygydd Rheolwr (NiM)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Gwall gosod uninstall URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Ar gau tab ar gyfer DevTools sesiwn: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Cau ffenestr ar gyfer DevTools sesiwn: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Gwall wrth geisio auto agos ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Cysylltiad i DevTools cynnal ei herthylu. Gwiriwch eich gwesteiwr a phorthladd.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools eisoes ar agor.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools eisoes ar agor.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools eisoes ar agor.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Port",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Cynnal",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Llawlyfr",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Auto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Cyfrannwch",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Galluogi",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Uptime",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Opsiynau",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Cyffredinol",
+    "description": "General."
+  },
+  "on": {
+    "message": "Ar",
+    "description": "On."
+  },
+  "off": {
+    "message": "Oddi ar y",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Yn agored mewn Ffenestr Newydd.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Gwneud Ffenest Yn Canolbwyntio.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Gwneud Tab Yn Weithredol.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Yn Cau Yn Awtomatig.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Gwiriwch Egwyl.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Debugging",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Debugging Geiriogrwydd.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Arbed",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Ar Agor DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Ychwanegu Tab",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Eiliad",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Defnydd Ail DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Cynyddiad Auto Llu/Porthladd.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Agor y DevTools Ffenestr.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM Real-amser ar y Cyd",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Real-amser yn Cydweithio.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Dewiswch DevTools Fersiwn.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Custom DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  },
+  "inspectorWindowStyle": {
+    "message": "Panel arddull ffenestr.",
+    "description": "Panel style window"
+  },
+  "optionsNiMSVSCode": {
+    "message": "VSCode Integreiddio.",
+    "description": "Options page label for VSCode Integration."
+  },
+  "optionsWindowStateMaximized": {
+    "message": "Agored yn manteisio i'r Eithaf Ffenestr.",
+    "description": "Options page label for windowStateMaximized setting."
+  },
+  "optionsSchemeFix": {
+    "message": "Chromium76+",
+    "description": "Options page label for optionsSchemeFix setting."
+  },
+  "open_tweet": {
+    "message": "Tweet Agored",
+    "description": "Tweet link button text."
+  },
+  "optionsNotifications": {
+    "message": "Hysbysiadau",
+    "description": "Options page label for notifications."
+  }
+}
