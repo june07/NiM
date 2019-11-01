@@ -1,0 +1,220 @@
+{
+  "donationModalHeader": {
+    "message": "Donacoj Ŝatita",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Ekzistas neniuj sciigoj.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "Node.js V8 --inspektisto Manaĝero (NiM)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NiM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Administras DevTools kun Nodo V8 Inspektisto (nodo --inspekti) Elpuriganta Workflow",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "Node.js V8 --inspektisto Manaĝero (NiM) - Ebloj Paĝo",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inspektisto Manaĝero (NiM) - DevTools Panelo",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "Node.js V8 --inspektisto Manaĝero (NiM)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Eraro fikso uninstall URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Fermita langeto por DevTools sesio: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Fermita fenestro por DevTools sesio: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Eraro dum provanta auto proksime ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Rilato al DevTools gastiganto estis haltigita. Check via gastiganto kaj haveno.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools estas jam malfermita.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools estas jam malfermita.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools estas jam malfermita.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Haveno",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Gastiganto",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Manlibro",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Aŭto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Donate",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Ebligita",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Uptime",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Opcioj",
+    "description": "Options."
+  },
+  "general": {
+    "message": "Generalo",
+    "description": "General."
+  },
+  "on": {
+    "message": "Sur",
+    "description": "On."
+  },
+  "off": {
+    "message": "Off",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Malfermi en Nova Fenestro.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Fari Fenestro Koncentrita.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Fari Klapeto Estas Aktiva.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Fermi # A? Tomate.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Kontrolu Intervalo.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Elpuriganta",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Elpuriganta Multvorteco.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Savi",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Malferma DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Aldoni Langeto",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Sekundoj",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Uzi Alternaj DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Aŭtomata Pliigo Gastiganto/Haveno.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Malfermi la DevTools Fenestro.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM Vera-tempa Kunlaboro",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Vera-tempa Kunlaboro.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Elekti DevTools Versio.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Propra DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  },
+  "inspectorWindowStyle": {
+    "message": "Panelo stilo fenestro.",
+    "description": "Panel style window"
+  },
+  "optionsNiMSVSCode": {
+    "message": "VSCode Integriĝo.",
+    "description": "Options page label for VSCode Integration."
+  },
+  "optionsWindowStateMaximized": {
+    "message": "Malfermita en Maksimumigita Fenestro.",
+    "description": "Options page label for windowStateMaximized setting."
+  },
+  "optionsSchemeFix": {
+    "message": "Chromium76+",
+    "description": "Options page label for optionsSchemeFix setting."
+  },
+  "open_tweet": {
+    "message": "Malferma Tweet",
+    "description": "Tweet link button text."
+  },
+  "optionsNotifications": {
+    "message": "Sciigoj",
+    "description": "Options page label for notifications."
+  }
+}
