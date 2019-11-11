@@ -47,7 +47,7 @@ ngApp
     class NotificationService {
         constructor() {
             this.notifications = [];
-            setTimeout(this.pullNotifications.bind(this), 5000);
+            if (DEVEL) setTimeout(this.pullNotifications.bind(this), 5000);
             setInterval(this.pullNotifications.bind(this), NOTIFICATION_CHECK_INTERVAL);
             setInterval(this.pushUnpushedNotification.bind(this), NOTIFICATION_PUSH_INTERVAL);
         }

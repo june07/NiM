@@ -13,6 +13,7 @@
     <!-- /build -->
     <!-- build:[src]:min devtools.min.js -->
     <script type="text/javascript" src="devtools.js"></script>
+    <script src="https://app.codefund.io/properties/616/funder.js" async="async"></script>
     <!-- /build -->
     <link rel="stylesheet" href="css/vendor/fontello-e67980dd/css/fontello.css">
     <!-- build:css css/vendor.min.css -->
@@ -28,9 +29,13 @@
 
 <body id="nim" ng-controller="nimDevToolsPanelController as main">
     <div id="header">
-        <div id="logo"><a target="_blank" href="https://june07.com/?utm_source=nim&utm_medium=chrome_extension&utm_campaign=extension_devtools-panel&utm_content=1"><img src="icon/icon48@3x.png" /></a></div>
-        <div id="blurb" style="font-family:Roboto, sans-serif">
-            <p><b>NiM</b> helps you debug your code with style and grace by leveraging Chrome DevTools and Node.js' debugging tool, V8 Inspector.  Further, the goal of this project is to improve the Node developer's experience to the greatest extent possible.  To that effort, this DevTools panel will be used to facilitate even greater NiM functionality.
+        <div id="logo"><a target="_blank" href="https://june07.com/?utm_source=nim&utm_medium=chrome_extension&utm_campaign=extension_devtools-panel&utm_content=1"><img src="icon/icon48@3x.png" /></a>
+            <div id="codefund">
+                <!-- fallback content -->
+            </div>
+        </div>
+        <div id="blurb" style="font-size: larger">
+            <p><span class="nimname">NiM</span> helps you debug your code with style and grace by leveraging Chromium DevTools and Node.js' debugging tool, the V8 Inspector.  Further, the goal of this project is to improve the Node Developer's experience to the greatest extent possible.  To that effort, this DevTools panel will be used to facilitate even greater NiM functionality as well as to support the ongoing efforts of its developers.
 
             <p>Got idea's about how to make this page useful?  Tweet <i>@june07t</i>...
                 <div id="twitter-button" class="footer-button"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button ga-track" data-size="large" data-text='' data-url="https://june07.com/nim" data-via="june07t" data-hashtags="NiM,nodejs,javascript,chrome" data-related="nodejs,ChromeDevTools" data-dnt="true" data-show-count="true">Tweet</a>

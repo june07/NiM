@@ -9,7 +9,7 @@
     "angular-moment": "*",
     "angular-ui-bootstrap": "^2.5.6",
     "animejs": "^2.2.0",
-    "bootstrap": "^4.1.0",
+    "bootstrap": "^4.3.1",
     "bootstrap-notify": "*",
     "jquery": "*",
     "jsoncomp": "^1.6.1",
