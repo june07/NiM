@@ -1,0 +1,220 @@
+{
+  "donationModalHeader": {
+    "message": "Donacije Cijeni",
+    "description": "Donation modal header."
+  },
+  "noNotifications": {
+    "message": "Nema obavijesti.",
+    "description": "Message to display when there are no notifications."
+  },
+  "appName": {
+    "message": "Node.js V8 --inspektor Menadžer (NiM)",
+    "description": "The title of the extension displayed in the web store."
+  },
+  "appShortName": {
+    "message": "NiM",
+    "description": "The short title."
+  },
+  "appDescription": {
+    "message": "Upravlja DevTools sa Čvor V8 Inspektor (čvor --pregledati) Srediti Dijagram",
+    "description": "A description of the extension displayed in the web store."
+  },
+  "pageOptionsTitle": {
+    "message": "Node.js V8 --inspektor Menadžer (NiM) - Opcije Stranica",
+    "description": "Title shown on options page."
+  },
+  "devtoolsPanelTitle": {
+    "message": "Node.js V8 --inspektor Menadžer (NiM) - DevTools Vijeće",
+    "description": "Title shown on the chrome devtools panel."
+  },
+  "defaultTitle": {
+    "message": "Node.js V8 --inspektor Menadžer (NiM)",
+    "description": "Title shown in tooltip."
+  },
+  "errMsg1": {
+    "message": "Greška postavljanje deinstaliranje URL: ",
+    "description": "Error message."
+  },
+  "errMsg2": {
+    "message": "Zatvoren račun za DevTools sesija: ",
+    "description": "Error message."
+  },
+  "errMsg6": {
+    "message": "Zatvoren prozor za DevTools sesija: ",
+    "description": "Error message."
+  },
+  "errMsg3": {
+    "message": "Greška dok je pokušavao da auto blizu ",
+    "description": "Error message."
+  },
+  "errMsg4": {
+    "message": "Veza sa DevTools domaćin bio prekinut. Provjeriti vaš domaćin i luke.",
+    "description": "Error message."
+  },
+  "errMsg5": {
+    "message": "DevTools je već otvoren.",
+    "description": "Error message."
+  },
+  "errMsg7": {
+    "message": "DevTools je već otvoren.",
+    "description": "Error message."
+  },
+  "errMsg8": {
+    "message": "DevTools je već otvoren.",
+    "description": "Storage key $key$ in namespace $namespace$ changed.  Old value was $oldvalue$, new value is $newvalue$",
+    "placeholders": {
+      "key": {
+        "content": "$1"
+      },
+      "namepace": {
+        "content": "$2"
+      },
+      "oldvalue": {
+        "content": "$3"
+      },
+      "newvalue": {
+        "content": "$4"
+      }
+    }
+  },
+  "port": {
+    "message": "Luke",
+    "description": "Port."
+  },
+  "host": {
+    "message": "Domaćin",
+    "description": "Host."
+  },
+  "manual": {
+    "message": "Priručnik",
+    "description": "Manual."
+  },
+  "auto": {
+    "message": "Auto",
+    "description": "Auto."
+  },
+  "donate": {
+    "message": "Donirati",
+    "description": "Donate."
+  },
+  "enabled": {
+    "message": "Omogućila",
+    "description": "Enabled."
+  },
+  "uptime": {
+    "message": "Iskorištenost",
+    "description": "Uptime."
+  },
+  "options": {
+    "message": "Opcija",
+    "description": "Options."
+  },
+  "general": {
+    "message": "General",
+    "description": "General."
+  },
+  "on": {
+    "message": "Na",
+    "description": "On."
+  },
+  "off": {
+    "message": "S",
+    "description": "Off."
+  },
+  "openInspectorNewWindow": {
+    "message": "Otvori u Novi Prozor.",
+    "description": "Open Inspector in a new window."
+  },
+  "makeInspectorWindowFocused": {
+    "message": "Napravi Prozor Fokusiran.",
+    "description": "Make Inspector window focused."
+  },
+  "makeInspectorTabActive": {
+    "message": "Napravi Račun Aktivne.",
+    "description": "Make Inspector tab active."
+  },
+  "autoCloseInspector": {
+    "message": "Blizu Automatski.",
+    "description": "Auto close the Inspector."
+  },
+  "secondsBetweenInspectorChecks": {
+    "message": "Provjeri Pauze.",
+    "description": "Seconds between Inspector checks."
+  },
+  "debugging": {
+    "message": "Srediti",
+    "description": "Debugging."
+  },
+  "debugVerbosity": {
+    "message": "Srediti Verbosity.",
+    "description": "Debugging verbosity."
+  },
+  "save": {
+    "message": "Spasiti",
+    "description": "Save."
+  },
+  "openDevtools": {
+    "message": "Otvori DevTools",
+    "description": "Open DevTools"
+  },
+  "addTab": {
+    "message": "Dodaj Račun",
+    "description": "Add Tab"
+  },
+  "seconds": {
+    "message": "Sekundi",
+    "description": "Seconds badge label."
+  },
+  "defaultDevTools": {
+    "message": "Upotrebi Drugi DevTools.",
+    "description": "Use alternate DevTools."
+  },
+  "autoIncrement": {
+    "message": "Auto Min Domaćin/Luku.",
+    "description": "Auto increment host and/or port."
+  },
+  "keyCtrlI": {
+    "message": "Otvori DevTools Prozor.",
+    "description": "Open the DevTools window."
+  },
+  "realtimeCollaboration": {
+    "message": "NiM Realnom vremenu Saradnji",
+    "description": "NiM Real-time Collaboration Header Title."
+  },
+  "optionsRealtimeCollaboration": {
+    "message": "Realnom vremenu Saradnji.",
+    "description": "Options page label for Real-time Collaboration Setting."
+  },
+  "selectDevToolsVersion": {
+    "message": "Odaberite DevTools Verziju.",
+    "description": "Select the devtools version to use for inspection"
+  },
+  "optionsCustomDevToolsURL": {
+    "message": "Običaj DevTools.",
+    "description": "Lable for custom DevTools settings modal input"
+  },
+  "inspectorWindowStyle": {
+    "message": "Vijeće stil prozor.",
+    "description": "Panel style window"
+  },
+  "optionsNiMSVSCode": {
+    "message": "VSCode Integracije.",
+    "description": "Options page label for VSCode Integration."
+  },
+  "optionsWindowStateMaximized": {
+    "message": "Otvori u Uvećana Prozor.",
+    "description": "Options page label for windowStateMaximized setting."
+  },
+  "optionsSchemeFix": {
+    "message": "Chromium76+",
+    "description": "Options page label for optionsSchemeFix setting."
+  },
+  "open_tweet": {
+    "message": "Otvori Tweet",
+    "description": "Tweet link button text."
+  },
+  "optionsNotifications": {
+    "message": "Obavijesti",
+    "description": "Options page label for notifications."
+  }
+}
