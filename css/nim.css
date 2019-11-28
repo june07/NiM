@@ -113,7 +113,10 @@ div.noUi-base {
 #options-page #checkInterval {
     margin: 10px 0px 0px 0px;
 }
-
+#options-page .badge {
+   background-color: #81c784;
+   font-size: 16px; 
+}
 #options-page #checkInterval-value {
     background-color: #81c784;
     font-size: 16px;
@@ -446,10 +449,19 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
 #popup-page div#local-control-input {
     margin: 0 10px 0 10px;
 }
-#popup-page .tabs .tab a {
+.tabs .tab a {
     color: #66bb6a;
 }
-#popup-page .tabs .indicator {
+.tabs .tab a:hover {
+    color: #66bb6a;
+}
+.tabs .tab a.active {
+    color: #66bb6a;
+}
+.tabs .tab a.visited {
+    color: #66bb6a;
+}
+.tabs .indicator {
     background-color: #43a047;
 }
 #popup-page #footer-buttons {
@@ -717,4 +729,54 @@ span#devToolsCompat {
 .nimname {
     font-size: xx-large;
     color: darkgreen;
+}
+#devtools-panel .collection.report, .collection.host {
+    margin: 0;
+    font-size: small;
+    font-weight: bold;
+    border: 0;
+}
+#devtools-panel .collapsible-header {
+    font-size: large;
+}
+#devtools-panel .collapsible-header, .collapsible-body {
+    padding: 0;
+}
+#devtools-panel .collapsible.popout>li {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+#devtools-panel #noreports {
+    display: table;
+    margin: 50px auto;
+    font-variant: all-small-caps;
+}
+#devtools-panel span.node_report_key {
+    font-weight: bold;
+}
+#devtools-panel span.node_report_value {
+    font-style: italic;
+}
+#devtools-panel #menu > div:nth-child(1) > ul > li.tab.col.s6 > a {
+    text-overflow: clip;
+}
+#devtools-panel #brakecode-login {
+    margin-left: 50px;
+}
+#devtools-panel #brakecode-login img#nim-logo {
+    position: absolute;
+    top: 5px;
+    left: 50px;
+}
+#devtools-panel .row.menu {
+    display: flex;
+    margin-bottom: 0;
+}
+#devtools-panel .dropdown-content li>a, .dropdown-content li>span {
+    color: #4caf50;
+}
+#devtools-panel .spinner {
+    position: absolute;
+    top: 40%;
+    left: 50%;
 }

@@ -25,6 +25,247 @@ var ngApp = angular.module('NimBackgroundApp', []);
 ngApp
 .run(function() {})
 .controller('nimController', ['$scope', '$window', '$http', '$q', function($scope, $window, $http, $q) {
+    class Auth {
+        constructor() {
+            let self = this;
+            self.loggingin = false;
+
+            $scope.$on('brakecode-login', () => {
+                self.loggingin = true;
+                let options = {
+                  scope: 'openid profile offline_access',
+                  device: 'chrome-extension'
+                };
+
+                new Auth0Chrome(env.AUTH0_DOMAIN, env.AUTH0_CLIENT_ID)
+                  .authenticate(options)
+                  .then(function (authResult) {
+                    localStorage.authResult = JSON.stringify(authResult);
+                    self.setProfileData(authResult, () => {
+                        $scope.$emit('brakecode-logged-in');
+                    });
+                    chrome.notifications.create({
+                      type: 'basic',
+                      iconUrl: 'icon/icon128.png',
+                      title: 'Login Successful',
+                      message: 'Advanced NiM Features Ready.'
+                    });
+                      self.loggingin = false;
+                  }).catch(function (err) {
+                    chrome.notifications.create({
+                      type: 'basic',
+                      title: 'Login Failed',
+                      message: err.message,
+                      iconUrl: 'icon/icon128.png'
+                    });
+                      self.loggingin = false;
+                  });
+            });
+            $scope.$on('brakecode-logout', () => {
+                // Remove the idToken from storage
+                localStorage.clear();
+                let logoutUrl = new URL(`https://${env.AUTH0_DOMAIN}/v2/logout`);
+                const params = {
+                    client_id: env.AUTH0_CLIENT_ID,
+                    returnTo: chrome.identity.getRedirectURL() + 'auth0'
+                };
+                logoutUrl.search = new URLSearchParams(params);
+                chrome.identity.launchWebAuthFlow({
+                    'url': logoutUrl.toString()
+                }, function(responseUrl) {
+                    console.log(responseUrl);
+                });
+            });
+        }
+        setProfileData(authResult, callback) {
+            let self = this;
+            return $http({
+                method: "GET",
+                url: `https://${env.AUTH0_DOMAIN}/userinfo`,
+                headers: {
+                    'Authorization': `Bearer ${authResult.access_token}`
+                },
+                responseType: 'json'
+            })
+            .then(response => {
+                localStorage.profile = JSON.stringify(response.data);
+                callback();
+            })
+            .catch(function(error) {
+                return error;
+            });
+        }
+        getProfile() {
+            return localStorage.profile ? JSON.parse(localStorage.profile) : '{}';
+        }
+        isLoggedIn() {
+            let authResult = JSON.parse(localStorage.authResult || '{}');
+            let token = authResult.id_token;
+            return token ? jwt_decode(token).exp > Date.now() / 1000 : false;
+        }
+    }
+    class PubSub {
+        constructor() {
+            let self = this;
+            this.pubnub = new PubNub({
+                subscribeKey: env.PUBNUB_SUBSCRIBE_KEY,
+                authKey: localStorage.profile ? JSON.parse(localStorage.profile)['https://brakecode.com/pubsub_auth_keys'] : [],
+                ssl: true
+            });
+            this.pubnub.addListener({
+                message: function(m) {
+                    // handle message
+                    var channelName = m.channel; // The channel for which the message belongs
+                    var channelGroup = m.subscription; // The channel group or wildcard subscription match (if exists)
+                    var pubTT = m.timetoken; // Publish timetoken
+                    var msg = m.message; // The Payload
+                    var publisher = m.publisher; //The Publisher
+                    if (msg.report) {
+                        msg.report = self.parseReport(msg);
+                        $scope.nodeReportMessages.push(msg);
+                    }
+                    $scope.$emit('newNodeReportMessage', { report: msg.report });
+                    self.sortMessagesByHost();
+                    self.pruneMessages();
+                },
+                presence: function(p) {
+                    // handle presence
+                    var action = p.action; // Can be join, leave, state-change or timeout
+                    var channelName = p.channel; // The channel for which the message belongs
+                    var occupancy = p.occupancy; // No. of users connected with the channel
+                    var state = p.state; // User State
+                    var channelGroup = p.subscription; //  The channel group or wildcard subscription match (if exists)
+                    var publishTime = p.timestamp; // Publish timetoken
+                    var timetoken = p.timetoken;  // Current timetoken
+                    var uuid = p.uuid; // UUIDs of users who are connected with the channel
+                },
+                signal: function(s) {
+                    // handle signal
+                    var channelName = s.channel; // The channel for which the signal belongs
+                    var channelGroup = s.subscription; // The channel group or wildcard subscription match (if exists)
+                    var pubTT = s.timetoken; // Publish timetoken
+                    var msg = s.message; // The Payload
+                    var publisher = s.publisher; //The Publisher
+                },
+                user: function(userEvent) {
+                    // for Objects, this will trigger when:
+                    // . user updated
+                    // . user deleted
+                },
+                space: function(spaceEvent) {
+                    // for Objects, this will trigger when:
+                    // . space updated
+                    // . space deleted
+                },
+                membership: function(membershipEvent) {
+                    // for Objects, this will trigger when:
+                    // . user added to a space
+                    // . user removed from a space
+                    // . membership updated on a space
+                },
+                messageAction: function(ma) {
+                    // handle message action
+                    var channelName = ma.channel; // The channel for which the message belongs
+                    var publisher = ma.publisher; //The Publisher
+                    var event = ma.message.event; // message action added or removed
+                    var type = ma.message.data.type; // message action type
+                    var value = ma.message.data.value; // message action value
+                    var messageTimetoken = ma.message.data.messageTimetoken; // The timetoken of the original message
+                    var actionTimetoken = ma.message.data.actionTimetoken; //The timetoken of the message action
+                },
+                status: function(s) {
+                    var affectedChannelGroups = s.affectedChannelGroups; // The channel groups affected in the operation, of type array.
+                    var affectedChannels = s.affectedChannels; // The channels affected in the operation, of type array.
+                    var category = s.category; //Returns PNConnectedCategory
+                    var operation = s.operation; //Returns PNSubscribeOperation
+                    var lastTimetoken = s.lastTimetoken; //The last timetoken used in the subscribe request, of type long.
+                    var currentTimetoken = s.currentTimetoken; //The current timetoken fetched in the subscribe response, which is going to be used in the next request, of type long.
+                    var subscribedChannels = s.subscribedChannels; //All the current subscribed channels, of type array.
+                }
+            });
+            this.pubnub.subscribe({
+                channels: this.getChannels()
+            });
+        }
+        getChannels() {
+            if (localStorage.profile) {
+                let channels = [];
+                if (DEVEL && JSON.parse(localStorage.profile)['http://localhost/apikey']) channels.push(`${JSON.parse(localStorage.profile)['http://localhost/apikey']}`);
+                channels.push(`${JSON.parse(localStorage.profile)['https://brakecode.com/apikey']}`);
+                return channels;
+            }
+        }
+        parseReport(msg) {
+            let reportString = msg.report,
+                reportObject = {};
+
+            if (msg.type === 'node-reports') {
+                let metrics = [
+                        'dump event time',
+                        'module load time',
+                        'process id',
+                        'command line',
+                        'node.js version',
+                        'os version',
+                        'machine',
+                        'Total heap memory size',
+                        'Total heap committed memory',
+                        'Total used heap memory',
+                        'Total available heap memory',
+                        'Heap memory limit'
+                    ];
+                    reportObject.string = reportString;
+                reportString.split('\n').map(line => {
+                    metrics.find((metric, index) => {
+                        let regex = new RegExp(`(^${metric}):(.*)`, 'i')
+                        reportObject.temp = line.match(regex) ? line.match(regex) : '';
+                        if (reportObject.temp) {
+                            metrics.splice(index, 1);
+                            reportObject[metric] = {
+                                title: reportObject.temp[1],
+                                value: reportObject.temp[2].trim()
+                            }
+                            return true;
+                        }
+                    });
+                });
+                reportObject.id = reportObject.machine.value + ' ' + reportObject['dump event time'].value;
+            } else {
+                reportObject = msg.report;
+                reportObject.machine = { title: 'machine', value: msg.host || reportObject.header.host };
+                reportObject.id = reportObject.machine.value + ' ' + reportObject.header.dumpEventTime;
+            }     
+            return reportObject;
+        }
+        sortMessagesByHost() {
+            if ($scope.nodeReportMessages.length === 0) return [];
+            let hosts = {};
+            $scope.nodeReportMessages.map(message => {
+                let host = message.report.id.split(' ')[0],
+                    report = message.report;
+                if (!hosts[host]) {
+                    hosts[host] = [ {report} ];
+                } else {
+                    if (hosts[host].find(message => message.report.id === report.id)) {
+                        console.log(`SOMETHING IS WRONG!  found duplicate message`);
+                    } else {
+                        hosts[host].push({report});
+                    }
+                }
+            });
+            $scope.nodeReportSortedMessages = hosts;
+        }
+        pruneMessages() {
+            Object.entries($scope.nodeReportSortedMessages).map(kv => {
+                let host = kv[0],
+                    messages = kv[1];
+                while (messages.length > $scope.settings.nodeReport.maxMessages) {
+                    messages.shift();
+                }
+                $scope.nodeReportSortedMessages[`${host}`] = messages;
+            });
+        }
+    }
     class NiMSVSCodeConnector {
         constructor () {
         }
@@ -137,8 +378,8 @@ ngApp
     const SHORTNER_SERVICE_URL = 'https://shortnr.june07.com/api';
     const MESSAGING_SERVICE_URL = 'https://messenger.june07.com/notifications/nim';
     const UPTIME_CHECK_RESOLUTION = 60000; // Check every minute
-    const NOTIFICATION_CHECK_INTERVAL = DEVEL ? 5000 : 60 * 60000; // Check every hour
-    const NOTIFICATION_PUSH_INTERVAL = DEVEL ? 5000 : 60 * 60000; // Push new notifications no more than 1 every hour if there is a queue.
+    const NOTIFICATION_CHECK_INTERVAL = DEVEL ? 60000 : 60 * 60000; // Check every hour
+    const NOTIFICATION_PUSH_INTERVAL = DEVEL ? 60000 : 60 * 60000; // Push new notifications no more than 1 every hour if there is a queue.
     const NOTIFICATION_LIFETIME = DEVEL ? 3 * 60000 : 7 * 86400000;
     const DEVTOOLS_SCHEMES = [
         'chrome-devtools://',
@@ -187,8 +428,14 @@ ngApp
         devToolsCompat: true,
         localDevToolsOptionsSelectedIndex: 0,
         windowStateMaximized: false,
-        scheme: CHROME_VERSION > 75 ? DEVTOOLS_SCHEMES[1] : DEVTOOLS_SCHEMES[0]
+        scheme: CHROME_VERSION > 75 ? DEVTOOLS_SCHEMES[1] : DEVTOOLS_SCHEMES[0],
+        nodeReport: {
+            maxMessages: 10
+        }
     };
+    $scope.Auth = new Auth();
+    $scope.pubsub = new PubSub();
+    $scope.nodeReportMessages = [];
     $scope.localDevToolsOptions = [
         /* The url is set as a default to prevent a nasty case where an unset value results in an undefined which further results in runaway tabs opening.
         *  Decided to use the devtoolsFrontendUrlCompat url as currently it's the one that works more fully (see https://blog.june07.com/missing/)
@@ -1258,6 +1505,12 @@ ngApp
         analytics({ event: 'install', 'onInstalledReason': details.reason });
         if (details.reason === 'update') {
             updateSettings();
+        }
+    });
+    chrome.runtime.onConnect.addListener(function (port) {
+        if (port.name == "devtools-page") {
+            if (port.sender.url.includes(`chrome-extension://${chrome.runtime.id}`)) {
+            }
         }
     });
     chrome.storage.sync.get("host", function(obj) {

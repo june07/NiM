@@ -10,42 +10,116 @@
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
     <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
+    <script type="text/javascript" src="3rd_party_libs/vakata-jstree-c9d7c14/dist/jstree.js"></script>
+    <script type="text/javascript" src="node_modules/file-saver/dist/FileSaver.js"></script>
     <!-- /build -->
     <!-- build:[src]:min devtools.min.js -->
     <script type="text/javascript" src="devtools.js"></script>
-    <script src="https://app.codefund.io/properties/616/funder.js" async="async"></script>
     <!-- /build -->
-    <link rel="stylesheet" href="css/vendor/fontello-e67980dd/css/fontello.css">
+    <script src="https://app.codefund.io/properties/616/funder.js" async="async"></script>
+    <link rel="stylesheet" href="css/vendor/fontello-347ab05e/css/fontello.css">
     <!-- build:css css/vendor.min.css -->
     <link rel="stylesheet" href="css/vendor/font.css">
     <link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">
     <link rel="stylesheet" href="node_modules/angular/angular-csp.css">
+    <link rel="stylesheet" href="3rd_party_libs/vakata-jstree-c9d7c14/dist/themes/default/style.min.css">
     <!-- /build -->
     <!-- build:css css/nim.min.css -->
     <link rel="stylesheet" href="css/nim.css">
     <!-- /build -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta charset="UTF-8">
 </head>
 
 <body id="nim" ng-controller="nimDevToolsPanelController as main">
-    <div id="header">
-        <div id="logo"><a target="_blank" href="https://june07.com/?utm_source=nim&utm_medium=chrome_extension&utm_campaign=extension_devtools-panel&utm_content=1"><img src="icon/icon48@3x.png" /></a>
-            <div id="codefund">
-                <!-- fallback content -->
+    <div class="row">
+        <div class="col s2">
+                <div class="row menu">
+                    <div class="col s6" id="brakecode-login">
+                        <div>
+                            <a href="#" ng-click="login()"><img id="nim-logo" src="icon/icon16@2x.png" title="Node.js Developer Tools." /></a>
+                        </div>
+                    </div>
+                    <div class="col s6" id="user-chip" ng-show="bg.Auth.isLoggedIn()">
+                        <div class="chip dropdown-chip" data-activates="auth-dropdown">
+                            <img ng-src="{{bg.Auth.getProfile().picture}}" />
+                            {{ bg.Auth.getProfile().nickname }}
+                        </div>
+                        <ul id="auth-dropdown" class="dropdown-content">
+                            <li><a href="#" ng-click="logout()">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            <div ng-show="bg.Auth.loggingin">
+                <div class="spinner">
+                  <img src="./image/loading.svg" alt="Loading"/>
+                </div>
+            </div>
+            <!-- START Auth is required for extended features -->
+            <div ng-show="bg.Auth.isLoggedIn()">
+                <div id="menu" class="row">
+                    <div class="col s12">
+                        <ul class="tabs">
+                            <li class="tab col s6"><a href="#node-reports" title="Diagnostic Reports">Diagnostic Reports</a></li>
+                            <!-- <li class="tab col s6"><a href="#blank">Stats</a></li> -->
+                        </ul>
+                    </div>
+                    <div id="node-reports" class="col s12">
+                        <div ng-if="bg.nodeReportMessages.length === 0">
+                            <a id="noreports" target="_blank" href="https://june07.com/node-diagnostic-reports">Missing
+                                Reports?</a>
+                        </div>
+                        <ul ng-show="bg.nodeReportMessages.length > 0" class="collapsible popout" data-collapsible="accordion"
+                            ng-repeat="(host, messages) in bg.nodeReportSortedMessages">
+                            <li>
+                                <div class="collapsible-header">{{ host }} <span class="badge">{{ messages.length }}</span>
+                                </div>
+                                <div class="collapsible-body">
+                                    <div id="jstree-{{host}}"></div>
+                                    <!--
+                                    <div class="collection report" ng-repeat="message in messages">
+                                        <i class="icon-clipboard"></i>
+                                        Report @{{ message.report.id.split(' ')[1] }}
+                                    </div>
+                                    -->
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- <div id="blank" class="col s12">Statistics</div> -->
+                </div>
+            </div>
+            <!-- END Auth is required for extended features -->
+        </div>
+        <div class="col s8">
+            <div class="container" id="header">
+                <div id="logo"><a target="_blank"
+                        href="https://june07.com/?utm_source=nim&utm_medium=chrome_extension&utm_campaign=extension_devtools-panel&utm_content=1"><img
+                            src="icon/icon48@3x.png" /></a>
+                    <div id="codefund">
+                        <!-- fallback content -->
+                    </div>
+                </div>
+                <div id="blurb" style="font-size: larger">
+                    <p><span class="nimname">NiM</span> helps you debug your code with style and grace by leveraging
+                        Chromium DevTools and Node.js' debugging tool, the V8 Inspector. Further, the goal of this
+                        project is to improve the Node Developer's experience to the greatest extent possible. To that
+                        effort, this DevTools panel will be used to facilitate even greater NiM functionality as well as
+                        to support the ongoing efforts of its developers.
+
+                        <p>Got idea's about how to make this page useful? Tweet <i>@june07t</i>...
+                            <div id="twitter-button" class="footer-button"><a
+                                    href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+                                    class="twitter-share-button ga-track" data-size="large" data-text=''
+                                    data-url="https://june07.com/nim" data-via="june07t"
+                                    data-hashtags="NiM,nodejs,javascript,chrome" data-related="nodejs,ChromeDevTools"
+                                    data-dnt="true" data-show-count="true">Tweet</a>
+                                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                            </div>
+                            <br>or email <a href="mailto:667@june07.com">667@june07.com</a>.
+                        </p>
+                </div>
             </div>
         </div>
-        <div id="blurb" style="font-size: larger">
-            <p><span class="nimname">NiM</span> helps you debug your code with style and grace by leveraging Chromium DevTools and Node.js' debugging tool, the V8 Inspector.  Further, the goal of this project is to improve the Node Developer's experience to the greatest extent possible.  To that effort, this DevTools panel will be used to facilitate even greater NiM functionality as well as to support the ongoing efforts of its developers.
-
-            <p>Got idea's about how to make this page useful?  Tweet <i>@june07t</i>...
-                <div id="twitter-button" class="footer-button"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button ga-track" data-size="large" data-text='' data-url="https://june07.com/nim" data-via="june07t" data-hashtags="NiM,nodejs,javascript,chrome" data-related="nodejs,ChromeDevTools" data-dnt="true" data-show-count="true">Tweet</a>
-                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                </div>
-                <br>or email <a href="mailto:667@june07.com">667@june07.com</a>.
-            </p>
-        </div>
-    </div>
-    <div id="content">
-        
     </div>
 </body>

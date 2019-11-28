@@ -48,6 +48,7 @@ ngApp
         $($window).blur(function() {
             $scope.bg.$emit('options-window-focusChanged');
         });
+        // BEGIN SLIDER
         var slider = $window.document.getElementById('checkInterval');
         $window.noUiSlider.create(slider, {
             start: [$scope.bg.settings.checkInterval],
@@ -67,6 +68,8 @@ ngApp
         slider.noUiSlider.on('set', function(values, handle) {
             $window._gaq.push(['_trackEvent', 'User Event', 'checkInterval-value', values[handle], undefined, true]);
         });
+        // END SLIDER
+        // BEGIN SLIDER
         var sliderDebugVerbosity = $window.document.getElementById('debugVerbosity');
         $window.noUiSlider.create(sliderDebugVerbosity, {
             start: [$scope.bg.settings.debugVerbosity],
@@ -85,6 +88,27 @@ ngApp
         sliderDebugVerbosity.noUiSlider.on('set', function(values, handle) {
             $window._gaq.push(['_trackEvent', 'User Event', 'debugVerbosityBadge', values[handle], undefined, true]);
         });
+        // END SLIDER
+        // BEGIN SLIDER
+        let sliderNodeReportMaxMessages = $window.document.getElementById('nodeReportMaxMessages');
+        $window.noUiSlider.create(sliderNodeReportMaxMessages, {
+            start: [$scope.bg.settings.nodeReport.maxMessages],
+            step: 10,
+            range: {
+                'min': [10],
+                'max': [100]
+            },
+            tooltips: false
+        });
+        let rangeSliderValueElementNodeReportMaxMessages = $window.document.getElementById('nodeReportMaxMessages-value');
+        sliderNodeReportMaxMessages.noUiSlider.on('update', function(values, handle) {
+            rangeSliderValueElementNodeReportMaxMessages.innerHTML = values[handle];
+            $scope.bg.settings.nodeReport.maxMessages = values[handle];
+        });
+        sliderNodeReportMaxMessages.noUiSlider.on('set', function(values, handle) {
+            $window._gaq.push(['_trackEvent', 'User Event', 'nodeReportMaxMessages-value', values[handle], undefined, true]);
+        });
+        // END SLIDER
         $scope.saveButtonHandler = function() {
             $window._gaq.push(['_trackEvent', 'save button', 'clicked']);
             chrome.tabs.query({url: chrome.runtime.getURL('options.html')}, (tabs)=>{

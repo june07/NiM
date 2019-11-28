@@ -55,11 +55,13 @@ tmp/
 *.orig
 dist/
 yarn.lock
-.env.js
+env.js
 .npmignore
 pinegrow.json
 package-lock.json
 .env
+src_node_modules/
+3rd_party_libs/
 _locales/bg/.messages.ignore
 _locales/ar/.messages.json
 _locales/ar/.messages.ignore
