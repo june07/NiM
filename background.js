@@ -21,6 +21,8 @@
  *    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  *    SOFTWARE.
 */
+'use strict'
+
 var ngApp = angular.module('NimBackgroundApp', []);
 ngApp
 .run(function() {})
@@ -42,7 +44,7 @@ ngApp
                   .then(function (authResult) {
                     localStorage.authResult = JSON.stringify(authResult);
                     self.setProfileData(authResult, () => {
-                        $scope.$emit('brakecode-logged-in');
+                        Object.values(connections).forEach(c => c.postMessage({ event: 'brakecode-logged-in' }));
                     });
                     chrome.notifications.create({
                       type: 'basic',
@@ -73,7 +75,7 @@ ngApp
                 chrome.identity.launchWebAuthFlow({
                     'url': logoutUrl.toString()
                 }, function(responseUrl) {
-                    console.log(responseUrl);
+                        if (DEVEL || $scope.settings.debugVerbosity >= 1) console.log(responseUrl);
                 });
             });
         }
@@ -124,63 +126,13 @@ ngApp
                         msg.report = self.parseReport(msg);
                         $scope.nodeReportMessages.push(msg);
                     }
-                    $scope.$emit('newNodeReportMessage', { report: msg.report });
+                    try {
+                        Object.values(connections).forEach(c => c.postMessage({ event: 'newNodeReportMessage', report: msg.report }));
+                    } catch (error) {
+                        if (DEVEL) console.log(`Error ${error}`)
+                    }
                     self.sortMessagesByHost();
                     self.pruneMessages();
-                },
-                presence: function(p) {
-                    // handle presence
-                    var action = p.action; // Can be join, leave, state-change or timeout
-                    var channelName = p.channel; // The channel for which the message belongs
-                    var occupancy = p.occupancy; // No. of users connected with the channel
-                    var state = p.state; // User State
-                    var channelGroup = p.subscription; //  The channel group or wildcard subscription match (if exists)
-                    var publishTime = p.timestamp; // Publish timetoken
-                    var timetoken = p.timetoken;  // Current timetoken
-                    var uuid = p.uuid; // UUIDs of users who are connected with the channel
-                },
-                signal: function(s) {
-                    // handle signal
-                    var channelName = s.channel; // The channel for which the signal belongs
-                    var channelGroup = s.subscription; // The channel group or wildcard subscription match (if exists)
-                    var pubTT = s.timetoken; // Publish timetoken
-                    var msg = s.message; // The Payload
-                    var publisher = s.publisher; //The Publisher
-                },
-                user: function(userEvent) {
-                    // for Objects, this will trigger when:
-                    // . user updated
-                    // . user deleted
-                },
-                space: function(spaceEvent) {
-                    // for Objects, this will trigger when:
-                    // . space updated
-                    // . space deleted
-                },
-                membership: function(membershipEvent) {
-                    // for Objects, this will trigger when:
-                    // . user added to a space
-                    // . user removed from a space
-                    // . membership updated on a space
-                },
-                messageAction: function(ma) {
-                    // handle message action
-                    var channelName = ma.channel; // The channel for which the message belongs
-                    var publisher = ma.publisher; //The Publisher
-                    var event = ma.message.event; // message action added or removed
-                    var type = ma.message.data.type; // message action type
-                    var value = ma.message.data.value; // message action value
-                    var messageTimetoken = ma.message.data.messageTimetoken; // The timetoken of the original message
-                    var actionTimetoken = ma.message.data.actionTimetoken; //The timetoken of the message action
-                },
-                status: function(s) {
-                    var affectedChannelGroups = s.affectedChannelGroups; // The channel groups affected in the operation, of type array.
-                    var affectedChannels = s.affectedChannels; // The channels affected in the operation, of type array.
-                    var category = s.category; //Returns PNConnectedCategory
-                    var operation = s.operation; //Returns PNSubscribeOperation
-                    var lastTimetoken = s.lastTimetoken; //The last timetoken used in the subscribe request, of type long.
-                    var currentTimetoken = s.currentTimetoken; //The current timetoken fetched in the subscribe response, which is going to be used in the next request, of type long.
-                    var subscribedChannels = s.subscribedChannels; //All the current subscribed channels, of type array.
                 }
             });
             this.pubnub.subscribe({
@@ -256,11 +208,14 @@ ngApp
             $scope.nodeReportSortedMessages = hosts;
         }
         pruneMessages() {
-            Object.entries($scope.nodeReportSortedMessages).map(kv => {
+            Object.entries($scope.nodeReportSortedMessages).map((kv, i, groups) => {
                 let host = kv[0],
                     messages = kv[1];
-                while (messages.length > $scope.settings.nodeReport.maxMessages) {
+                while (messages.length > $scope.settings.diagnosticReports.maxMessages) {
                     messages.shift();
+                }
+                while ($scope.nodeReportMessages.length > groups.length * $scope.settings.diagnosticReports.maxMessages) {
+                    $scope.nodeReportMessages.shift();
                 }
                 $scope.nodeReportSortedMessages[`${host}`] = messages;
             });
@@ -392,6 +347,7 @@ ngApp
         $scope.ExtensionInfo = ExtensionInfo;
     });
     getChromeIdentity();
+    $scope.fancytrees = {};
     $scope.NiMSVSCodeConnector = new NiMSVSCodeConnector();
     $scope.notificationService = new NotificationService();
     $scope.loaded = Date.now();
@@ -429,7 +385,8 @@ ngApp
         localDevToolsOptionsSelectedIndex: 0,
         windowStateMaximized: false,
         scheme: CHROME_VERSION > 75 ? DEVTOOLS_SCHEMES[1] : DEVTOOLS_SCHEMES[0],
-        nodeReport: {
+        diagnosticReports: {
+            enabled: true,
             maxMessages: 10
         }
     };
@@ -470,6 +427,7 @@ ngApp
         else if (!$scope.localDevToolsOptions[3].url.match(devToolsURL_Regex))
             $scope.localDevToolsOptions[3].url = $scope.localDevToolsOptions[1].url;
     }
+    $scope.devtoolsPanelInstances = 0;
 
     let tabId_HostPort_LookupTable = [],
         backoffTable = [],
@@ -479,7 +437,8 @@ ngApp
         SingletonOpenTabInProgress = openTabInProgressSingleton(),
         triggerTabUpdate = false,
         websocketIdLastLoaded = {},
-        tabNotificationListeners = [];
+        tabNotificationListeners = [],
+        connections = {};
     $scope.tabId_HostPort_LookupTable = tabId_HostPort_LookupTable;
 
     restoreSettings();
@@ -1507,11 +1466,28 @@ ngApp
             updateSettings();
         }
     });
-    chrome.runtime.onConnect.addListener(function (port) {
-        if (port.name == "devtools-page") {
-            if (port.sender.url.includes(`chrome-extension://${chrome.runtime.id}`)) {
+    chrome.runtime.onConnect.addListener(function portListener(port) {
+        let extensionListener = function (message, sender, sendResponse) {
+            if (message.name == "init") {
+                connections[message.tabId + '_' + port.name] = port;
+                return;
+            } else if (message.name == 'hidden') {
+                //port.onMessage.removeListener(extensionListener);
+            } else if (message.name == 'shown') {
+                //port.onMessage.addListener(extensionListener);
             }
         }
+        port.onMessage.addListener(extensionListener);
+        port.onDisconnect.addListener(function(port) {
+            port.onMessage.removeListener(extensionListener);
+            let tabs = Object.keys(connections);
+            for (let i = 0; i < tabs.length; i++) {
+                if (connections[tabs[i]] == port) {
+                    delete connections[tabs[i]]
+                    break;
+                }
+            }
+        });
     });
     chrome.storage.sync.get("host", function(obj) {
         $scope.settings.host = obj.host || "localhost";

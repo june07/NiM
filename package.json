@@ -14,6 +14,8 @@
     "bootstrap-notify": "*",
     "file-saver": "^2.0.2",
     "jquery": "*",
+    "jquery-contextmenu": "^2.9.0",
+    "jquery.fancytree": "^2.33.0",
     "json-tree2": "^0.1.5",
     "jsoncomp": "^1.6.1",
     "jsrsasign": "^8.0.12",

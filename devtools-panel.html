@@ -10,24 +10,26 @@
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
     <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
-    <script type="text/javascript" src="3rd_party_libs/vakata-jstree-c9d7c14/dist/jstree.js"></script>
-    <script type="text/javascript" src="node_modules/file-saver/dist/FileSaver.js"></script>
+    <script type="text/javascript" src="node_modules/jquery.fancytree/dist/jquery.fancytree-all-deps.min.js"></script>
+    <script type="text/javascript" src="node_modules/file-saver/dist/FileSaver.min.js"></script>
+    <script type="text/javascript" src="node_modules/jquery-contextmenu/dist/jquery.contextMenu.min.js"></script>
     <!-- /build -->
     <!-- build:[src]:min devtools.min.js -->
-    <script type="text/javascript" src="devtools.js"></script>
+    <script type="text/javascript" src="devtools-panel.js"></script>
     <!-- /build -->
-    <script src="https://app.codefund.io/properties/616/funder.js" async="async"></script>
-    <link rel="stylesheet" href="css/vendor/fontello-347ab05e/css/fontello.css">
+    <script type="text/javascript" src="https://app.codefund.io/properties/616/funder.js" async="async"></script>
+    <link rel="stylesheet" href="css/vendor/fontello-19b00a12/css/fontello.css">
     <!-- build:css css/vendor.min.css -->
     <link rel="stylesheet" href="css/vendor/font.css">
     <link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">
     <link rel="stylesheet" href="node_modules/angular/angular-csp.css">
-    <link rel="stylesheet" href="3rd_party_libs/vakata-jstree-c9d7c14/dist/themes/default/style.min.css">
+    <!--<link rel="stylesheet" href="3rd_party_libs/vakata-jstree-c9d7c14/dist/themes/default/style.min.css">-->
+    <link rel="stylesheet" href="node_modules/jquery.fancytree/dist/skin-themeroller/ui.fancytree.min.css">
+    <link rel="stylesheet" href="node_modules/jquery-contextmenu/dist/jquery.contextMenu.min.css">
     <!-- /build -->
     <!-- build:css css/nim.min.css -->
     <link rel="stylesheet" href="css/nim.css">
     <!-- /build -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta charset="UTF-8">
 </head>
 
@@ -64,7 +66,7 @@
                             <!-- <li class="tab col s6"><a href="#blank">Stats</a></li> -->
                         </ul>
                     </div>
-                    <div id="node-reports" class="col s12">
+                    <div ng-if="bg.settings.diagnosticReports.enabled" id="node-reports" class="col s12">
                         <div ng-if="bg.nodeReportMessages.length === 0">
                             <a id="noreports" target="_blank" href="https://june07.com/node-diagnostic-reports">Missing
                                 Reports?</a>
@@ -76,15 +78,13 @@
                                 </div>
                                 <div class="collapsible-body">
                                     <div id="jstree-{{host}}"></div>
-                                    <!--
-                                    <div class="collection report" ng-repeat="message in messages">
-                                        <i class="icon-clipboard"></i>
-                                        Report @{{ message.report.id.split(' ')[1] }}
-                                    </div>
-                                    -->
                                 </div>
                             </li>
                         </ul>
+                    </div>
+                    <div ng-if="!bg.settings.diagnosticReports.enabled" id="node-reports-disabled" class="col s12">
+                        <span>Diagnostic Reports are disabled.</span>
+                        <input type="button" id="open options" value="Open Options" class="btn green lighten-1 ga-track i18n" ng-click="openOptionsPage()"></input>
                     </div>
                     <!-- <div id="blank" class="col s12">Statistics</div> -->
                 </div>

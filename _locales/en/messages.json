@@ -218,7 +218,11 @@
     "description": "Options page label for notifications."
   },
   "nodeReportMaxMessages": {
-    "message": "Maximum Diagnostic Report Messages.",
+    "message": "Maximum Diagnostic Report Messages (per host).",
     "description": "Options page label for nodeReportMaxMessages."
+  },
+  "optionsDiagnosticReports": {
+    "message": "Node.js Diagnostic Reports",
+    "description": "Options page label for Node.js Diagnostic Reports."
   }
 }

@@ -160,6 +160,15 @@
                         </div>
                         <span class="i18n">optionsNotifications</span>
                     </li>
+                    <li class="collection-item">
+                        <div class="switch right">
+                            <label><span class="i18n">off</span>
+                                <input type="checkbox" ng-click="diagnosticReportsHandler()" ng-model="bg.settings.diagnosticReports.enabled" id="Diagnostic Reports" class="ga-track">
+                                <span class="lever"></span><span class="i18n">on</span>
+                            </label>
+                        </div>
+                        <span class="i18n">optionsDiagnosticReports</span>
+                    </li>
                     <li class="collection-item bottom">
                         <div class="row">
                             <div class="col s6">
@@ -174,7 +183,7 @@
                                 <div class="right">
                                     <span class="badge new i18n" data-badge-caption="messages" id="nodeReportMaxMessages-value"></span>
                                 </div>
-                                <div id="nodeReportMaxMessages" ng-model="bg.settings.nodeReport.maxMessages"></div>
+                                <div id="nodeReportMaxMessages" ng-model="bg.settings.diagnosticReports.maxMessages"></div>
                             </div>
                         </div>
                     </li>

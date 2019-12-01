@@ -92,18 +92,18 @@ ngApp
         // BEGIN SLIDER
         let sliderNodeReportMaxMessages = $window.document.getElementById('nodeReportMaxMessages');
         $window.noUiSlider.create(sliderNodeReportMaxMessages, {
-            start: [$scope.bg.settings.nodeReport.maxMessages],
-            step: 10,
+            start: [$scope.bg.settings.diagnosticReports.maxMessages],
+            step: 1,
             range: {
-                'min': [10],
-                'max': [100]
+                'min': [1],
+                'max': [10]
             },
             tooltips: false
         });
         let rangeSliderValueElementNodeReportMaxMessages = $window.document.getElementById('nodeReportMaxMessages-value');
         sliderNodeReportMaxMessages.noUiSlider.on('update', function(values, handle) {
             rangeSliderValueElementNodeReportMaxMessages.innerHTML = values[handle];
-            $scope.bg.settings.nodeReport.maxMessages = values[handle];
+            $scope.bg.settings.diagnosticReports.maxMessages = values[handle];
         });
         sliderNodeReportMaxMessages.noUiSlider.on('set', function(values, handle) {
             $window._gaq.push(['_trackEvent', 'User Event', 'nodeReportMaxMessages-value', values[handle], undefined, true]);
@@ -142,4 +142,8 @@ ngApp
         $scope.fix = function() {
             $('.dropdown-button').dropdown();
         }
+        $scope.diagnosticReportsHandler = function() {
+            $scope.bg.settings.diagnosticReports.enabled ? sliderNodeReportMaxMessages.removeAttribute('disabled') : sliderNodeReportMaxMessages.setAttribute('disabled', true);
+        }
+        $scope.diagnosticReportsHandler();
     }]);

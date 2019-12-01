@@ -780,3 +780,9 @@ span#devToolsCompat {
     top: 40%;
     left: 50%;
 }
+ul.fancytree-container {
+    border: 0;
+}
+.fancytree-treefocus {
+    outline: none;
+}
