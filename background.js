@@ -32,36 +32,48 @@ ngApp
             let self = this;
             self.loggingin = false;
 
-            $scope.$on('brakecode-login', () => {
+            $scope.$on('brakecode-login', function() {
                 self.loggingin = true;
+                // Remove the spinner if the login doesn't happen within a period of time.  Not sure there's a callback for dismissing the login popup.
+                setTimeout(function() {
+                    this.loggingin = false;
+                    Object.values(connections).map(c => c.postMessage({ event: 'brakecode-login-cancelled' }));
+                }.bind(self), 5000);
                 let options = {
                   scope: 'openid profile offline_access',
                   device: 'chrome-extension'
                 };
 
                 new Auth0Chrome(env.AUTH0_DOMAIN, env.AUTH0_CLIENT_ID)
-                  .authenticate(options)
-                  .then(function (authResult) {
+                .authenticate(options)
+                .then(function (authResult) {
                     localStorage.authResult = JSON.stringify(authResult);
                     self.setProfileData(authResult, () => {
-                        Object.values(connections).forEach(c => c.postMessage({ event: 'brakecode-logged-in' }));
+                        Object.values(connections).map(c => c.postMessage({ event: 'brakecode-logged-in' }));
+                        $scope.$emit('brakecode-logged-in');
                     });
                     chrome.notifications.create({
-                      type: 'basic',
-                      iconUrl: 'icon/icon128.png',
-                      title: 'Login Successful',
-                      message: 'Advanced NiM Features Ready.'
+                        type: 'basic',
+                        iconUrl: 'icon/icon128.png',
+                        title: 'Login Successful',
+                        message: 'Advanced NiM Features Ready.'
+                    }, function(notificationId) {
+                        $window._gaq.push(['_trackEvent', 'Notification Event', 'notification_created', 'type', 'Brakecode Login Success', true]);
+                        if ($scope.settings.debugVerbosity >= 4) console.log(notificationId);
                     });
-                      self.loggingin = false;
-                  }).catch(function (err) {
+                    self.loggingin = false;
+                }).catch(function (err) {
                     chrome.notifications.create({
-                      type: 'basic',
-                      title: 'Login Failed',
-                      message: err.message,
-                      iconUrl: 'icon/icon128.png'
+                        type: 'basic',
+                        title: 'Login Failed',
+                        message: err.message,
+                        iconUrl: 'icon/icon128.png'
+                    }, function(notificationId) {
+                        $window._gaq.push(['_trackEvent', 'Notification Event', 'notification_created', 'type', 'Brakecode Login Failed', true]);
+                        if ($scope.settings.debugVerbosity >= 4) console.log(notificationId);
                     });
-                      self.loggingin = false;
-                  });
+                    self.loggingin = false;
+                });
             });
             $scope.$on('brakecode-logout', () => {
                 // Remove the idToken from storage
@@ -75,7 +87,8 @@ ngApp
                 chrome.identity.launchWebAuthFlow({
                     'url': logoutUrl.toString()
                 }, function(responseUrl) {
-                        if (DEVEL || $scope.settings.debugVerbosity >= 1) console.log(responseUrl);
+                    $scope.$emit('brakecode-logged-out');
+                    if (DEVEL || $scope.settings.debugVerbosity >= 1) console.log(responseUrl);
                 });
             });
         }
@@ -105,14 +118,34 @@ ngApp
             let token = authResult.id_token;
             return token ? jwt_decode(token).exp > Date.now() / 1000 : false;
         }
+        getAPIKey() {
+            let key = JSON.parse(localStorage.profile)[DEVEL ? 'http://localhost/apikey' : 'https://brakecode.com/apikey'];
+            return key;
+        }
     }
     class PubSub {
         constructor() {
             let self = this;
+            this.init();
+            $scope.$on('brakecode-logged-in', () => {
+                self.init();
+                self.pubnub.reconnect();
+            });
+            $scope.$on('brakecode-logged-out', () => {
+                self.pubnub.stop();
+                self.pubnub = null;
+            });
+        }
+        init() {
+            let self = this;
+            let authKeyProfileString = DEVEL ? 'http://localhost/pubsub_auth_keys' : 'https://brakecode.com/pubsub_auth_keys';
             this.pubnub = new PubNub({
                 subscribeKey: env.PUBNUB_SUBSCRIBE_KEY,
-                authKey: localStorage.profile ? JSON.parse(localStorage.profile)['https://brakecode.com/pubsub_auth_keys'] : [],
+                authKey: localStorage.profile ? JSON.parse(localStorage.profile)[authKeyProfileString] : [],
                 ssl: true
+            });
+            this.pubnub.subscribe({
+                channels: this.getChannels()
             });
             this.pubnub.addListener({
                 message: function(m) {
@@ -135,15 +168,12 @@ ngApp
                     self.pruneMessages();
                 }
             });
-            this.pubnub.subscribe({
-                channels: this.getChannels()
-            });
         }
         getChannels() {
             if (localStorage.profile) {
                 let channels = [];
                 if (DEVEL && JSON.parse(localStorage.profile)['http://localhost/apikey']) channels.push(`${JSON.parse(localStorage.profile)['http://localhost/apikey']}`);
-                channels.push(`${JSON.parse(localStorage.profile)['https://brakecode.com/apikey']}`);
+                else channels.push(`${JSON.parse(localStorage.profile)['https://brakecode.com/apikey']}`);
                 return channels;
             }
         }

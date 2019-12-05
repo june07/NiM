@@ -33,6 +33,7 @@ ngApp
             {id: 'false', name: 'False'},
         ];
         $scope.window = $window;
+        $scope.apikey = '************************************';
 
         var $ = $window.$,
             chrome = $window.chrome;
@@ -146,4 +147,8 @@ ngApp
             $scope.bg.settings.diagnosticReports.enabled ? sliderNodeReportMaxMessages.removeAttribute('disabled') : sliderNodeReportMaxMessages.setAttribute('disabled', true);
         }
         $scope.diagnosticReportsHandler();
+        $scope.maskKey = function(mask) {
+            if (mask) $scope.apikey = '************************************';
+            else $scope.apikey = $scope.bg.Auth.getAPIKey();
+        }
     }]);

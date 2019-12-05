@@ -5,7 +5,7 @@ ul #dropdown1 {
     padding-right: 100px;
     float: right;
 }
-span #devToolsBadgeLabel {
+span .badgeLabel {
     background-color: #81c784;
     color: white;
 }
@@ -163,7 +163,7 @@ div.noUi-base {
 }
 #options-page-ads-iframe {
     width: 100%;
-    height: 300px;
+    height: 97%;
 }
 #debugVerbosityBadge {
     background-color: #81c784;

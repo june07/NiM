@@ -49,6 +49,7 @@ ngApp
             switch (message.event) {
                 case 'newNodeReportMessage':
                     if ($scope.bg.nodeReportSortedMessages) {
+                        $scope.$apply();
                         Promise.all(
                             Object.entries($scope.bg.nodeReportSortedMessages).map(kv => {
                                 let host = kv[0],
@@ -56,12 +57,38 @@ ngApp
                                 return updateJSONTree(formatJSONTreeData({host, messages}))
                             })
                         ).then(() => {
+                            $('.collapsible').collapsible();
                             $scope.$apply();
                         });
                     }
-                    $('.collapsible').collapsible();
                 break;
                 case 'brakecode-logged-in':
+                    $scope.$apply();
+                    $('.dropdown-chip').dropdown({
+                        inDuration: 300,
+                        outDuration: 225,
+                        constrainWidth: false, // Does not change width of dropdown to that of the activator
+                        hover: true, // Activate on hover
+                        gutter: 0, // Spacing from edge
+                        belowOrigin: true, // Displays dropdown below the button
+                        alignment: 'left', // Displays dropdown with edge aligned to the left of button
+                        stopPropagation: false // Stops event propagation
+                    });
+                    if ($scope.bg.nodeReportSortedMessages) {
+                        $scope.$apply();
+                        Promise.all(
+                            Object.entries($scope.bg.nodeReportSortedMessages).map(kv => {
+                                let host = kv[0],
+                                    messages = kv[1];
+                                return updateJSONTree(formatJSONTreeData({host, messages}))
+                            })
+                        ).then(() => {
+                            $('.collapsible').collapsible();
+                            $scope.$apply();
+                        });
+                    }
+                break;
+                case 'brakecode-login-cancelled':
                     $scope.$apply();
                 break;
             }
@@ -78,8 +105,8 @@ ngApp
                 alignment: 'left', // Displays dropdown with edge aligned to the left of button
                 stopPropagation: false // Stops event propagation
             });
-            $('.collapsible').collapsible();
             if ($scope.bg.nodeReportSortedMessages) {
+                $scope.$apply();
                 Promise.all(
                     Object.entries($scope.bg.nodeReportSortedMessages).map(kv => {
                         let host = kv[0],
@@ -87,6 +114,7 @@ ngApp
                         return updateJSONTree(formatJSONTreeData({host, messages}))
                     })
                 ).then(() => {
+                    $('.collapsible').collapsible();
                     $scope.$apply();
                 });
             }

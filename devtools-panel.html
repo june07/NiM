@@ -42,7 +42,7 @@
                             <a href="#" ng-click="login()"><img id="nim-logo" src="icon/icon16@2x.png" title="Node.js Developer Tools." /></a>
                         </div>
                     </div>
-                    <div class="col s6" id="user-chip" ng-show="bg.Auth.isLoggedIn()">
+                    <div class="col s6" id="user-chip" ng-if="bg.Auth.isLoggedIn()">
                         <div class="chip dropdown-chip" data-activates="auth-dropdown">
                             <img ng-src="{{bg.Auth.getProfile().picture}}" />
                             {{ bg.Auth.getProfile().nickname }}
@@ -52,13 +52,13 @@
                         </ul>
                     </div>
                 </div>
-            <div ng-show="bg.Auth.loggingin">
+            <div ng-if="bg.Auth.loggingin">
                 <div class="spinner">
                   <img src="./image/loading.svg" alt="Loading"/>
                 </div>
             </div>
             <!-- START Auth is required for extended features -->
-            <div ng-show="bg.Auth.isLoggedIn()">
+            <div ng-if="bg.Auth.isLoggedIn()">
                 <div id="menu" class="row">
                     <div class="col s12">
                         <ul class="tabs">
@@ -107,7 +107,7 @@
                         effort, this DevTools panel will be used to facilitate even greater NiM functionality as well as
                         to support the ongoing efforts of its developers.
 
-                        <p>Got idea's about how to make this page useful? Tweet <i>@june07t</i>...
+                        <p>Got idea's about how to make this page even more useful? Tweet <i>@june07t</i>...
                             <div id="twitter-button" class="footer-button"><a
                                     href="https://twitter.com/share?ref_src=twsrc%5Etfw"
                                     class="twitter-share-button ga-track" data-size="large" data-text=''

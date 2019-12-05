@@ -44,7 +44,7 @@
                 <!--<iframe id="options-page-ads-iframe" frameborder="0" src="https://june07.github.io/nim/options-page-ads-dev.html"></iframe>-->
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="display: flex">
             <div class="col s3">
                 <iframe id="options-page-ads-iframe" frameborder="0" src="https://june07.github.io/nim/options-page-ads.html"></iframe>
             </div>
@@ -121,11 +121,11 @@
                                 <input type="checkbox" id="devToolsCompatCheckbox" ng-model="bg.settings.devToolsCompat" />
                                 <label for="devToolsCompatCheckbox">DevToolsCompat</label>
                             </span>
-                            <span id="devToolsBadge">DevTools Version ({{ bg.getDevToolsOption().name }}): <span id="devToolsBadgeLabel" class="badge">{{ bg.getDevToolsOption().url }}</span></span>
+                            <span id="devToolsBadge">DevTools Version ({{ bg.getDevToolsOption().name }}): <span class="badge badgeLabel">{{ bg.getDevToolsOption().url }}</span></span>
                         </div>
                         <a ng-hide="!bg.settings.localDevTools" class="dropdown-button" href="#" data-activates="dropdown1">
                             <span id="selectDevToolsVersion">{{ window.chrome.i18n.getMessage("selectDevToolsVersion") }}</span>
-                            <span id="devToolsBadge">DevTools Version ({{ bg.getDevToolsOption().name }}): <span id="devToolsBadgeLabel" class="badge">{{ bg.getDevToolsOption().url }}</span></span>
+                            <span id="devToolsBadge">DevTools Version ({{ bg.getDevToolsOption().name }}): <span class="badge badgeLabel">{{ bg.getDevToolsOption().url }}</span></span>
                         </a>
                         <ul id="dropdown1" class="dropdown-content">
                             <li><a href="#!" ng-click="setDevToolsOption(1)">{{ bg.localDevToolsOptions[1].name }}: {{ bg.localDevToolsOptions[1].url }} </a></li>
@@ -167,7 +167,14 @@
                                 <span class="lever"></span><span class="i18n">on</span>
                             </label>
                         </div>
-                        <span class="i18n">optionsDiagnosticReports</span>
+                        
+                        <div>
+                            <span class="i18n">optionsDiagnosticReports</span>
+                            <span id="devToolsBadge">
+                                <span id="devtoolsAPIKeyBadge">Brakecode API Key: <span id="brakecodeAPIKeyBadgeLabel" class="badge badgeLabel">
+                                    <span ng-mouseenter="maskKey(false)" ng-mouseleave="maskKey(true)" id="apikey">{{ apikey }}</span></span></span>
+                            </span>
+                        </div>
                     </li>
                     <li class="collection-item bottom">
                         <div class="row">
