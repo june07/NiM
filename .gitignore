@@ -67,3 +67,4 @@ _locales/*/.messages.json
 dev.env.js
 icon/icon-from-traced-png.png
 css/vendor/fontello*
+image/screenshots/*

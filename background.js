@@ -377,6 +377,10 @@ ngApp
         $scope.ExtensionInfo = ExtensionInfo;
     });
     getChromeIdentity();
+    $scope.intervals = {
+        uptime: null,
+        checkInterval: null
+    };
     $scope.fancytrees = {};
     $scope.NiMSVSCodeConnector = new NiMSVSCodeConnector();
     $scope.notificationService = new NotificationService();
@@ -393,7 +397,6 @@ ngApp
         remoteProbeInterval: 10000,
         localSessionTimeout: DEVEL ? 7*24*60*60000 : 7*24*60*60000,
         debugVerbosity: 0,
-        checkIntervalTimeout: null,
         newWindow: false,
         autoClose: false,
         tabActive: true,
@@ -471,10 +474,14 @@ ngApp
         connections = {};
     $scope.tabId_HostPort_LookupTable = tabId_HostPort_LookupTable;
 
-    restoreSettings();
-    updateInternalSettings() // This function is needed for settings that aren't yet configurable via the UI.  Otherwise the new unavailable setting will continue to be reset with whatever was saved vs the defaults.
+    restoreSettings()
+    .then(updateInternalSettings) // This function is needed for settings that aren't yet configurable via the UI.  Otherwise the new unavailable setting will continue to be reset with whatever was saved vs the defaults.
+    .then(function startInterval() {
+        if ($scope.settings.debugVerbosity >= 1) console.log('Starting up.')
+        resetInterval();
+    });
 
-    setInterval(function() {
+    $scope.intervals.uptime = setInterval(function() {
         $scope.timerUptime++;
         if (($scope.timerUptime >= UPTIME_CHECK_INTERVAL && $scope.timerUptime % UPTIME_CHECK_INTERVAL === 0) || ($scope.timerUptime === 1)) {
             $window._gaq.push(['_trackEvent', 'Program Event', 'Uptime Check', $scope.moment.duration($scope.timerUptime, 'seconds').humanize(), $scope.timerUptime, true ],
@@ -673,7 +680,6 @@ ngApp
     $scope.$on('options-window-closed', function() {
         //
         saveAll();
-        resetInterval($scope.settings.checkIntervalTimeout);
     });
     $scope.$on('options-window-focusChanged', function() {
         // Only if an event happened
@@ -795,15 +801,11 @@ ngApp
             }
         }
     }
-    (function startInterval() {
-        if ($scope.settings.debugVerbosity >= 1) console.log('Starting up.')
-        resetInterval();
-    })();
     function resetInterval(timeout) {
         if (timeout) {
             clearInterval(timeout);
         }
-        $scope.settings.checkIntervalTimeout = setInterval(function() {
+        $scope.intervals.checkInterval = setInterval(function() {
             if ($scope.settings.auto && ! isLocked(getInstance())) {
                 if ($scope.settings.debugVerbosity >= 6) console.log('resetInterval going thru a check loop...')
                 closeDevTools(
@@ -835,6 +837,7 @@ ngApp
                     SingletonHttpGet.getInstance(instance);
                 }
             })
+            if (DEVEL) console.dir(JSON.stringify($scope.intervals));
         }, $scope.settings.checkInterval);
     }
     function httpGetTestSingleton() {
@@ -1271,12 +1274,17 @@ ngApp
         });
     }
     function restoreSettings() {
-        if ($scope.settings.debugVerbosity >= 1) console.log('Restoring saved settings.');
-        chrome.storage.sync.get(function(sync) {
-            var keys = Object.keys(sync);
-            keys.forEach(function(key, i, keys) {
-                $scope.settings[key] = sync[key];
-                if (i === keys.length-1) $scope.setDevToolsOption($scope.settings.localDevToolsOptionsSelectedIndex);
+        return new Promise(resolve => {
+            if ($scope.settings.debugVerbosity >= 1) console.log('Restoring saved settings.');
+            chrome.storage.sync.get(function(sync) {
+                var keys = Object.keys(sync);
+                keys.forEach(function(key, i, keys) {
+                    $scope.settings[key] = sync[key];
+                    if (i === keys.length-1) {
+                        $scope.setDevToolsOption($scope.settings.localDevToolsOptionsSelectedIndex);
+                        resolve();
+                    }
+                });
             });
         });
     }
@@ -1284,11 +1292,14 @@ ngApp
         if (DEVEL) {
             $scope.settings.localSessionTimeout = 7*24*60*60000
         }
+        return Promise.resolve();
     }
     function updateSettings() {
     }
     function saveAll() {
+        resetInterval($scope.intervals.checkInterval);
         saveAllToChromeStorage($scope.settings, 'settings');
+        Object.values(connections).map(c => c.postMessage({ event: 'options-updated' }));
     }
     function saveAllToChromeStorage(saveme_object, saveme_name) {
         var keys = Object.keys(saveme_object);
@@ -1316,7 +1327,6 @@ ngApp
                 case 'port': entry[0] = 'p'; break;
                 case 'checkInterval': entry[0] = 'ci'; break;
                 case 'debugVerbosity': entry[0] = 'dv'; break;
-                case 'checkIntervalTimeout': entry[0] = 'cit'; break;
                 case 'newWindow': entry[0] = 'nw'; break;
                 case 'autoClose': entry[0] = 'ac'; break;
                 case 'tabActive': entry[0] = 'ta'; break;
