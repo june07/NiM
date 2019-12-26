@@ -604,8 +604,10 @@ ngApp
                             url = url
                                 .replace(inspectIP + ":9229", host + ":" + port) // In the event that remote debugging is being used and the infoUrl port (by default 80) is not forwarded take a chance and pick the default.
                                 .replace(inspectIP + ":" + inspectPORT, host + ":" + port) // A check for just the port change must be made.
-                            if ($scope.settings.localDevTools || $scope.settings.devToolsCompat)
-                                url = url.replace(devToolsURL_Regex, $scope.getDevToolsOption().url);
+                            if ($scope.settings.localDevTools || $scope.settings.devToolsCompat) {
+                                let devToolsOptionURL = $scope.getDevToolsOption().url;
+                                if (devToolsOptionURL.match(devToolsURL_Regex)) url = url.replace(devToolsURL_Regex, devToolsOptionURL);
+                            }
                             if ($scope.settings.bugfix)
                                 url = url.replace('', '');
                             var websocketId = json.data[0].id;
