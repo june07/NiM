@@ -19,7 +19,17 @@
         "nacl": true,
         "crypto": true,
         "document": true,
-        "navigator": true
+        "navigator": true,
+        "env": true,
+        "Auth0Chrome": true,
+        "localStorage": true,
+        "PubNub": true,
+        "URL": true,
+        "URLSearchParams": true,
+        "jwt_decode": true,
+        "Blob": true,
+        "chrome": true,
+        "window": true
     },
   "env": { "es6": true },
     "rules": {
@@ -36,7 +46,7 @@
         "no-const-assign": "error",
         "no-constant-condition": "error",
         "no-continue": "off",
-        "no-control-regex": "warn",
+        "no-control-regex": "off",
         "no-debugger": "error",
         "no-delete-var": "error",
         "no-div-regex": "off",

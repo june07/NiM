@@ -28,7 +28,7 @@ let $scope = {};
 
 if (chrome.devtools.inspectedWindow.tabId) {
     window.chrome.devtools.panels.create("NiM", "icon/icon48@3x.png", "devtools-panel.html", (panel) => {
-        let backgroundPort = chrome.runtime.connect({ name: 'devtools-background' });
+        let backgroundPort = chrome.runtime.connect({ name: 'devtools' });
         backgroundPort.postMessage({
             name: 'init',
             tabId: chrome.devtools.inspectedWindow.tabId

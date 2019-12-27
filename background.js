@@ -93,7 +93,6 @@ ngApp
             });
         }
         setProfileData(authResult, callback) {
-            let self = this;
             return $http({
                 method: "GET",
                 url: `https://${env.AUTH0_DOMAIN}/userinfo`,
@@ -149,12 +148,7 @@ ngApp
             });
             this.pubnub.addListener({
                 message: function(m) {
-                    // handle message
-                    var channelName = m.channel; // The channel for which the message belongs
-                    var channelGroup = m.subscription; // The channel group or wildcard subscription match (if exists)
-                    var pubTT = m.timetoken; // Publish timetoken
-                    var msg = m.message; // The Payload
-                    var publisher = m.publisher; //The Publisher
+                    let msg = m.message;
                     if (msg.report) {
                         msg.report = self.parseReport(msg);
                         $scope.nodeReportMessages.push(msg);
@@ -1509,7 +1503,7 @@ ngApp
         }
     });
     chrome.runtime.onConnect.addListener(function portListener(port) {
-        let extensionListener = function (message, sender, sendResponse) {
+        let extensionListener = function (message/*, sender, sendResponse*/) {
             if (message.name == "init") {
                 connections[message.tabId + '_' + port.name] = port;
                 return;
