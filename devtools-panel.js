@@ -213,7 +213,7 @@ ngApp
                         if (value && (value.constructor.name === 'Object' || value.constructor.name === 'Array')) {
                             return {
                                 title: ` <span class="node_report_key">${key}</span>`,
-                                expanded: parent === 'networkInterfaces' ? true : false,
+                                expanded: parent.match(/networkInterfaces|inspect/) ? true : false,
                                 children: formatNode(value, ++depth, key)
                             }
                         } else if (value === null) {
