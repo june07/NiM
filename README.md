@@ -1,5 +1,5 @@
 ![](https://img.shields.io/chrome-web-store/v/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/users/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/rating/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/stars/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/rating-count/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg)<br>
-![](https://img.shields.io/badge/microsoft%20edge%20addons-v.2.3.2-blue)
+![](https://img.shields.io/badge/microsoft%20edge%20addons-v2.3.2-blue)
 
 ![NiM Logo](https://june07.github.io/image/smallPromoTile.png)
 
