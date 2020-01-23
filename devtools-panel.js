@@ -25,6 +25,16 @@
 
 let ngApp = angular.module('NimDevToolsPanelApp', []);
 ngApp
+    .directive('onError', function() {  
+        return {
+        restrict:'A',
+        link: function(scope, element, attr) {
+            element.on('error', function() {
+            element.attr('src', attr.onError);
+            })
+        }
+        }
+    })
     .controller('nimDevToolsPanelController', ['$scope', '$window', function ($scope, $window) {
         $scope.bg = $window.chrome.extension.getBackgroundPage().angular.element('#nim').scope();
         $scope.bg.localize($window, function () { });

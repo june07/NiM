@@ -40,6 +40,9 @@
                         <div>
                             <a href="#" ng-click="login()"><img id="nim-logo" src="icon/icon16@2x.png" title="Node.js Developer Tools." /></a>
                         </div>
+                        <div ng-if="!bg.Auth.isLoggedIn()">
+                            <img ng-src="https://res.cloudinary.com/june07/image/upload/brakecode/NiMBrakeCODEoverlay.png" on-error="./image/NiMBrakeCODEoverlay.png" style="margin-left: 10px;">
+                        </div>
                     </div>
                     <div class="col s6" id="user-chip" ng-if="bg.Auth.isLoggedIn()">
                         <div class="chip dropdown-chip" data-activates="auth-dropdown">
@@ -106,6 +109,8 @@
                         effort, this DevTools panel will be used to facilitate even greater NiM functionality as well as
                         to support the ongoing efforts of its developers.
 
+                        <p>Read more about <a style="text-decoration:none; color:unset;" href="https://blog.brakecode.com/brakecode/"><span style="font-weight:bold;">Brake</span><span style="color: #fdd835; text-transform: capitalize; font-weight: bolder;">CODE</span></a> <a href="https://blog.brakecode.com/brakecode/"> here</a> and <a href="https://blog.brakecode.com/nodejs-diagnostic-reports/">Node.js Diagnostic Reports</a></p>
+
                         <p>Got idea's about how to make this page even more useful? Tweet <i>@june07t</i>...
                             <div id="twitter-button" class="footer-button"><a
                                     href="https://twitter.com/share?ref_src=twsrc%5Etfw"
@@ -116,6 +121,7 @@
                                 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                             </div>
                             <br>or email <a href="mailto:667@june07.com">667@june07.com</a>.
+                            <p>Finally, checkout the companies 👇🏼 down there.  And, <b>THANK YOU</b> for your continued support!</p>
                         </p>
                 </div>
             </div>
