@@ -721,11 +721,6 @@ span#devToolsCompat {
     float: right;
     margin-right: 50px;
 }
-#devtools-panel #codefund {
-    position: absolute;
-    right: 50px;
-    top: 50px;
-}
 .nimname {
     font-size: xx-large;
     color: darkgreen;

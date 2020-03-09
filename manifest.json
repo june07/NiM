@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "__MSG_appName__",
-    "version": "2.2.10",
+    "version": "2.2.11",
     "default_locale": "en",
     "description": "__MSG_appDescription__",
     "author": "June07 <667@june07.com> (https://june07.com/)",
@@ -18,7 +18,7 @@
             "description": "__MSG_keyCtrlI__"
         }
     },
-    "content_security_policy": "script-src 'self' 'unsafe-eval' 'sha256-gtOYwzQC2zvI6efNM91x1Mr3jBhZaavdB4LuBEIuy64=' https://www.gstatic.com https://www.google-analytics.com https://ssl.google-analytics.com https://riot.june07.com https://june07.github.io https://apis.google.com https://button.flattr.com https://www.paypalobjects.com https://platform.twitter.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://app.codefund.io; object-src 'self' https://www.google-analytics.com https://ssl.google-analytics.com;",
+    "content_security_policy": "script-src 'self' 'unsafe-eval' 'sha256-gtOYwzQC2zvI6efNM91x1Mr3jBhZaavdB4LuBEIuy64=' https://www.gstatic.com https://www.google-analytics.com https://ssl.google-analytics.com https://riot.june07.com https://june07.github.io https://apis.google.com https://button.flattr.com https://www.paypalobjects.com https://platform.twitter.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; object-src 'self' https://www.google-analytics.com https://ssl.google-analytics.com;",
     "devtools_page": "devtools.html",
     "icons": {
         "16": "./icon/icon16.png",
@@ -40,5 +40,5 @@
     "options_page": "options.html",
     "permissions": ["*://*/", "storage", "background", "tabs", "identity", "identity.email", "notifications"],
     "short_name": "__MSG_appShortName__",
-    "version_name": "2.2.10"
+    "version_name": "2.2.11"
 }
