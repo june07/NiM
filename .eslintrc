@@ -29,7 +29,8 @@
         "jwt_decode": true,
         "Blob": true,
         "chrome": true,
-        "window": true
+        "window": true,
+        "WebSocket": true
     },
   "env": { "es6": true },
     "rules": {

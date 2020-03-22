@@ -189,11 +189,10 @@ ngApp
         $scope.initTippyTips();
         $scope.initConnectionErrorMessage();
       }});
-      $window.tippy.setDefaults({
+      $window.tippy.setDefaultProps({
         allowHTML: true,
         theme: 'nim',
         placement: 'bottom',
-        size: 'large',
         interactive: false,
         hideOnClick: 'toggle'
       })
@@ -206,21 +205,27 @@ ngApp
         let el = document.querySelector('[id^=' + tip.props.content.substring(1) + ']');
         switch (tip.props.content) {
           case '#tippyTemplateGithubNodejsNodeIssues24085':
-            tip.set({
+            tip.setProps({
               trigger: 'click',
               theme: 'githubNodejsNodeIssues24085',
               placement: 'top',
               size: 'large'
             });
-          break;
+            tip.setContent(el); break;
+          case '#tippyTemplateAutoResumeSwitch':
+            tip.setProps({
+              placement: 'top',
+              theme: 'short',
+              content: `Will auto resume stepping when <i>--inspect-brk</i> flag is used.`
+            }); break;
+          default: tip.setContent(el);
         }
-        tip.setContent(el);
       });
     }
     $scope.showTippy = function(event) {
       let parent = event.currentTarget;
       let tip = parent._tippy;
-      tip.set({interactive: true});
+      tip.setProps({interactive: true});
       tip.popper.addEventListener("mouseleave", (event) => {
         event.currentTarget._tippy.hide();
         event.currentTarget._tippy.set({interactive: false});

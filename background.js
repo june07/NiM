@@ -122,6 +122,74 @@ ngApp
             return key;
         }
     }
+    class DevToolsProtocolClient {
+        constructor() { 
+            this.sockets = {};
+        }
+        parseWebSocketUrl(socketUrl) {
+            return socketUrl.match(/(wss?):\/\/(.*)\/(.*)$/);
+        }
+        setSocket(websocketId, socketUrl, options) {
+            let socket = this.parseWebSocketUrl(socketUrl)[2];
+            if (! this.sockets[socket]) {
+                let ws = new WebSocket(socketUrl);
+                this.sockets[socket] = { messageIndex: 0, socketUrl, ws, socket };
+            }
+            this.tasks(this.sockets[socket], options);
+        }
+        updateSocket(websocketId, socketUrl, options) {
+            let parsed = this.parseWebSocketUrl(socketUrl);
+            let scheme = parsed[1],
+                socket = parsed[2],
+                uuid = parsed[3];
+            let url = `${scheme}://${socket}/${uuid}`
+            let ws = new WebSocket(url);
+            this.sockets[socket] = { messageIndex: 0, socketUrl: url, ws, socket };
+            return this.tasks(this.sockets[socket], options);
+        }
+        tasks(socket, options) {
+            let autoResume = options && options.autoResume ? options.autoResume : false;
+            if (autoResume) {
+                this.autoResumeInspectBrk(socket)
+                .then(socket => {
+                    return socket;
+                })
+            } else {
+                return socket;
+            }
+        }
+        autoResumeInspectBrk(socket) {
+            let parsedData = {};
+
+            socket.ws.onmessage = event => {
+                let parsed = JSON.parse(event.data);
+                switch(parsed.method) {
+                    case 'Debugger.paused':
+                        if (! this.sockets[socket.socket].autoResumedOnce) {
+                            socket.ws.send(JSON.stringify({ id: 667+socket.messageIndex++, method: 'Debugger.resume' }));
+                            console.log(`Auto resuming debugger from initial 'inspect-brk' state.`);
+                            this.sockets[socket.socket].autoResumedOnce = true;
+                        }
+                        break;
+                    case 'Debugger.scriptParsed':
+                        if (parsed.url && parsed.url.indexOf('helloworld2.js')) {
+                            parsedData.scriptId = parsed.params.scriptId;
+                        }
+                        break;
+                }
+                if ($scope.settings.debugVerbosity >= 1) console.log(event);
+            }
+            return new Promise(resolve => {
+                socket.ws.onopen = event => {
+                    if ($scope.settings.debugVerbosity >= 1) console.log(event);
+                    socket.ws.send(JSON.stringify( { id: 667+socket.messageIndex++, method: 'Debugger.enable' }));
+                    //socket.ws.send(JSON.stringify({ id: 667+socket.messageIndex++, method: 'Debugger.resume' }));
+                    //if ($scope.settings.debugVerbosity >= 5) console.log(`DevToolsProtocolClient issued protocol command: Debugger.resume`);
+                    resolve(socket);
+                };
+            });
+        }
+    }
     class PubSub {
         constructor() {
             let self = this;
@@ -415,10 +483,12 @@ ngApp
         diagnosticReports: {
             enabled: true,
             maxMessages: 10
-        }
+        },
+        autoResumeInspectBrk: false
     };
     $scope.Auth = new Auth();
     $scope.pubsub = new PubSub();
+    $scope.devToolsProtocolClient = new DevToolsProtocolClient();
     $scope.nodeReportMessages = [];
     $scope.localDevToolsOptions = [
         /* The url is set as a default to prevent a nasty case where an unset value results in an undefined which further results in runaway tabs opening.
@@ -1146,12 +1216,14 @@ ngApp
                     return deleteSession(tab.id);
                 }
             }
+            updateSession(url, infoUrl, websocketId, tab.id);
             websocketIdLastLoaded[infoUrl] = websocketId;
             triggerTabUpdate = true;
         });
     }
     function createTabOrWindow(infoUrl, url, websocketId, nodeInspectMetadataJSON) {
         return new Promise(function(resolve) {
+            let dtpSocket = $scope.devToolsProtocolClient.setSocket(websocketId, nodeInspectMetadataJSON.webSocketDebuggerUrl, { autoResume: $scope.settings.autoResumeInspectBrk });
             if ($scope.settings.newWindow) {
                 $window._gaq.push(['_trackEvent', 'Program Event', 'createWindow', 'focused', $scope.settings.windowFocused, true]);
                 chrome.windows.create({
@@ -1161,7 +1233,7 @@ ngApp
                     state: $scope.settings.windowStateMaximized ? chrome.windows.WindowState.MAXIMIZED : chrome.windows.WindowState.NORMAL
                 }, function(window) {
                     /* Is window.id going to cause id conflicts with tab.id?!  Should I be grabbing a tab.id here as well or instead of window.id? */
-                    saveSession(url, infoUrl, websocketId, window.id, nodeInspectMetadataJSON);
+                    saveSession(url, infoUrl, websocketId, window.id, nodeInspectMetadataJSON, dtpSocket);
                     resolve(window);
                 });
             } else {
@@ -1170,7 +1242,7 @@ ngApp
                     url: url,
                     active: $scope.settings.tabActive,
                 }, function(tab) {
-                    saveSession(url, infoUrl, websocketId, tab.id, nodeInspectMetadataJSON);
+                    saveSession(url, infoUrl, websocketId, tab.id, nodeInspectMetadataJSON, dtpSocket);
                     resolve(tab);
                 });
             }
@@ -1205,7 +1277,35 @@ ngApp
             unlock(hostPortHashmap(existingSession.id));
         }
     }
-    function saveSession(url, infoUrl, websocketId, id, nodeInspectMetadataJSON) {
+    function updateSession(url, infoUrl, websocketId, tabOrWindowId) {
+        let existingSession = $scope.devToolsSessions.find(session => {
+            if (session.infoUrl === infoUrl) {
+                return session;
+            }
+        }),
+            socketUrl = webSocketUrlFromUrl(url);
+
+        if (existingSession) {
+            existingSession.websocketId = websocketId;
+            existingSession.dtpSocket = $scope.devToolsProtocolClient.updateSocket(websocketId, socketUrl, { autoResume: $scope.settings.autoResumeInspectBrk });
+        } else {
+            /** A session will not exist if the tab is reused during a node restart */
+            $scope.devToolsSessions.push({
+                url: url,
+                auto: (tabOrWindowId === null) ? false : $scope.settings.auto,
+                autoClose: $scope.settings.autoClose,
+                isWindow: $scope.settings.newWindow,
+                infoUrl: infoUrl,
+                id: tabOrWindowId,
+                websocketId: websocketId,
+                dtpSocket: $scope.devToolsProtocolClient.setSocket(websocketId, socketUrl, { autoResume: $scope.settings.autoResumeInspectBrk })
+            });
+        }
+    }
+    function webSocketUrlFromUrl(socketUrl) {
+        return socketUrl.match(/wss?=(.*)\/(.*)$/)[0].replace('=', '://');
+    }
+    function saveSession(url, infoUrl, websocketId, id, nodeInspectMetadataJSON, dtpSocket) {
         var existingIndex;
         var existingSession = $scope.devToolsSessions.find(function(session, index) {
             if (session.websocketId === websocketId) {
@@ -1222,7 +1322,8 @@ ngApp
                 infoUrl: infoUrl,
                 id: id,
                 websocketId: websocketId,
-                nodeInspectMetadataJSON: nodeInspectMetadataJSON
+                nodeInspectMetadataJSON: nodeInspectMetadataJSON,
+                dtpSocket: dtpSocket ? dtpSocket : existingSession.dtpSocket
             });
         } else {
             $scope.devToolsSessions.push({
@@ -1233,7 +1334,8 @@ ngApp
                 infoUrl: infoUrl,
                 id: id,
                 websocketId: websocketId,
-                nodeInspectMetadataJSON: nodeInspectMetadataJSON
+                nodeInspectMetadataJSON: nodeInspectMetadataJSON,
+                dtpSocket
             });
         }
         hostPortHashmap(id, infoUrl);

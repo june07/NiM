@@ -16,10 +16,10 @@
     <script type="text/javascript" src="node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.min.js"></script>
     <script type="text/javascript" src="node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
     <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
-    <script type="text/javascript" src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script type="text/javascript" src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <!-- /build -->
     <!-- build:[src] js/tippy.all.min.js -->
-    <script type="text/javascript" src="node_modules/tippy.js/umd/index.all.js" defer></script>
+    <script type="text/javascript" src="node_modules/tippy.js/dist/tippy.umd.js" defer></script>
     <!-- /build -->
     <!-- build:[src] js/ -->
     <script type="text/javascript" src="node_modules/animejs/anime.min.js" defer></script>
@@ -210,8 +210,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col s12 center">
-                                        <span class="waves-effect waves-light"><input type="button" id="open devtools" value="Open DevTools" ng-disabled="bg.settings.auto" class="btn green lighten-1 ga-track i18n" ng-click="clickHandler()"></span>
+                                    <div class="col s12 center" style="display: flex;">
                                         <div id="autoManualSwitch" class="switch" ng-true-value="true" ng-false-value="false">
                                             <label>
                                                 <span class="i18n">Manual</span>
@@ -219,6 +218,12 @@
                                                 <span class="lever"></span>
                                                 <span class="i18n">Auto</span>
                                             </label>
+                                        </div>
+                                        <span class="waves-effect waves-light"><input type="button" id="openDevToolsButton" value="Open DevTools" ng-disabled="bg.settings.auto" class="btn green lighten-1 ga-track i18n" ng-click="clickHandler()"></span>
+                                        <div id="autoResumeSwitchDiv">
+                                            <input id="autoResumeSwitch" type="checkbox" ng-model="bg.settings.autoResumeInspectBrk"/>
+                                            <label for="autoResumeSwitch">Auto Resume</label>
+                                            <span class="tippy questionTooltipButton" data-tippy-content="#tippyTemplateAutoResumeSwitch">(?)</span>
                                         </div>
                                     </div>
                                 </div>

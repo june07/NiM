@@ -72,6 +72,11 @@ div.noUi-base {
 .switch label input[type=checkbox]:checked+.lever:after {
     background-color:#4caf50;
 }
+#autoResumeSwitchDiv > label:before {
+    border-width: 1px;
+    border-right-color:#4caf50;
+    border-bottom-color:#4caf50;
+}
 #options-page div.row {
     margin-bottom: 15px;
 }
@@ -574,16 +579,15 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
 #mainControlTabs {
     padding: 0 0 25px 0;
 }
-.tippy-tooltip {
-    min-width: 650px;
+.tippy-box {
     max-width: 650px;
 }
-.tippy-tooltip.githubNodejsNodeIssues24085-theme .tippy-backdrop {
+.tippy-box[data-theme~='githubNodejsNodeIssues24085'] .tippy-backdrop {
   background-color: white;
   font-weight: bold;
   color: black;
 }
-.tippy-tooltip.githubNodejsNodeIssues24085-theme {
+.tippy-box[data-theme~='githubNodejsNodeIssues24085'] {
   background-color: white;
   border: 1px solid #4caf50;
   text-align: left;
@@ -592,18 +596,30 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
   min-width: 350px;
   max-width: 350px;
 }
-.tippy-tooltip.nim-theme .tippy-backdrop {
+.tippy-box[data-theme~='nim'] .tippy-backdrop {
   background-color: white;
   font-weight: bold;
   color: black;
 }
-/* If `animateFill: false` */
-.tippy-tooltip.nim-theme {
-  background-color: white;
-  border: 1px solid #4caf50;
-  font-weight: bold;
-  color: black;
-  opacity: 0.70 !important;
+.tippy-box[data-theme~='nim'] {
+    min-width: 650px;
+    font-size: small;
+    padding: 10px;
+    border: 1px solid #4caf50;
+    font-weight: bold;
+    color: black;
+    opacity: 0.70 !important;
+}
+.tippy-box[data-theme~='short'] {
+    background-color: white;
+    min-width: unset;
+    font-size: large;
+    padding: 10px;
+    border: 1px solid #4caf50;
+    border-radius: 10px;
+    color: black;
+    font-weight: bold;
+    opacity: 0.70 !important;
 }
 div[id^="tippyTemplateLocal"] {
     display: grid;
@@ -780,4 +796,18 @@ ul.fancytree-container {
 }
 .fancytree-treefocus {
     outline: none;
+}
+#autoManualSwitch {
+    margin: 0 10px 0 50px;
+}
+#openDevToolsButton {
+    margin: 0 20px 0 15px;
+}
+#autoResumeSwitchDiv {
+    margin: 0 5px 0 0;
+}
+.questionTooltipButton {
+    vertical-align: super;
+    font-weight: bold;
+    font-size: small;
 }
