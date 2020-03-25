@@ -58,7 +58,7 @@ ngApp
                         title: 'Login Successful',
                         message: 'Advanced NiM Features Ready.'
                     }, function(notificationId) {
-                        $window._gaq.push(['_trackEvent', 'Notification Event', 'notification_created', 'type', 'Brakecode Login Success', true]);
+                        $window._gaq.push(['_trackEvent', 'Notification Event', 'notification_created', 'Brakecode Login Success', undefined, true]);
                         if ($scope.settings.debugVerbosity >= 4) console.log(notificationId);
                     });
                     self.loggingin = false;
@@ -69,7 +69,7 @@ ngApp
                         message: err.message,
                         iconUrl: 'icon/icon128.png'
                     }, function(notificationId) {
-                        $window._gaq.push(['_trackEvent', 'Notification Event', 'notification_created', 'type', 'Brakecode Login Failed', true]);
+                        $window._gaq.push(['_trackEvent', 'Notification Event', 'notification_created', 'Brakecode Login Failed', undefined, true]);
                         if ($scope.settings.debugVerbosity >= 4) console.log(notificationId);
                     });
                     self.loggingin = false;
@@ -1205,7 +1205,7 @@ ngApp
     }
     function updateTabOrWindow(infoUrl, url, websocketId, tab) {
         if (websocketId === websocketIdLastLoaded[infoUrl]) return;
-        $window._gaq.push(['_trackEvent', 'Program Event', 'updateTab', 'focused', $scope.settings.windowFocused, true]);
+        $window._gaq.push(['_trackEvent', 'Program Event', 'updateTab', 'focused', + $scope.settings.windowFocused, true]);
         chrome.tabs.update(tab.id, {
             url: url,
             active: $scope.settings.tabActive,
@@ -1225,7 +1225,7 @@ ngApp
         return new Promise(function(resolve) {
             let dtpSocket = $scope.devToolsProtocolClient.setSocket(websocketId, nodeInspectMetadataJSON.webSocketDebuggerUrl, { autoResume: $scope.settings.autoResumeInspectBrk });
             if ($scope.settings.newWindow) {
-                $window._gaq.push(['_trackEvent', 'Program Event', 'createWindow', 'focused', $scope.settings.windowFocused, true]);
+                $window._gaq.push(['_trackEvent', 'Program Event', 'createWindow', 'focused', + $scope.settings.windowFocused, true]);
                 chrome.windows.create({
                     url: url,
                     focused: $scope.settings.windowFocused,
@@ -1237,7 +1237,7 @@ ngApp
                     resolve(window);
                 });
             } else {
-                $window._gaq.push(['_trackEvent', 'Program Event', 'createTab', 'focused', $scope.settings.tabActive, true]);
+                $window._gaq.push(['_trackEvent', 'Program Event', 'createTab', 'focused', + $scope.settings.tabActive, true]);
                 chrome.tabs.create({
                     url: url,
                     active: $scope.settings.tabActive,
@@ -1554,7 +1554,7 @@ ngApp
             message: notification.text,
             buttons: [ { title: button1, iconUrl: 'icon/twitter.svg' }, { title: 'Retweet' } ]
         },  function(notificationId) {
-            $window._gaq.push(['_trackEvent', 'Notification Event', 'notification_created', 'type', notification.type, true]);
+            $window._gaq.push(['_trackEvent', 'Notification Event', 'notification_created', notification.type, undefined, true]);
             notification.chromiumNotificationId = notificationId;
             notification.twitterButtonText = { button1 }
             if ($scope.settings.debugVerbosity >= 4) console.log(notificationId);
