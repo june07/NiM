@@ -68,3 +68,4 @@ dev.env.js
 icon/icon-from-traced-png.png
 css/vendor/fontello*
 image/screenshots/*
+pnpm-lock.yaml
