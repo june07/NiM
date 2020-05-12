@@ -46,6 +46,12 @@ ngApp
 
                 new Auth0Chrome(env.AUTH0_DOMAIN, env.AUTH0_CLIENT_ID)
                 .authenticate(options)
+                .then(authResult => {
+                    $scope.NiMSConnector.authenticate(response => {
+                        return { isLoggedIn: response.loggedIn };
+                    });
+                    return authResult;
+                })
                 .then(function (authResult) {
                     localStorage.authResult = JSON.stringify(authResult);
                     self.setProfileData(authResult, () => {
@@ -415,6 +421,169 @@ ngApp
             return count > 0 ? true : false;
         }
     }
+    class NiMSConnector {
+        constructor() {
+            let self = this;
+            self.N2P_SERVER = 'https://n2p.june07.com';
+            self.N2P_HOST = 'n2p.june07.com';
+            self.N2P_SOCKET = NiMSConnector.N2P_HOST + ':443';
+            self.AUTH0_DOMAIN = '667.auth0.com';
+            self.AUTH0_CLIENT_ID = '96D0I0wqzYULuxzQXNfayvswIIplJRfG';
+            self.isLoggedIn = false;
+            self.authenticating = false;
+            /* Don't think we need to check auth on creation.
+            self.checkAuth()
+            .then(self.checkAuthNiMS)
+            .then(() => {
+                if (self.isLoggedIn) self.startN2PSocket();
+            })
+            .catch(error => {
+                console.log(error.message);
+            });*/
+            chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => {
+                if (request.isLoggedIn) self.isLoggedIn = request.isLoggedIn;
+            });
+            chrome.runtime.onMessage.addListener((event, sender, sendResponse) => {
+              if (event.type === 'authenticate') {
+                self.authenticate(sendResponse);
+              }
+              // Must return true for sendResponse to work ("unless you return true from the event listener to indicate you wish to send a response asynchronously"), see https://developer.chrome.com/extensions/runtime#event-onMessage
+              return true;
+            });
+        }
+        authenticate(sendResponse) {
+            let self = this;
+            let options = {
+                scope: 'openid offline_access profile',
+                device: 'chrome-extension',
+                audience: 'https://nims.june07.com/api/v1/'
+            };
+
+            new Auth0Chrome(self.AUTH0_DOMAIN, self.AUTH0_CLIENT_ID)
+            .authenticate(options)
+            .then(function (authResult) {
+                localStorage.authResult = JSON.stringify(authResult);
+                self.checkAuth()
+                .then(self.checkAuthNiMS)
+                .then(() => {
+                    chrome.notifications.create({
+                    type: 'basic',
+                    iconUrl: 'icon/icon128@3x.png',
+                    title: 'Login Successful',
+                    message: chrome.i18n.getMessage("nimsLoginSuccess")
+                    });
+                    sendResponse({ isLoggedIn: self.isLoggedIn });
+                })
+                .then(() => {
+                    if (self.isLoggedIn) self.startN2PSocket();
+                })
+                .catch(error => {
+                    self.chromeNotifyFail(error.message);
+                });
+            }).catch(function (error) {
+                self.chromeNotifyFail(error.message);
+            });
+        }
+        chromeNotifyFail(err) {
+            chrome.notifications.create({
+              type: 'basic',
+              title: 'Login Failed',
+              message: err.message,
+              iconUrl: 'icon/icon128@3x.png'
+            });
+        }
+        tokenIsValid(token) {
+            return jwt_decode(token).exp > Date.now() / 1000;
+        }
+        getDecodedIDToken() {
+            return jwt_decode(JSON.parse(localStorage.authResult).id_token)
+        }
+        checkAuth() {
+            let self = this;
+
+            return new Promise((resolve, reject) => {
+                const authResult = JSON.parse(localStorage.authResult || '{}');
+                const token = authResult.id_token;
+                if (token && self.tokenIsValid(token)) {
+                    self.isLoggedIn = true;
+                    resolve(authResult);
+                } else {
+                    self.isLoggedIn = false;
+                    reject(new Error('Failed to authenticate.'));
+                }
+            });
+        }
+        checkAuthNiMS() {
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest();
+                let json = JSON.stringify({
+                    access_token: JSON.parse(localStorage.authResult).access_token
+                });
+                xhr.responseType = 'json';
+                xhr.open("POST", 'https://nims.june07.com/n2p/validate');
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onload = function () {
+                    let response = xhr.response;
+                    if (xhr.readyState == 4 && xhr.status == 200 || xhr.status == 201) {
+                        localStorage.nims = JSON.stringify(response.nims);
+                        resolve(response);
+                    } else {
+                        reject(new Error(JSON.stringify(response)));
+                    }
+                }
+                xhr.send(json);
+            });
+        }
+        signout() {
+            this.isLoggedIn = false;
+            localStorage.clear();
+        }
+        reconnect() {
+            let self = this,
+                nims = JSON.parse(localStorage.nims);
+            self.io = $window.io(self.N2P_SERVER + '/' + nims.NiMS_API_KEY, { transports: ['websocket'], path: '/nim', query: { uid: nims.NiMS_UID } });
+        }
+        startN2PSocket() {
+            let self = this,
+                nims = JSON.parse(localStorage.nims);
+            self.io = $window.io(self.N2P_SERVER + '/' + nims.NiMS_API_KEY, { transports: ['websocket'], path: '/nim', query: { uid: nims.NiMS_UID } })
+            .on('connect_error', (error) => {
+                console.log('CALLBACK ERROR: ' + error);
+                //if (error.message && error.message == 'websocket error') self.reauthenticate();
+            })
+            .on('metadata', (data) => {
+                let date = Date.now();
+                data.received = date;
+                let found = $scope.remoteTabs.findIndex((element, i, elements) => {
+                    if (element.uuid === data.uuid) {
+                        elements[i] = data;
+                        return true;
+                    }
+                });
+                if (found === -1) $scope.remoteTabs.push(data);
+                $scope.remoteTabs = $scope.remoteTabs.filter((tab) => self.remoteTabTimeout(tab.received));
+                //$scope.$emit('updatedRemoteTabs', remoteTabs);
+                //$scope.remoteTabs = remoteTabs;
+            })
+        }
+        remoteTabTimeout(received) {
+            return Date.now() - received <= $scope.settings.nims.tabTimeout * 1000;
+        }
+        startNodeInspect(host, nodePID) {
+            let self = this;
+            return new Promise((resolve) => {
+                let args = { host: host, nodePID: nodePID };
+                self.io.emit('inspect', args);
+                self.io.on('inspect-response', (rargs) => {
+                    if (args.host === rargs.hostname && args.nodePID == rargs.pid) {
+                        console.log(rargs);
+                        resolve(rargs);
+                    }
+                });
+            });
+        }
+    }
+
     const DEVEL = true;
     const CHROME_VERSION = /Chrome\/([0-9.]+)/.exec(navigator.userAgent)[1].split('.')[0];
     const VERSION = '0.0.0'; // Filled in by Grunt
@@ -438,7 +607,15 @@ ngApp
     $window.chrome.management.getSelf((ExtensionInfo) => {
         $scope.ExtensionInfo = ExtensionInfo;
     });
-    getChromeIdentity();
+    getChromeIdentity()
+    .then(() => {
+        restoreNiMSConnectorObject()
+        .catch((error) => {
+            if (error === 400) {
+                $scope.NiMSConnector = new NiMSConnector();
+            }
+        })
+    });
     $scope.intervals = {
         uptime: null,
         checkInterval: null
@@ -629,7 +806,11 @@ ngApp
         //
         write(key, $scope.settings[key]);
     }
-    $scope.openTab = function(host, port, callback) {
+    $scope.openTab = function(host, port, n2pMetadata, callback) {
+        if (typeof n2pMetadata === 'function') {
+            callback = n2pMetadata;
+            n2pMetadata.wsProto = 'ws';
+        }
         SingletonOpenTabInProgress.getInstance(host, port, null)
         .then(function(value) {
             if (value.message !== undefined) {
@@ -660,14 +841,20 @@ ngApp
                                 responseType: "json"
                         })
                         .then(function openDevToolsFrontend(json) {
+                            let url;
+                            if (!json || json.data == null) return callback(chrome.i18n.getMessage("errMsg9"));
                             if (!json.data[0].devtoolsFrontendUrl) return callback(chrome.i18n.getMessage("errMsg7", [host, port]));
                             setDevToolsURL(json.data[0]);
-                            var url = json.data[0].devtoolsFrontendUrl.replace(/ws=localhost/, 'ws=127.0.0.1');
-                            var inspectIP = url.match(SOCKET_PATTERN)[1];
-                            var inspectPORT = url.match(SOCKET_PATTERN)[5];
-                            url = url
-                                .replace(inspectIP + ":9229", host + ":" + port) // In the event that remote debugging is being used and the infoUrl port (by default 80) is not forwarded take a chance and pick the default.
-                                .replace(inspectIP + ":" + inspectPORT, host + ":" + port) // A check for just the port change must be made.
+                            if (n2pMetadata.wsProto === 'wss') {
+                                url = json.data[0].devtoolsFrontendUrl.replace(/wss?=(.*)\//, n2pMetadata.wsProto + '=' + host + '/ws/' + port + '/');
+                            } else {
+                                url = json.data[0].devtoolsFrontendUrl.replace(/wss?=localhost/, 'ws=127.0.0.1');
+                                var inspectIP = url.match(SOCKET_PATTERN)[1];
+                                var inspectPORT = url.match(SOCKET_PATTERN)[5];
+                                url = url
+                                    .replace(inspectIP + ":9229", host + ":" + port) // In the event that remote debugging is being used and the infoUrl port (by default 80) is not forwarded take a chance and pick the default.
+                                    .replace(inspectIP + ":" + inspectPORT, host + ":" + port) // A check for just the port change must be made.
+                            }
                             if ($scope.settings.localDevTools || $scope.settings.devToolsCompat) {
                                 let devToolsOptionURL = $scope.getDevToolsOption().url;
                                 if (devToolsOptionURL.match(devToolsURL_Regex)) url = url.replace(devToolsURL_Regex, devToolsOptionURL);
@@ -903,7 +1090,7 @@ ngApp
                     SingletonHttpGet.getInstance(instance);
                 }
             })
-            if (DEVEL) console.dir(JSON.stringify($scope.intervals));
+            if (DEVEL && $scope.settings.debugVerbosity >= 4) console.dir(JSON.stringify($scope.intervals));
         }, $scope.settings.checkInterval);
     }
     function httpGetTestSingleton() {
@@ -1391,6 +1578,15 @@ ngApp
             $scope.settings.localSessionTimeout = 7*24*60*60000
         }
         return Promise.resolve();
+    }
+    function restoreNiMSConnectorObject() {
+        return new Promise((resolve, reject) => {
+            $window.chrome.storage.sync.get(function(sync) {
+                if (sync['NiMSConnector'] === undefined) return reject(400);
+                Object.assign($scope.NiMSConnector, sync['NiMSConnector']);
+                resolve();
+            });
+        });
     }
     function updateSettings() {
     }

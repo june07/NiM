@@ -193,6 +193,7 @@
                 <ul class="tabs">
                     <li class="tab"><a href="#home" ng-class="bg.state.popup.selectedTab === 'home' ? 'active' : ''">Home</a></li>
                     <li class="tab"><a href="#ltab" ng-class="bg.state.popup.selectedTab === 'ltab' ? 'active' : ''">Localhost</a></li>
+                    <li class="tab" ng-repeat="tab in bg.remoteTabs"><a href="#rtab{{$index}}" ng-class="bg.state.popup.selectedTab === 'rtab'+$index ? 'active' : ''">{{ tab.title }}</a></li>
                 </ul>
                 <!-- beginning of tab set -->
                 <div id="tabs">
@@ -276,6 +277,51 @@
                                 <div class="col"><input type="button" value="Remove" class="btn red remove ga-track i18n" ng-click="clickHandlerRemoveLocalDevToolsSession(s.id)"></div>
                                 <div class="col"></div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="rtab{{$index}}" ng-repeat="tab in bg.remoteTabs track by $index" ng-hide="bg.state.popup.selectedTab != 'rtab'+$index">
+                    <div id="remote-control-interface">
+                        <!--<div class="row header">
+                            <div class="col">Node Application Info</div>
+                            <div class="col">Status</div>
+                            <div class="col open">Open</div>
+                            <div class="col">Detected On</div>
+                        </div>-->
+                        <div class="row" id="no-connections-detected" ng-if="(tab.connections | json) == '{}'">
+                            <h1 class="ml11">
+                              <span class="text-wrapper">
+                                <span class="line line1"></span>
+                                <span class="letters">| No detected connections</span>
+                              </span>
+                            </h1>
+                        </div>
+                        <div class="row" ng-repeat="conn in tab.connections track by $index">
+                            <!--<div class="col"><span class="tippy" data-tippy-content="PID: {{ conn.pid }}, Inspect Port : {{ conn.inspectPort }}">{{conn.cmd | nodeProgram }}</span></div>-->
+                            <div class="col"><img class="bulletPointIcon" src="./icon/icon16.png"/><span class="tippy" data-tippy-content="#tippyTemplateRemote{{$index}}" ng-click="showTippy($event)"> {{ conn.cmd | nodeProgram }}</span></div>
+                                <div id="tippyTemplateRemote{{$index}}">
+                                    <div class="row">
+                                        <div class="col s2">PID:</div>
+                                        <div class="col s10 value">{{ conn.pid }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s2">Inspect Port:</div>
+                                        <div class="col s10 value">{{ conn.inspectPort }}</div>
+                                    </div>
+                                </div>
+                            <div class="col">{{ conn.waiting.running }}</div>
+                            <div class="col open" ng-if="!conn.inspectPort">
+                                <span class="waves-effect waves-light ld-over" ng-class="conn.waiting">
+                                    <i id="githubNodejsNodeIssues24085" ng-if="tab.githubNodejsNodeIssues24085" class="tiny icon-alert right tippy" data-tippy-content="#tippyTemplateGithubNodejsNodeIssues24085" ng-click="showTippy($event)"></i>
+                                    <div ng-if="tab.githubNodejsNodeIssues24085" id="tippyTemplateGithubNodejsNodeIssues24085">
+                                        This button is disabled because currently, Node has no facility to support more than a single programmatically started debugging session.  This means that a debugging session has already been started on the default port 9229.  A proposed change to the default behavior of Node would remove this limitation.  Read more about the issue here: <a target="_blank" href="https://github.com/nodejs/node/issues/24085">https://github.com/nodejs/node/issues/24085</a>
+                                    </div>
+                                    <input type="button" id="start node inspect" value="Inspect" ng-class="tab.githubNodejsNodeIssues24085 ? 'disabled' : ''" class="btn btn-sm grey lighten-1 ga-track i18n" ng-click="clickHandlerStartNodeInspect(tab.host, conn)">
+                                    <div class="ld ld-ring ld-spin"></div>
+                                </span>
+                            </div>
+                            <div class="col open" ng-if="conn.inspectPort"><span class="waves-effect waves-light"><input type="button" id="open devtools remote" value="DevTools" class="btn btn-sm green lighten-1 ga-track i18n" ng-click="clickHandlerOpenRemoteDevTools(conn.inspectPort, conn.tunnelSocket.port)"></span></div>
+                            <div class="col">{{ conn.detectionTime | date : 'MM/dd/yy h:mm a  sss' }}</div>
                         </div>
                     </div>
                 </div>

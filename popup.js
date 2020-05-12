@@ -81,6 +81,17 @@ ngApp
               $scope.message = result;
         });
     };
+    $scope.clickHandlerOpenRemoteDevTools = function(port, tunnelPort) {
+      $scope.bg.openTab($scope.bg.N2P_SOCKET, tunnelPort, { wsProto: 'wss', port: port }, function (error, result) {
+        if (error && typeof error === "string") {
+          showErrorMessage(error);
+          if (error === 'DevTools is already open.') $scope.bg.tabNotification({host: $scope.bg.N2P_SOCKET.split(':')[0], port: tunnelPort});
+        }
+        if (error && typeof error === "object" && error.message) showErrorMessage(error.message);
+        if (error) showErrorMessage(error.statusText);
+        else $scope.message = result;
+      });
+    }
     $scope.clickHandlerOpenLocalDevTools = function(translatedURL) {
       let localHost = translatedURL.split(/ws=(.*)\//)[1].split(':')[0];
       let localPort = translatedURL.split(/ws=(.*)\//)[1].split(':')[1];
@@ -94,6 +105,28 @@ ngApp
         else $scope.message = result;
       });
     }
+    $scope.waiting = (conn, bool) => {
+      conn.waiting =  bool ? { running: 'Signaling Node Process...' }: '';
+      return conn;
+    }
+    $scope.clickHandlerStartNodeInspect = function(host, conn) {
+      $scope.waiting(conn, true);
+      return $scope.bg.NiMSConnector.startNodeInspect(host, conn.pid)
+      .then((response) => {
+        $window.setTimeout(() => { 
+        // Timeout is there for show
+          conn = $scope.waiting(conn, false);
+          conn.inspectPort = response.socket.split(':')[1];
+          $scope.$apply();
+        }, 1000);
+      });
+    }
+    $scope.bg.$on('updatedRemoteTabs', (args) => {
+      //console.dir(args);
+      $scope.remoteTabs = $scope.bg.remoteTabs;
+      $scope.$apply();
+      $scope.tippyTips = $window.tippy('.tippy');
+    });
     $scope.clickHandlerRemoveLocalDevToolsSession = function(sessionID) {
       $scope.bg.removeLocalSession(sessionID)
     }
