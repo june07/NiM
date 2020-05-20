@@ -426,7 +426,7 @@ ngApp
             let self = this;
             self.N2P_SERVER = 'https://n2p.june07.com';
             self.N2P_HOST = 'n2p.june07.com';
-            self.N2P_SOCKET = NiMSConnector.N2P_HOST + ':443';
+            self.N2P_SOCKET = self.N2P_HOST + ':443';
             self.AUTH0_DOMAIN = '667.auth0.com';
             self.AUTH0_CLIENT_ID = '96D0I0wqzYULuxzQXNfayvswIIplJRfG';
             self.isLoggedIn = false;
