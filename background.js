@@ -1206,6 +1206,7 @@ ngApp
         });
     }
     function getInfoURL(host, port, protocol) {
+        if (host === $scope.NiMSConnector.N2P_SOCKET) return $scope.NiMSConnector.N2P_SERVER + '/json/' + port;
         if (protocol === undefined) protocol = 'http';
         return protocol + '://' + host + ':' + port + '/json';
     }

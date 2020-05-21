@@ -82,10 +82,10 @@ ngApp
         });
     };
     $scope.clickHandlerOpenRemoteDevTools = function(port, tunnelPort) {
-      $scope.bg.openTab($scope.bg.N2P_SOCKET, tunnelPort, { wsProto: 'wss', port: port }, function (error, result) {
+      $scope.bg.openTab($scope.bg.NiMSConnector.N2P_SOCKET, tunnelPort, { wsProto: 'wss', port: port }, function (error, result) {
         if (error && typeof error === "string") {
           showErrorMessage(error);
-          if (error === 'DevTools is already open.') $scope.bg.tabNotification({host: $scope.bg.N2P_SOCKET.split(':')[0], port: tunnelPort});
+          if (error === 'DevTools is already open.') $scope.bg.tabNotification({host: $scope.bg.NiMSConnector.N2P_SOCKET.split(':')[0], port: tunnelPort});
         }
         if (error && typeof error === "object" && error.message) showErrorMessage(error.message);
         if (error) showErrorMessage(error.statusText);
