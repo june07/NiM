@@ -841,14 +841,15 @@ ngApp
                                 responseType: "json"
                         })
                         .then(function openDevToolsFrontend(json) {
-                            let url;
+                            let url, jsonPayload;
                             if (!json || json.data == null) return callback(chrome.i18n.getMessage("errMsg9"));
-                            if (!json.data[0].devtoolsFrontendUrl) return callback(chrome.i18n.getMessage("errMsg7", [host, port]));
+                            jsonPayload = browserAgnosticFix(json.data[0]);
+                            if (!jsonPayload.devtoolsFrontendUrl) return callback(chrome.i18n.getMessage("errMsg7", [host, port]));
                             setDevToolsURL(json.data[0]);
                             if (n2pMetadata.wsProto === 'wss') {
-                                url = json.data[0].devtoolsFrontendUrl.replace(/wss?=(.*)\//, n2pMetadata.wsProto + '=' + host + '/ws/' + port + '/');
+                                url = jsonPayload.devtoolsFrontendUrl.replace(/wss?=(.*)\//, n2pMetadata.wsProto + '=' + host + '/ws/' + port + '/');
                             } else {
-                                url = json.data[0].devtoolsFrontendUrl.replace(/wss?=localhost/, 'ws=127.0.0.1');
+                                url = jsonPayload.devtoolsFrontendUrl.replace(/wss?=localhost/, 'ws=127.0.0.1');
                                 var inspectIP = url.match(SOCKET_PATTERN)[1];
                                 var inspectPORT = url.match(SOCKET_PATTERN)[5];
                                 url = url
@@ -861,19 +862,19 @@ ngApp
                             }
                             if ($scope.settings.bugfix)
                                 url = url.replace('', '');
-                            var websocketId = json.data[0].id;
+                            var websocketId = jsonPayload.id;
                             /** May be a good idea to put this somewhere further along the chain in case tab/window creation fails,
                             in which case this entry will need to be removed from the array */
                             // The following analytics setting is TOO verbose.
                             //$window._gaq.push(['_trackEvent', 'Program Event', 'openTab', 'Non-existing tab.', undefined, true]);
                             if (tab.length === 0) {
-                                createTabOrWindow(infoUrl, url, websocketId, json.data[0])
+                                createTabOrWindow(infoUrl, url, websocketId, jsonPayload)
                                 .then(function(tab) {
                                     var tabToUpdate = tab;
                                     chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
                                         if (triggerTabUpdate && tabId === tabToUpdate.id && changeInfo.status === 'complete') {
                                             triggerTabUpdate = false;
-                                            saveSession(url, infoUrl, websocketId, tabToUpdate.id, json.data[0]);
+                                            saveSession(url, infoUrl, websocketId, tabToUpdate.id, jsonPayload);
                                             callback(tabToUpdate.url);
                                         } else if (!triggerTabUpdate && tabId === tabToUpdate.id) {
                                             if ($scope.settings.debugVerbosity >= 6) console.log('Loading updated tab [' + tabId + ']...');
@@ -1170,7 +1171,7 @@ ngApp
             responseType: "json"
         })
         .then(function openDevToolsFrontend(json) {
-            return json.data[0].id;
+            return browserAgnosticFix(json.data[0]).id;
         })
         .catch(function(error) {
             return error;
@@ -1756,6 +1757,11 @@ ngApp
             notification.twitterButtonText = { button1 }
             if ($scope.settings.debugVerbosity >= 4) console.log(notificationId);
         });
+    }
+    function browserAgnosticFix(jsonPayload) {
+        if (jsonPayload && jsonPayload.devtoolsFrontendUrlCompat) jsonPayload.devtoolsFrontendUrl = jsonPayload.devtoolsFrontendUrl.replace(/chrome-devtools:\/\//, 'devtools://');
+        if (jsonPayload && jsonPayload.devtoolsFrontendUrlCompat) jsonPayload.devtoolsFrontendUrlCompat = jsonPayload.devtoolsFrontendUrlCompat.replace(/chrome-devtools:\/\//, 'devtools://');
+        return jsonPayload;
     }
     chrome.notifications.onClicked.addListener(function onClickedHandler(notificationId) {
         let notification = $scope.notificationService.getNotification(notificationId);
