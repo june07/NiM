@@ -431,6 +431,9 @@ ngApp
             self.AUTH0_CLIENT_ID = '96D0I0wqzYULuxzQXNfayvswIIplJRfG';
             self.isLoggedIn = false;
             self.authenticating = false;
+            self.settings = {
+                remoteTabTimeout: DEVEL ? 7*24*60*60000 : 7*24*60*60000,
+            }
             /* Don't think we need to check auth on creation.
             self.checkAuth()
             .then(self.checkAuthNiMS)
@@ -462,7 +465,7 @@ ngApp
             new Auth0Chrome(self.AUTH0_DOMAIN, self.AUTH0_CLIENT_ID)
             .authenticate(options)
             .then(function (authResult) {
-                localStorage.authResult = JSON.stringify(authResult);
+                localStorage.authResultNiMS = JSON.stringify(authResult);
                 self.checkAuth()
                 .then(self.checkAuthNiMS)
                 .then(() => {
@@ -473,6 +476,15 @@ ngApp
                     message: chrome.i18n.getMessage("nimsLoginSuccess")
                     });
                     sendResponse({ isLoggedIn: self.isLoggedIn });
+                })
+                .then(() => {
+                    chrome.cookies.set({
+                        url: 'https://n2p.june07.com',
+                        name: 'session',
+                        value: JSON.stringify({ access_token: authResult.access_token })
+                    }, cookie => {
+                        if ($scope.settings.debugVerbosity >= 0) console.log(`Set nims cookie ${JSON.stringify(cookie)}`);
+                    });
                 })
                 .then(() => {
                     if (self.isLoggedIn) self.startN2PSocket();
@@ -496,13 +508,13 @@ ngApp
             return jwt_decode(token).exp > Date.now() / 1000;
         }
         getDecodedIDToken() {
-            return jwt_decode(JSON.parse(localStorage.authResult).id_token)
+            return jwt_decode(JSON.parse(localStorage.authResultNiMS).id_token)
         }
         checkAuth() {
             let self = this;
 
             return new Promise((resolve, reject) => {
-                const authResult = JSON.parse(localStorage.authResult || '{}');
+                const authResult = JSON.parse(localStorage.authResultNiMS || '{}');
                 const token = authResult.id_token;
                 if (token && self.tokenIsValid(token)) {
                     self.isLoggedIn = true;
@@ -517,7 +529,7 @@ ngApp
             return new Promise((resolve, reject) => {
                 let xhr = new XMLHttpRequest();
                 let json = JSON.stringify({
-                    access_token: JSON.parse(localStorage.authResult).access_token
+                    access_token: JSON.parse(localStorage.authResultNiMS).access_token
                 });
                 xhr.responseType = 'json';
                 xhr.open("POST", 'https://nims.june07.com/n2p/validate');
@@ -567,7 +579,7 @@ ngApp
             })
         }
         remoteTabTimeout(received) {
-            return Date.now() - received <= $scope.settings.nims.tabTimeout * 1000;
+            return Date.now() - received <= this.settings.remoteTabTimeout;
         }
         startNodeInspect(host, nodePID) {
             let self = this;
@@ -835,10 +847,12 @@ ngApp
                         ]
                     }, function(tab) {
                         if ($http.pendingRequests.length !== 0) return
+                        let httpHeaders = typeof n2pMetadata !== 'function' ?  {'Authorization': 'Bearer ' + JSON.parse(localStorage.authResultNiMS).access_token} : undefined;
                         $http({
                                 method: "GET",
                                 url: infoUrl,
-                                responseType: "json"
+                                responseType: "json",
+                                headers: httpHeaders
                         })
                         .then(function openDevToolsFrontend(json) {
                             let url, jsonPayload;
@@ -1536,6 +1550,8 @@ ngApp
         });
     }*/
     function hostPortHashmap(id, infoUrl) {
+        let n2pHost = $scope.NiMSConnector.N2P_SOCKET.split(':')[0];
+
         if (infoUrl === undefined) {
             // Lookup a value
             return tabId_HostPort_LookupTable.find(function(item) {
@@ -1544,13 +1560,15 @@ ngApp
         } else {
             // Set a value
             // infoUrl = 'http://' + $scope.settings.host + ':' + $scope.settings.port + '/json',
-            var host = infoUrl.split('http://')[1].split('/json')[0].split(':')[0],
-                port = infoUrl.split('http://')[1].split('/json')[0].split(':')[1];
+            var host = infoUrl.split(/https?:\/\//)[1].split('/json')[0],
+                port = parseInt(infoUrl.split(/https?:\/\//)[1].split('/json')[0].split(':')[1]);
+            if (host !== n2pHost) host = host.split(':')[0];
+            if (host === n2pHost) port = parseInt(infoUrl.split('/json/')[1]);
             var index = tabId_HostPort_LookupTable.findIndex(function(item) {
                 return (item.host === host && item.port === port);
             });
-            if (index === -1) index = 0;
-            tabId_HostPort_LookupTable[index] = { host: host, port: port, id: id };
+            if (index !== -1) tabId_HostPort_LookupTable[index] = { host, port, id };
+            else tabId_HostPort_LookupTable.push({ host, port, id });
         }
     }
     function write(key, obj) {
