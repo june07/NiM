@@ -137,14 +137,24 @@ ngApp
             }
             this.tasks(this.sockets[socket], options);
         }
+        closeSocket(dtpSocket) {
+            delete this.sockets[dtpSocket.socket];
+            dtpSocket.ws.close();
+        }
         updateSocket(websocketId, socketUrl, options) {
             let parsed = this.parseWebSocketUrl(socketUrl);
             let scheme = parsed[1],
                 socket = parsed[2],
                 uuid = parsed[3];
-            let url = `${scheme}://${socket}/${uuid}`
-            let ws = new WebSocket(url);
-            this.sockets[socket] = { messageIndex: 0, socketUrl: url, ws, socket };
+            let url = `${scheme}://${socket}/${uuid}`;
+            this.sockets[socket].ws.close();
+            delete this.sockets[socket].ws;
+            this.sockets[socket] = {
+                messageIndex: 0,
+                socketUrl: url,
+                ws: new WebSocket(url),
+                socket
+            };
             return this.tasks(this.sockets[socket], options);
         }
         tasks(socket, options) {
@@ -900,7 +910,7 @@ ngApp
                 } else if (localSession.auto && isLocked(instance)) {
                     /** If the isLocked(getInstance()) is set then we still have to check for disconnects on the client side via httpGetTest().
                     until there exists an event for the DevTools websocket disconnect.  Currently there doesn't seem to be one
-                    that we can use simultanous to DevTools itself as only one connection to the protocol is allowed at a time.
+                    that we can use simultaneous to DevTools itself as only one connection to the protocol is allowed at a time.
                     */
                     SingletonHttpGet.getInstance(instance);
                 }
@@ -1181,6 +1191,7 @@ ngApp
         }
     }
     function removeDevToolsSession(devToolsSession, index) {
+        $scope.devToolsProtocolClient.closeSocket(devToolsSession.dtpSocket);
         if (!devToolsSession.isWindow) {
             $window._gaq.push(['_trackEvent', 'Program Event', 'removeDevToolsSession', 'window', undefined, true]);
             chrome.tabs.remove(devToolsSession.id, function() {
@@ -1654,6 +1665,7 @@ ngApp
         // Why am I not calling deleteSession() here?
         $scope.devToolsSessions.splice($scope.devToolsSessions.findIndex(function(devToolsSession) {
             if (devToolsSession.id === tabId) {
+                $scope.devToolsProtocolClient.closeSocket(devToolsSession.dtpSocket);
                 unlock(hostPortHashmap(tabId));
                 return true;
             }
