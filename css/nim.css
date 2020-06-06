@@ -811,3 +811,9 @@ ul.fancytree-container {
     font-weight: bold;
     font-size: small;
 }
+.exclamationTooltipButton {
+    vertical-align: super;
+    font-weight: bold;
+    font-size: small;
+    color: red;
+}
