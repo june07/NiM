@@ -150,7 +150,7 @@ ngApp
         closeSocket(dtpSocket) {
             if (dtpSocket === undefined) return;
             delete this.sockets[dtpSocket.socket];
-            dtpSocket.ws.close();
+            if (dtpSocket.ws.readyState !== WebSocket.CLOSED) dtpSocket.ws.close();
         }
         updateSocket(websocketId, socketUrl, options) {
             // Only need to update the websocket if the tab has been reused with a different debugger websocketId.
@@ -452,7 +452,7 @@ ngApp
         start() {
             let self = this;
             let secondsTimerInterval = setInterval(() => {
-                if (DEVEL) console.log(JSON.stringify(self));
+                if (DEVEL && $scope.settings.debugVerbosity >= 3) console.log(JSON.stringify(self));
                 self.seconds++;
             }, 1000);
             setInterval(function failsafeTimer() {
