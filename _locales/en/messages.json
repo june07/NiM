@@ -224,5 +224,13 @@
   "optionsDiagnosticReports": {
     "message": "Node.js Diagnostic Reports",
     "description": "Options page label for Node.js Diagnostic Reports."
+  },
+  "autoStepping": {
+    "message": "Will auto resume stepping when <i>--inspect-brk</i> flag is used.",
+    "description": "Popup page description for runaway tabs popup message"
+  },
+  "runawayTabs": {
+    "message": "Runaway tabs were detected and Auto mode was disabled.  If the condition persists, please file a bug report.",
+    "description": "Popup page description for runaway tabs popup message"
   }
 }

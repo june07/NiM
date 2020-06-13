@@ -132,37 +132,61 @@ ngApp
         constructor() { 
             this.sockets = {};
         }
+        getSocket(socketUrl) {
+            let self = this,
+                ws = new WebSocket(socketUrl),
+                socket = this.parseWebSocketUrl(socketUrl)[2];
+            ws.addEventListener('close', () => {
+                self.closeSocket(self.sockets[socket]);
+            });
+            return ws;
+        }
         parseWebSocketUrl(socketUrl) {
             return socketUrl.match(/(wss?):\/\/(.*)\/(.*)$/);
         }
         setSocket(websocketId, socketUrl, options) {
             let socket = this.parseWebSocketUrl(socketUrl)[2];
             if (! this.sockets[socket]) {
-                let ws = new WebSocket(socketUrl);
+                let ws = this.getSocket(socketUrl);
                 this.sockets[socket] = { messageIndex: 0, socketUrl, ws, socket };
             }
-            this.tasks(this.sockets[socket], options);
+            let promise = this.tasks(this.sockets[socket], options);
+            return promise;
+        }
+        closeSocket(dtpSocket) {
+            if (dtpSocket === undefined) return;
+            delete this.sockets[dtpSocket.socket];
+            if (dtpSocket.ws.readyState !== WebSocket.CLOSED) dtpSocket.ws.close();
         }
         updateSocket(websocketId, socketUrl, options) {
-            let parsed = this.parseWebSocketUrl(socketUrl);
-            let scheme = parsed[1],
-                socket = parsed[2],
-                uuid = parsed[3];
-            let url = `${scheme}://${socket}/${uuid}`
-            let ws = new WebSocket(url);
-            this.sockets[socket] = { messageIndex: 0, socketUrl: url, ws, socket };
-            return this.tasks(this.sockets[socket], options);
+            // Only need to update the websocket if the tab has been reused with a different debugger websocketId.
+            let socket = this.parseWebSocketUrl(socketUrl)[2];
+            if (socketUrl.includes(websocketId)) return Promise.resolve(this.sockets[socket]);
+            if (!this.sockets[socket].ws.readyState !== WebSocket.CLOSED) {
+                this.sockets[socket].ws.close();
+                delete this.sockets[socket].ws;
+            }
+            this.sockets[socket] = {
+                messageIndex: 0,
+                socketUrl,
+                ws: this.getSocket(socketUrl),
+                socket
+            };
+            let promise = this.tasks(this.sockets[socket], options);
+            return promise;
         }
         tasks(socket, options) {
-            let autoResume = options && options.autoResume ? options.autoResume : false;
-            if (autoResume) {
-                this.autoResumeInspectBrk(socket)
-                .then(socket => {
-                    return socket;
-                })
-            } else {
-                return socket;
-            }
+            return new Promise(resolve => {
+                let autoResume = options && options.autoResume ? options.autoResume : false;
+                if (autoResume) {
+                    this.autoResumeInspectBrk(socket)
+                    .then(socket => {
+                        resolve(socket);
+                    })
+                } else {
+                    resolve(socket);
+                }
+            });
         }
         autoResumeInspectBrk(socket) {
             let parsedData = {};
@@ -191,8 +215,8 @@ ngApp
                     socket.ws.send(JSON.stringify( { id: 667+socket.messageIndex++, method: 'Debugger.enable' }));
                     //socket.ws.send(JSON.stringify({ id: 667+socket.messageIndex++, method: 'Debugger.resume' }));
                     //if ($scope.settings.debugVerbosity >= 5) console.log(`DevToolsProtocolClient issued protocol command: Debugger.resume`);
-                    resolve(socket);
                 };
+                resolve(socket);
             });
         }
     }
@@ -596,6 +620,46 @@ ngApp
         }
     }
 
+    class Watchdog {
+        constructor() {
+            this.STOPPED = false;
+            this.MAX_OPENED = 3;
+            this.WINDOW = 3;
+            this.openTabsOrWindows = 0;
+            this.seconds = 0;
+            this.failsafeSeconds = 0;
+            this.secondsTimerInterval = this.start();
+        }
+        start() {
+            let self = this;
+            let secondsTimerInterval = setInterval(() => {
+                if (DEVEL && $scope.settings.debugVerbosity >= 3) console.log(JSON.stringify(self));
+                self.seconds++;
+            }, 1000);
+            setInterval(function failsafeTimer() {
+                self.failsafeSeconds++;
+            }, 1000);
+            setInterval(function resetCounters() {
+                self.openTabsOrWindows = 0;
+                self.failsafeSeconds = 0;
+            }, (self.WINDOW + 2) * 1000);
+            return secondsTimerInterval;
+        }
+        stop() {
+            clearInterval(this.secondsTimerInterval);
+            this.STOPPED = true;
+            $scope.settings.auto = false;
+            // send user alert and disable auto mode.  Enable auto mode should reset this.
+        }
+        increment() {
+            this.openTabsOrWindows++;
+            if (this.openTabsOrWindows > this.MAX_OPENED && this.failsafeSeconds > this.WINDOW) this.stop();
+        }
+        reset() {
+            this.STOPPED = false;
+            this.secondsTimerInterval = this.start();
+        }
+    }
     const DEVEL = true;
     const CHROME_VERSION = /Chrome\/([0-9.]+)/.exec(navigator.userAgent)[1].split('.')[0];
     const VERSION = '0.0.0'; // Filled in by Grunt
@@ -726,10 +790,13 @@ ngApp
         tabNotificationListeners = [],
         connections = {};
     $scope.tabId_HostPort_LookupTable = tabId_HostPort_LookupTable;
+    $scope.watchdog = new Watchdog();
+    window.nim = { watchdog: $scope.watchdog };
 
     restoreSettings()
     .then(updateInternalSettings) // This function is needed for settings that aren't yet configurable via the UI.  Otherwise the new unavailable setting will continue to be reset with whatever was saved vs the defaults.
     .then(function startInterval() {
+        // $scope.settings.scheme = 'http://'; // This is for testing runaway tabs only.
         if ($scope.settings.debugVerbosity >= 1) console.log('Starting up.')
         resetInterval();
     });
@@ -1100,12 +1167,12 @@ ngApp
                 } else if (localSession.auto && isLocked(instance)) {
                     /** If the isLocked(getInstance()) is set then we still have to check for disconnects on the client side via httpGetTest().
                     until there exists an event for the DevTools websocket disconnect.  Currently there doesn't seem to be one
-                    that we can use simultanous to DevTools itself as only one connection to the protocol is allowed at a time.
+                    that we can use simultaneous to DevTools itself as only one connection to the protocol is allowed at a time.
                     */
                     SingletonHttpGet.getInstance(instance);
                 }
             })
-            if (DEVEL && $scope.settings.debugVerbosity >= 4) console.dir(JSON.stringify($scope.intervals));
+            if (DEVEL && $scope.settings.debugVerbosity >= 3) console.dir(JSON.stringify($scope.intervals));
         }, $scope.settings.checkInterval);
     }
     function httpGetTestSingleton() {
@@ -1382,6 +1449,7 @@ ngApp
         }
     }
     function removeDevToolsSession(devToolsSession, index) {
+        $scope.devToolsProtocolClient.closeSocket(devToolsSession.dtpSocket);
         if (!devToolsSession.isWindow) {
             $window._gaq.push(['_trackEvent', 'Program Event', 'removeDevToolsSession', 'window', undefined, true]);
             chrome.tabs.remove(devToolsSession.id, function() {
@@ -1426,7 +1494,7 @@ ngApp
     }
     function createTabOrWindow(infoUrl, url, websocketId, nodeInspectMetadataJSON) {
         return new Promise(function(resolve) {
-            let dtpSocket = $scope.devToolsProtocolClient.setSocket(websocketId, nodeInspectMetadataJSON.webSocketDebuggerUrl, { autoResume: $scope.settings.autoResumeInspectBrk });
+            let dtpSocketPromise = $scope.devToolsProtocolClient.setSocket(websocketId, nodeInspectMetadataJSON.webSocketDebuggerUrl, { autoResume: $scope.settings.autoResumeInspectBrk });
             if ($scope.settings.newWindow) {
                 $window._gaq.push(['_trackEvent', 'Program Event', 'createWindow', 'focused', + $scope.settings.windowFocused, true]);
                 chrome.windows.create({
@@ -1435,9 +1503,13 @@ ngApp
                     type: ($scope.settings.panelWindowType) ? 'panel' : 'normal',
                     state: $scope.settings.windowStateMaximized ? chrome.windows.WindowState.MAXIMIZED : chrome.windows.WindowState.NORMAL
                 }, function(window) {
+                    $scope.watchdog.increment();
                     /* Is window.id going to cause id conflicts with tab.id?!  Should I be grabbing a tab.id here as well or instead of window.id? */
-                    saveSession(url, infoUrl, websocketId, window.id, nodeInspectMetadataJSON, dtpSocket);
-                    resolve(window);
+                    dtpSocketPromise
+                    .then(dtpSocket => {
+                        saveSession(url, infoUrl, websocketId, window.id, nodeInspectMetadataJSON, dtpSocket);
+                        resolve(window);
+                    });
                 });
             } else {
                 $window._gaq.push(['_trackEvent', 'Program Event', 'createTab', 'focused', + $scope.settings.tabActive, true]);
@@ -1445,8 +1517,12 @@ ngApp
                     url: url,
                     active: $scope.settings.tabActive,
                 }, function(tab) {
-                    saveSession(url, infoUrl, websocketId, tab.id, nodeInspectMetadataJSON, dtpSocket);
-                    resolve(tab);
+                    $scope.watchdog.increment();
+                    dtpSocketPromise
+                    .then(dtpSocket => {
+                        saveSession(url, infoUrl, websocketId, tab.id, nodeInspectMetadataJSON, dtpSocket);
+                        resolve(tab);
+                    });
                 });
             }
         });
@@ -1490,18 +1566,24 @@ ngApp
 
         if (existingSession) {
             existingSession.websocketId = websocketId;
-            existingSession.dtpSocket = $scope.devToolsProtocolClient.updateSocket(websocketId, socketUrl, { autoResume: $scope.settings.autoResumeInspectBrk });
+            $scope.devToolsProtocolClient.updateSocket(websocketId, socketUrl, { autoResume: $scope.settings.autoResumeInspectBrk })
+            .then(dtpSocket => {
+                existingSession.dtpSocket = dtpSocket;
+            });
         } else {
             /** A session will not exist if the tab is reused during a node restart */
-            $scope.devToolsSessions.push({
-                url: url,
-                auto: (tabOrWindowId === null) ? false : $scope.settings.auto,
-                autoClose: $scope.settings.autoClose,
-                isWindow: $scope.settings.newWindow,
-                infoUrl: infoUrl,
-                id: tabOrWindowId,
-                websocketId: websocketId,
-                dtpSocket: $scope.devToolsProtocolClient.setSocket(websocketId, socketUrl, { autoResume: $scope.settings.autoResumeInspectBrk })
+            $scope.devToolsProtocolClient.setSocket(websocketId, socketUrl, { autoResume: $scope.settings.autoResumeInspectBrk })
+            .then(dtpSocket => {
+                $scope.devToolsSessions.push({
+                    url: url,
+                    auto: (tabOrWindowId === null) ? false : $scope.settings.auto,
+                    autoClose: $scope.settings.autoClose,
+                    isWindow: $scope.settings.newWindow,
+                    infoUrl: infoUrl,
+                    id: tabOrWindowId,
+                    websocketId: websocketId,
+                    dtpSocket
+                });
             });
         }
     }
@@ -1868,6 +1950,7 @@ ngApp
         // Why am I not calling deleteSession() here?
         $scope.devToolsSessions.splice($scope.devToolsSessions.findIndex(function(devToolsSession) {
             if (devToolsSession.id === tabId) {
+                $scope.devToolsProtocolClient.closeSocket(devToolsSession.dtpSocket);
                 unlock(hostPortHashmap(tabId));
                 return true;
             }

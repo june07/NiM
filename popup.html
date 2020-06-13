@@ -215,9 +215,10 @@
                                         <div id="autoManualSwitch" class="switch" ng-true-value="true" ng-false-value="false">
                                             <label>
                                                 <span class="i18n">Manual</span>
-                                                <input id="auto switch" type="checkbox" ng-model="bg.settings.auto" class="ga-track" ng-click="switchHandler()">
+                                                <input id="auto switch" type="checkbox" ng-model="bg.settings.auto" class="ga-track" ng-change="autoSwitchHandler()">
                                                 <span class="lever"></span>
                                                 <span class="i18n">Auto</span>
+                                                <span ng-if="bg.watchdog.STOPPED" class="tippy exclamationTooltipButton" data-tippy-content="#tippyTemplateAutoSwitchAlert">(!)</span>
                                             </label>
                                         </div>
                                         <span class="waves-effect waves-light"><input type="button" id="openDevToolsButton" value="Open DevTools" ng-disabled="bg.settings.auto" class="btn green lighten-1 ga-track i18n" ng-click="clickHandler()"></span>
