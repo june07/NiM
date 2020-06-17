@@ -619,7 +619,6 @@ ngApp
             });
         }
     }
-
     class Watchdog {
         constructor() {
             this.STOPPED = false;
@@ -658,6 +657,36 @@ ngApp
         reset() {
             this.STOPPED = false;
             this.secondsTimerInterval = this.start();
+        }
+    }
+    class Timer {
+        constructor(args) {
+            let self = this;
+            self.sessionID = args.sessionID;
+            self.expired = false;
+            self.elapsed = 0;
+            self.timeout = $scope.settings.localSessionTimeout;
+            self.timerID = setTimeout(() => { $scope.updateLocalSessions(self.sessionID) }, self.timeout);
+            setInterval(() => {
+                self.elapsed = self.elapsed + 1000;
+                if (self.getRemainingTime() <= 0) self.expired = true;
+            }, 1000);
+        }
+        clearTimer() {
+            let self = this;
+            clearInterval(self.timerID);
+        }
+        getRemainingTime() {
+            let self = this;
+            return self.timeout - self.elapsed;
+        }
+    }
+    class Lock {
+        constructor(instance) {
+            this.host = instance.host
+            this.port = instance.port
+            this.tabStatus = 'loading'
+            this.timeout = setTimeout(() => { this.tabStatus = '' }, 5000)
         }
     }
     const DEVEL = true;
@@ -809,28 +838,6 @@ ngApp
         }
     }, UPTIME_CHECK_RESOLUTION);
 
-    class Timer {
-        constructor(args) {
-            let self = this;
-            self.sessionID = args.sessionID;
-            self.expired = false;
-            self.elapsed = 0;
-            self.timeout = $scope.settings.localSessionTimeout;
-            self.timerID = setTimeout(() => { $scope.updateLocalSessions(self.sessionID) }, self.timeout);
-            setInterval(() => {
-                self.elapsed = self.elapsed + 1000;
-                if (self.getRemainingTime() <= 0) self.expired = true;
-            }, 1000);
-        }
-        clearTimer() {
-            let self = this;
-            clearInterval(self.timerID);
-        }
-        getRemainingTime() {
-            let self = this;
-            return self.timeout - self.elapsed;
-        }
-    }
     $scope.updateLocalSessions = function(expired) {
         if (expired) return $scope.localSessions.splice($scope.localSessions.findIndex(session => session.id === expired.id), 1);
         
@@ -1396,14 +1403,6 @@ ngApp
                  resolve(false);
             }
         });
-    }
-    class Lock {
-        constructor(instance) {
-            this.host = instance.host
-            this.port = instance.port
-            this.tabStatus = 'loading'
-            this.timeout = setTimeout(() => { this.tabStatus = '' }, 5000)
-        }
     }
     function addLock(instance) {
         if ($scope.locks.find(lock => lock.host === instance.host && lock.port == instance.port) === undefined)
