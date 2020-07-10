@@ -302,12 +302,20 @@
                             <div class="col"><img class="bulletPointIcon" src="./icon/icon16.png"/><span class="tippy" data-tippy-content="#tippyTemplateRemote{{$index}}" ng-click="showTippy($event)"> {{ conn.cmd | nodeProgram }}</span></div>
                                 <div id="tippyTemplateRemote{{$index}}">
                                     <div class="row">
-                                        <div class="col s2">PID:</div>
+                                        <div class="col s2">Process ID:</div>
                                         <div class="col s10 value">{{ conn.pid }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s2">Process Cmd:</div>
+                                        <div class="col s10 value">{{ conn.cmd }}</div>
                                     </div>
                                     <div class="row">
                                         <div class="col s2">Inspect Port:</div>
                                         <div class="col s10 value">{{ conn.inspectPort }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s2">N2P URL:</div>
+                                        <div class="col s10 value">{{ getN2PURL(conn.tunnelSocket.port) }}</div>
                                     </div>
                                 </div>
                             <div class="col">{{ conn.waiting.running }}</div>
@@ -321,7 +329,7 @@
                                     <div class="ld ld-ring ld-spin"></div>
                                 </span>
                             </div>
-                            <div class="col open" ng-if="conn.inspectPort"><span class="waves-effect waves-light"><input type="button" id="open devtools remote" value="DevTools" class="btn btn-sm green lighten-1 ga-track i18n" ng-click="clickHandlerOpenRemoteDevTools(conn.inspectPort, conn.tunnelSocket.port)"></span></div>
+                            <div class="col open" ng-if="conn.inspectPort"><span class="waves-effect waves-light"><input type="button" id="open devtools remote" value="DevTools" ng-class="{disabled: !conn.tunnelSocket}" class="btn btn-sm green lighten-1 ga-track i18n" ng-click="clickHandlerOpenRemoteDevTools(conn.inspectPort, conn.tunnelSocket.port)"></span></div>
                             <div class="col">{{ conn.detectionTime | date : 'MM/dd/yy h:mm a  sss' }}</div>
                         </div>
                     </div>
