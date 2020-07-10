@@ -448,11 +448,9 @@ ngApp
     class NiMSConnector {
         constructor() {
             let self = this;
-            self.N2P_SERVER = 'https://n2p.june07.com';
-            self.N2P_HOST = 'n2p.june07.com';
+            self.N2P_SERVER = 'https://n2p-dev.brakecode.com';
+            self.N2P_HOST = 'n2p-dev.brakecode.com';
             self.N2P_SOCKET = self.N2P_HOST + ':443';
-            self.AUTH0_DOMAIN = '667.auth0.com';
-            self.AUTH0_CLIENT_ID = '96D0I0wqzYULuxzQXNfayvswIIplJRfG';
             self.isLoggedIn = false;
             self.authenticating = false;
             self.settings = {
@@ -467,7 +465,7 @@ ngApp
             .catch(error => {
                 console.log(error.message);
             });*/
-            chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => {
+            chrome.runtime.onMessageExternal.addListener(request => {
                 if (request.isLoggedIn) self.isLoggedIn = request.isLoggedIn;
             });
             chrome.runtime.onMessage.addListener((event, sender, sendResponse) => {
@@ -483,27 +481,27 @@ ngApp
             let options = {
                 scope: 'openid offline_access profile',
                 device: 'chrome-extension',
-                audience: 'https://nims.june07.com/api/v1/'
+                audience: `${self.N2P_SERVER}/api/v1/`
             };
 
-            new Auth0Chrome(self.AUTH0_DOMAIN, self.AUTH0_CLIENT_ID)
+            new Auth0Chrome(env.AUTH0_DOMAIN, env.AUTH0_CLIENT_ID)
             .authenticate(options)
             .then(function (authResult) {
                 localStorage.authResultNiMS = JSON.stringify(authResult);
                 self.checkAuth()
-                .then(self.checkAuthNiMS)
+                .then(self.checkAuthNiMS(self))
                 .then(() => {
                     chrome.notifications.create({
                     type: 'basic',
                     iconUrl: 'icon/icon128@3x.png',
-                    title: 'Login Successful',
+                    title: 'NiMS Login Successful',
                     message: chrome.i18n.getMessage("nimsLoginSuccess")
                     });
                     sendResponse({ isLoggedIn: self.isLoggedIn });
                 })
                 .then(() => {
                     chrome.cookies.set({
-                        url: 'https://n2p.june07.com',
+                        url: self.N2P_SERVER,
                         name: 'session',
                         value: JSON.stringify({ access_token: authResult.access_token })
                     }, cookie => {
@@ -538,7 +536,7 @@ ngApp
             let self = this;
 
             return new Promise((resolve, reject) => {
-                const authResult = JSON.parse(localStorage.authResultNiMS || '{}');
+                const authResult = JSON.parse(localStorage.authResult || '{}');
                 const token = authResult.id_token;
                 if (token && self.tokenIsValid(token)) {
                     self.isLoggedIn = true;
@@ -549,14 +547,14 @@ ngApp
                 }
             });
         }
-        checkAuthNiMS() {
+        checkAuthNiMS(self) {
             return new Promise((resolve, reject) => {
                 let xhr = new XMLHttpRequest();
                 let json = JSON.stringify({
                     access_token: JSON.parse(localStorage.authResultNiMS).access_token
                 });
                 xhr.responseType = 'json';
-                xhr.open("POST", 'https://nims.june07.com/n2p/validate');
+                xhr.open("POST", `${self.N2P_SERVER}/n2p/validate`);
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.onload = function () {
                     let response = xhr.response;
@@ -577,12 +575,12 @@ ngApp
         reconnect() {
             let self = this,
                 nims = JSON.parse(localStorage.nims);
-            self.io = $window.io(self.N2P_SERVER + '/' + nims.NiMS_API_KEY, { transports: ['websocket'], path: '/nim', query: { uid: nims.NiMS_UID } });
+            self.io = $window.io(self.N2P_SERVER + '/' + nims.NiMS_API_KEY, { transports: ['websocket'], path: '/nim', query: { uid: $scope.Auth.getProfile().sub } });
         }
         startN2PSocket() {
             let self = this,
                 nims = JSON.parse(localStorage.nims);
-            self.io = $window.io(self.N2P_SERVER + '/' + nims.NiMS_API_KEY, { transports: ['websocket'], path: '/nim', query: { uid: nims.NiMS_UID } })
+            self.io = $window.io(self.N2P_SERVER + '/' + nims.NiMS_API_KEY, { transports: ['websocket'], path: '/nim', query: { uid: $scope.Auth.getProfile().sub } })
             .on('connect_error', (error) => {
                 console.log('CALLBACK ERROR: ' + error);
                 //if (error.message && error.message == 'websocket error') self.reauthenticate();
