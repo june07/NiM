@@ -314,8 +314,8 @@
                                         <div class="col s10 value">{{ conn.inspectPort }}</div>
                                     </div>
                                     <div class="row">
-                                        <div class="col s2">N2P URL:</div>
-                                        <div class="col s10 value">{{ getN2PURL(conn.tunnelSocket.port) }}</div>
+                                        <div class="col s2">Remote URL:</div>
+                                        <div class="col s10 value">{{ getN2PURL(conn.tunnelSocket) }}</div>
                                     </div>
                                 </div>
                             <div class="col">{{ conn.waiting.running }}</div>
@@ -329,7 +329,7 @@
                                     <div class="ld ld-ring ld-spin"></div>
                                 </span>
                             </div>
-                            <div class="col open" ng-if="conn.inspectPort"><span class="waves-effect waves-light"><input type="button" id="open devtools remote" value="DevTools" ng-class="{disabled: !conn.tunnelSocket}" class="btn btn-sm green lighten-1 ga-track i18n" ng-click="clickHandlerOpenRemoteDevTools(conn.inspectPort, conn.tunnelSocket.port)"></span></div>
+                            <div class="col open" ng-if="conn.inspectPort"><span class="waves-effect waves-light"><input type="button" id="open devtools remote" value="DevTools" ng-class="{disabled: !conn.tunnelSocket}" class="btn btn-sm green lighten-1 ga-track i18n" ng-click="clickHandlerOpenRemoteDevTools(conn.inspectPort, conn.tunnelSocket.cid)"></span></div>
                             <div class="col">{{ conn.detectionTime | date : 'MM/dd/yy h:mm a  sss' }}</div>
                         </div>
                     </div>
