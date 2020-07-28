@@ -38,7 +38,7 @@
         "page": "background.html"
     },
     "options_page": "options.html",
-    "permissions": ["*://*/", "storage", "background", "cookies", "tabs", "identity", "identity.email", "notifications"],
+    "permissions": ["*://*/", "storage", "background", "tabs", "identity", "identity.email", "notifications"],
     "short_name": "__MSG_appShortName__",
     "version_name": "2.2.11"
 }
