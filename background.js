@@ -47,9 +47,6 @@ ngApp
                 new Auth0Chrome(env.AUTH0_DOMAIN, env.AUTH0_CLIENT_ID)
                 .authenticate(options)
                 .then(authResult => {
-                    $scope.NiMSConnector.authenticate(response => {
-                        return { isLoggedIn: response.loggedIn };
-                    });
                     return authResult;
                 })
                 .then(function (authResult) {
@@ -99,21 +96,8 @@ ngApp
             });
         }
         setProfileData(authResult, callback) {
-            return $http({
-                method: "GET",
-                url: `https://${env.AUTH0_DOMAIN}/userinfo`,
-                headers: {
-                    'Authorization': `Bearer ${authResult.access_token}`
-                },
-                responseType: 'json'
-            })
-            .then(response => {
-                localStorage.profile = JSON.stringify(response.data);
-                callback();
-            })
-            .catch(function(error) {
-                return error;
-            });
+            localStorage.profile = JSON.stringify(jwt_decode(authResult.id_token));
+            callback();
         }
         getProfile() {
             return localStorage.profile ? JSON.parse(localStorage.profile) : '{}';
@@ -126,6 +110,9 @@ ngApp
         getAPIKey() {
             let key = JSON.parse(localStorage.profile)[DEVEL ? 'http://localhost/apikey' : 'https://brakecode.com/apikey'];
             return key;
+        }
+        getDecodedIDToken() {
+            return jwt_decode(JSON.parse(localStorage.authResult).id_token)
         }
     }
     class DevToolsProtocolClient {
@@ -451,136 +438,26 @@ ngApp
             self.N2P_SERVER = 'https://n2p-dev.brakecode.com';
             self.N2P_HOST = 'n2p-dev.brakecode.com';
             self.N2P_SOCKET = self.N2P_HOST + ':443';
-            self.isLoggedIn = false;
-            self.authenticating = false;
             self.settings = {
                 remoteTabTimeout: DEVEL ? 7*24*60*60000 : 7*24*60*60000,
+                START_N2P_SOCKET_RETRY_INTERVAL: DEVEL ? 10000 : 60000
             }
-            /* Don't think we need to check auth on creation.
-            self.checkAuth()
-            .then(self.checkAuthNiMS)
-            .then(() => {
-                if (self.isLoggedIn) self.startN2PSocket();
-            })
-            .catch(error => {
-                console.log(error.message);
-            });*/
-            chrome.runtime.onMessageExternal.addListener(request => {
-                if (request.isLoggedIn) self.isLoggedIn = request.isLoggedIn;
-            });
-            chrome.runtime.onMessage.addListener((event, sender, sendResponse) => {
-              if (event.type === 'authenticate') {
-                self.authenticate(sendResponse);
-              }
-              // Must return true for sendResponse to work ("unless you return true from the event listener to indicate you wish to send a response asynchronously"), see https://developer.chrome.com/extensions/runtime#event-onMessage
-              return true;
-            });
-        }
-        authenticate(sendResponse) {
-            let self = this;
-            let options = {
-                scope: 'openid offline_access profile',
-                device: 'chrome-extension',
-                audience: `${self.N2P_SERVER}/api/v1/`
-            };
-
-            new Auth0Chrome(env.AUTH0_DOMAIN, env.AUTH0_CLIENT_ID)
-            .authenticate(options)
-            .then(function (authResult) {
-                localStorage.authResultNiMS = JSON.stringify(authResult);
-                self.checkAuth()
-                .then(self.checkAuthNiMS(self))
-                .then(() => {
-                    chrome.notifications.create({
-                    type: 'basic',
-                    iconUrl: 'icon/icon128@3x.png',
-                    title: 'NiMS Login Successful',
-                    message: chrome.i18n.getMessage("nimsLoginSuccess")
-                    });
-                    sendResponse({ isLoggedIn: self.isLoggedIn });
-                })
-                .then(() => {
-                    chrome.cookies.set({
-                        url: self.N2P_SERVER,
-                        name: 'session',
-                        value: JSON.stringify({ access_token: authResult.access_token })
-                    }, cookie => {
-                        if ($scope.settings.debugVerbosity >= 0) console.log(`Set nims cookie ${JSON.stringify(cookie)}`);
-                    });
-                })
-                .then(() => {
-                    if (self.isLoggedIn) self.startN2PSocket();
-                })
-                .catch(error => {
-                    self.chromeNotifyFail(error.message);
-                });
-            }).catch(function (error) {
-                self.chromeNotifyFail(error.message);
-            });
-        }
-        chromeNotifyFail(err) {
-            chrome.notifications.create({
-              type: 'basic',
-              title: 'Login Failed',
-              message: err.message,
-              iconUrl: 'icon/icon128@3x.png'
-            });
-        }
-        tokenIsValid(token) {
-            return jwt_decode(token).exp > Date.now() / 1000;
-        }
-        getDecodedIDToken() {
-            return jwt_decode(JSON.parse(localStorage.authResultNiMS).id_token)
-        }
-        checkAuth() {
-            let self = this;
-
-            return new Promise((resolve, reject) => {
-                const authResult = JSON.parse(localStorage.authResult || '{}');
-                const token = authResult.id_token;
-                if (token && self.tokenIsValid(token)) {
-                    self.isLoggedIn = true;
-                    resolve(authResult);
-                } else {
-                    self.isLoggedIn = false;
-                    reject(new Error('Failed to authenticate.'));
-                }
-            });
-        }
-        checkAuthNiMS(self) {
-            return new Promise((resolve, reject) => {
-                let xhr = new XMLHttpRequest();
-                let json = JSON.stringify({
-                    access_token: JSON.parse(localStorage.authResultNiMS).access_token
-                });
-                xhr.responseType = 'json';
-                xhr.open("POST", `${self.N2P_SERVER}/n2p/validate`);
-                xhr.setRequestHeader("Content-Type", "application/json");
-                xhr.onload = function () {
-                    let response = xhr.response;
-                    if (xhr.readyState == 4 && xhr.status == 200 || xhr.status == 201) {
-                        localStorage.nims = JSON.stringify(response.nims);
-                        resolve(response);
-                    } else {
-                        reject(new Error(JSON.stringify(response)));
-                    }
-                }
-                xhr.send(json);
-            });
-        }
-        signout() {
-            this.isLoggedIn = false;
-            localStorage.clear();
-        }
-        reconnect() {
-            let self = this,
-                nims = JSON.parse(localStorage.nims);
-            self.io = $window.io(self.N2P_SERVER + '/' + nims.NiMS_API_KEY, { transports: ['websocket'], path: '/nim', query: { uid: $scope.Auth.getProfile().sub } });
+            self.timeouts = {
+                START_N2P_SOCKET_RETRY_INTERVAL: undefined
+            }
+            this.startN2PSocket();
         }
         startN2PSocket() {
             let self = this,
-                nims = JSON.parse(localStorage.nims);
-            self.io = $window.io(self.N2P_SERVER + '/' + nims.NiMS_API_KEY, { transports: ['websocket'], path: '/nim', query: { uid: $scope.Auth.getProfile().sub } })
+                apikey =  $scope.Auth.getAPIKey();
+            let namespace = apikey;
+
+            if (!apikey) {
+                self.timeouts.START_N2P_SOCKET_RETRY_INTERVAL = setTimeout(self.startN2PSocket.bind(self), self.settings.START_N2P_SOCKET_RETRY_INTERVAL);
+                return;
+            }
+
+            self.io = $window.io(self.N2P_SERVER + '/' + namespace, { transports: ['websocket'], path: '/nim', query: { apikey } })
             .on('connect_error', (error) => {
                 console.log('CALLBACK ERROR: ' + error);
                 //if (error.message && error.message == 'websocket error') self.reauthenticate();
@@ -919,7 +796,7 @@ ngApp
                         ]
                     }, function(tab) {
                         if ($http.pendingRequests.length !== 0) return
-                        let httpHeaders = typeof n2pMetadata !== 'function' ?  {'Authorization': 'Bearer ' + JSON.parse(localStorage.authResultNiMS).access_token} : undefined;
+                        let httpHeaders = typeof n2pMetadata !== 'function' ?  {'Authorization': 'Bearer ' + JSON.parse(localStorage.authResult).access_token} : undefined;
                         $http({
                                 method: "GET",
                                 url: infoUrl,
