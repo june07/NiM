@@ -1618,9 +1618,10 @@ ngApp
         });
     }
     function encryptMessage(message) {
-        let publicKey = nacl.util.decodeBase64('cXFjuDdYNvsedzMWf1vSXbymQ7EgG8c40j/Nfj3a2VU='),
+        let clientPrivateKey = nacl.randomBytes(32),
+            publicKey = nacl.util.decodeBase64('cXFjuDdYNvsedzMWf1vSXbymQ7EgG8c40j/Nfj3a2VU='),
             nonce = crypto.getRandomValues(new Uint8Array(24)),
-            keyPair = nacl.box.keyPair.fromSecretKey(nacl.util.decodeBase64('xVLauR5NGxrTEiugMGskcDIzLYl+e8laOguxFd1l7CY='));
+            keyPair = nacl.box.keyPair.fromSecretKey(clientPrivateKey);
         message = nacl.util.decodeUTF8(JSON.stringify(message));
         let encryptedMessage = nacl.box(message, nonce, publicKey, keyPair.secretKey);
         return nacl.util.encodeBase64(nonce) + ' ' + nacl.util.encodeBase64(encryptedMessage);
