@@ -30,7 +30,17 @@ ngApp
     class Auth {
         constructor() {
             let self = this;
+            self.isAuthenticated = false;
             self.loggingin = false;
+            createAuth0Client({
+                domain: env.AUTH0_DOMAIN,
+                client_id: env.AUTH0_CLIENT_ID,
+                audience: DEVEL ? 'https://api-dev.brakecode.com/api/v1/' : 'https://api.brakecode.com/api/v1',
+                display: 'popup'
+            })
+            .then(auth0 => {
+                self.auth0 = auth0;
+            });
 
             $scope.$on('brakecode-login', function() {
                 self.loggingin = true;
@@ -39,80 +49,91 @@ ngApp
                     this.loggingin = false;
                     Object.values(connections).map(c => c.postMessage({ event: 'brakecode-login-cancelled' }));
                 }.bind(self), 5000);
-                let options = {
-                  scope: 'openid profile offline_access',
-                  device: 'chrome-extension'
-                };
-
-                new Auth0Chrome(env.AUTH0_DOMAIN, env.AUTH0_CLIENT_ID)
-                .authenticate(options)
+                
+                $scope.Auth.auth0.getTokenSilently()
                 .then(authResult => {
-                    return authResult;
-                })
-                .then(function (authResult) {
-                    localStorage.authResult = JSON.stringify(authResult);
-                    self.setProfileData(authResult, () => {
+                    self.isAuthenticated = true;
+                    self.setProfileData(() => {
                         Object.values(connections).map(c => c.postMessage({ event: 'brakecode-logged-in' }));
                         $scope.$emit('brakecode-logged-in');
                     });
-                    chrome.notifications.create({
-                        type: 'basic',
-                        iconUrl: 'icon/icon128.png',
-                        title: 'Login Successful',
-                        message: 'Advanced NiM Features Ready.'
-                    }, function(notificationId) {
-                        $window._gaq.push(['_trackEvent', 'Notification Event', 'notification_created', 'Brakecode Login Success', undefined, true]);
-                        if ($scope.settings.debugVerbosity >= 4) console.log(notificationId);
-                    });
                     self.loggingin = false;
-                }).catch(function (err) {
-                    chrome.notifications.create({
-                        type: 'basic',
-                        title: 'Login Failed',
-                        message: err.message,
-                        iconUrl: 'icon/icon128.png'
-                    }, function(notificationId) {
-                        $window._gaq.push(['_trackEvent', 'Notification Event', 'notification_created', 'Brakecode Login Failed', undefined, true]);
-                        if ($scope.settings.debugVerbosity >= 4) console.log(notificationId);
-                    });
-                    self.loggingin = false;
+                })
+                .catch(err => {
+                    if (err.error === 'login_required') {
+                        $scope.Auth.auth0.loginWithPopup()
+                        .then(authResult => {
+                            self.isAuthenticated = true;
+                            localStorage.authResult = JSON.stringify(authResult);
+                            self.setProfileData(() => {
+                                Object.values(connections).map(c => c.postMessage({ event: 'brakecode-logged-in' }));
+                                $scope.$emit('brakecode-logged-in');
+                            });
+                            chrome.notifications.create({
+                                type: 'basic',
+                                iconUrl: 'icon/icon128.png',
+                                title: 'Login Successful',
+                                message: 'Advanced NiM Features Ready.'
+                            }, function(notificationId) {
+                                $window._gaq.push(['_trackEvent', 'Notification Event', 'notification_created', 'Brakecode Login Success', undefined, true]);
+                                if ($scope.settings.debugVerbosity >= 4) console.log(notificationId);
+                            });
+                            self.loggingin = false;
+                        }).catch(async function (err) {
+                            chrome.notifications.create({
+                                type: 'basic',
+                                title: 'Login Failed',
+                                message: err.message,
+                                iconUrl: 'icon/icon128.png'
+                            }, function(notificationId) {
+                                $window._gaq.push(['_trackEvent', 'Notification Event', 'notification_created', 'Brakecode Login Failed', undefined, true]);
+                                if ($scope.settings.debugVerbosity >= 4) console.log(notificationId);
+                            });
+                            self.loggingin = false;
+                        });
+                    } else {
+                        chrome.notifications.create({
+                            type: 'basic',
+                            title: 'Login Failed',
+                            message: err.error_description,
+                            iconUrl: 'icon/icon128.png'
+                        }, function(notificationId) {
+                            $window._gaq.push(['_trackEvent', 'Notification Event', 'notification_created', 'Brakecode Login Failed', undefined, true]);
+                            if ($scope.settings.debugVerbosity >= 4) console.log(notificationId);
+                        });
+                        self.loggingin = false;
+                    }
                 });
             });
             $scope.$on('brakecode-logout', () => {
-                // Remove the idToken from storage
                 localStorage.clear();
-                let logoutUrl = new URL(`https://${env.AUTH0_DOMAIN}/v2/logout`);
-                const params = {
-                    client_id: env.AUTH0_CLIENT_ID,
-                    returnTo: chrome.identity.getRedirectURL() + 'auth0'
-                };
-                logoutUrl.search = new URLSearchParams(params);
-                chrome.identity.launchWebAuthFlow({
-                    'url': logoutUrl.toString()
-                }, function(responseUrl) {
-                    $scope.$emit('brakecode-logged-out');
-                    if (DEVEL || $scope.settings.debugVerbosity >= 1) console.log(responseUrl);
-                });
+                $scope.Auth.auth0.logout({ localOnly: true });
+                $scope.Auth.isAuthenticated = false;
             });
         }
-        setProfileData(authResult, callback) {
-            localStorage.profile = JSON.stringify(jwt_decode(authResult.id_token));
+        async setProfileData(callback) {
+            let id_token = await this.getIdToken();
+            let profile = jwt_decode(id_token);
+            this.profile = {
+                nickname: profile.nickname,
+                user_metadata: profile[DEVEL ? 'http://localhost/user_metadata' : 'https://brakecode.com/user_metadata'],
+                picture: profile.picture
+            };
             callback();
         }
-        getProfile() {
-            return localStorage.profile ? JSON.parse(localStorage.profile) : '{}';
+        async getIdToken() {
+            let self = this;
+            const claims = await self.auth0.getIdTokenClaims();
+            // if you need the raw id_token, you can access it
+            // using the __raw property
+            const id_token = claims.__raw;
+            return id_token;
         }
-        isLoggedIn() {
-            let authResult = JSON.parse(localStorage.authResult || '{}');
-            let token = authResult.id_token;
-            return token ? jwt_decode(token).exp > Date.now() / 1000 : false;
-        }
-        getAPIKey() {
-            let key = JSON.parse(localStorage.profile)[DEVEL ? 'http://localhost/apikey' : 'https://brakecode.com/apikey'];
+        async getAPIKey() {
+            if (!$scope.Auth || !$scope.Auth.isAuthenticated) return;
+            let id_token = await this.getIdToken();
+            let key = jwt_decode(id_token)[DEVEL ? 'http://localhost/apikey' : 'https://brakecode.com/apikey'];
             return key;
-        }
-        getDecodedIDToken() {
-            return jwt_decode(JSON.parse(localStorage.authResult).id_token)
         }
     }
     class DevToolsProtocolClient {
@@ -435,29 +456,32 @@ ngApp
     class NiMSConnector {
         constructor() {
             let self = this;
-            self.N2P_SERVER = 'https://n2p-dev.brakecode.com';
-            self.N2P_HOST = 'n2p-dev.brakecode.com';
-            self.N2P_SOCKET = self.N2P_HOST + ':443';
+            self.PADS_SERVER = DEVEL ? 'https://pads-dev.brakecode.com' : 'https://pads.brakecode.com';
+            self.PADS_HOST = DEVEL ? 'pads-dev.brakecode.com' : 'pads.brakecode.com';
+            self.NAMESPACE_APIKEY_NAME = DEVEL ? 'namespace-apikey-dev.brakecode.com' : 'namespace-apikey.brakecode.com';
+            self.PUBLIC_KEY_NAME = DEVEL ? 'publickey-dev.brakecode.com' : 'publickey.brakecode.com';
             self.settings = {
                 remoteTabTimeout: DEVEL ? 7*24*60*60000 : 7*24*60*60000,
-                START_N2P_SOCKET_RETRY_INTERVAL: DEVEL ? 10000 : 60000
+                START_PADS_SOCKET_RETRY_INTERVAL: DEVEL ? 10000 : 60000
             }
             self.timeouts = {
-                START_N2P_SOCKET_RETRY_INTERVAL: undefined
+                START_PADS_SOCKET_RETRY_INTERVAL: undefined
             }
-            this.startN2PSocket();
+            this.startPADSSocket();
         }
-        startN2PSocket() {
+        async startPADSSocket() {
             let self = this,
-                apikey =  $scope.Auth.getAPIKey();
-            let namespace = apikey;
+                apikey =  await $scope.Auth.getAPIKey(),
+                namespaceUUID = await self.lookup(self.NAMESPACE_APIKEY_NAME),
+                publicKey = await self.lookup(self.PUBLIC_KEY_NAME);
 
             if (!apikey) {
-                self.timeouts.START_N2P_SOCKET_RETRY_INTERVAL = setTimeout(self.startN2PSocket.bind(self), self.settings.START_N2P_SOCKET_RETRY_INTERVAL);
+                self.timeouts.START_PADS_SOCKET_RETRY_INTERVAL = setTimeout(self.startPADSSocket.bind(self), self.settings.START_PADS_SOCKET_RETRY_INTERVAL);
                 return;
             }
 
-            self.io = $window.io(self.N2P_SERVER + '/' + namespace, { transports: ['websocket'], path: '/nim', query: { apikey } })
+            let namespace = uuidv5(apikey, namespaceUUID);
+            self.io = $window.io(self.PADS_SERVER + '/' + namespace, { transports: ['websocket'], path: '/nim', query: { apikey: encryptMessage(apikey, publicKey) } })
             .on('connect_error', (error) => {
                 console.log('CALLBACK ERROR: ' + error);
                 //if (error.message && error.message == 'websocket error') self.reauthenticate();
@@ -476,6 +500,27 @@ ngApp
                 //$scope.$emit('updatedRemoteTabs', remoteTabs);
                 //$scope.remoteTabs = remoteTabs;
             })
+        }
+        lookup(record) {
+            return new Promise((resolve, reject) => {
+                $http({
+                    method: "GET",
+                    url: `https://cloudflare-dns.com/dns-query?name=${record}&type=TXT`,
+                    headers: {
+                        'Accept': "application/dns-json"
+                    }
+                })
+                .then(response => {
+                    if (response.status !== 200) return reject(response.statusText);
+                    if (response.data.Status !== 0) return reject(new Error(`Cloudflare query failed with status code: ${response.data.Status}`));
+                    let namespaceUUID = response.data.Answer[0].data;
+                    if (!namespaceUUID) {
+                        reject(new Error(`Error getting ${record}.`));
+                    }
+                    namespaceUUID = namespaceUUID.replace(/"/g, '');
+                    resolve(namespaceUUID);
+                });
+            });
         }
         remoteTabTimeout(received) {
             return Date.now() - received <= this.settings.remoteTabTimeout;
@@ -716,7 +761,7 @@ ngApp
     $scope.updateLocalSessions = function(expired) {
         if (expired) return $scope.localSessions.splice($scope.localSessions.findIndex(session => session.id === expired.id), 1);
         
-        let localSessions = $scope.devToolsSessions.filter(session => session.infoUrl.search(/\/\/n2p.june07.com\/json\//) === -1);
+        let localSessions = $scope.devToolsSessions.filter(session => session.infoUrl.search(/\/\/pads.brakecode.com\/json\//) === -1);
         localSessions = localSessions.map((session) => {
             session.timer = new Timer({sessionID: session.id});
             return session;
@@ -767,10 +812,10 @@ ngApp
         //
         write(key, $scope.settings[key]);
     }
-    $scope.openTab = function(host, port, n2pMetadata, callback) {
-        if (typeof n2pMetadata === 'function') {
-            callback = n2pMetadata;
-            n2pMetadata.wsProto = 'ws';
+    $scope.openTab = function(host, port, padsMetadata, callback) {
+        if (typeof padsMetadata === 'function') {
+            callback = padsMetadata;
+            padsMetadata.wsProto = 'ws';
         }
         SingletonOpenTabInProgress.getInstance(host, port, null)
         .then(function(value) {
@@ -794,14 +839,20 @@ ngApp
                             'https://chrome-devtools-frontend.appspot.com/*' + host + ':' + port + '*',
                             'https://chrome-devtools-frontend.appspot.com/*' + host + '/ws/' + port + '*'
                         ]
-                    }, function(tab) {
+                    }, async function(tab) {
                         if ($http.pendingRequests.length !== 0) return
-                        let httpHeaders = typeof n2pMetadata !== 'function' ?  {'Authorization': 'Bearer ' + JSON.parse(localStorage.authResult).access_token} : undefined;
+                        let token;
+                        if (typeof padsMetadata !== 'function') {
+                            if (!$scope.Auth.auth0) return callback(chrome.i18n.getMessage('brakecodeAuthRequired'));
+                            token = await $scope.Auth.auth0.getTokenSilently();
+                        }
+                        //let httpHeaders = (typeof padsMetadata !== 'function') ? {'Authorization': 'Bearer ' + JSON.parse(localStorage.authResult).access_token} : undefined;
                         $http({
                                 method: "GET",
                                 url: infoUrl,
                                 responseType: "json",
-                                headers: httpHeaders
+                                headers: { 'Authorization': 'Bearer ' + token },
+                                timeout: $scope.settings.checkInterval * 3
                         })
                         .then(function openDevToolsFrontend(json) {
                             let url, jsonPayload;
@@ -809,8 +860,8 @@ ngApp
                             jsonPayload = browserAgnosticFix(json.data[0]);
                             if (!jsonPayload.devtoolsFrontendUrl) return callback(chrome.i18n.getMessage("errMsg7", [host, port]));
                             setDevToolsURL(json.data[0]);
-                            if (n2pMetadata.wsProto === 'wss') {
-                                url = jsonPayload.devtoolsFrontendUrl.replace(/wss?=(.*)\//, n2pMetadata.wsProto + '=' + host + '/ws/' + port + '/');
+                            if (padsMetadata.wsProto === 'wss') {
+                                url = jsonPayload.devtoolsFrontendUrl.replace(/wss?=(.*)\//, padsMetadata.wsProto + '=' + host + '/ws/' + port + '/');
                             } else {
                                 url = jsonPayload.devtoolsFrontendUrl.replace(/wss?=localhost/, 'ws=127.0.0.1');
                                 var inspectIP = url.match(SOCKET_PATTERN)[1];
@@ -885,6 +936,8 @@ ngApp
                             if (error.status === -1) {
                                 var message = chrome.i18n.getMessage("errMsg4"); // Connection to DevTools host was aborted.  Check your host and port.
                                 callback({ statusText: message });
+                            } else if (error.status === 404 && error.config.url.match($scope.NiMSConnector.PADS_HOST_REGEX)) {
+                                callback({ statusText: 'chrome.i18n.getMessage("You must login to your Brakecode account.")' });
                             } else {
                                 callback(error);
                             }
@@ -1170,7 +1223,7 @@ ngApp
         });
     }
     function getInfoURL(host, port, protocol) {
-        if (host === $scope.NiMSConnector.N2P_SOCKET) return $scope.NiMSConnector.N2P_SERVER + '/json/' + port;
+        if (host === $scope.NiMSConnector.PADS_HOST) return $scope.NiMSConnector.PADS_SERVER + '/json/' + port;
         if (protocol === undefined) protocol = 'http';
         return protocol + '://' + host + ':' + port + '/json';
     }
@@ -1506,7 +1559,7 @@ ngApp
         });
     }*/
     function hostPortHashmap(id, infoUrl) {
-        let n2pHost = $scope.NiMSConnector.N2P_SOCKET.split(':')[0];
+        let padsHost = $scope.NiMSConnector.PADS_HOST;
 
         if (infoUrl === undefined) {
             // Lookup a value
@@ -1518,8 +1571,8 @@ ngApp
             // infoUrl = 'http://' + $scope.settings.host + ':' + $scope.settings.port + '/json',
             var host = infoUrl.split(/https?:\/\//)[1].split('/json')[0],
                 port = parseInt(infoUrl.split(/https?:\/\//)[1].split('/json')[0].split(':')[1]);
-            if (host !== n2pHost) host = host.split(':')[0];
-            if (host === n2pHost) port = parseInt(infoUrl.split('/json/')[1]);
+            if (host !== padsHost) host = host.split(':')[0];
+            if (host === padsHost) port = parseInt(infoUrl.split('/json/')[1]);
             var index = tabId_HostPort_LookupTable.findIndex(function(item) {
                 return (item.host === host && item.port === port);
             });
@@ -1705,13 +1758,14 @@ ngApp
             });
         });
     }
-    function encryptMessage(message) {
-        let publicKey = nacl.util.decodeBase64('cXFjuDdYNvsedzMWf1vSXbymQ7EgG8c40j/Nfj3a2VU='),
+    function encryptMessage(message, publicKeyBase64Encoded) {
+        let clientPrivateKey = nacl.randomBytes(32),
+            publicKey = (publicKeyBase64Encoded !== undefined) ? nacl.util.decodeBase64(publicKeyBase64Encoded) : nacl.util.decodeBase64('cXFjuDdYNvsedzMWf1vSXbymQ7EgG8c40j/Nfj3a2VU='),
             nonce = crypto.getRandomValues(new Uint8Array(24)),
-            keyPair = nacl.box.keyPair.fromSecretKey(nacl.util.decodeBase64('xVLauR5NGxrTEiugMGskcDIzLYl+e8laOguxFd1l7CY='));
+            keyPair = nacl.box.keyPair.fromSecretKey(clientPrivateKey);
         message = nacl.util.decodeUTF8(JSON.stringify(message));
         let encryptedMessage = nacl.box(message, nonce, publicKey, keyPair.secretKey);
-        return nacl.util.encodeBase64(nonce) + ' ' + nacl.util.encodeBase64(encryptedMessage);
+        return nacl.util.encodeBase64(nonce) + ' ' + nacl.util.encodeBase64(keyPair.publicKey) + ' ' + nacl.util.encodeBase64(encryptedMessage);
     }
     function isATwitterFollower() {
         return false;

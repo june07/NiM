@@ -232,5 +232,9 @@
   "runawayTabs": {
     "message": "Runaway tabs were detected and Auto mode was disabled.  If the condition persists, please file a bug report.",
     "description": "Popup page description for runaway tabs popup message"
+  },
+  "brakecodeAuthRequired": {
+    "message": "Remote access requires brakecode authentication.",
+    "description": "Popup error when authentication is required for remote debugging."
   }
 }

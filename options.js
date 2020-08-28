@@ -148,7 +148,14 @@ ngApp
         }
         $scope.diagnosticReportsHandler();
         $scope.maskKey = function(mask) {
-            if (mask) $scope.apikey = '************************************';
-            else $scope.apikey = $scope.bg.Auth.getAPIKey();
+            if (mask) {
+                $scope.apikey = '************************************';
+            } else {
+                $scope.bg.Auth.getAPIKey()
+                .then(key => {
+                    $scope.apikey = key;
+                    $scope.$apply();
+                })
+            }
         }
     }]);

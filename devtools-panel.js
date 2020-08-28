@@ -76,6 +76,7 @@ ngApp
                     loadMessages(); break;
                 case 'brakecode-logged-in':
                     $scope.$apply();
+                    $('ul.tabs').tabs();
                     $('.dropdown-chip').dropdown({
                         inDuration: 300,
                         outDuration: 225,

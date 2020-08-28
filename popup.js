@@ -80,21 +80,27 @@ ngApp
         if (error && typeof error === "string") {
           showErrorMessage(error);
           if (error === 'DevTools is already open.') $scope.bg.tabNotification({ host: $scope.bg.settings.host, port: $scope.bg.settings.port });
-        }
-        if (error) showErrorMessage(`${error.status} ${error.statusText}`);
-        else
+        } else if (error && typeof error === "object" && error.message) {
+          showErrorMessage(error.message);
+        } else if (error) {
+          showErrorMessage(`${error.status} ${error.statusText}`);
+        } else {
           $scope.message = result;
+        }
       });
     };
-    $scope.clickHandlerOpenRemoteDevTools = function(port, tunnelPort, cid) {
-      $scope.bg.openTab($scope.bg.NiMSConnector.N2P_SOCKET, tunnelPort, { wsProto: 'wss', port: port, cid }, function (error, result) {
+    $scope.clickHandlerOpenRemoteDevTools = function(port, tunnelPort) {
+      $scope.bg.openTab($scope.bg.NiMSConnector.PADS_HOST, tunnelPort, { wsProto: 'wss', port: tunnelPort }, function (error, result) {
         if (error && typeof error === "string") {
           showErrorMessage(error);
-          if (error === 'DevTools is already open.') $scope.bg.tabNotification({host: $scope.bg.NiMSConnector.N2P_SOCKET.split(':')[0], port: tunnelPort});
+          if (error === 'DevTools is already open.') $scope.bg.tabNotification({host: $scope.bg.NiMSConnector.PADS_HOST, port: tunnelPort});
+        } else if (error && typeof error === "object" && error.message) {
+          showErrorMessage(error.message);
+        } else if (error) {
+          showErrorMessage(`${error.status} ${error.statusText}`);
+        } else {
+          $scope.message = result;
         }
-        if (error && typeof error === "object" && error.message) showErrorMessage(error.message);
-        if (error) showErrorMessage(`${error.status} ${error.statusText}`);
-        else $scope.message = result;
       });
     }
     $scope.clickHandlerOpenLocalDevTools = function(translatedURL) {
@@ -145,8 +151,9 @@ ngApp
     $scope.trackTwitterClicks = function (id) {
       $window._gaq.push(['_trackEvent', 'Social Event', 'Link Click', 'https://twitter.com/june07t/status/' + id, undefined, true]);
     };
-    $scope.getN2PURL = function(tunnelSocket) {
-      return tunnelSocket.cid ? `${$scope.bg.NiMSConnector.N2P_SERVER}/json/${tunnelSocket.cid}`: '';
+    $scope.getPADSURL = function(tunnelSocket) {
+      if (!tunnelSocket) return '';
+      return tunnelSocket.cid ? `${$scope.bg.NiMSConnector.PADS_SERVER}/json/${tunnelSocket.cid}`: '';
     }
     function showErrorMessage(error) {
       $window.document.querySelector('#site-href').style.display = "none";

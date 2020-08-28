@@ -760,7 +760,7 @@ span#devToolsCompat {
     -webkit-box-shadow: none;
     box-shadow: none;
 }
-#devtools-panel #noreports {
+#devtools-panel #noreports, #dashboard {
     display: table;
     margin: 50px auto;
     font-variant: all-small-caps;
