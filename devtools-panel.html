@@ -39,14 +39,14 @@
                         <div>
                             <a href="#" ng-click="login()"><img id="nim-logo" src="icon/icon16@2x.png" title="Node.js Developer Tools." /></a>
                         </div>
-                        <div ng-if="!bg.Auth.isLoggedIn()">
+                        <div ng-if="!bg.Auth.isAuthenticated">
                             <img ng-src="https://res.cloudinary.com/june07/image/upload/brakecode/NiMBrakeCODEoverlay.png" on-error="./image/NiMBrakeCODEoverlay.png" style="margin-left: 10px;">
                         </div>
                     </div>
-                    <div class="col s6" id="user-chip" ng-if="bg.Auth.isLoggedIn()">
+                    <div class="col s6" id="user-chip" ng-if="bg.Auth.isAuthenticated">
                         <div class="chip dropdown-chip" data-activates="auth-dropdown">
-                            <img ng-src="{{bg.Auth.getProfile().picture}}" />
-                            {{ bg.Auth.getProfile().nickname }}
+                            <img ng-src="{{bg.Auth.profile.picture}}" />
+                            {{ bg.Auth.profile.nickname }}
                         </div>
                         <ul id="auth-dropdown" class="dropdown-content">
                             <li><a href="#" ng-click="logout()">Logout</a></li>
@@ -59,11 +59,12 @@
                 </div>
             </div>
             <!-- START Auth is required for extended features -->
-            <div ng-if="bg.Auth.isLoggedIn()">
+            <div ng-if="bg.Auth.isAuthenticated">
                 <div id="menu" class="row">
                     <div class="col s12">
                         <ul class="tabs">
                             <li class="tab col s6"><a href="#node-reports" title="Diagnostic Reports">Diagnostic Reports</a></li>
+                            <li class="tab col s6"><a href="#brakecode-pads" title="PaDS">PaDS</a></li>
                             <!-- <li class="tab col s6"><a href="#blank">Stats</a></li> -->
                         </ul>
                     </div>
@@ -86,6 +87,9 @@
                     <div ng-if="!bg.settings.diagnosticReports.enabled" id="node-reports-disabled" class="col s12">
                         <span>Diagnostic Reports are disabled.</span>
                         <input type="button" id="open options" value="Open Options" class="btn green lighten-1 ga-track i18n" ng-click="openOptionsPage()"></input>
+                    </div>
+                    <div id="brakecode-pads" class="col s12">
+                        <a id="dashboard" target="_blank" href="https://brakecode.com/dashboard?panel=pads">Open <span style="font-weight:bold; color:black; font-size: initial; font-variant: none;">Brake</span><span style="color: #fdd835; text-transform: capitalize; font-weight: bolder;">CODE</span> Dashboard</a>
                     </div>
                     <!-- <div id="blank" class="col s12">Statistics</div> -->
                 </div>

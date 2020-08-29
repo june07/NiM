@@ -64,6 +64,7 @@ div.noUi-base {
     text-transform: uppercase;
     font-size: large;
     word-break: break-word;
+    border-radius: 10px;
 }
 .switch label input[type=checkbox]:checked+.lever {
     background-color:#e8f5e9;
@@ -602,13 +603,15 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
   color: black;
 }
 .tippy-box[data-theme~='nim'] {
+    background-color: white;
     min-width: 650px;
     font-size: small;
     padding: 10px;
     border: 1px solid #4caf50;
+    border-radius: 10px;
     font-weight: bold;
     color: black;
-    opacity: 0.70 !important;
+    opacity: 0.90 !important;
 }
 .tippy-box[data-theme~='short'] {
     background-color: white;
@@ -757,7 +760,7 @@ span#devToolsCompat {
     -webkit-box-shadow: none;
     box-shadow: none;
 }
-#devtools-panel #noreports {
+#devtools-panel #noreports, #dashboard {
     display: table;
     margin: 50px auto;
     font-variant: all-small-caps;

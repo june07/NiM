@@ -1,5 +1,8 @@
 {
     "parser": "espree",
+    "parserOptions": {
+        "ecmaVersion": 2017
+    },
     "plugins": [ "json", "angular" ],
     "globals": {
         "angular": true,
@@ -30,7 +33,9 @@
         "Blob": true,
         "chrome": true,
         "window": true,
-        "WebSocket": true
+        "WebSocket": true,
+        "createAuth0Client": true,
+        "uuidv5": true
     },
   "env": { "es6": true },
     "rules": {

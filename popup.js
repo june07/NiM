@@ -46,8 +46,13 @@ ngApp
   }])
   .filter('nodeProgram', function () {
     return (cmd) => {
-      let parts = cmd.split(' ');
-      return parts[parts.length - 1];
+      let parts = cmd.match(/([^\s\\\/:*?\"<>|]+).js/);
+      if (!parts) {
+        parts = cmd.match(/node\s+([^\s:*?\"<>|]+)/);
+        parts = parts ? parts[0].match(/([^\s\\\/:*?\"<>|]+)$/) : parts;
+      }
+      let filename = parts ? parts[0] : cmd;
+      return filename;
     };
   })
   .controller('nimPopupController', ['$scope', '$window', function ($scope, $window) {
@@ -75,13 +80,30 @@ ngApp
         if (error && typeof error === "string") {
           showErrorMessage(error);
           if (error === 'DevTools is already open.') $scope.bg.tabNotification({ host: $scope.bg.settings.host, port: $scope.bg.settings.port });
-        }
-        if (error) showErrorMessage(error.statusText);
-        else
+        } else if (error && typeof error === "object" && error.message) {
+          showErrorMessage(error.message);
+        } else if (error) {
+          showErrorMessage(`${error.status} ${error.statusText}`);
+        } else {
           $scope.message = result;
+        }
       });
     };
-    $scope.clickHandlerOpenLocalDevTools = function (translatedURL) {
+    $scope.clickHandlerOpenRemoteDevTools = function(port, tunnelPort) {
+      $scope.bg.openTab($scope.bg.NiMSConnector.PADS_HOST, tunnelPort, { wsProto: 'wss', port: tunnelPort }, function (error, result) {
+        if (error && typeof error === "string") {
+          showErrorMessage(error);
+          if (error === 'DevTools is already open.') $scope.bg.tabNotification({host: $scope.bg.NiMSConnector.PADS_HOST, port: tunnelPort});
+        } else if (error && typeof error === "object" && error.message) {
+          showErrorMessage(error.message);
+        } else if (error) {
+          showErrorMessage(`${error.status} ${error.statusText}`);
+        } else {
+          $scope.message = result;
+        }
+      });
+    }
+    $scope.clickHandlerOpenLocalDevTools = function(translatedURL) {
       let localHost = translatedURL.split(/ws=(.*)\//)[1].split(':')[0];
       let localPort = translatedURL.split(/ws=(.*)\//)[1].split(':')[1];
       $scope.bg.openTab(localHost, localPort, function (error, result) {
@@ -90,11 +112,33 @@ ngApp
           if (error === 'DevTools is already open.') $scope.bg.tabNotification({ host: localHost, port: localPort });
         }
         if (error && typeof error === "object" && error.message) showErrorMessage(error.message);
-        if (error) showErrorMessage(error.statusText);
+        if (error) showErrorMessage(`${error.status} ${error.statusText}`);
         else $scope.message = result;
       });
     }
-    $scope.clickHandlerRemoveLocalDevToolsSession = function (sessionID) {
+    $scope.waiting = (conn, bool) => {
+      conn.waiting =  bool ? { running: 'Signaling Node Process...' }: '';
+      return conn;
+    }
+    $scope.clickHandlerStartNodeInspect = function(host, conn) {
+      $scope.waiting(conn, true);
+      return $scope.bg.NiMSConnector.startNodeInspect(host, conn.pid)
+      .then((response) => {
+        $window.setTimeout(() => { 
+        // Timeout is there for show
+          conn = $scope.waiting(conn, false);
+          conn.inspectPort = response.socket.split(':')[1];
+          $scope.$apply();
+        }, 1000);
+      });
+    }
+    $scope.bg.$on('updatedRemoteTabs', (args) => {
+      //console.dir(args);
+      $scope.remoteTabs = $scope.bg.remoteTabs;
+      $scope.$apply();
+      $scope.tippyTips = $window.tippy('.tippy');
+    });
+    $scope.clickHandlerRemoveLocalDevToolsSession = function(sessionID) {
       $scope.bg.removeLocalSession(sessionID)
     }
     $scope.autoSwitchHandler = function () {
@@ -107,9 +151,13 @@ ngApp
     $scope.trackTwitterClicks = function (id) {
       $window._gaq.push(['_trackEvent', 'Social Event', 'Link Click', 'https://twitter.com/june07t/status/' + id, undefined, true]);
     };
+    $scope.getPADSURL = function(tunnelSocket) {
+      if (!tunnelSocket) return '';
+      return tunnelSocket.cid ? `${$scope.bg.NiMSConnector.PADS_SERVER}/json/${tunnelSocket.cid}`: '';
+    }
     function showErrorMessage(error) {
       $window.document.querySelector('#site-href').style.display = "none";
-      $window.Materialize.toast(error, 5000);
+      $window.Materialize.toast(`Error ${error}`, 5000);
       var siteHrefTimeout;
       if (siteHrefTimeout) clearTimeout(siteHrefTimeout);
       siteHrefTimeout = setTimeout(function () {
@@ -188,7 +236,6 @@ ngApp
           $scope.bg.updateLocalSessions();
           $scope.bg.state.popup.selectedTab = tab[0].id;
           $scope.$apply();
-          $scope.initTippyTips();
           $scope.initConnectionErrorMessage();
         }
       });
