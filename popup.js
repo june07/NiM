@@ -132,7 +132,7 @@ ngApp
         }, 1000);
       });
     }
-    $scope.bg.$on('updatedRemoteTabs', (args) => {
+    $scope.bg.$on('updatedRemoteTabs', () => {
       //console.dir(args);
       $scope.remoteTabs = $scope.bg.remoteTabs;
       $scope.$apply();

@@ -51,7 +51,7 @@ ngApp
                 }.bind(self), 5000);
                 
                 $scope.Auth.auth0.getTokenSilently()
-                .then(authResult => {
+                .then(() => {
                     self.isAuthenticated = true;
                     self.setProfileData(() => {
                         Object.values(connections).map(c => c.postMessage({ event: 'brakecode-logged-in' }));
