@@ -1552,12 +1552,6 @@ ngApp
         }
         hostPortHashmap(id, infoUrl);
     }
-    /**function getSession(instance) {
-        return $scope.devToolsSessions.find(function(session) {
-            var instance2 = hostPortHashmap(session.id);
-            if (sameInstance(instance, instance2)) return session;
-        });
-    }*/
     function hostPortHashmap(id, infoUrl) {
         let padsHost = $scope.NiMSConnector ? $scope.NiMSConnector.PADS_HOST : undefined;
 
