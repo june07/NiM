@@ -679,7 +679,7 @@ ngApp
             enabled: true
         },
         devToolsCompat: true,
-        localDevToolsOptionsSelectedIndex: 0,
+        localDevToolsOptionsSelectedIndex: 2,
         windowStateMaximized: false,
         scheme: CHROME_VERSION > 75 ? DEVTOOLS_SCHEMES[1] : DEVTOOLS_SCHEMES[0],
         diagnosticReports: {
