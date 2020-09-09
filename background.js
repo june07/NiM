@@ -936,7 +936,7 @@ ngApp
                             if (error.status === -1) {
                                 var message = chrome.i18n.getMessage("errMsg4"); // Connection to DevTools host was aborted.  Check your host and port.
                                 callback({ statusText: message });
-                            } else if (error.status === 404 && error.config.url.match($scope.NiMSConnector.PADS_HOST_REGEX)) {
+                            } else if (error.status === 404 && $scope.NiMSConnector && error.config.url.match($scope.NiMSConnector.PADS_HOST_REGEX)) {
                                 callback({ statusText: 'chrome.i18n.getMessage("You must login to your Brakecode account.")' });
                             } else {
                                 callback(error);
@@ -1223,7 +1223,7 @@ ngApp
         });
     }
     function getInfoURL(host, port, protocol) {
-        if (host === $scope.NiMSConnector.PADS_HOST) return $scope.NiMSConnector.PADS_SERVER + '/json/' + port;
+        if ($scope.NiMSConnector && host === $scope.NiMSConnector.PADS_HOST) return $scope.NiMSConnector.PADS_SERVER + '/json/' + port;
         if (protocol === undefined) protocol = 'http';
         return protocol + '://' + host + ':' + port + '/json';
     }
@@ -1559,7 +1559,7 @@ ngApp
         });
     }*/
     function hostPortHashmap(id, infoUrl) {
-        let padsHost = $scope.NiMSConnector.PADS_HOST;
+        let padsHost = $scope.NiMSConnector ? $scope.NiMSConnector.PADS_HOST : undefined;
 
         if (infoUrl === undefined) {
             // Lookup a value
