@@ -3,24 +3,11 @@
 
 <head>
     <title class="i18n">devtoolsPanelTitle</title>
-    <!-- build:[src]:min js/googleanalytics.min.js -->
-    <script type="text/javascript" src="./js/googleanalytics.js"></script>
-    <!-- /build -->
-    <!-- build:[src] js/ -->
-    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
-    <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
-    <script type="text/javascript" src="node_modules/jquery.fancytree/dist/jquery.fancytree-all-deps.min.js"></script>
-    <script type="text/javascript" src="node_modules/file-saver/dist/FileSaver.min.js"></script>
-    <script type="text/javascript" src="node_modules/jquery-contextmenu/dist/jquery.contextMenu.min.js"></script>
-    <!-- /build -->
-    <!-- build:[src]:min devtools.min.js -->
-    <script type="text/javascript" src="devtools-panel.js"></script>
-    <!-- /build -->
-    <link rel="stylesheet" href="css/vendor/fontello-19b00a12/css/fontello.css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/vendor/fontello-e67980dd/css/fontello.css">
     <!-- build:css css/vendor.min.css -->
     <link rel="stylesheet" href="css/vendor/font.css">
-    <link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">
+    <link rel="stylesheet" href="src_node_modules/materialize/dist/css/materialize.min.css">
     <link rel="stylesheet" href="node_modules/angular/angular-csp.css">
     <link rel="stylesheet" href="node_modules/jquery.fancytree/dist/skin-themeroller/ui.fancytree.min.css">
     <link rel="stylesheet" href="node_modules/jquery-contextmenu/dist/jquery.contextMenu.min.css">
@@ -28,7 +15,6 @@
     <!-- build:css css/nim.min.css -->
     <link rel="stylesheet" href="css/nim.css">
     <!-- /build -->
-    <meta charset="UTF-8">
 </head>
 
 <body id="nim" ng-controller="nimDevToolsPanelController as main">
@@ -44,7 +30,7 @@
                         </div>
                     </div>
                     <div class="col s6" id="user-chip" ng-if="bg.Auth.isAuthenticated">
-                        <div class="chip dropdown-chip" data-activates="auth-dropdown">
+                        <div class="chip profile-chip dropdown-chip" data-target="auth-dropdown">
                             <img ng-src="{{bg.Auth.profile.picture}}" />
                             {{ bg.Auth.profile.nickname }}
                         </div>
@@ -98,18 +84,20 @@
         </div>
         <div class="col s8">
             <div class="container" id="header">
-                <div id="logo"><a target="_blank"
-                        href="https://june07.com/?utm_source=nim&utm_medium=chrome_extension&utm_campaign=extension_devtools-panel&utm_content=1"><img
-                            src="icon/icon48@3x.png" /></a>
+                <div class="row">
+                    <div class="col s4"></div>
+                    <div class="col s4">
+                        <div id="logo">
+                            <a target="_blank" href="https://june07.com/?utm_source=nim&utm_medium=chrome_extension&utm_campaign=extension_devtools-panel&utm_content=1"><img src="icon/icon48@3x.png" /></a>
+                        </div>
+                    </div>
+                    <div class="col s4"></div>
                 </div>
                 <div id="blurb" style="font-size: larger">
-                    <p><span class="nimname">NiM</span> helps you debug your code with style and grace by leveraging
-                        Chromium DevTools and Node.js' debugging tool, the V8 Inspector. Further, the goal of this
-                        project is to improve the Node Developer's experience to the greatest extent possible. To that
-                        effort, this DevTools panel will be used to facilitate even greater NiM functionality as well as
-                        to support the ongoing efforts of its developers.
+                    <h3><span class="i18n">devtoolsPanelTagline</span></h3>
+                    <p><span class="i18n">devtoolsPanelAbout</span></p>
 
-                        <p>Read more about <a style="text-decoration:none; color:unset;" href="https://blog.brakecode.com/brakecode/"><span style="font-weight:bold;">Brake</span><span style="color: #fdd835; text-transform: capitalize; font-weight: bolder;">CODE</span></a> <a href="https://blog.brakecode.com/brakecode/"> here</a> and <a href="https://blog.brakecode.com/nodejs-diagnostic-reports/">Node.js Diagnostic Reports</a></p>
+                        <p>Read more about <a style="text-decoration:none; color:unset;" target="_blank" href="https://blog.brakecode.com/brakecode/?utm_source=DevtoolsPanel&utm_medium=extension&utm_campaign=NiM"><span style="font-weight:bold;">Brake</span><span style="color: #fdd835; text-transform: capitalize; font-weight: bolder;">CODE</span></a> <a href="https://blog.brakecode.com/brakecode/?utm_source=DevtoolsPanel&utm_medium=extension&utm_campaign=NiM" target="_blank"> here</a>, <a href="https://blog.brakecode.com/pads/?utm_source=DevtoolsPanel&utm_medium=extension&utm_campaign=NiM" target="_blank">PADS</a> which provides remote debugging, and <a href="https://blog.brakecode.com/nodejs-diagnostic-reports/?utm_source=DevtoolsPanel&utm_medium=extension&utm_campaign=NiM" target="_blank">Node.js Diagnostic Reports</a></p>
 
                         <p>Got idea's about how to make this page even more useful? Tweet <i>@june07t</i>...
                             <div id="twitter-button" class="footer-button"><a
@@ -120,10 +108,24 @@
                                     data-dnt="true" data-show-count="true">Tweet</a>
                                 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                             </div>
-                            <br>or email <a href="mailto:667@june07.com">667@june07.com</a>.
+                            or email <a href="mailto:667@june07.com">667@june07.com</a>.
                         </p>
                 </div>
             </div>
         </div>
     </div>
+    <!-- build:[src]:min js/googleanalytics.min.js -->
+    <script type="text/javascript" src="./js/googleanalytics.js"></script>
+    <!-- /build -->
+    <!-- build:[src] js/ -->
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="src_node_modules/materialize/dist/js/materialize.js"></script>
+    <script type="text/javascript" src="node_modules/jquery.fancytree/dist/jquery.fancytree-all-deps.min.js"></script>
+    <script type="text/javascript" src="node_modules/file-saver/dist/FileSaver.min.js"></script>
+    <script type="text/javascript" src="node_modules/jquery-contextmenu/dist/jquery.contextMenu.min.js"></script>
+    <!-- /build -->
+    <!-- build:[src]:min devtools.min.js -->
+    <script type="text/javascript" src="devtools-panel.js"></script>
+    <!-- /build -->
 </body>
