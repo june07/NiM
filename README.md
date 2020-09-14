@@ -1,6 +1,8 @@
 ![](https://img.shields.io/chrome-web-store/v/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/users/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/rating/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/stars/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg) ![](https://img.shields.io/chrome-web-store/rating-count/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg)<br>
 ![](https://img.shields.io/badge/dynamic/json?label=microsoft%20edge%20add-on&query=%24.version&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Finjfmegnapmoakbmnmnecjabigpdjeme)
 
+The ratings badges are currently broken due to [this](https://github.com/badges/shields/issues/5475) and [this](https://github.com/pandawing/node-chrome-web-store-item-property/issues/275#issuecomment-687801815).
+
 ![NiM Logo](https://june07.github.io/image/smallPromoTile.png)
 
 ![Google Reviews](https://june07.github.io/image/312uiu.gif)
