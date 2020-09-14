@@ -393,7 +393,7 @@ ngApp
         pullNotifications() {
             $http({
                 method: "GET",
-                url: MESSAGING_SERVICE_URL,
+                url: env.MESSAGING_SERVICE_URL,
                 responseType: "json"
             })
             .then((json) => {
@@ -442,7 +442,7 @@ ngApp
                     $window._gaq.push(['_trackEvent', 'Program Event', 'Notification Service', 'Push Notifications Disabled ' + unpushed.type + ' ' + unpushed.id, undefined, true]);
                     return;
                 }
-                pushNotification(unpushed);
+                if (unpushed.pushable) pushNotification(unpushed);
                 unpushed.pushed = true;
                 $window._gaq.push(['_trackEvent', 'Program Event', 'Notification Service', 'Pushed ' + unpushed.type + ' ' + unpushed.id, undefined, true]);
             }
@@ -460,6 +460,9 @@ ngApp
             self.PADS_HOST = DEVEL ? 'pads-dev.brakecode.com' : 'pads.brakecode.com';
             self.NAMESPACE_APIKEY_NAME = DEVEL ? 'namespace-apikey-dev.brakecode.com' : 'namespace-apikey.brakecode.com';
             self.PUBLIC_KEY_NAME = DEVEL ? 'publickey-dev.brakecode.com' : 'publickey.brakecode.com';
+            self.REGEXPS = {
+                INSPECTOR_WS_URL: new RegExp(/wss=.*\/ws\/(\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b)\/(\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b)/)
+            }
             self.settings = {
                 remoteTabTimeout: DEVEL ? 7*24*60*60000 : 7*24*60*60000,
                 START_PADS_SOCKET_RETRY_INTERVAL: DEVEL ? 10000 : 60000
@@ -488,17 +491,20 @@ ngApp
             })
             .on('metadata', (data) => {
                 let date = Date.now();
-                data.received = date;
                 let found = $scope.remoteTabs.findIndex((element, i, elements) => {
                     if (element.uuid === data.uuid) {
-                        elements[i] = data;
+                        if (! angular.equals(element, data)) {
+                            data.received = date;
+                            elements[i] = data;
+                        } else {
+                            if ($scope.settings.debugVerbosity >= 6) console.log('skipping $scope.remoteTabs update.  No change detected.');
+                        }
                         return true;
                     }
                 });
                 if (found === -1) $scope.remoteTabs.push(data);
-                $scope.remoteTabs = $scope.remoteTabs.filter((tab) => self.remoteTabTimeout(tab.received));
-                //$scope.$emit('updatedRemoteTabs', remoteTabs);
-                //$scope.remoteTabs = remoteTabs;
+                $scope.remoteTabs = $scope.remoteTabs.filter((tab, index) => index === 0 || self.remoteTabTimeout(tab.received));
+                $scope.$emit('updatedRemoteTabs');
             })
         }
         lookup(record) {
@@ -523,7 +529,7 @@ ngApp
             });
         }
         remoteTabTimeout(received) {
-            return Date.now() - received <= this.settings.remoteTabTimeout;
+            return received === undefined ? true : Date.now() - received <= this.settings.remoteTabTimeout;
         }
         startNodeInspect(host, nodePID) {
             let self = this;
@@ -586,7 +592,7 @@ ngApp
             self.expired = false;
             self.elapsed = 0;
             self.timeout = $scope.settings.localSessionTimeout;
-            self.timerID = setTimeout(() => { $scope.updateLocalSessions(self.sessionID) }, self.timeout);
+            self.timerID = setTimeout(() => { args.func(self.sessionID) }, self.timeout);
             setInterval(() => {
                 self.elapsed = self.elapsed + 1000;
                 if (self.getRemainingTime() <= 0) self.expired = true;
@@ -617,7 +623,6 @@ ngApp
     const UNINSTALL_URL = "https://bit.ly/2vUcRNn";
     const JUNE07_ANALYTICS_URL = 'https://analytics.june07.com';
     const SHORTNER_SERVICE_URL = 'https://shortnr.june07.com/api';
-    const MESSAGING_SERVICE_URL = 'https://messenger.june07.com/notifications/nim';
     const UPTIME_CHECK_RESOLUTION = 60000; // Check every minute
     const NOTIFICATION_CHECK_INTERVAL = DEVEL ? 60000 : 60 * 60000; // Check every hour
     const NOTIFICATION_PUSH_INTERVAL = DEVEL ? 60000 : 60 * 60000; // Push new notifications no more than 1 every hour if there is a queue.
@@ -628,6 +633,7 @@ ngApp
     ];
     const SOCKET_PATTERN = /((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])):([0-9]+)/;
     const devToolsURL_Regex = /(devtools:\/\/|chrome-devtools:\/\/|https:\/\/chrome-devtools-frontend(.appspot.com|.june07.com)).*(inspector.html|js_app.html)/;
+    const UUID_Regex = new RegExp(/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b$/i);
 
     $window.chrome.management.getSelf((ExtensionInfo) => {
         $scope.ExtensionInfo = ExtensionInfo;
@@ -641,6 +647,8 @@ ngApp
             }
         })
     });
+    $scope.console = console;
+    $scope.UUID_Regex = UUID_Regex;
     $scope.intervals = {
         uptime: null,
         checkInterval: null
@@ -688,6 +696,7 @@ ngApp
         },
         autoResumeInspectBrk: false
     };
+    $scope.remoteConnectionSettings = {};
     $scope.Auth = new Auth();
     $scope.pubsub = new PubSub();
     $scope.devToolsProtocolClient = new DevToolsProtocolClient();
@@ -702,8 +711,15 @@ ngApp
         { 'id': '2', 'name': 'june07', 'url': 'https://chrome-devtools-frontend.june07.com/front_end/inspector.html' },
         { 'id': '3', 'name': 'custom', 'url': '' },
     ];
-    $scope.remoteTabs = [];
+    $scope.remoteTabs = [
+        {
+            connections: {},
+            host: "localhost",
+            title: "BrakeCODE"
+        }
+    ];
     $scope.localSessions = [];
+    $scope.brakeCodeSessions = [];
     $scope.state = {
         popup: {
             selectedTab: undefined
@@ -741,6 +757,7 @@ ngApp
     $scope.tabId_HostPort_LookupTable = tabId_HostPort_LookupTable;
     $scope.watchdog = new Watchdog();
     window.nim = { watchdog: $scope.watchdog };
+    if (DEVEL) $window.$scope = $scope;
 
     restoreSettings()
     .then(updateInternalSettings) // This function is needed for settings that aren't yet configurable via the UI.  Otherwise the new unavailable setting will continue to be reset with whatever was saved vs the defaults.
@@ -758,41 +775,104 @@ ngApp
         }
     }, UPTIME_CHECK_RESOLUTION);
 
-    $scope.updateLocalSessions = function(expired) {
+    $scope.updatePopupSessionsTabs = function(expired) {
         if (expired) return $scope.localSessions.splice($scope.localSessions.findIndex(session => session.id === expired.id), 1);
         
-        let localSessions = $scope.devToolsSessions.filter(session => session.infoUrl.search(/\/\/pads.brakecode.com\/json\//) === -1);
-        localSessions = localSessions.map((session) => {
-            session.timer = new Timer({sessionID: session.id});
-            return session;
-        });
-        //$scope.localSessions = localSessions.concat($scope.localSessions);
-        $scope.localSessions = $scope.localSessions.concat(localSessions);
-        localSessions = [];
-        return $scope.localSessions = $scope.localSessions.filter((session, i) => {
-            if (i === 0) {
-                localSessions.push(session);
-                return true;
+        let localSessions = $scope.localSessions, //$scope.devToolsSessions.filter(session => session.infoUrl.search(/\/\/pads(-dev)?.brakecode.com\/json\//) === -1),
+            brakeCodeSessions = $scope.brakeCodeSessions; //$scope.devToolsSessions.filter(session => session.infoUrl.search(/\/\/pads(-dev)?.brakecode.com\/json\//) !== -1);
+
+        [{localSessions}, {brakeCodeSessions}].map(s => {
+            let sessionsName = Object.keys(s)[0],
+                sessions = Object.values(s)[0];
+            if (sessions.length === 0) return;
+            sessions = sessions.map(session => {
+                session.timer = new Timer({
+                    sessionID: session.id,
+                    func: $scope.updatePopupSessionsTabs
+                });
+                return session;
+            });
+            let oldSessions = $scope[sessionsName];
+            $scope[sessionsName] = sessions.concat($scope[sessionsName]);
+            sessions = [];
+            $scope[sessionsName] = $scope[sessionsName].filter((session, i, sessions) => {
+                if (i === 0) {
+                    sessions.push(session);
+                    return true;
+                }
+                let match = sessions.find(s => s.infoUrl === session.infoUrl);
+                if (match === undefined) {
+                    sessions.push(session);
+                    return true;
+                } else {
+                    session.timer.clearTimer();
+                    return false;
+                }
+            });
+            if (sessionsName === 'localSessions' && !angular.equals(oldSessions, $scope[sessionsName])) {
+                $scope.$emit('updateLocalTabSessions');
             }
-            let match = localSessions.find(s => s.infoUrl === session.infoUrl);
-            if (match === undefined) {
-                localSessions.push(session);
-                return true;
-            } else {
-                session.timer.clearTimer();
-                return false;
+            if (sessionsName === 'brakeCodeSessions') {
+                getConnectionsObjectFrom(sessions).then(connections => {
+                    let brakeCodeRemoteTab = {
+                        connections,
+                        host: "pads.brakecode.com",
+                        title: "BrakeCODE"
+                    }
+                    $scope.remoteTabs[0] = brakeCodeRemoteTab;
+                });
             }
         });
+    }
+    function getConnectionsObjectFrom(sessions) {
+        return new Promise(resolve => {
+            let connectionsPromises = sessions.map(async session => {
+                let jsonInfo = await getJsonInfo(session.infoUrl);
+                let connection = Object.assign(session, {
+                    tunnelSocket: {
+                        cid: session.infoUrl.match(UUID_Regex)[0]
+                    },
+                    jsonInfo
+                });
+                return connection;
+            });
+            Promise.all(connectionsPromises)
+            .then(connections => resolve(connections));
+        });
+    }
+    async function getJsonInfo(url, authRequired = false) {
+        let token = await $scope.Auth.auth0.getTokenSilently();
+        let jsonInfo = $http({
+            method: "GET",
+            url,
+            responseType: "json",
+            headers: authRequired ? { 'Authorization': 'Bearer ' + token } : {},
+            timeout: $scope.settings.checkInterval * 3
+        })
+        .then(response => {
+            return response.data ? response.data[0] : response;
+        }, error => {
+            return error;
+        });
+        return jsonInfo;
     }
     $scope.removeLocalSession = function(id) {
         let index = $scope.localSessions.findIndex(session => session.id == id)
         if (index != -1) $scope.localSessions.splice(index, 1)
         $scope.devToolsSessions.find((session, i) => {
             if (session.id !== null && session.id == id) {
-                removeDevToolsSession(session, i)
+                removeDevToolsSession(session, i);
+            }
+        });
+    }
+    $scope.removeRemoteSession = function(cid) {
+        let index = $scope.brakeCodeSessions.findIndex(session => session.tunnelSocket.cid == cid)
+        if (index !== -1) $scope.brakeCodeSessions.splice(index, 1)
+        $scope.devToolsSessions.filter(session => session.tunnelSocket).find((session, i) => {
+            if (session.id !== null && session.tunnelSocket.cid == cid) {
+                removeDevToolsSession(session, i);
             }
         })
-        
     }
     $scope.localize = function($window, updateUI) {
         Array.from($window.document.getElementsByClassName("i18n")).forEach(function(element, i, elements) {
@@ -840,7 +920,9 @@ ngApp
                             'https://chrome-devtools-frontend.appspot.com/*' + host + '/ws/' + port + '*'
                         ]
                     }, async function(tab) {
-                        if ($http.pendingRequests.length !== 0) return
+                        /** Filter out pending requests that are not json info requests.  $http is used for other purposes cloudflare, notifications, and we don't care about the others in this context
+                         *  In fact better filtering might be needed here since json info lookups are also performed in other sections of the code... */
+                        if ($http.pendingRequests.filter(pr => pr.url.match(/\/json(\/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b)?/)).length !== 0) return
                         let token;
                         if (typeof padsMetadata !== 'function') {
                             if (!$scope.Auth.auth0) return callback(chrome.i18n.getMessage('brakecodeAuthRequired'));
@@ -936,7 +1018,7 @@ ngApp
                             if (error.status === -1) {
                                 var message = chrome.i18n.getMessage("errMsg4"); // Connection to DevTools host was aborted.  Check your host and port.
                                 callback({ statusText: message });
-                            } else if (error.status === 404 && $scope.NiMSConnector && error.config.url.match($scope.NiMSConnector.PADS_HOST_REGEX)) {
+                            } else if (error.status === 404 && $scope.NiMSConnector && error.config.url.match($scope.NiMSConnector.PADS_HOST)) {
                                 callback({ statusText: 'chrome.i18n.getMessage("You must login to your Brakecode account.")' });
                             } else {
                                 callback(error);
@@ -1077,7 +1159,7 @@ ngApp
         }
         $scope.intervals.checkInterval = setInterval(function() {
             if ($scope.settings.auto && ! isLocked(getInstance())) {
-                if ($scope.settings.debugVerbosity >= 6) console.log('resetInterval going thru a check loop...')
+                if ($scope.settings.debugVerbosity >= 6) console.log('resetInterval going thru a check loop...');
                 closeDevTools(
                 $scope.openTab($scope.settings.host, $scope.settings.port, function(message) {
                     if ($scope.settings.debugVerbosity >= 3) console.log(message);
@@ -1089,16 +1171,14 @@ ngApp
                 */
                 SingletonHttpGet.getInstance({ host: $scope.settings.host, port: $scope.settings.port });
             }
-            $scope.localSessions.filter(session => session.auto).forEach(function(localSession) {
-                let instance = getInstanceFromInfoURL(localSession.infoUrl)
-                if (instance.host === $scope.settings.host && instance.port == $scope.settings.port) return
+            $scope.localSessions.filter(session => session.auto).map(function(localSession) {
+                let instance = getInstanceFromInfoURL(localSession.infoUrl);
+                if (instance.host === $scope.settings.host && instance.port == $scope.settings.port) return;
                 if (localSession.auto && ! isLocked(instance)) {
                     if ($scope.settings.debugVerbosity >= 6) console.log('resetInterval going thru a check loop...')
-                    closeDevTools(
-                        $scope.openTab(instance.host, instance.port, function(message) {
-                            if ($scope.settings.debugVerbosity >= 3) console.log(message)
-                        })
-                    )
+                    $scope.openTab(instance.host, instance.port, function(message) {
+                        if ($scope.settings.debugVerbosity >= 3) console.log(message);
+                    })
                 } else if (localSession.auto && isLocked(instance)) {
                     /** If the isLocked(getInstance()) is set then we still have to check for disconnects on the client side via httpGetTest().
                     until there exists an event for the DevTools websocket disconnect.  Currently there doesn't seem to be one
@@ -1106,8 +1186,23 @@ ngApp
                     */
                     SingletonHttpGet.getInstance(instance);
                 }
-            })
-            if (DEVEL && $scope.settings.debugVerbosity >= 3) console.dir(JSON.stringify($scope.intervals));
+            });
+            /**
+             * This is the WRONG WAY TO DO IT!  Use the BrakeCODE ws to detect inspect socket restarts.
+             */  
+            $scope.brakeCodeSessions.map(brakeCodeSession => {
+                let instance = getInstanceFromBrakeCODEInfoURL(brakeCodeSession.infoUrl);
+                let cid = brakeCodeSession.infoUrl.match(UUID_Regex)[0];
+                let autoSetting = $scope.remoteConnectionSettings[cid] && $scope.remoteConnectionSettings[cid].auto ? $scope.remoteConnectionSettings[cid].auto : false;
+
+                if (autoSetting && ! isLocked(instance)) {
+                    $scope.openTab(instance.host, instance.port, { wsProto: 'wss', port: instance.port }, function(message) {
+                        if ($scope.settings.debugVerbosity >= 3) console.log(message);
+                    })
+                } else if (autoSetting && isLocked(instance)) {
+                    SingletonHttpGet.getInstance(instance);
+                }
+            });
         }, $scope.settings.checkInterval);
     }
     function httpGetTestSingleton() {
@@ -1233,6 +1328,13 @@ ngApp
             port = infoURL.split(':')[1].split('/')[0]
         return { host, port }
     }
+    function getInstanceFromBrakeCODEInfoURL(infoURL) {
+        // https://pads-dev.brakecode.com/json/48121d39-f241-5e63-b019-1b55c145101f
+        let regEx = new RegExp('https?:\/\/(pads(-dev)\.brakecode\.com)\/json\/(' + UUID_Regex.source + ')');
+        let host = infoURL.match(regEx)[1],
+            port = infoURL.match(regEx)[3];
+        return { host, port }
+    }
     $scope.getInstanceFromInfoURL = getInstanceFromInfoURL
     function getInstance() {
         return { host: $scope.settings.host, port: $scope.settings.port }
@@ -1339,7 +1441,7 @@ ngApp
     function isLocked(instance) {
         return $scope.locks.find(function(lock) {
             if (lock !== undefined) {
-                if (lock.host === instance.host && parseInt(lock.port) === parseInt(instance.port)) {
+                if (lock.host === instance.host && lock.port == instance.port) {
                     if (lock.tabStatus === 'loading') return false
                     if (lock.tabStatus === '') {
                         unlock(instance)
@@ -1421,7 +1523,13 @@ ngApp
     }
     function createTabOrWindow(infoUrl, url, websocketId, nodeInspectMetadataJSON) {
         return new Promise(function(resolve) {
-            let dtpSocketPromise = $scope.devToolsProtocolClient.setSocket(websocketId, nodeInspectMetadataJSON.webSocketDebuggerUrl, { autoResume: $scope.settings.autoResumeInspectBrk });
+            let inspectorURL;
+            if (infoUrl.match($scope.NiMSConnector.PADS_HOST)) {
+                inspectorURL = url.match($scope.NiMSConnector.REGEXPS['INSPECTOR_WS_URL'])[0].replace('wss=', 'wss://');
+            } else {
+                inspectorURL = nodeInspectMetadataJSON.webSocketDebuggerUrl;
+            }
+            let dtpSocketPromise = $scope.devToolsProtocolClient.setSocket(websocketId, inspectorURL, { autoResume: $scope.settings.autoResumeInspectBrk });
             if ($scope.settings.newWindow) {
                 $window._gaq.push(['_trackEvent', 'Program Event', 'createWindow', 'focused', + $scope.settings.windowFocused, true]);
                 chrome.windows.create({
@@ -1525,8 +1633,9 @@ ngApp
                 return session;
             }
         });
+        let session;
         if (existingSession) {
-            $scope.devToolsSessions.splice(existingIndex, 1, {
+            session = {
                 url: url,
                 auto: (existingSession.auto) ? existingSession.auto : $scope.settings.auto,
                 autoClose: $scope.settings.autoClose,
@@ -1536,9 +1645,10 @@ ngApp
                 websocketId: websocketId,
                 nodeInspectMetadataJSON: nodeInspectMetadataJSON,
                 dtpSocket: dtpSocket ? dtpSocket : existingSession.dtpSocket
-            });
+            }
+            $scope.devToolsSessions.splice(existingIndex, 1, session);
         } else {
-            $scope.devToolsSessions.push({
+            session = {
                 url: url,
                 auto: (id === null) ? false : $scope.settings.auto,
                 autoClose: $scope.settings.autoClose,
@@ -1548,9 +1658,30 @@ ngApp
                 websocketId: websocketId,
                 nodeInspectMetadataJSON: nodeInspectMetadataJSON,
                 dtpSocket
-            });
+            }
+            $scope.devToolsSessions.push(session);
         }
+        updateTrackedSessions(session);
         hostPortHashmap(id, infoUrl);
+    }
+    function updateTrackedSessions(session) {
+        if (session.infoUrl.search(/\/\/pads(-dev)?.brakecode.com\/json\//) === -1) {
+            let index = $scope.localSessions.findIndex(localSession => localSession.websocketId === session.websocketId);
+            if (index === -1) {
+                $scope.localSessions.push(session);
+            } else {
+                session.auto = $scope.localSessions[index].auto;
+                $scope.localSessions.splice(index, 1, session);
+            }
+        } else if (session.infoUrl.search(/\/\/pads(-dev)?.brakecode.com\/json\//) !== -1) {
+            let index = $scope.brakeCodeSessions.findIndex(brakeCodeSession => brakeCodeSession.websocketId === session.websocketId);
+            if (index === -1) {
+                $scope.brakeCodeSessions.push(session);
+            } else {
+                session.auto = $scope.brakeCodeSessions[index].auto;
+                $scope.brakeCodeSessions.splice(index, 1, session);
+            }
+        }
     }
     function hostPortHashmap(id, infoUrl) {
         let padsHost = $scope.NiMSConnector ? $scope.NiMSConnector.PADS_HOST : undefined;
@@ -1907,6 +2038,44 @@ ngApp
                 }
                 $window._gaq.push(['_trackEvent', 'User Event', 'OpenDevTools', 'Keyboard Shortcut Used', undefined, true]);
             break;
+        }
+    });
+    function saveExternalSessionHandler(tab) {
+        let devToolsURL = tab.url.match(/https?:\/\/chrome-devtools-frontend\..*$/),
+            brakeCODE_WS_URL = tab.url.match(/wss?=(pads(-dev)?\.brakecode\.com.*$)/);
+        if (!devToolsURL || !brakeCODE_WS_URL) return;
+        devToolsURL = devToolsURL && devToolsURL.length > 0 ? devToolsURL[0] : undefined;
+        brakeCODE_WS_URL = brakeCODE_WS_URL && brakeCODE_WS_URL.length > 1 ? brakeCODE_WS_URL[1] : undefined;
+        let jsonInfoURL = `https://${brakeCODE_WS_URL.replace('/ws/', '/json/').replace(new RegExp('\/' + UUID_Regex.source + '$'), '')}`,
+            sessionId = devToolsURL.match(UUID_Regex);
+        sessionId = sessionId && sessionId.length > 0 ? sessionId[0] : undefined;
+
+        if (devToolsURL && jsonInfoURL) {
+            if ($scope.settings.debugVerbosity >= 3) console.log('BrakeCODE DevTools tab detected.');
+            /** Inject BrakeCODE script into DevTools tab to allow management from the BrakeCODE dashboard... OR...
+             *  Just use NiM to manage BrakeCODE opened DevTools tabs directly... probably the better idea.
+             */
+            //let jsInject = ``;
+            //chrome.tabs.executeScript(tab.id, { code: jsInject, allFrames: true }, () => {
+            //});
+            /** end of code injection */
+            // How do we want to manage tabs that are added via BrakeCODE?
+            
+            //function saveSession(url, infoUrl, websocketId, id, nodeInspectMetadataJSON, dtpSocket) {
+            saveSession(devToolsURL, jsonInfoURL, sessionId, null, null);
+            $scope.updatePopupSessionsTabs();
+        }
+    }
+    chrome.tabs.onCreated.addListener(function devtoolsTabAddedEvent(tab) {
+        if (!tab.url) {
+            chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
+                if (changeInfo.url) {
+                    Object.assign(tab, { 'url': changeInfo.url });
+                    saveExternalSessionHandler(tab);
+                }
+            });
+        } else {
+            saveExternalSessionHandler(tab);
         }
     });
 }]);
