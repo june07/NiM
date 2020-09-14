@@ -178,11 +178,11 @@
     "description": "Open the DevTools window."
   },
   "realtimeCollaboration": {
-    "message": "NiM Real-time Collaboration",
+    "message": "Real-time collaboration",
     "description": "NiM Real-time Collaboration Header Title."
   },
   "optionsRealtimeCollaboration": {
-    "message": "Real-time Collaboration.",
+    "message": "Real-time collaboration.",
     "description": "Options page label for Real-time Collaboration Setting."
   },
   "selectDevToolsVersion": {
@@ -236,5 +236,23 @@
   "brakecodeAuthRequired": {
     "message": "Remote access requires brakecode authentication.",
     "description": "Popup error when authentication is required for remote debugging."
-  }
+  },
+  "useBrakeCODEAgent": {
+    "message": "BrakeCODE Agent",
+    "description": "Placeholder for additional stats available with the BrakeCODE Agent."
+  },
+  "githubNodejsNodeIssues24085": {
+    "message": "This button is disabled because currently, Node has no facility to support more than a single programmatically started debugging session.  This means that a debugging session has already been started on the default port 9229.  A proposed change to the default behavior of Node would remove this limitation.  Read more about the issue here: <a target=\"_blank\" href=\"https://github.com/nodejs/node/issues/24085\">https://github.com/nodejs/node/issues/24085</a>",
+    "description": "githubNodejsNodeIssues24085"
+  },
+  "brakeCODELoginRequired": {
+      "message": "Must be logged into BrakeCODE",
+      "description": "Options BrakeCODE API Key message when user is not logged into BrakeCODE."
+  },
+  "devtoolsPanelTagline": {
+      "message": "Debug your code better."
+  },
+  "devtoolsPanelAbout": {
+    "message": "NiM manages unlimited local and remote debugging sessions at the DevTools protocol layer and makes secure collaboration easy."
+}
 }

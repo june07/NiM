@@ -3,41 +3,14 @@
 
 <head>
     <title class="i18n">appName</title>
-    <script type="text/javascript" src="https://apis.google.com/js/platform.js" async defer></script>
-    <!-- build:[src]:min js/googleanalytics.min.js -->
-    <script type="text/javascript" src="js/googleanalytics.js"></script>
-    <!-- /build -->
-    <!-- build:[src] js/ -->
-    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
-    <script type="text/javascript" src="node_modules/moment/min/moment.min.js"></script>
-    <script type="text/javascript" src="node_modules/angular-moment/angular-moment.min.js"></script>
-    <script type="text/javascript" src="node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
-    <script type="text/javascript" src="node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.min.js"></script>
-    <script type="text/javascript" src="node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
-    <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
-    <script type="text/javascript" src="node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-    <!-- /build -->
-    <!-- build:[src] js/tippy.all.min.js -->
-    <script type="text/javascript" src="node_modules/tippy.js/dist/tippy.umd.js" defer></script>
-    <!-- /build -->
-    <!-- build:[src] js/ -->
-    <script type="text/javascript" src="node_modules/animejs/anime.min.js" defer></script>
-    <!-- /build -->
-    <!-- build:[src]:min popup.min.js -->
-    <script type="text/javascript" src="popup.js"></script>
-    <!-- /build -->
-    <!-- build:[src]:min js/superlatus.min.js -->
-    <script type="text/javascript" src="js/superlatus.js"></script>
-    <!-- /build -->
     <link rel="stylesheet" href="css/vendor/fontello-58946df5/css/fontello.css">
     <!-- build:css css/vendor-popup.min.css -->
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css">
     <!-- /build -->
     <!-- build:css css/vendor.min.css -->
     <link rel="stylesheet" href="css/vendor/font.css">
-    <link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">
+    <link rel="stylesheet" href="src_node_modules/materialize/dist/css/materialize.min.css">
     <link rel="stylesheet" href="node_modules/angular/angular-csp.css">
 
     <!-- /build -->
@@ -47,31 +20,26 @@
     <meta charset="UTF-8">
 </head>
 
-<body ng-controller="nimPopupController as main" class="right">
+<body id="popup-body" ng-controller="nimPopupController as main" class="right">
     <!-- Modal Structure Chat BEGIN -->
-    <div id="modal4" class="modal">
+    <div id="modal4" class="modal modal-fixed-footer">
         <div class="modal-header">
-            <h5 class="modal-title"><span class="i18n">realtimeCollaboration</span></h5>
-            <button ng-if="bg.settings.collaboration" type="button" aria-label="Open in Browser Window Button" data-toggle="tooltip" data-placement="left" title="Open in Browser Window">
-                <span aria-hidden="true"><i class="icon-window"></i></span>
-            </button>
-            <button type="button" class="close" aria-label="Close">
-                <span class="close-x" aria-hidden="true"><i class="icon-cancel"></i></span>
-            </button>
+            <span class="close-x" aria-hidden="true">x</span>
         </div>
         <div class="modal-content">
-            <div>
-            </div>
-            <div ng-if="!bg.settings.collaboration" id="realtime-collaboration-disabled">Real-time Collaboration is disabled.  Enable it from <a ng-click="openOptionsPage()" class="open-options" href="">NiM's options page.</a></div>
+            <div ng-hide="bg.settings.collaboration" id="realtime-collaboration-disabled"><div class="center-align"><span class="i18n">realtimeCollaboration</span> is disabled.</div></div>
+        </div>
+        <div class="modal-footer">
+            <button ng-if="bg.settings.collaboration" class="btn outline" aria-label="Open in Browser Window Button" data-toggle="tooltip" data-placement="left" title="Open in Browser Window">
+                <span aria-hidden="true"><i class="icon-window"></i></span>
+            </button>
         </div>
     </div>
     <!-- Modal Structure Chat END -->
     <!-- BEGIN Modal No Notifications -->
     <div id="modal3" class="modal">
         <div class="modal-header">
-            <button type="button" class="close" aria-label="Close">
-                <span class="close-x" aria-hidden="true"><i class="icon-cancel"></i></span>
-            </button>
+            <span class="close-x" aria-hidden="true">x</span>
         </div>
         <div id="modal3-content" class="modal-content">
             <div id="uptodate">
@@ -85,9 +53,7 @@
     <!-- Modal Structure Notifications -->
     <div id="modal1" class="modal">
         <div class="modal-header">
-            <button type="button" class="close" aria-label="Close">
-                <span class="close-x" aria-hidden="true"><i class="icon-cancel"></i></span>
-            </button>
+            <span class="close-x" aria-hidden="true">x</span>
         </div>
         <div class="modal-content">
             <table class="table">
@@ -118,7 +84,7 @@
                     </tr>
                     <tr ng-repeat-end ng-show="main.active==notification.date">
                         <td class="active-cell"></td>
-                        <td ng-if="notification.type === 'twitter'" class="notification-message active-cell">{{notification.text}} <a class="tooltipped" data-delay="0" data-position="top" data-tooltip="https://twitter.com/june07t/status/{{ notification.id }}" target="_blank" ng-click="trackTwitterClicks(notification.id)" href="https://twitter.com/june07t/status/{{ notification.id }}"><br><span class="i18n">open_tweet</span></a></td>
+                        <td ng-if="notification.type === 'twitter'" class="notification-message active-cell">{{notification.text}} <a class="tooltipped staticTooltip" data-delay="0" data-position="top" id="tooltip_twitter{{notification.id}}" data-tooltip="https://twitter.com/june07t/status/{{ notification.id }}" target="_blank" ng-click="trackTwitterClicks(notification.id)" href="https://twitter.com/june07t/status/{{ notification.id }}"><br><span class="i18n">open_tweet</span></a></td>
                         <td ng-if="notification.type !== 'twitter'" class="notification-message active-cell">{{notification.text}}</td>
                         <td class="active-cell"></td>
                     </tr>
@@ -130,9 +96,7 @@
     <!-- Modal Structure -->
     <div id="modal2" class="modal">
         <div class="modal-header">
-            <button type="button" class="close" aria-label="Close">
-                <span class="close-x" aria-hidden="true"><i class="icon-cancel"></i></span>
-            </button>
+            <span class="close-x" aria-hidden="true">x</span>
         </div>
         <div class="modal-content">
             <div class="page-header" data-pg-collapsed>
@@ -141,7 +105,7 @@
             <div id="donation-container" class="container">
                 <div class="row">
                     <div class="col-xs-3">
-                        Paypal
+                        <!--Paypal-->
                     </div>
                     <div class="col-xs-8">
                         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
@@ -154,7 +118,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-3">
-                        Crypto
+                        <!--Crypto-->
                     </div>
                     <div class="col-xs-8">
                         <a class="donate-button" id="bitcoin-donate-button" href="https://gateway.gear.mycelium.com/widgets/dfcf0217aea4d3b0ebcd4b3406522ae5f334f9ba681f912f2c3264eea7ce8c97" target="_blank"><img src="./image/bitcoin_logo.svg"></a>
@@ -166,12 +130,12 @@
     </div>
     <div class="container container-page">
         <div class="row">
-            <div class="col s12 m4 l4 valign-wrapper header-column">
-                <div class="fixed-action-btn horizontal" style="bottom: 85px; right: 15px;">
+            <div class="col s12 valign-wrapper header-column">
+                <div class="fixed-action-btn" style="bottom: 85px; right: 15px;">
                     <a class="btn-floating green lighten-5"> <i class="large"></i> </a>
                     <ul>
                         <li>
-                            <a class="btn-floating green lighten-1 modal-trigger ga-track" id="chat-button" href="#modal4"><i class="icon-chat-empty"></i></a>
+                            <a ng-if="bg.settings.collaboration" class="btn-floating green lighten-1 modal-trigger ga-track" id="chat-button" href="#modal4"><i class="icon-chat-empty"></i></a>
                         </li>
                         <li>
                             <a ng-if="bg.notificationService.haveNotifications()" href="#modal1" class="btn btn-floating green lighten-2 modal-trigger"><i class="icon-inbox"></i></a>
@@ -181,19 +145,33 @@
                         </li>
                     </ul>
                 </div>
-                <img src="./icon/icon128.png" class="left logo-padding" />
+                <img src="./icon/icon128.png" class="left" />
                 <div class="header left valign">
                     <span class="i18n">appName</span>
                 </div>
                 <div id="nim-version"><p>{{bg.VERSION}}</p></div>
+                <div class="col s6" id="user-chip" ng-if="bg.Auth.isAuthenticated">
+                    <div class="chip dropdown-chip" data-activates="auth-dropdown">
+                        <img ng-src="{{bg.Auth.profile.picture}}" />
+                        {{ bg.Auth.profile.nickname }}
+                    </div>
+                    <ul id="auth-dropdown" class="dropdown-content">
+                        <li><a href="#" ng-click="logout()">Logout</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="row main">
-            <div class="col" id="mainControlTabs">
+            <div class="col s12" id="mainControlTabs">
                 <ul class="tabs">
                     <li class="tab"><a href="#home" ng-class="bg.state.popup.selectedTab === 'home' ? 'active' : ''">Home</a></li>
                     <li class="tab"><a href="#ltab" ng-class="bg.state.popup.selectedTab === 'ltab' ? 'active' : ''">Localhost</a></li>
-                    <li class="tab" ng-repeat="tab in bg.remoteTabs"><a href="#rtab{{$index}}" ng-class="bg.state.popup.selectedTab === 'rtab'+$index ? 'active' : ''">{{ tab.title }}</a></li>
+                    <li ng-if="!bg.Auth.isAuthenticated && (bg.remoteTabs[0].connections | json) != '{}'" class="tab">
+                        <a href="#rtab0" ng-class="bg.state.popup.selectedTab === 'rtab0' ? 'active' : ''">{{ tab.title }}</a>
+                    </li>
+                    <li ng-if="bg.Auth.isAuthenticated" ng-hide="$index === 0" class="tab" ng-repeat="tab in bg.remoteTabs track by $index">
+                        <a href="#rtab{{$index}}" ng-class="bg.state.popup.selectedTab === 'rtab'+$index ? 'active' : ''">{{ tab.title }}</a>
+                    </li>
                 </ul>
                 <!-- beginning of tab set -->
                 <div id="tabs">
@@ -218,14 +196,16 @@
                                                 <input id="auto switch" type="checkbox" ng-model="bg.settings.auto" class="ga-track" ng-change="autoSwitchHandler()">
                                                 <span class="lever"></span>
                                                 <span class="i18n">Auto</span>
-                                                <span ng-if="bg.watchdog.STOPPED" class="tippy exclamationTooltipButton" data-tippy-content="#tippyTemplateAutoSwitchAlert">(!)</span>
+                                                <span ng-if="bg.watchdog.STOPPED" class="tooltipped staticTooltip exclamationTooltipButton" id="tooltip_templateAutoSwitchAlert" data-tooltip="{{ getTooltipContent('templateAutoSwitchAlert') }}">(!)</span>
                                             </label>
                                         </div>
                                         <span class="waves-effect waves-light"><input type="button" id="openDevToolsButton" value="Open DevTools" ng-disabled="bg.settings.auto" class="btn green lighten-1 ga-track i18n" ng-click="clickHandler()"></span>
                                         <div id="autoResumeSwitchDiv">
-                                            <input id="autoResumeSwitch" type="checkbox" ng-model="bg.settings.autoResumeInspectBrk"/>
-                                            <label for="autoResumeSwitch">Auto Resume</label>
-                                            <span class="tippy questionTooltipButton" data-tippy-content="#tippyTemplateAutoResumeSwitch">(?)</span>
+                                            <label for="autoResumeSwitch">
+                                                <input id="autoResumeSwitch" type="checkbox" ng-model="bg.settings.autoResumeInspectBrk"/>
+                                                <span>Auto Resume</span>
+                                            </label>
+                                            <span class="tooltipped staticTooltip questionTooltipButton" id="tooltip_templateAutoResumeSwitch" data-tooltip="{{ getTooltipContent('tooltipTemplateAutoResumeSwitch') }}">(?)</span>
                                         </div>
                                     </div>
                                 </div>
@@ -240,7 +220,7 @@
                                 <div class="col open">Open</div>
                                 <div class="col">Detected On</div>
                             </div>-->
-                            <div class="row" id="no-connections-detected" ng-if="bg.localSessions.length === 0">
+                            <div class="row no-connections-detected" ng-if="bg.localSessions.length === 0">
                                 <h1 class="ml11">
                                   <span class="text-wrapper">
                                     <span class="line line1"></span>
@@ -248,14 +228,14 @@
                                   </span>
                                 </h1>
                             </div>
-                            <div class="row" ng-repeat="s in bg.localSessions track by $index">
-                                <div class="col appinfo">
+                            <div ng-if="bg.localSessions.length !== 0" class="row" ng-repeat="s in bg.localSessions track by $index">
+                                <div class="col s2 appinfo">
                                     <img class="bulletPointIcon" ng-src="{{ (s.nodeInspectMetadataJSON.nodeExeRunner) ? './icon/icon16vscode.png' : './icon/icon16.png' }}" />
-                                    <span class="tippy" data-tippy-content="#tippyTemplateLocal{{$index}}" ng-click="showTippy($event)"> {{ s.nodeInspectMetadataJSON.title }}
+                                    <span class="tooltipped" id="tooltip_local{{$index}}" data-tooltip-html="tooltipTemplateLocal{{$index}}" ng-click="showTooltip($event)"> {{ s.nodeInspectMetadataJSON.title }}
                                         <span ng-bind="bg.getInstanceFromInfoURL(s.infoUrl).port" class="badge">inspect port</span>
                                     </span>
                                 </div>
-                                <div id="tippyTemplateLocal{{$index}}">
+                                <div style="display: none" id="tooltipTemplateLocal{{$index}}">
                                     <div class="row">
                                         <div class="col s2">Source:</div>
                                         <div class="col s10 value">{{ s.nodeInspectMetadataJSON.url }}</div>
@@ -266,7 +246,7 @@
                                     </div>
                                 </div>
                                 <div class="col"></div>
-                                <div class="col auto">
+                                <div class="col s2 auto">
                                     <div class="switch right">
                                         <label>
                                             <input type="checkbox" ng-model="s.auto">
@@ -274,14 +254,14 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col open"><span class="waves-effect waves-light"><input ng-disabled="s.auto" type="button" value="DevTools" class="btn btn-sm green lighten-1 ga-track i18n" ng-click="clickHandlerOpenLocalDevTools(s.url)"></span></div>
-                                <div class="col"><input type="button" value="Remove" class="btn red remove ga-track i18n" ng-click="clickHandlerRemoveLocalDevToolsSession(s.id)"></div>
-                                <div class="col"></div>
+                                <div class="col s2 open"><span class="waves-effect waves-light"><input ng-disabled="s.auto" type="button" value="DevTools" class="btn btn-sm green lighten-1 ga-track i18n" ng-click="clickHandlerOpenLocalDevTools(s.url)"></span></div>
+                                <div class="col s2"><input type="button" value="Remove" class="btn red remove ga-track i18n" ng-click="clickHandlerRemoveLocalDevToolsSession(s.id)"></div>
+                                <div class="col s2"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="rtab{{$index}}" ng-repeat="tab in bg.remoteTabs track by $index" ng-hide="bg.state.popup.selectedTab != 'rtab'+$index">
+                <div id="rtab{{$index}}" ng-repeat="tab in bg.remoteTabs track by $index" ng-show="bg.Auth.isAuthenticated && ($index === 0 || bg.state.popup.selectedTab === 'rtab' + $index)">
                     <div id="remote-control-interface">
                         <!--<div class="row header">
                             <div class="col">Node Application Info</div>
@@ -289,7 +269,7 @@
                             <div class="col open">Open</div>
                             <div class="col">Detected On</div>
                         </div>-->
-                        <div class="row" id="no-connections-detected" ng-if="(tab.connections | json) == '{}'">
+                        <div class="row no-connections-detected" ng-if="(tab.connections | json) == '{}'">
                             <h1 class="ml11">
                               <span class="text-wrapper">
                                 <span class="line line1"></span>
@@ -297,44 +277,69 @@
                               </span>
                             </h1>
                         </div>
-                        <div class="row" ng-repeat="conn in tab.connections track by $index">
-                            <!--<div class="col"><span class="tippy" data-tippy-content="PID: {{ conn.pid }}, Inspect Port : {{ conn.inspectPort }}">{{conn.cmd | nodeProgram }}</span></div>-->
-                            <div class="col"><img class="bulletPointIcon" src="./icon/icon16.png"/><span class="tippy" data-tippy-content="#tippyTemplateRemote{{$index}}" ng-click="showTippy($event)"> {{ conn.cmd | nodeProgram }}</span></div>
-                                <div id="tippyTemplateRemote{{$index}}">
-                                    <div class="row">
-                                        <div class="col s2">Process ID:</div>
-                                        <div class="col s10 value">{{ conn.pid }}</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s2">Process Cmd:</div>
-                                        <div class="col s10 value">{{ conn.cmd }}</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s2">Inspect Port:</div>
-                                        <div class="col s10 value">{{ conn.inspectPort }}</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s2">Remote URL:</div>
-                                        <div class="col s10 value">{{ getPADSURL(conn.tunnelSocket) }}</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s2">CID:</div>
-                                        <div class="col s10 value">{{ conn.tunnelSocket.cid }}</div>
+                        <div class="row" ng-repeat="conn in tab.connections track by $index" ng-init="tabIndex = $parent.$parent.$index" ng-if="(tab.connections | json) != '{}'">
+                            <!--<div class="col"><span class="" data-tooltip="PID: {{ conn.pid }}, Inspect Port : {{ conn.inspectPort }}">{{conn.cmd | nodeProgram }}</span></div>-->
+                            <div class="col s2 appinfo">
+                                <img class="bulletPointIcon" src="./icon/icon16.png"/>
+                                <span class="tooltipped remote" id="tooltip_remote{{tabIndex}}_conn{{$index}}" data-tooltip-html="tooltipTemplateRemote{{tabIndex}}_conn{{$index}}"> {{ tabIndex !== 0 ? (conn.cmd | nodeProgram) : conn.jsonInfo.title }}
+                                    <span ng-bind="conn.inspectPort" class="badge">
+                                        inspect port
+                                    </span>
+                                </span>
+                            </div>
+                            <div style="display: none" id="tooltipTemplateRemote{{tabIndex}}_conn{{$index}}">
+                                <div class="row">
+                                    <div class="col s2">Process ID:</div>
+                                    <div class="col s10 value">
+                                        <span ng-if="tabIndex !== 0">{{ conn.pid }}</span>
+                                        <a ng-if="tabIndex === 0" target="_blank" alt="Link to BrakeCODE NPM Package at npmjs.com" href="https://www.npmjs.com/package/brakecode">BrakeCODE Agent</a>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col s2">Process Cmd:</div>
+                                    <div class="col s10 value">
+                                        <span ng-if="tabIndex !== 0">{{ conn.cmd }}</span>
+                                        <a ng-if="tabIndex === 0" target="_blank" alt="Link to BrakeCODE NPM Package at npmjs.com" href="https://www.npmjs.com/package/brakecode">BrakeCODE Agent</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s2">Inspect Port:</div>
+                                    <div class="col s10 value">
+                                        <span ng-if="tabIndex !== 0">{{ conn.inspectPort }}</span>
+                                        <a ng-if="tabIndex === 0" target="_blank" alt="Link to BrakeCODE NPM Package at npmjs.com" href="https://www.npmjs.com/package/brakecode">BrakeCODE Agent</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s2">Remote URL:</div>
+                                    <div class="col s10 value">{{ tabIndex !== 0 ? getPADSURL(conn.tunnelSocket) : conn.infoUrl }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s2">CID:</div>
+                                    <div class="col s10 value">{{ conn.tunnelSocket.cid }}</div>
+                                </div>
+                            </div>
                             <div class="col">{{ conn.waiting.running }}</div>
-                            <div class="col open" ng-if="!conn.tunnelSocket.cid">
+                            <div class="col s2 auto">
+                                <div class="switch right">
+                                    <label>
+                                        <input type="checkbox" ng-class="conn.tunnelSocket.cid ? '' : disabled" ng-model="bg.remoteConnectionSettings[conn.tunnelSocket.cid].auto">
+                                        <span class="lever"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col s2 open" ng-if="!conn.tunnelSocket.cid">
                                 <span class="waves-effect waves-light ld-over" ng-class="conn.waiting">
-                                    <i id="githubNodejsNodeIssues24085" ng-if="tab.githubNodejsNodeIssues24085" class="tiny icon-alert right tippy" data-tippy-content="#tippyTemplateGithubNodejsNodeIssues24085" ng-click="showTippy($event)"></i>
-                                    <div ng-if="tab.githubNodejsNodeIssues24085" id="tippyTemplateGithubNodejsNodeIssues24085">
+                                    <i id="githubNodejsNodeIssues24085" ng-if="tab.githubNodejsNodeIssues24085" id="tooltip_githubNodejsNodeIssues24085" class="tooltipped staticTooltip tiny icon-alert right" data-tooltip="githubNodejsNodeIssues24085"></i>
+                                    <div ng-if="tab.githubNodejsNodeIssues24085" id="githubNodejsNodeIssues24085">
                                         This button is disabled because currently, Node has no facility to support more than a single programmatically started debugging session.  This means that a debugging session has already been started on the default port 9229.  A proposed change to the default behavior of Node would remove this limitation.  Read more about the issue here: <a target="_blank" href="https://github.com/nodejs/node/issues/24085">https://github.com/nodejs/node/issues/24085</a>
                                     </div>
                                     <input type="button" id="start node inspect" value="Inspect" ng-class="tab.githubNodejsNodeIssues24085 ? 'disabled' : ''" class="btn btn-sm grey lighten-1 ga-track i18n" ng-click="clickHandlerStartNodeInspect(tab.host, conn)">
                                     <div class="ld ld-ring ld-spin"></div>
                                 </span>
                             </div>
-                            <div class="col open" ng-if="conn.tunnelSocket.cid"><span class="waves-effect waves-light"><input type="button" id="open devtools remote" value="DevTools" ng-class="{disabled: !conn.tunnelSocket.cid}" class="btn btn-sm green lighten-1 ga-track i18n" ng-click="clickHandlerOpenRemoteDevTools(conn.inspectPort, conn.tunnelSocket.cid)"></span></div>
-                            <div class="col">{{ conn.detectionTime | date : 'MM/dd/yy h:mm a  sss' }}</div>
+                            <div class="col s2 open" ng-if="conn.tunnelSocket.cid"><span class="waves-effect waves-light"><input type="button" id="open devtools remote" value="DevTools" ng-class="{disabled: !conn.tunnelSocket.cid}" class="btn btn-sm green lighten-1 ga-track i18n" ng-click="clickHandlerOpenRemoteDevTools(conn.tunnelSocket.cid)"></span></div>
+                            <div class="col s2"><input type="button" value="Remove" class="btn red remove ga-track i18n" ng-click="clickHandlerRemoveRemoteDevToolsSession(conn.tunnelSocket.cid)" ng-class="{disabled: !activeRemoteSession(conn.tunnelSocket.cid)}"></div>
+                            <div class="col s2">{{ conn.detectionTime | date : 'MM/dd/yy h:mm a  sss' }}</div>
                         </div>
                     </div>
                 </div>
@@ -342,7 +347,7 @@
             </div>
         </div>
         <div class="row row-footer">
-            <div class="col">
+            <div class="col s12">
                 <footer class="page-footer grey lighten-3">
                     <div class="footer-copyright">
                         <div class="container footer-text">
@@ -350,7 +355,7 @@
                         </div>
                         <div id="footer-buttons" class="right">
                             <div id="donate-button" class="footer-button"><a class="btn green lighten-2 modal-trigger ga-track" href="#modal2" id="donate-button"><span class="i18n">Donate</span></a></div>
-                            <div id="twitter-button" class="footer-button"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button ga-track" data-size="large" data-text='SUPERLATUS {"what": "NiM"}' data-url="https://june07.com/nim" data-via="june07t" data-hashtags="NiM,nodejs,javascript,chrome" data-related="nodejs,ChromeDevTools" data-dnt="true" data-show-count="true">Tweet</a>
+                            <div id="twitter-button" class="footer-button"><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button ga-track" data-size="large" data-text='NiM > about://inspect' data-url="https://github.com/june07/NiM" data-via="june07t" data-hashtags="NiM,nodejs,javascript,chrome" data-related="nodejs,ChromeDevTools" data-dnt="true" data-show-count="true">Tweet</a>
                                 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                             </div>
                         </div>
@@ -373,6 +378,27 @@
         <div class="modal-content">
         </div>
     </div>
+
+    <script type="text/javascript" src="https://apis.google.com/js/platform.js" async defer></script>
+    <!-- build:[src]:min js/googleanalytics.min.js -->
+    <script type="text/javascript" src="js/googleanalytics.js"></script>
+    <!-- /build -->
+    <!-- build:[src] js/ -->
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="node_modules/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-moment/angular-moment.min.js"></script>
+    <script type="text/javascript" src="node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js"></script>
+    <script type="text/javascript" src="node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.min.js"></script>
+    <script type="text/javascript" src="node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
+    <script type="text/javascript" src="src_node_modules/materialize/dist/js/materialize.js"></script>
+    <!-- /build -->
+    <!-- build:[src] js/ -->
+    <script type="text/javascript" src="node_modules/animejs/anime.min.js" defer></script>
+    <!-- /build -->
+    <!-- build:[src]:min popup.min.js -->
+    <script type="text/javascript" src="popup.js"></script>
+    <!-- /build -->
 </body>
 
 </html>

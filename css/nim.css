@@ -10,10 +10,9 @@ span .badgeLabel {
     color: white;
 }
 #devtools-panel body #header {
-    width: 800px;
+    width: 100%;
     margin: auto;
-    font-size: medium;
-    line-height: 1;
+    font-size: large;
 }
 #devtools-panel body #header #logo {
     width: 150px;
@@ -31,33 +30,6 @@ body {
     width:700px;
     margin:0;
 }
-div > div > div.noUi-handle.noUi-handle-lower {
-  content: "";
-  position: absolute;
-  display: inline-block;
-  width: 21px;
-  height: 21px;
-  background-color: #4caf50;
-  border-radius: 21px;
-  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4);
-  left: -5px;
-  top: -8.5px;
-  transition: left 0.3s ease, background .3s ease, box-shadow 0.1s ease;
-  border: none;
-}
-div > div > div.noUi-handle:after, .noUi-handle:before {
-    display: none;
-}
-div.noUi-base {
-    background-color: #818181;
-    border-radius: 15px;
-    border: none;
-    height: 5px;
-    margin-top: 15px;
-}
-.noUi-target {
-    all: unset;
-}
 .toast {
     background: linear-gradient(to left, #81c784, transparent);
     color: red;
@@ -73,10 +45,13 @@ div.noUi-base {
 .switch label input[type=checkbox]:checked+.lever:after {
     background-color:#4caf50;
 }
-#autoResumeSwitchDiv > label:before {
+[type="checkbox"]:checked+span:not(.lever):before {
     border-width: 1px;
     border-right-color:#4caf50;
     border-bottom-color:#4caf50;
+}
+[type="checkbox"]+span:not(.lever):before, [type="checkbox"]:not(.filled-in)+span:not(.lever):after {
+    border-width: 1px;
 }
 #options-page div.row {
     margin-bottom: 15px;
@@ -175,8 +150,35 @@ div.noUi-base {
     background-color: #81c784;
 }
 label {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: normal !important;
+}
+div > div > div.noUi-handle.noUi-handle-lower, div > div > div.noUi-handle.noUi-handle-lower:active {
+    content: "";
+    position: absolute;
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+    background-color: #4caf50;
+    border-radius: 21px;
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.4);
+    left: -5px;
+    top: -8.5px;
+    transition: left 0.3s ease, background .3s ease, box-shadow 0.1s ease;
+    border: none;
+}
+div > div > div.noUi-handle:after, .noUi-handle:before {
+    display: none;
+}
+div.noUi-base {
+    background-color: #818181;
+    border-radius: 15px;
+    border: none;
+    height: 5px;
+    margin-top: 15px;
+}
+.noUi-target {
+    all: unset;
 }
 #options-page .noUi-target .range-label {
     background-color: #4caf50;
@@ -191,7 +193,7 @@ label {
     transform-origin: 50% 100%
 }
 #options-page #devtools_url {
-    font-size: 24px !important;
+    font-family: inherit;
 }
 .message {
     font-size: 14px;
@@ -200,10 +202,12 @@ label {
 .header {
     margin-left: 15px;
     margin-right: 15px;
+    width: inherit;
 }
 
 .input-text {
     font-size: 20px !important;
+    font-family: inherit;
 }
 
 .auto-switch {
@@ -221,13 +225,12 @@ label {
     width: 100%;
     height: 100%;
 }
-
-.logo-padding {
-    margin-left: 15px;
-}
-
 .row-footer {
     margin-bottom: 0px;
+}
+.row-footer div.col {
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 .animate-show.ng-hide-add,
@@ -291,8 +294,8 @@ body#nim {
 .alert > [data-notify="message"] {
 
 }
-.fixed-action-btn.horizontal ul li {
-    margin: 0 0 0 0 !important;
+.fixed-action-btn.direction-left ul li {
+    margin: 0 0 0 0;
 }
 #options-page .modal {
     margin: 0 auto !important;
@@ -307,7 +310,7 @@ body#nim {
     opacity: 0.9 !important;
     width: 100%;
     top: 0 !important;
-    max-height: 90%;
+    min-height: 90%;
     overflow: hidden;
     margin: inherit;
 }
@@ -341,6 +344,7 @@ thead tr th {
 #site-href {
     color: inherit;
     text-decoration: none;
+    margin-left: 20px;
 }
 #notify-icon {
     padding-right: 10px;
@@ -361,6 +365,10 @@ thead tr th {
 #donate-button {
     height: auto;
     line-height: inherit;
+    box-shadow: none;
+}
+.donate-button {
+    margin: 20px;
 }
 #modal2 > div > div.page-header {
     padding: 10px 0 0 0;
@@ -420,12 +428,9 @@ img.notification-twitter-icon {
 #donation-container {
     padding-top: 5px;
 }
-.close-x:focus {
-    font-family: Verdana,sans-serif;
-    outline: none;
-}
 .modal-header button {
     background-color: inherit;
+    border: none;
 }
 .modal-header {
     border-bottom: 0;
@@ -449,23 +454,32 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
     font-variant: all-small-caps;
     color: green;
 }
-#popup-page div#mainControlTabs {
-    margin: 0 10px 20px 10px;
-}
 #popup-page div#local-control-input {
     margin: 0 10px 0 10px;
 }
 .tabs .tab a {
     color: #66bb6a;
 }
-.tabs .tab a:hover {
+.tabs .tab  a:hover {
     color: #66bb6a;
 }
 .tabs .tab a.active {
     color: #66bb6a;
+    font-size: large;
+    text-decoration: none;
 }
 .tabs .tab a.visited {
     color: #66bb6a;
+}
+.tabs .tab a:focus, .tabs .tab a {
+    background-color: white;
+    border-radius: 10px 10px 0 0;
+    transition: background-color 0.5s ease-out;
+}
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+    background-color: #e8f5e9;
+    border-radius: 10px 10px 0 0;
+    transition: background-color 1s ease-out;
 }
 .tabs .indicator {
     background-color: #43a047;
@@ -475,6 +489,7 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
 }
 #popup-page #footer-buttons .footer-button {
     padding: 0px 5px 0px 5px;
+    margin: auto;
 }
 #popup-page #twitter-button iframe {
     vertical-align: middle;
@@ -509,7 +524,7 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
     margin: 0 auto;
 }
 #realtime-collaboration-disabled {
-    margin: 100px auto;
+    margin: 100px;
 }
 #open-riot-window {
     border: none;
@@ -543,12 +558,12 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
     margin: 0 auto;
     display: table;
 }
-#local-control-interface .appinfo span span {
+#remote-control-interface .appinfo span span, #local-control-interface .appinfo span span {
     font-size: small;
     font-weight: bold;
     font-style: italic;
 }
-#local-control-interface div.col.appinfo {
+#remote-control-interface div.col.appinfo, #local-control-interface div.col.appinfo {
     min-width: 300px;
 }
 #remote-control-interface, #local-control-interface {
@@ -578,75 +593,31 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
 
 }
 #mainControlTabs {
-    padding: 0 0 25px 0;
+    padding: 0 0 35px 0;
 }
-.tippy-box {
-    max-width: 650px;
-}
-.tippy-box[data-theme~='githubNodejsNodeIssues24085'] .tippy-backdrop {
-  background-color: white;
-  font-weight: bold;
-  color: black;
-}
-.tippy-box[data-theme~='githubNodejsNodeIssues24085'] {
-  background-color: white;
-  border: 1px solid #4caf50;
-  text-align: left;
-  color: black;
-  opacity: 0.70 !important;
-  min-width: 350px;
-  max-width: 350px;
-}
-.tippy-box[data-theme~='nim'] .tippy-backdrop {
-  background-color: white;
-  font-weight: bold;
-  color: black;
-}
-.tippy-box[data-theme~='nim'] {
+div.material-tooltip {
     background-color: white;
-    min-width: 650px;
-    font-size: small;
-    padding: 10px;
     border: 1px solid #4caf50;
     border-radius: 10px;
-    font-weight: bold;
+    text-align: left;
     color: black;
-    opacity: 0.90 !important;
-}
-.tippy-box[data-theme~='short'] {
-    background-color: white;
-    min-width: unset;
+    pointer-events: none;
     font-size: large;
-    padding: 10px;
-    border: 1px solid #4caf50;
-    border-radius: 10px;
-    color: black;
+}
+div.material-tooltip > div.tooltip-content > div.row {
+    margin-bottom: 5px;
+}
+div.material-tooltip > div.tooltip-content > div.row > div.col.s2 {
+    font-size: small;
+    text-transform: uppercase;
     font-weight: bold;
-    opacity: 0.70 !important;
-}
-div[id^="tippyTemplateLocal"] {
-    display: grid;
-    text-align: left;
-    word-break: break-all;
-}
-div[id^="tippyTemplateRemote"] {
-    display: grid;
-    text-align: left;
-}
-div[id^="tippyTemplate"] div {
-    width: 100%;
-    display: table;
-}
-div[id^="tippyTemplate"] div.row {
-    margin: auto;
-}
-div[id^="tippyTemplate"] div.row div.value {
-    font-weight: normal;
+    padding: 0;
+    min-width: 80px;
 }
 img.bulletPointIcon {
     margin-right: 5px;
 }
-#no-connections-detected {
+.no-connections-detected {
     margin: 0 auto !important;
     padding: 10px;
     display: table;
@@ -721,12 +692,15 @@ blink, .blink {
 .icon-alert:focus {
     outline: 0;
 }
-.profile-chip {
-    display: inline-block;
-    position: relative;
-    margin: -60px 0 0 70px;
+.profile-chip:focus {
+    background-color: #4CAF50;
 }
 #local-control-interface .btn.remove {
+    width: 50px;
+    padding: 0px;
+    text-transform: unset;
+}
+#remote-control-interface .btn.remove {
     width: 50px;
     padding: 0px;
     text-transform: unset;
@@ -779,8 +753,8 @@ span#devToolsCompat {
 }
 #devtools-panel #brakecode-login img#nim-logo {
     position: absolute;
-    top: 5px;
-    left: 50px;
+    top: 4px;
+    left: 40px;
 }
 #devtools-panel .row.menu {
     display: flex;
@@ -788,6 +762,7 @@ span#devToolsCompat {
 }
 #devtools-panel .dropdown-content li>a, .dropdown-content li>span {
     color: #4caf50;
+    font-size: 20px;
 }
 #devtools-panel .spinner {
     position: absolute;
@@ -805,9 +780,13 @@ ul.fancytree-container {
 }
 #openDevToolsButton {
     margin: 0 20px 0 15px;
+    font-family: inherit;
 }
 #autoResumeSwitchDiv {
     margin: 0 5px 0 0;
+}
+#autoResumeSwitch {
+    position: inherit;
 }
 .questionTooltipButton {
     vertical-align: super;
@@ -819,4 +798,25 @@ ul.fancytree-container {
     font-weight: bold;
     font-size: small;
     color: red;
+}
+.btn {
+    background-color: #4CAF50;
+    font-family: inherit;
+}
+#auth-dropdown {
+    opacity: 0.5;
+    border-radius: 25px;
+}
+#devtools-panel p {
+    margin: 5px;
+}
+.close-x {
+    padding-left: 10px;
+    cursor: pointer;
+}
+input:not([type]):not(.browser-default):focus:not([readonly])+label, input[type=text]:not(.browser-default):focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label, input[type=email]:not(.browser-default):focus:not([readonly])+label, input[type=url]:not(.browser-default):focus:not([readonly])+label, input[type=time]:not(.browser-default):focus:not([readonly])+label, input[type=date]:not(.browser-default):focus:not([readonly])+label, input[type=datetime]:not(.browser-default):focus:not([readonly])+label, input[type=datetime-local]:not(.browser-default):focus:not([readonly])+label, input[type=tel]:not(.browser-default):focus:not([readonly])+label, input[type=number]:not(.browser-default):focus:not([readonly])+label, input[type=search]:not(.browser-default):focus:not([readonly])+label, textarea.materialize-textarea:focus:not([readonly])+label {
+    color: #4CAF50;
+}
+.dropdown-content li>a, .dropdown-content li>span {
+    color: #4CAF50;
 }
