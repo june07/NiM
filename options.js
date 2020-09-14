@@ -40,11 +40,11 @@ ngApp
 
         $($window.document).ready(function() {
             $('.modal').modal();
-        });
-        $($window.document).ready(function() {
             $('#modal3').modal({
                 dismissible: false
             });
+            $('.dropdown-trigger').dropdown();
+            $scope.hideScaledOut({ delay: 0 });
         });
         $($window).blur(function() {
             $scope.bg.$emit('options-window-focusChanged');
@@ -140,9 +140,6 @@ ngApp
         for (var i = 0; i < userInputs.length; i++) {
             userInputs[i].addEventListener('click', trackInputClickListener);
         }
-        $scope.fix = function() {
-            $('.dropdown-button').dropdown();
-        }
         $scope.diagnosticReportsHandler = function() {
             $scope.bg.settings.diagnosticReports.enabled ? sliderNodeReportMaxMessages.removeAttribute('disabled') : sliderNodeReportMaxMessages.setAttribute('disabled', true);
         }
@@ -153,9 +150,18 @@ ngApp
             } else {
                 $scope.bg.Auth.getAPIKey()
                 .then(key => {
-                    $scope.apikey = key;
+                    $scope.apikey = key ? key : chrome.i18n.getMessage('brakeCODELoginRequired');
                     $scope.$apply();
                 })
             }
+        }
+        $scope.hideScaledOut = function(options) {
+            let { delay = 500 } = options;
+            setTimeout(() => {
+                Array.from(document.querySelectorAll('.scale-transition')).forEach(el => {
+                    if (el.classList.contains('scale-out')) el.style.display = 'none';
+                    else el.style.display = 'inherit';
+                });
+            }, delay);
         }
     }]);

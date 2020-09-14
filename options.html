@@ -3,29 +3,13 @@
 
 <head>
     <title class="i18n">pageOptionsTitle</title>
-    <!-- build:[src]:min js/googleanalytics.min.js -->
-    <script type="text/javascript" src="./js/googleanalytics.js"></script>
-    <!-- /build -->
-    <!-- build:[src] js/ -->
-    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
-    <script type="text/javascript" src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
-    <script type="text/javascript" src="node_modules/nouislider/distribute/nouislider.min.js"></script>
-    <script type="text/javascript" src="node_modules/angular-animate/angular-animate.min.js"></script>
-    <!-- /build -->
-    <!-- build:[src]:min js/wNumb.min.js -->
-    <script type="text/javascript" src="./js/wNumb.js"></script>
-    <!-- /build -->
-    <!-- build:[src]:min options.min.js -->
-    <script type="text/javascript" src="options.js"></script>
-    <!-- /build -->
     <!-- build:css css/vendor-options.min.css -->
     <link rel="stylesheet" href="css/vendor/fontello-e67980dd/css/fontello.css">
-    <link rel="stylesheet" href="node_modules/nouislider/distribute/nouislider.css">
+    <link rel="stylesheet" href="src_node_modules/materialize/extras/noUiSlider/nouislider.css">
     <!-- /build -->
     <!-- build:css css/vendor.min.css -->
     <link rel="stylesheet" href="css/vendor/font.css">
-    <link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">
+    <link rel="stylesheet" href="src_node_modules/materialize/dist/css/materialize.min.css">
     <link rel="stylesheet" href="node_modules/angular/angular-csp.css">
     <!-- /build -->
     <!-- build:css css/nim.min.css -->
@@ -56,13 +40,13 @@
                     <li class="collection-item">
                         <div class="switch right">
                             <label><span class="i18n">off</span>
-                                <input type="checkbox" ng-model="bg.settings.newWindow" id="Open Inspector in new window" class="ga-track">
+                                <input type="checkbox" ng-click="hideScaledOut({})" ng-model="bg.settings.newWindow" id="Open Inspector in new window" class="ga-track">
                                 <span class="lever"></span><span class="i18n">on</span>
                             </label>
                         </div>
                         <span class="i18n">openInspectorNewWindow</span>
                     </li>
-                    <li class="collection-item animate-swing-show" ng-show="bg.settings.newWindow">
+                    <li class="collection-item scale-transition" ng-class="bg.settings.newWindow ? '' : 'scale-out'">
                         <div class="switch right">
                             <label><span class="i18n">off</span>
                                 <input type="checkbox" ng-model="bg.settings.windowFocused" id="Make Inspector Window Focused" class="ga-track">
@@ -71,7 +55,7 @@
                         </div>
                         <span class="i18n">makeInspectorWindowFocused</span>
                     </li>
-                    <li class="collection-item animate-swing-show" ng-show="bg.settings.newWindow">
+                    <li class="collection-item scale-transition" ng-class="bg.settings.newWindow ? '' : 'scale-out'">
                         <div class="switch right">
                             <label><span class="i18n">off</span>
                                 <input type="checkbox" ng-model="bg.settings.panelWindowType" id="Panel style window" class="ga-track">
@@ -80,7 +64,7 @@
                         </div>
                         <span class="i18n">inspectorWindowStyle</span>
                     </li>
-                    <li class="collection-item animate-swing-show" ng-show="bg.settings.newWindow">
+                    <li class="collection-item scale-transition" ng-class="bg.settings.newWindow ? '' : 'scale-out'">
                         <div class="switch right">
                             <label><span class="i18n">off</span>
                                 <input type="checkbox" ng-model="bg.settings.windowStateMaximized" id="Maximized window" class="ga-track">
@@ -89,7 +73,7 @@
                         </div>
                         <span class="i18n">optionsWindowStateMaximized</span>
                     </li>
-                    <li class="collection-item animate-swing-show" ng-show="!bg.settings.newWindow">
+                    <li class="collection-item scale-transition" ng-class="bg.settings.newWindow ? 'scale-out' : ''">
                         <div class="switch right">
                             <label><span class="i18n">off</span>
                                 <input type="checkbox" ng-model="bg.settings.tabActive" id="Make Inspector tab active" class="ga-track">
@@ -118,12 +102,14 @@
                             <span>{{ window.chrome.i18n.getMessage("defaultDevTools") }}</span>
                             
                             <span id="devToolsCompat">
-                                <input type="checkbox" id="devToolsCompatCheckbox" ng-model="bg.settings.devToolsCompat" />
-                                <label for="devToolsCompatCheckbox">DevToolsCompat</label>
+                                <label for="devToolsCompatCheckbox">
+                                    <input type="checkbox" id="devToolsCompatCheckbox" ng-model="bg.settings.devToolsCompat"/>
+                                    <span>DevToolsCompat</span>
+                                </label>
                             </span>
                             <span id="devToolsBadge">DevTools Version ({{ bg.getDevToolsOption().name }}): <span class="badge badgeLabel">{{ bg.getDevToolsOption().url }}</span></span>
                         </div>
-                        <a ng-hide="!bg.settings.localDevTools" class="dropdown-button" href="#" data-activates="dropdown1">
+                        <a ng-hide="!bg.settings.localDevTools" class="dropdown-trigger" href="#" data-target="dropdown1">
                             <span id="selectDevToolsVersion">{{ window.chrome.i18n.getMessage("selectDevToolsVersion") }}</span>
                             <span id="devToolsBadge">DevTools Version ({{ bg.getDevToolsOption().name }}): <span class="badge badgeLabel">{{ bg.getDevToolsOption().url }}</span></span>
                         </a>
@@ -244,6 +230,22 @@
                 </ul>
             </div>
         </div>
+    <!-- build:[src]:min js/googleanalytics.min.js -->
+    <script type="text/javascript" src="./js/googleanalytics.js"></script>
+    <!-- /build -->
+    <!-- build:[src] js/ -->
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="src_node_modules/materialize/dist/js/materialize.js"></script>
+    <script type="text/javascript" src="src_node_modules/materialize/extras/noUiSlider/nouislider.min.js"></script>
+    <script type="text/javascript" src="node_modules/angular-animate/angular-animate.min.js"></script>
+    <!-- /build -->
+    <!-- build:[src]:min js/wNumb.min.js -->
+    <script type="text/javascript" src="./js/wNumb.js"></script>
+    <!-- /build -->
+    <!-- build:[src]:min options.min.js -->
+    <script type="text/javascript" src="options.js"></script>
+    <!-- /build -->
 </body>
 
 </html>
