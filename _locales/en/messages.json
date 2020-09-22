@@ -249,6 +249,10 @@
       "message": "Must be logged into BrakeCODE",
       "description": "Options BrakeCODE API Key message when user is not logged into BrakeCODE."
   },
+  "brakeCODEDashboardLoginRequired": {
+    "message": "Must be logged into BrakeCODE dashboard",
+    "description": "Options BrakeCODE API Key message when user is not logged into BrakeCODE."
+  },
   "devtoolsPanelTagline": {
       "message": "Debug your code better."
   },

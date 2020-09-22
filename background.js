@@ -1018,8 +1018,8 @@ ngApp
                             if (error.status === -1) {
                                 var message = chrome.i18n.getMessage("errMsg4"); // Connection to DevTools host was aborted.  Check your host and port.
                                 callback({ statusText: message });
-                            } else if (error.status === 404 && $scope.NiMSConnector && error.config.url.match($scope.NiMSConnector.PADS_HOST)) {
-                                callback({ statusText: 'chrome.i18n.getMessage("You must login to your Brakecode account.")' });
+                            } else if (error.status === 401 && $scope.NiMSConnector && error.config.url.match($scope.NiMSConnector.PADS_HOST)) {
+                                callback(Object.assign(error, { statusText: chrome.i18n.getMessage("brakeCODEDashboardLoginRequired") }));
                             } else {
                                 callback(error);
                             }

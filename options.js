@@ -140,10 +140,6 @@ ngApp
         for (var i = 0; i < userInputs.length; i++) {
             userInputs[i].addEventListener('click', trackInputClickListener);
         }
-        $scope.diagnosticReportsHandler = function() {
-            $scope.bg.settings.diagnosticReports.enabled ? sliderNodeReportMaxMessages.removeAttribute('disabled') : sliderNodeReportMaxMessages.setAttribute('disabled', true);
-        }
-        $scope.diagnosticReportsHandler();
         $scope.maskKey = function(mask) {
             if (mask) {
                 $scope.apikey = '************************************';
