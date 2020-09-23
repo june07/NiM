@@ -31,12 +31,12 @@ body {
     margin:0;
 }
 .toast {
-    background: linear-gradient(to left, #81c784, transparent);
-    color: red;
-    text-transform: uppercase;
+    background: linear-gradient(135deg, #81c784, #ffffff69);
+    color: black;
     font-size: large;
     word-break: break-word;
     border-radius: 10px;
+    display: inherit;
 }
 .switch label input[type=checkbox]:checked+.lever {
     background-color:#e8f5e9;
@@ -558,13 +558,21 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
     margin: 0 auto;
     display: table;
 }
-#remote-control-interface .appinfo span span, #local-control-interface .appinfo span span {
-    font-size: small;
+#remote-control-interface .appinfo span span.badge, #local-control-interface .appinfo span span {
     font-weight: bold;
     font-style: italic;
+    position: absolute;
+    right: 300px;
+}
+#local-control-interface .appinfo span span {
+    right: 350px;
 }
 #remote-control-interface div.col.appinfo, #local-control-interface div.col.appinfo {
     min-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: large;
+    text-overflow: ellipsis;
 }
 #remote-control-interface, #local-control-interface {
     font-size: 16px;
@@ -683,10 +691,15 @@ blink, .blink {
 @keyframes blink {
   67% { opacity: 0 }
 }
-.icon-alert {
+#githubNodejsNodeIssues24085 .icon-alert {
     position: absolute;
     left: -16px;
-    color: #d50000;
+    color: red;
+    z-index: 1;
+}
+.icon-alert {
+    font-size: xxx-large;
+    color: red;
     z-index: 1;
 }
 .icon-alert:focus {
@@ -819,4 +832,9 @@ input:not([type]):not(.browser-default):focus:not([readonly])+label, input[type=
 }
 .dropdown-content li>a, .dropdown-content li>span {
     color: #4CAF50;
+}
+.statusCode {
+    font-style: italic;
+    font-size: small;
+    font-weight: bold;
 }

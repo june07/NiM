@@ -279,11 +279,12 @@
                         </div>
                         <div class="row" ng-repeat="conn in tab.connections track by $index" ng-init="tabIndex = $parent.$parent.$index" ng-if="(tab.connections | json) != '{}'">
                             <!--<div class="col"><span class="" data-tooltip="PID: {{ conn.pid }}, Inspect Port : {{ conn.inspectPort }}">{{conn.cmd | nodeProgram }}</span></div>-->
-                            <div class="col s2 appinfo">
+                            <div class="col s6 appinfo">
                                 <img class="bulletPointIcon" src="./icon/icon16.png"/>
-                                <span class="tooltipped remote" id="tooltip_remote{{tabIndex}}_conn{{$index}}" data-tooltip-html="tooltipTemplateRemote{{tabIndex}}_conn{{$index}}"> {{ tabIndex !== 0 ? (conn.cmd | nodeProgram) : conn.jsonInfo.title }}
+                                <span class="tooltipped remote" id="tooltip_remote{{tabIndex}}_conn{{$index}}" data-tooltip-html="tooltipTemplateRemote{{tabIndex}}_conn{{$index}}">
+                                    <span class="">{{ tabIndex !== 0 ? (conn.cmd | nodeProgram) : conn.jsonInfo.title }}</span>
                                     <span ng-bind="conn.inspectPort" class="badge">
-                                        inspect port
+                                        inspect port 
                                     </span>
                                 </span>
                             </div>
@@ -339,7 +340,7 @@
                             </div>
                             <div class="col s2 open" ng-if="conn.tunnelSocket.cid"><span class="waves-effect waves-light"><input type="button" id="open devtools remote" value="DevTools" ng-class="{disabled: !conn.tunnelSocket.cid}" class="btn btn-sm green lighten-1 ga-track i18n" ng-click="clickHandlerOpenRemoteDevTools(conn.tunnelSocket.cid)"></span></div>
                             <div class="col s2"><input type="button" value="Remove" class="btn red remove ga-track i18n" ng-click="clickHandlerRemoveRemoteDevToolsSession(conn.tunnelSocket.cid)" ng-class="{disabled: !activeRemoteSession(conn.tunnelSocket.cid)}"></div>
-                            <div class="col s2">{{ conn.detectionTime | date : 'MM/dd/yy h:mm a  sss' }}</div>
+                            <div class="col">{{ conn.detectionTime | date : 'MM/dd/yy h:mm a  sss' }}</div>
                         </div>
                     </div>
                 </div>

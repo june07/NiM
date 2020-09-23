@@ -46,6 +46,8 @@ ngApp
     }])
     .filter('nodeProgram', function () {
         return (cmd) => {
+            return cmd;
+            /*
             if (!cmd) return '';
             let parts = cmd.match(/([^\s\\\/:*?\"<>|]+).js/);
             if (!parts) {
@@ -53,7 +55,7 @@ ngApp
                 parts = parts ? parts[0].match(/([^\s\\\/:*?\"<>|]+)$/) : parts;
             }
             let filename = parts ? parts[0] : cmd;
-            return filename;
+            return filename;*/
         };
     })
     .controller('nimPopupController', ['$scope', '$window', '$interval', function ($scope, $window, $interval) {
@@ -86,12 +88,14 @@ ngApp
             $scope.bg.save("port");
             $scope.bg.openTab($scope.bg.settings.host, $scope.bg.settings.port, function (error, result) {
                 if (error && typeof error === "string") {
-                    showErrorMessage(error);
+                    showErrorMessage({error});
                     if (error === 'DevTools is already open.') $scope.bg.tabNotification({ host: $scope.bg.settings.host, port: $scope.bg.settings.port });
                 } else if (error && typeof error === "object" && error.message) {
-                    showErrorMessage(error.message);
-                } else if (error) {
-                    showErrorMessage(`${error.status} ${error.statusText}`);
+                    showErrorMessage({message: error.message});
+                } else if (error && error.statusText) {
+                    showErrorMessage({statusText: error.statusText, status: error.status });
+                } else if (error && error.status) {
+                    showErrorMessage({status: error.status});
                 } else {
                     $scope.message = result;
                 }
@@ -100,12 +104,14 @@ ngApp
         $scope.clickHandlerOpenRemoteDevTools = function (tunnelPort) {
             $scope.bg.openTab($scope.bg.NiMSConnector.PADS_HOST, tunnelPort, { wsProto: 'wss', port: tunnelPort }, function (error, result) {
                 if (error && typeof error === "string") {
-                    showErrorMessage(error);
+                    showErrorMessage({error});
                     if (error === 'DevTools is already open.') $scope.bg.tabNotification({ host: $scope.bg.NiMSConnector.PADS_HOST, port: tunnelPort });
                 } else if (error && typeof error === "object" && error.message) {
-                    showErrorMessage(error.message);
-                } else if (error) {
-                    showErrorMessage(`${error.status} ${error.statusText}`);
+                    showErrorMessage({message: error.message});
+                } else if (error && error.statusText) {
+                    showErrorMessage({statusText: error.statusText, status: error.status });
+                } else if (error && error.status) {
+                    showErrorMessage({status: error.status});
                 } else {
                     $scope.message = result;
                 }
@@ -176,13 +182,27 @@ ngApp
             return tunnelSocket.cid ? `${$scope.bg.NiMSConnector.PADS_SERVER}/json/${tunnelSocket.cid}` : '';
         }
         $scope.activeRemoteSession = function (cid) {
-            let session = $scope.bg.brakeCodeSessions.find(session => session.tunnelSocket.cid === cid);
+            let session = $scope.bg.brakeCodeSessions.find(session => session.infoUrl.match($scope.bg.UUID_Regex)[0] === cid);
             return session;
         }
         function showErrorMessage(error) {
+            let { status, statusText, message } = error,
+                html;
+            
+            if (message) {
+                html = `<i class="icon-alert"></i><br>${message}`;
+            } else if (statusText && status) {
+                html = `<i class="icon-alert"></i><br>
+                    ${statusText}<br>
+                    <span class="statusCode">Code: ${status}<span>`
+            } else if (status) {
+                html = `<i class="icon-alert"></i><br>${status}`;
+            } else if (error) {
+                html = `<i class="icon-alert"></i><br>${error}`;
+            }
             $window.document.querySelector('#site-href').style.display = "none";
             M.toast({
-                html: `Error ${error}`,
+                html,
                 displayLength: 5000,
                 completeCallback: () => {
                     $window.document.querySelector('#site-href').style.display = "inline";
@@ -274,7 +294,7 @@ ngApp
                 .filter(tooltipElement => !dynamicTooltips[tooltipElement.dataset.tooltip || tooltipElement.dataset.tooltipHtml]).map(tooltipElement => {
                 let tip = M.Tooltip.init(tooltipElement, {
                     position: 'top',
-                    _animateInOpacity: 0.7,
+                    _animateInOpacity: 0.9,
                     html: tooltipElement.dataset.tooltipHtml ? document.querySelector(`[id='${tooltipElement.dataset.tooltipHtml}']`).innerHTML : undefined
                 });
                 tip.tooltipEl.id = tooltipElement.id
