@@ -250,7 +250,7 @@
       "description": "Options BrakeCODE API Key message when user is not logged into BrakeCODE."
   },
   "brakeCODEDashboardLoginRequired": {
-    "message": "You must be logged into <a href=\"https://brakecode.com/dashboard\"> BrakeCODE Dashboard</a> to open remote debugging sessions."
+    "message": "You must be logged into <a href=\"https://brakecode.com/dashboard\" target=\"_blank\"> BrakeCODE Dashboard</a> to open remote debugging sessions."
   },
   "devtoolsPanelTagline": {
       "message": "Debug your code better."

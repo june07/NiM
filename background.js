@@ -866,10 +866,10 @@ ngApp
         });
     }
     $scope.removeRemoteSession = function(cid) {
-        let index = $scope.brakeCodeSessions.findIndex(session => session.tunnelSocket.cid == cid)
+        let index = $scope.brakeCodeSessions.findIndex(session => session.infoUrl.match(UUID_Regex)[0] == cid);
         if (index !== -1) $scope.brakeCodeSessions.splice(index, 1)
-        $scope.devToolsSessions.filter(session => session.tunnelSocket).find((session, i) => {
-            if (session.id !== null && session.tunnelSocket.cid == cid) {
+        $scope.devToolsSessions.find((session, i) => {
+            if (session.id !== null && cid == (session.infoUrl.match(UUID_Regex) ? session.infoUrl.match(UUID_Regex)[0] : undefined)) {
                 removeDevToolsSession(session, i);
             }
         })
@@ -1479,7 +1479,7 @@ ngApp
     }
     function removeDevToolsSession(devToolsSession, index) {
         $scope.devToolsProtocolClient.closeSocket(devToolsSession.dtpSocket);
-        if (!devToolsSession.isWindow) {
+        if (devToolsSession.isWindow) {
             $window._gaq.push(['_trackEvent', 'Program Event', 'removeDevToolsSession', 'window', undefined, true]);
             chrome.tabs.remove(devToolsSession.id, function() {
                 if (chrome.runtime.lastError) {
@@ -1488,7 +1488,7 @@ ngApp
                     }
                 }
                 $scope.devToolsSessions.splice(index, 1);
-                if ($scope.settings.debugVerbosity >= 3) console.log(chrome.i18n.getMessage("errMsg2") + JSON.stringify(devToolsSession) + '.');
+                if ($scope.settings.debugVerbosity >= 3) console.log(chrome.i18n.getMessage("errMsg6") + JSON.stringify(devToolsSession) + '.');
             });
         } else {
             $window._gaq.push(['_trackEvent', 'Program Event', 'removeDevToolsSession', 'tab', undefined, true]);
@@ -1499,7 +1499,7 @@ ngApp
                     }
                 }
                 $scope.devToolsSessions.splice(index, 1);
-                if ($scope.settings.debugVerbosity >= 3) console.log(chrome.i18n.getMessage("errMsg6") + JSON.stringify(devToolsSession) + '.');
+                if ($scope.settings.debugVerbosity >= 3) console.log(chrome.i18n.getMessage("errMsg2") + JSON.stringify(devToolsSession) + '.');
             });
         }
     }
