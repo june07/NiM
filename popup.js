@@ -363,7 +363,9 @@ ngApp
                 if (!el.classList.contains('pretty')) {
                     $(el).addClass('pretty');
                     $('.ml11 .letters').each(function () {
-                        $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>").replace(/(^\| )/, "<blink class='carat'>$&</blink>"));
+                        let untranslated = $(this).text().split(' ');
+                        let translated = untranslated[0] + ' ' + $window.chrome.i18n.getMessage(untranslated[1]);
+                        $(this).html(translated.replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>").replace(/(^\| )/, "<blink class='carat'>$&</blink>"));
                     });
                     $window.anime.timeline({ loop: true })
                         .add({
