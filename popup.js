@@ -160,7 +160,13 @@ ngApp
             //$scope.$apply();
             initTooltips();
             //$scope.$apply();
-        })
+        });
+        $scope.bg.$on('updateBrakeCodeTabSessions', () => {
+            if ($scope.remoteTabs && $scope.bg.remoteTabs && angular.equals($scope.remoteTabs[0], $scope.bg.remoteTabs[0])) return;
+            if (!$scope.remoteTabs) $scope.remoteTabs = [ $scope.bg.remoteTabs[0] ];
+            else $scope.remoteTabs[0] = $scope.bg.remoteTabs[0];
+            //$scope.$apply();
+        });
         $scope.clickHandlerRemoveLocalDevToolsSession = function (sessionID) {
             $scope.bg.removeLocalSession(sessionID)
         }
@@ -182,7 +188,7 @@ ngApp
             return tunnelSocket.cid ? `${$scope.bg.NiMSConnector.PADS_SERVER}/json/${tunnelSocket.cid}` : '';
         }
         $scope.activeRemoteSession = function (cid) {
-            let session = $scope.bg.brakeCodeSessions.find(session => session.infoUrl.match($scope.bg.UUID_Regex)[0] === cid);
+            let session = $scope.bg.brakeCodeSessions.find(session => session.infoUrl.match($scope.bg.UUID_Regex) && (session.infoUrl.match($scope.bg.UUID_Regex)[0] === cid));
             return session;
         }
         function showErrorMessage(error) {

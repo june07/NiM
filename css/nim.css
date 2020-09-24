@@ -535,7 +535,7 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
 .rtc-credentials-table-cell i {
     background: #e8f5e9;
 }
-#coming-soon font {
+#coming-soon span {
     display: table;
     font-size: 40px;
     margin: 0 auto;
@@ -558,7 +558,7 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
     margin: 0 auto;
     display: table;
 }
-#remote-control-interface .appinfo span span.badge, #local-control-interface .appinfo span span {
+[id^="remote-control-interface-"] .appinfo span span.badge, #local-control-interface .appinfo span span {
     font-weight: bold;
     font-style: italic;
     position: absolute;
@@ -567,30 +567,30 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
 #local-control-interface .appinfo span span {
     right: 350px;
 }
-#remote-control-interface div.col.appinfo, #local-control-interface div.col.appinfo {
+[id^="remote-control-interface-"] div.col.appinfo, #local-control-interface div.col.appinfo {
     min-width: 300px;
     white-space: nowrap;
     overflow: hidden;
     font-size: large;
     text-overflow: ellipsis;
 }
-#remote-control-interface, #local-control-interface {
+[id^="remote-control-interface-"], #local-control-interface {
     font-size: 16px;
     margin: 20px 0 0 0;
 }
-#remote-control-interface .row, #local-control-interface .row {
+[id^="remote-control-interface-"] .row, #local-control-interface .row {
     margin: 0px;
 }
-#remote-control-interface div.row.header, #local-control-interface div.row.header {
+[id^="remote-control-interface-"] div.row.header, #local-control-interface div.row.header {
     margin: 0 0 20px 0;
     text-align: center;
     text-transform: uppercase;
     font-weight: bold;
 }
-#remote-control-interface div.col.open, #local-control-interface div.col.open {
+[id^="remote-control-interface-"] div.col.open, #local-control-interface div.col.open {
     max-width: 80px;
 }
-#remote-control-interface .btn, #local-control-interface .btn {
+[id^="remote-control-interface-"] [id^="open-devtools-remote-"].btn, input.btn.red, #local-control-interface .btn {
     font-size: small;
     height: 22px;
     line-height: 22px;
@@ -613,6 +613,7 @@ div.material-tooltip {
     font-size: large;
 }
 div.material-tooltip > div.tooltip-content > div.row {
+    display: inherit;
     margin-bottom: 5px;
 }
 div.material-tooltip > div.tooltip-content > div.row > div.col.s2 {
@@ -707,11 +708,6 @@ blink, .blink {
 }
 .profile-chip:focus {
     background-color: #4CAF50;
-}
-#local-control-interface .btn.remove {
-    width: 50px;
-    padding: 0px;
-    text-transform: unset;
 }
 #remote-control-interface .btn.remove {
     width: 50px;
