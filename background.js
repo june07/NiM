@@ -633,7 +633,7 @@ ngApp
     ];
     const SOCKET_PATTERN = /((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])):([0-9]+)/;
     const devToolsURL_Regex = /(devtools:\/\/|chrome-devtools:\/\/|https:\/\/chrome-devtools-frontend(.appspot.com|.june07.com)).*(inspector.html|js_app.html)/;
-    const UUID_Regex = new RegExp(/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b$/i);
+    const UUID_Regex = new RegExp(/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/i);
 
     $window.chrome.management.getSelf((ExtensionInfo) => {
         $scope.ExtensionInfo = ExtensionInfo;
@@ -794,15 +794,12 @@ ngApp
             });
             let oldSessions = $scope[sessionsName];
             $scope[sessionsName] = sessions.concat($scope[sessionsName]);
-            sessions = [];
             $scope[sessionsName] = $scope[sessionsName].filter((session, i, sessions) => {
                 if (i === 0) {
-                    sessions.push(session);
                     return true;
                 }
                 let match = sessions.find(s => s.infoUrl === session.infoUrl);
                 if (match === undefined) {
-                    sessions.push(session);
                     return true;
                 } else {
                     session.timer.clearTimer();
@@ -816,10 +813,11 @@ ngApp
                 getConnectionsObjectFrom(sessions).then(connections => {
                     let brakeCodeRemoteTab = {
                         connections,
-                        host: "pads.brakecode.com",
-                        title: "BrakeCODE"
+                        host: $scope.NiMSConnector.PADS_HOST,
+                        title: 'BrakeCODE'
                     }
                     $scope.remoteTabs[0] = brakeCodeRemoteTab;
+                    $scope.$emit('updateBrakeCodeTabSessions');
                 });
             }
         });
@@ -944,6 +942,7 @@ ngApp
                             setDevToolsURL(json.data[0]);
                             if (padsMetadata.wsProto === 'wss') {
                                 url = jsonPayload.devtoolsFrontendUrl.replace(/wss?=(.*)\//, padsMetadata.wsProto + '=' + host + '/ws/' + port + '/');
+                                if (jsonPayload.type && jsonPayload.type === 'deno') url = url + '?runtime=' + jsonPayload.type;
                             } else {
                                 url = jsonPayload.devtoolsFrontendUrl.replace(/wss?=localhost/, 'ws=127.0.0.1');
                                 var inspectIP = url.match(SOCKET_PATTERN)[1];
@@ -956,8 +955,7 @@ ngApp
                                 let devToolsOptionURL = $scope.getDevToolsOption().url;
                                 if (devToolsOptionURL.match(devToolsURL_Regex)) url = url.replace(devToolsURL_Regex, devToolsOptionURL);
                             }
-                            if ($scope.settings.bugfix)
-                                url = url.replace('', '');
+                            if (url.match(/chrome-devtools:\/\//)) url = url.replace(/chrome-devtools:\/\//, 'devtools://');
                             var websocketId = jsonPayload.id;
                             /** May be a good idea to put this somewhere further along the chain in case tab/window creation fails,
                             in which case this entry will need to be removed from the array */
@@ -1103,6 +1101,8 @@ ngApp
     }
     function setDevToolsURL(nodeJSONMeta) {
         $scope.localDevToolsOptions[0].url = ($scope.settings.devToolsCompat && nodeJSONMeta.devtoolsFrontendUrlCompat) ? nodeJSONMeta.devtoolsFrontendUrlCompat.split('?')[0] : nodeJSONMeta.devtoolsFrontendUrl.split('?')[0];
+        /** Deno is still using the legacy chrome-devtools:// scheme.  See https://github.com/denoland/deno/pull/7659 */
+        $scope.localDevToolsOptions[0].url = $scope.localDevToolsOptions[0].url.replace(/chrome-devtools:\/\//, 'devtools://');
     }
     function getDevToolsURL(session) {
         let url = session.devtoolsFrontendUrl;
@@ -1192,7 +1192,8 @@ ngApp
              */  
             $scope.brakeCodeSessions.map(brakeCodeSession => {
                 let instance = getInstanceFromBrakeCODEInfoURL(brakeCodeSession.infoUrl);
-                let cid = brakeCodeSession.infoUrl.match(UUID_Regex)[0];
+                let cid = brakeCodeSession.infoUrl.match(UUID_Regex) ? brakeCodeSession.infoUrl.match(UUID_Regex)[0] : undefined;
+                if (cid === undefined) return;
                 let autoSetting = $scope.remoteConnectionSettings[cid] && $scope.remoteConnectionSettings[cid].auto ? $scope.remoteConnectionSettings[cid].auto : false;
 
                 if (autoSetting && ! isLocked(instance)) {
@@ -1329,8 +1330,7 @@ ngApp
         return { host, port }
     }
     function getInstanceFromBrakeCODEInfoURL(infoURL) {
-        // https://pads-dev.brakecode.com/json/48121d39-f241-5e63-b019-1b55c145101f
-        let regEx = new RegExp('https?:\/\/(pads(-dev)\.brakecode\.com)\/json\/(' + UUID_Regex.source + ')');
+        let regEx = new RegExp('https?:\/\/(pads(-dev)?\.brakecode\.com)\/json\/(' + UUID_Regex.source + ')');
         let host = infoURL.match(regEx)[1],
             port = infoURL.match(regEx)[3];
         return { host, port }
@@ -1481,7 +1481,7 @@ ngApp
         $scope.devToolsProtocolClient.closeSocket(devToolsSession.dtpSocket);
         if (devToolsSession.isWindow) {
             $window._gaq.push(['_trackEvent', 'Program Event', 'removeDevToolsSession', 'window', undefined, true]);
-            chrome.tabs.remove(devToolsSession.id, function() {
+            chrome.windows.remove(devToolsSession.id, function() {
                 if (chrome.runtime.lastError) {
                     if (chrome.runtime.lastError.message.toLowerCase().includes("no window ")) {
                         deleteSession(devToolsSession.id);
@@ -1492,7 +1492,7 @@ ngApp
             });
         } else {
             $window._gaq.push(['_trackEvent', 'Program Event', 'removeDevToolsSession', 'tab', undefined, true]);
-            chrome.windows.remove(devToolsSession.id, function() {
+            chrome.tabs.remove(devToolsSession.id, function() {
                 if (chrome.runtime.lastError) {
                     if (chrome.runtime.lastError.message.toLowerCase().includes("no tab ")) {
                         deleteSession(devToolsSession.id);
@@ -2046,7 +2046,7 @@ ngApp
         if (!devToolsURL || !brakeCODE_WS_URL) return;
         devToolsURL = devToolsURL && devToolsURL.length > 0 ? devToolsURL[0] : undefined;
         brakeCODE_WS_URL = brakeCODE_WS_URL && brakeCODE_WS_URL.length > 1 ? brakeCODE_WS_URL[1] : undefined;
-        let jsonInfoURL = `https://${brakeCODE_WS_URL.replace('/ws/', '/json/').replace(new RegExp('\/' + UUID_Regex.source + '$'), '')}`,
+        let jsonInfoURL = `https://${brakeCODE_WS_URL.replace('/ws/', '/json/').replace(/\/(\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b)\?.*$/, '')}`,
             sessionId = devToolsURL.match(UUID_Regex);
         sessionId = sessionId && sessionId.length > 0 ? sessionId[0] : undefined;
 
