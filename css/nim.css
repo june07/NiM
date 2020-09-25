@@ -590,7 +590,7 @@ body > div.container.container-page > div:nth-child(2) > div > form > div:nth-ch
 [id^="remote-control-interface-"] div.col.open, #local-control-interface div.col.open {
     max-width: 80px;
 }
-[id^="remote-control-interface-"] [id^="open-devtools-remote-"].btn, input.btn.red, #local-control-interface .btn {
+[id^="remote-control-interface-"] [id^="open-devtools-remote-"].btn, input.btn.red, input.btn.start-node-inspect, #local-control-interface .btn {
     font-size: small;
     height: 22px;
     line-height: 22px;
