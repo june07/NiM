@@ -194,7 +194,7 @@
                                                 <input id="auto switch" type="checkbox" ng-model="bg.settings.auto" class="ga-track" ng-change="autoSwitchHandler()">
                                                 <span class="lever"></span>
                                                 <span class="i18n">Auto</span>
-                                                <span ng-if="bg.watchdog.STOPPED" class="tooltipped staticTooltip exclamationTooltipButton" id="tooltip_templateAutoSwitchAlert" data-tooltip="{{ getTooltipContent('templateAutoSwitchAlert') }}">(!)</span>
+                                                <span ng-if="bg.watchdog.STOPPED" class="tooltipped staticTooltip exclamationTooltipButton" id="tooltip_templateAutoSwitchAlert" data-tooltip="{{ getTooltipContent('tooltip_templateAutoSwitchAlert') }}">(!)</span>
                                             </label>
                                         </div>
                                         <span class="waves-effect waves-light"><input type="button" id="openDevToolsButton" value="Open DevTools" ng-disabled="bg.settings.auto" class="btn green lighten-1 ga-track i18n" ng-click="clickHandler()"></span>
@@ -203,7 +203,7 @@
                                                 <input id="autoResumeSwitch" type="checkbox" ng-model="bg.settings.autoResumeInspectBrk"/>
                                                 <span>Auto Resume</span>
                                             </label>
-                                            <span class="tooltipped staticTooltip questionTooltipButton" id="tooltip_templateAutoResumeSwitch" data-tooltip="{{ getTooltipContent('tooltipTemplateAutoResumeSwitch') }}">(?)</span>
+                                            <span class="tooltipped staticTooltip questionTooltipButton" id="tooltip_templateAutoResumeSwitch" data-tooltip="{{ getTooltipContent('tooltip_templateAutoResumeSwitch') }}">(?)</span>
                                         </div>
                                     </div>
                                 </div>
@@ -331,10 +331,7 @@
                                 </div>
                                 <div class="col s2 open" ng-if="!conn.tunnelSocket.cid">
                                     <span class="waves-effect waves-light ld-over" ng-class="conn.waiting">
-                                        <i id="githubNodejsNodeIssues24085" ng-if="rtab.githubNodejsNodeIssues24085" id="tooltip_githubNodejsNodeIssues24085" class="tooltipped staticTooltip tiny icon-alert right" data-tooltip="githubNodejsNodeIssues24085"></i>
-                                        <div ng-if="rtab.githubNodejsNodeIssues24085" id="githubNodejsNodeIssues24085">
-                                            This button is disabled because currently, Node has no facility to support more than a single programmatically started debugging session.  This means that a debugging session has already been started on the default port 9229.  A proposed change to the default behavior of Node would remove this limitation.  Read more about the issue here: <a target="_blank" href="https://github.com/nodejs/node/issues/24085">https://github.com/nodejs/node/issues/24085</a>
-                                        </div>
+                                        <i ng-if="rtab.githubNodejsNodeIssues24085" class="tooltipped staticTooltip tiny icon-alert right githubNodejsNodeIssues24085" data-tooltip="{{ getTooltipContent('tooltip_githubNodejsNodeIssues24085') }}"></i>
                                         <input type="button" value="Inspect" ng-class="rtab.githubNodejsNodeIssues24085 ? 'disabled' : ''" class="btn btn-sm grey lighten-1 ga-track i18n start-node-inspect" ng-click="clickHandlerStartNodeInspect(rtab.host, conn)">
                                         <div class="ld ld-ring ld-spin"></div>
                                     </span>

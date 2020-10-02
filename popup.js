@@ -340,9 +340,9 @@ ngApp
         $scope.getTooltipContent = function (tooltipElement) {
             let message;
             switch (tooltipElement) {
-                case 'tooltipTemplateGithubNodejsNodeIssues24085': message = chrome.i18n.getMessage("githubNodejsNodeIssues24085"); break;
-                case 'tooltipTemplateAutoResumeSwitch': message = chrome.i18n.getMessage("autoStepping"); break;
-                case 'tooltipTemplateAutoSwitchAlert': message = chrome.i18n.getMessage("runawayTabs"); break;
+                case 'tooltip_githubNodejsNodeIssues24085': message = chrome.i18n.getMessage("githubNodejsNodeIssues24085"); break;
+                case 'tooltip_templateAutoResumeSwitch': message = chrome.i18n.getMessage("autoStepping"); break;
+                case 'tooltip_templateAutoSwitchAlert': message = chrome.i18n.getMessage("runawayTabs"); break;
             }
             return message;
         }
