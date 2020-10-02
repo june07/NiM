@@ -300,7 +300,7 @@ ngApp
                 .filter(tooltipElement => !dynamicTooltips[tooltipElement.dataset.tooltip || tooltipElement.dataset.tooltipHtml]).map(tooltipElement => {
                 let tip = M.Tooltip.init(tooltipElement, {
                     position: 'top',
-                    _animateInOpacity: 0.9,
+                    opacity: 0.9,
                     html: tooltipElement.dataset.tooltipHtml ? document.querySelector(`[id='${tooltipElement.dataset.tooltipHtml}']`).innerHTML : undefined
                 });
                 tip.tooltipEl.id = tooltipElement.id

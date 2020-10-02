@@ -4,6 +4,7 @@
   "description": "Node.js --inspector Manager.  Manages the integrated Node V8 inspector Chrome Developer Tools",
   "main": "background.js",
   "dependencies": {
+    "@667/materialize": "^1.0.0-june07.2",
     "@auth0/auth0-spa-js": "^1.12.0",
     "@materializecss/materialize": "^1.0.0",
     "@popperjs/core": "^2.4.4",
