@@ -692,11 +692,11 @@ blink, .blink {
 @keyframes blink {
   67% { opacity: 0 }
 }
-#githubNodejsNodeIssues24085 .icon-alert {
+.githubNodejsNodeIssues24085.icon-alert {
     position: absolute;
-    left: -16px;
-    color: red;
-    z-index: 1;
+    right: -5px;
+    margin: 0;
+    font-size: large;
 }
 .icon-alert {
     font-size: xxx-large;
