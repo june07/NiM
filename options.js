@@ -45,6 +45,8 @@ ngApp
             });
             $('.dropdown-trigger').dropdown();
             $scope.hideScaledOut({ delay: 0 });
+            $scope.updateDevToolsOptions();
+            $scope.$apply();
         });
         $($window).blur(function() {
             $scope.bg.$emit('options-window-focusChanged');
@@ -125,9 +127,12 @@ ngApp
         }
         $scope.setDevToolsOption = function(optionIndex) {
             $scope.bg.setDevToolsOption(optionIndex);
+            $scope.updateDevToolsOptions();
         };
         $scope.resetDevToolsOption = function() {
+            $scope.bg.settings.localDevTools = !$scope.bg.settings.localDevTools;
             if (!$scope.bg.settings.localDevTools) $scope.setDevToolsOption(0);
+            $scope.updateDevToolsOptions();
         }
         function trackInputClick(e) {
             $window._gaq.push(['_trackEvent', e.target.id, 'clicked']);
@@ -159,5 +164,9 @@ ngApp
                     else el.style.display = 'inherit';
                 });
             }, delay);
+        }
+        $scope.updateDevToolsOptions = function() {
+            $scope.devToolsOptionsName = $scope.bg.getDevToolsOption().name;
+            $scope.devToolsOptionsUrl = $scope.bg.getDevToolsOption().url;
         }
     }]);

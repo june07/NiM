@@ -94,7 +94,7 @@
                     <li class="collection-item">
                         <div class="switch right">
                             <label><span class="i18n">off</span>
-                                <input type="checkbox" ng-click="resetDevToolsOption()" ng-model="bg.settings.localDevTools" id="Local DevTools" class="ga-track">
+                                <input type="checkbox" ng-click="resetDevToolsOption()" id="Local DevTools" class="ga-track">
                                 <span class="lever"></span><span class="i18n">on</span>
                             </label>
                         </div>
@@ -107,11 +107,11 @@
                                     <span>DevToolsCompat</span>
                                 </label>
                             </span>
-                            <span id="devToolsBadge">DevTools Version ({{ bg.getDevToolsOption().name }}): <span class="badge badgeLabel">{{ bg.getDevToolsOption().url }}</span></span>
+                            <span id="devToolsBadge">DevTools Version ({{ devToolsOptionsName }}): <span class="badge badgeLabel">{{ devToolsOptionsUrl }}</span></span>
                         </div>
                         <a ng-hide="!bg.settings.localDevTools" class="dropdown-trigger" href="#" data-target="dropdown1">
                             <span id="selectDevToolsVersion">{{ window.chrome.i18n.getMessage("selectDevToolsVersion") }}</span>
-                            <span id="devToolsBadge">DevTools Version ({{ bg.getDevToolsOption().name }}): <span class="badge badgeLabel">{{ bg.getDevToolsOption().url }}</span></span>
+                            <span id="devToolsBadge">DevTools Version ({{ devToolsOptionsName }}): <span class="badge badgeLabel">{{ devToolsOptionsUrl }}</span></span>
                         </a>
                         <ul id="dropdown1" class="dropdown-content">
                             <li><a href="#!" ng-click="setDevToolsOption(1)">{{ bg.localDevToolsOptions[1].name }}: {{ bg.localDevToolsOptions[1].url }} </a></li>
