@@ -60,7 +60,7 @@ body {
     width: 100%;
     min-width: 600px;
     min-height: 1024px !important;
-    overflow: hidden;
+    overflow: auto;
 }
 
 #options-page #extension-options-overlay {
