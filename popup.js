@@ -93,7 +93,7 @@ ngApp
                 } else if (error && typeof error === "object" && error.message) {
                     showErrorMessage({message: error.message});
                 } else if (error && error.statusText) {
-                    showErrorMessage({statusText: error.statusText, status: error.status });
+                    showErrorMessage({statusText: error.statusText});
                 } else if (error && error.status) {
                     showErrorMessage({status: error.status});
                 } else {
@@ -109,7 +109,7 @@ ngApp
                 } else if (error && typeof error === "object" && error.message) {
                     showErrorMessage({message: error.message});
                 } else if (error && error.statusText) {
-                    showErrorMessage({statusText: error.statusText, status: error.status });
+                    showErrorMessage({statusText: error.statusText});
                 } else if (error && error.status) {
                     showErrorMessage({status: error.status});
                 } else {
@@ -197,7 +197,7 @@ ngApp
             
             if (message) {
                 html = `<i class="icon-alert"></i><br>${message}`;
-            } else if (statusText && status) {
+            } else if (statusText) {
                 html = `<i class="icon-alert"></i><br>
                     ${statusText}<br>
                     <span class="statusCode">Code: ${status}<span>`
