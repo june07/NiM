@@ -615,6 +615,42 @@ ngApp
             this.timeout = setTimeout(() => { this.tabStatus = '' }, 5000)
         }
     }
+    class Utilities {
+        constructor() {
+            let self = this;
+            self.rotateFunctions = {
+                rotate90: self.rotate90.bind(self),
+                rotate180: self.rotate180.bind(self),
+                rotate270: self.rotate270.bind(self)
+            }
+
+            $window.chrome.contextMenus.removeAll(() => {
+                $window.chrome.contextMenus.create({title: 'Image Rotate (90deg)', id: 'rotate-90', contexts: ['all'], onclick: self.rotateFunctions.rotate90}, () => {});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (180deg)', id: 'rotate-180', contexts: ['all'], onclick: self.rotateFunctions.rotate180}, () => {});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (270deg)', id: 'rotate-270', contexts: ['all'], onclick: self.rotateFunctions.rotate270}, () => {});
+
+                $window.chrome.contextMenus.create({title: 'Utilities', id: 'utilities', contexts: ['all']});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (90deg)', id: 'utilities-rotate-90', parentId: 'utilities', contexts: ['all'], onclick: self.rotateFunctions.rotate90}, () => {});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (180deg)', id: 'utilities-rotate-180', parentId: 'utilities', contexts: ['all'], onclick: self.rotateFunctions.rotate180}, () => {});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (270deg)', id: 'utilities-rotate-270', parentId: 'utilities', contexts: ['all'], onclick: self.rotateFunctions.rotate270}, () => {});
+            });
+        }
+        rotate90(info, tab) { return this.rotate(90, info, tab) }
+        rotate180(info, tab) { return this.rotate(180, info, tab) }
+        rotate270(info, tab) { return this.rotate(270, info, tab) }
+        rotate(angle, info, tab) {
+            if (info.mediaType && info.mediaType === 'image') {
+                chrome.tabs.executeScript(tab.id, { allFrames: true, code: `
+                    document.querySelector("img[src='${info.srcUrl}']").style.transform = 'rotate(${angle}deg)';
+                    document.querySelector("img[src='${info.srcUrl}']").style.overflow = 'visible';
+                ` }, () => {
+                    $window._gaq.push(['_trackEvent', 'Utilities Event', 'rotate', `${angle}`, undefined, true]);
+                });
+            }
+        }
+    }
+    $scope.Utilities = new Utilities();
+    
     const DEVEL = true;
     const CHROME_VERSION = /Chrome\/([0-9.]+)/.exec(navigator.userAgent)[1].split('.')[0];
     const VERSION = '0.0.0'; // Filled in by Grunt
