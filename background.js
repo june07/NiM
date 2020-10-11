@@ -625,14 +625,14 @@ ngApp
             }
 
             $window.chrome.contextMenus.removeAll(() => {
-                $window.chrome.contextMenus.create({title: 'Image Rotate (90deg)', id: 'rotate-90', contexts: ['all'], onclick: self.rotateFunctions.rotate90}, () => {});
-                $window.chrome.contextMenus.create({title: 'Image Rotate (180deg)', id: 'rotate-180', contexts: ['all'], onclick: self.rotateFunctions.rotate180}, () => {});
-                $window.chrome.contextMenus.create({title: 'Image Rotate (270deg)', id: 'rotate-270', contexts: ['all'], onclick: self.rotateFunctions.rotate270}, () => {});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (90deg)', id: 'rotate-90', contexts: ['image'], onclick: self.rotateFunctions.rotate90}, () => {});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (180deg)', id: 'rotate-180', contexts: ['image'], onclick: self.rotateFunctions.rotate180}, () => {});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (270deg)', id: 'rotate-270', contexts: ['image'], onclick: self.rotateFunctions.rotate270}, () => {});
 
-                $window.chrome.contextMenus.create({title: 'Utilities', id: 'utilities', contexts: ['all']});
-                $window.chrome.contextMenus.create({title: 'Image Rotate (90deg)', id: 'utilities-rotate-90', parentId: 'utilities', contexts: ['all'], onclick: self.rotateFunctions.rotate90}, () => {});
-                $window.chrome.contextMenus.create({title: 'Image Rotate (180deg)', id: 'utilities-rotate-180', parentId: 'utilities', contexts: ['all'], onclick: self.rotateFunctions.rotate180}, () => {});
-                $window.chrome.contextMenus.create({title: 'Image Rotate (270deg)', id: 'utilities-rotate-270', parentId: 'utilities', contexts: ['all'], onclick: self.rotateFunctions.rotate270}, () => {});
+                $window.chrome.contextMenus.create({title: 'Utilities', id: 'utilities', contexts: ['image']});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (90deg)', id: 'utilities-rotate-90', parentId: 'utilities', contexts: ['image'], onclick: self.rotateFunctions.rotate90}, () => {});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (180deg)', id: 'utilities-rotate-180', parentId: 'utilities', contexts: ['image'], onclick: self.rotateFunctions.rotate180}, () => {});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (270deg)', id: 'utilities-rotate-270', parentId: 'utilities', contexts: ['image'], onclick: self.rotateFunctions.rotate270}, () => {});
             });
         }
         rotate90(info, tab) { return this.rotate(90, info, tab) }
