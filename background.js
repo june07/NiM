@@ -184,7 +184,7 @@ ngApp
             return promise;
         }
         tasks(socket, options) {
-            return new Promise(resolve => {
+            let t1 = new Promise(resolve => {
                 let autoResume = options && options.autoResume ? options.autoResume : false;
                 if (autoResume) {
                     this.autoResumeInspectBrk(socket)
@@ -194,6 +194,15 @@ ngApp
                 } else {
                     resolve(socket);
                 }
+            });
+            let t2 = new Promise(resolve => {
+                let focusOnBreakpoint = options && options.focusOnBreakpoint ? options.focusOnBreakpoint : false;
+                if (focusOnBreakpoint) this.focusOnBreakpoint(socket);
+                resolve(socket);
+            });
+            return Promise.all([t1, t2])
+            .then(() => {
+                return Promise.resolve(socket);
             });
         }
         autoResumeInspectBrk(socket) {
@@ -226,6 +235,25 @@ ngApp
                 };
                 resolve(socket);
             });
+        }
+        focusOnBreakpoint(socket) {
+            socket.ws.onmessage = event => {
+                let parsed = JSON.parse(event.data),
+                    ws,
+                    id;
+                switch(parsed.method) {
+                    case 'Debugger.paused':
+                        ws = event.currentTarget.url.split('ws://')[1];
+                        id = $scope.devToolsSessions.find(session => session.url.includes(ws)).id;
+                        chrome.tabs.update(id, { active: true }, tab => {
+                            chrome.windows.update(tab.windowId, { focused: true }, window => {
+                                if ($scope.settings.debugVerbosity >= 4) console.log(`focusOnBreakpoint(): window: ${window.id} tab: ${tab.id}`);
+                            });
+                        });
+                        break;
+                }
+                if ($scope.settings.debugVerbosity >= 1) console.log(event);
+            }
         }
     }
     class PubSub {
@@ -625,14 +653,14 @@ ngApp
             }
 
             $window.chrome.contextMenus.removeAll(() => {
-                $window.chrome.contextMenus.create({title: 'Image Rotate (90deg)', id: 'rotate-90', contexts: ['image'], onclick: self.rotateFunctions.rotate90}, () => {});
-                $window.chrome.contextMenus.create({title: 'Image Rotate (180deg)', id: 'rotate-180', contexts: ['image'], onclick: self.rotateFunctions.rotate180}, () => {});
-                $window.chrome.contextMenus.create({title: 'Image Rotate (270deg)', id: 'rotate-270', contexts: ['image'], onclick: self.rotateFunctions.rotate270}, () => {});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (90deg)', id: 'rotate-90', contexts: ['all'], onclick: self.rotateFunctions.rotate90}, () => {});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (180deg)', id: 'rotate-180', contexts: ['all'], onclick: self.rotateFunctions.rotate180}, () => {});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (270deg)', id: 'rotate-270', contexts: ['all'], onclick: self.rotateFunctions.rotate270}, () => {});
 
-                $window.chrome.contextMenus.create({title: 'Utilities', id: 'utilities', contexts: ['image']});
-                $window.chrome.contextMenus.create({title: 'Image Rotate (90deg)', id: 'utilities-rotate-90', parentId: 'utilities', contexts: ['image'], onclick: self.rotateFunctions.rotate90}, () => {});
-                $window.chrome.contextMenus.create({title: 'Image Rotate (180deg)', id: 'utilities-rotate-180', parentId: 'utilities', contexts: ['image'], onclick: self.rotateFunctions.rotate180}, () => {});
-                $window.chrome.contextMenus.create({title: 'Image Rotate (270deg)', id: 'utilities-rotate-270', parentId: 'utilities', contexts: ['image'], onclick: self.rotateFunctions.rotate270}, () => {});
+                $window.chrome.contextMenus.create({title: 'Utilities', id: 'utilities', contexts: ['all']});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (90deg)', id: 'utilities-rotate-90', parentId: 'utilities', contexts: ['all'], onclick: self.rotateFunctions.rotate90}, () => {});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (180deg)', id: 'utilities-rotate-180', parentId: 'utilities', contexts: ['all'], onclick: self.rotateFunctions.rotate180}, () => {});
+                $window.chrome.contextMenus.create({title: 'Image Rotate (270deg)', id: 'utilities-rotate-270', parentId: 'utilities', contexts: ['all'], onclick: self.rotateFunctions.rotate270}, () => {});
             });
         }
         rotate90(info, tab) { return this.rotate(90, info, tab) }
@@ -730,7 +758,8 @@ ngApp
             enabled: true,
             maxMessages: 10
         },
-        autoResumeInspectBrk: false
+        autoResumeInspectBrk: false,
+        focusOnBreakpoint: false
     };
     $scope.remoteConnectionSettings = {};
     $scope.Auth = new Auth();
@@ -1565,7 +1594,10 @@ ngApp
             } else {
                 inspectorURL = nodeInspectMetadataJSON.webSocketDebuggerUrl;
             }
-            let dtpSocketPromise = $scope.devToolsProtocolClient.setSocket(websocketId, inspectorURL, { autoResume: $scope.settings.autoResumeInspectBrk });
+            let dtpSocketPromise = $scope.devToolsProtocolClient.setSocket(websocketId, inspectorURL, {
+                autoResume: $scope.settings.autoResumeInspectBrk,
+                focusOnBreakpoint: $scope.settings.focusOnBreakpoint
+            });
             if ($scope.settings.newWindow) {
                 $window._gaq.push(['_trackEvent', 'Program Event', 'createWindow', 'focused', + $scope.settings.windowFocused, true]);
                 chrome.windows.create({
@@ -1637,13 +1669,17 @@ ngApp
 
         if (existingSession) {
             existingSession.websocketId = websocketId;
-            $scope.devToolsProtocolClient.updateSocket(websocketId, socketUrl, { autoResume: $scope.settings.autoResumeInspectBrk })
+            $scope.devToolsProtocolClient.updateSocket(websocketId, socketUrl, { autoResume: $scope.settings.autoResumeInspectBrk,
+                focusOnBreakpoint: $scope.settings.focusOnBreakpoint
+            })
             .then(dtpSocket => {
                 existingSession.dtpSocket = dtpSocket;
             });
         } else {
             /** A session will not exist if the tab is reused during a node restart */
-            $scope.devToolsProtocolClient.setSocket(websocketId, socketUrl, { autoResume: $scope.settings.autoResumeInspectBrk })
+            $scope.devToolsProtocolClient.setSocket(websocketId, socketUrl, { autoResume: $scope.settings.autoResumeInspectBrk,
+                focusOnBreakpoint: $scope.settings.focusOnBreakpoint
+            })
             .then(dtpSocket => {
                 $scope.devToolsSessions.push({
                     url: url,
