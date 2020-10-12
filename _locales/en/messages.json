@@ -263,5 +263,8 @@
     },
     "no_detected_remote_connections": {
         "message": "No detected remote connections"
+    },
+    "focusOnBreakpoint": {
+        "message": "Focus on Debugger Paused"
     }
 }
