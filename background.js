@@ -208,7 +208,7 @@ ngApp
         autoResumeInspectBrk(socket) {
             let parsedData = {};
 
-            socket.ws.onmessage = event => {
+            socket.ws.addEventListener('message', event => {
                 let parsed = JSON.parse(event.data);
                 switch(parsed.method) {
                     case 'Debugger.paused':
@@ -225,7 +225,7 @@ ngApp
                         break;
                 }
                 if ($scope.settings.debugVerbosity >= 1) console.log(event);
-            }
+            });
             return new Promise(resolve => {
                 socket.ws.onopen = event => {
                     if ($scope.settings.debugVerbosity >= 1) console.log(event);
@@ -237,15 +237,14 @@ ngApp
             });
         }
         focusOnBreakpoint(socket) {
-            socket.ws.onmessage = event => {
-                let parsed = JSON.parse(event.data),
-                    ws,
-                    id;
+            socket.ws.addEventListener('message', event => {
+                let parsed = JSON.parse(event.data);
                 switch(parsed.method) {
                     case 'Debugger.paused':
-                        ws = event.currentTarget.url.split('ws://')[1];
-                        id = $scope.devToolsSessions.find(session => session.url.includes(ws)).id;
-                        chrome.tabs.update(id, { active: true }, tab => {
+                        var ws = event.currentTarget.url.split('ws://')[1];
+                        var session = $scope.devToolsSessions.find(session => session.url.includes(ws));
+                        if (session === undefined) return;
+                        chrome.tabs.update(session.id, { active: true }, tab => {
                             chrome.windows.update(tab.windowId, { focused: true }, window => {
                                 if ($scope.settings.debugVerbosity >= 4) console.log(`focusOnBreakpoint(): window: ${window.id} tab: ${tab.id}`);
                             });
@@ -253,7 +252,7 @@ ngApp
                         break;
                 }
                 if ($scope.settings.debugVerbosity >= 1) console.log(event);
-            }
+            });
         }
     }
     class PubSub {
@@ -1632,13 +1631,13 @@ ngApp
     }
     function resolveTabPromise(tab) {
         var tabsPromise = promisesToUpdateTabsOrWindows.find(function(tabPromise) {
-            if (tab.id === tabPromise.tab.id) return true;
+            if (tab && tabPromise.tab && tab.id === tabPromise.tab.id) return true;
         });
         if (tabsPromise !== undefined) tabsPromise.promise.resolve();
     }
     function addPromiseToUpdateTabOrWindow(tab, promise) {
         var found = promisesToUpdateTabsOrWindows.find(function(tabToUpdate, index, array) {
-            if (tabToUpdate.tab.id === tab.id) {
+            if (tabToUpdate.tab && tab && tabToUpdate.tab.id === tab.id) {
                 array[index] = { tab: tab, promise: promise };
                 return true;
             }
@@ -2075,7 +2074,8 @@ ngApp
         // Why am I not calling deleteSession() here?
         $scope.devToolsSessions.splice($scope.devToolsSessions.findIndex(function(devToolsSession) {
             if (devToolsSession.id === tabId) {
-                $scope.devToolsProtocolClient.closeSocket(devToolsSession.dtpSocket);
+                // Tab removal doesn't mean that the debugging session is dead.  So the socket should not be closed.
+                //$scope.devToolsProtocolClient.closeSocket(devToolsSession.dtpSocket);
                 unlock(hostPortHashmap(tabId));
                 return true;
             }
