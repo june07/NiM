@@ -244,11 +244,17 @@ ngApp
                         var ws = event.currentTarget.url.split('ws://')[1];
                         var session = $scope.devToolsSessions.find(session => session.url.includes(ws));
                         if (session === undefined) return;
-                        chrome.tabs.update(session.id, { active: true }, tab => {
-                            chrome.windows.update(tab.windowId, { focused: true }, window => {
-                                if ($scope.settings.debugVerbosity >= 4) console.log(`focusOnBreakpoint(): window: ${window.id} tab: ${tab.id}`);
+                        if (session.isWindow) {
+                            chrome.windows.update(session.id, { focused: true }, window => {
+                                if ($scope.settings.debugVerbosity >= 4) console.log(`focusOnBreakpoint(): window: ${window.id}`);
                             });
-                        });
+                        } else {
+                            chrome.tabs.update(session.id, { active: true }, tab => {
+                                chrome.windows.update(tab.windowId, { focused: true }, window => {
+                                    if ($scope.settings.debugVerbosity >= 4) console.log(`focusOnBreakpoint(): window: ${window.id} tab: ${tab.id}`);
+                                });
+                            });
+                        }
                         break;
                 }
                 if ($scope.settings.debugVerbosity >= 1) console.log(event);
@@ -1605,18 +1611,21 @@ ngApp
             });
             if ($scope.settings.newWindow) {
                 $window._gaq.push(['_trackEvent', 'Program Event', 'createWindow', 'focused', + $scope.settings.windowFocused, true]);
-                chrome.windows.create({
-                    url: url,
-                    focused: $scope.settings.windowFocused,
-                    type: ($scope.settings.panelWindowType) ? 'panel' : 'normal',
-                    state: $scope.settings.windowStateMaximized ? chrome.windows.WindowState.MAXIMIZED : chrome.windows.WindowState.NORMAL
-                }, function(window) {
-                    $scope.watchdog.increment();
-                    /* Is window.id going to cause id conflicts with tab.id?!  Should I be grabbing a tab.id here as well or instead of window.id? */
-                    dtpSocketPromise
-                    .then(dtpSocket => {
-                        saveSession(url, infoUrl, websocketId, window.id, nodeInspectMetadataJSON, dtpSocket);
-                        resolve(window);
+                chrome.windows.getCurrent(currentWindow => {
+                    chrome.windows.create({
+                        url: url,
+                        focused: $scope.settings.windowFocused,
+                        type: ($scope.settings.panelWindowType) ? 'panel' : 'normal',
+                        state: $scope.settings.windowStateMaximized ? chrome.windows.WindowState.MAXIMIZED : $scope.settings.windowFocused ? chrome.windows.WindowState.NORMAL : chrome.windows.WindowState.MINIMIZED
+                    }, function(window) {
+                        chrome.windows.update(currentWindow.id, {focused: true});
+                        $scope.watchdog.increment();
+                        /* Is window.id going to cause id conflicts with tab.id?!  Should I be grabbing a tab.id here as well or instead of window.id? */
+                        dtpSocketPromise
+                        .then(dtpSocket => {
+                            saveSession(url, infoUrl, websocketId, window.id, nodeInspectMetadataJSON, dtpSocket);
+                            resolve(window);
+                        });
                     });
                 });
             } else {
