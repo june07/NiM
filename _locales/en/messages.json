@@ -266,5 +266,8 @@
     },
     "focusOnBreakpoint": {
         "message": "Focus on Debugger Paused"
+    },
+    "groupInspectorTabs": {
+        "message": "Group Inspector Tabs"
     }
 }

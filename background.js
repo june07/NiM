@@ -770,7 +770,8 @@ ngApp
             maxMessages: 10
         },
         autoResumeInspectBrk: false,
-        focusOnBreakpoint: false
+        focusOnBreakpoint: false,
+        group: true
     };
     $scope.remoteConnectionSettings = {};
     $scope.Auth = new Auth();
@@ -783,7 +784,7 @@ ngApp
         *  Todo: write a failsafe to prevent that condition too!
         */
         { 'id': '0', 'name': 'default', 'url': $scope.settings.scheme + 'devtools/bundled/inspector.html', 'selected': true }, 
-        { 'id': '1', 'name': 'appspot', 'url': 'https://chrome-devtools-frontend.appspot.com/serve_file/@548c459fb7741b83bd517b12882f533b04a5513e/inspector.html' },
+        { 'id': '1', 'name': 'appspot', 'url': 'https://chrome-devtools-frontend.brakecode.com/inspector.html' },
         { 'id': '2', 'name': 'june07', 'url': 'https://chrome-devtools-frontend.june07.com/front_end/inspector.html' },
         { 'id': '3', 'name': 'custom', 'url': '' },
     ];
@@ -1640,6 +1641,32 @@ ngApp
                         saveSession(url, infoUrl, websocketId, tab.id, nodeInspectMetadataJSON, dtpSocket);
                         resolve(tab);
                     });
+                    if ($scope.settings.group && $scope.devToolsSessions.length > 0) {
+                        let mapped = $scope.devToolsSessions.map(session => {
+                            return new Promise(resolve => {
+                                chrome.tabs.get(session.id, tab => resolve({ tabId: tab.id, groupId: tab.groupId }))
+                            })
+                        })
+                        Promise.all(mapped)
+                        .then(currentSessions => {
+                            let ungroupedSessions = currentSessions
+                                .filter(session => session.groupId == -1)
+                                .map(session => session.tabId)
+
+                            currentSessions = currentSessions.filter(session => session.groupId !== -1)
+                            let firstGroupId = currentSessions.length > 0 ? currentSessions[0].groupId : -1
+                            if (currentSessions.length > 0) {
+                                chrome.tabs.group({ tabIds: tab.id, groupId: firstGroupId }, groupId => {
+                                    console.log(`Added tab to existing group ${groupId}`)
+                                })
+                            } else {
+                                ungroupedSessions.push(tab.id)
+                                chrome.tabs.group({ tabIds: ungroupedSessions }, groupId => {
+                                    console.log(`Added tab to new group ${groupId}`)
+                                })
+                            }
+                        })
+                    }
                 });
             }
         });
@@ -2086,15 +2113,16 @@ ngApp
     });
     chrome.tabs.onRemoved.addListener(function chromeTabsRemovedEvent(tabId) {
         $window._gaq.push(['_trackEvent', 'Program Event', 'onRemoved', undefined, undefined, true]);
-        // Why am I not calling deleteSession() here?
-        $scope.devToolsSessions.splice($scope.devToolsSessions.findIndex(function(devToolsSession) {
+        let index = $scope.devToolsSessions.findIndex(function(devToolsSession) {
             if (devToolsSession.id === tabId) {
                 // Tab removal doesn't mean that the debugging session is dead.  So the socket should not be closed.
                 //$scope.devToolsProtocolClient.closeSocket(devToolsSession.dtpSocket);
                 unlock(hostPortHashmap(tabId));
                 return true;
             }
-        }), 1);
+        })
+        // Why am I not calling deleteSession() here?
+        if (index >= 0) $scope.devToolsSessions.splice(index, 1);
     });
     chrome.tabs.onActivated.addListener(function chromeTabsActivatedEvent(tabId) {
         resolveTabPromise(tabId);
