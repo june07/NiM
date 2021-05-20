@@ -58,7 +58,6 @@ yarn.lock
 env.js
 .npmignore
 pinegrow.json
-package-lock.json
 .env
 src_node_modules/
 3rd_party_libs/
