@@ -55,4 +55,10 @@ Simple and basic... just install the Chrome Extension in any of the following wa
 
 Any and all feedback is encouraged and welcome.  [Send us an email!](mailto:667@june07.com)
 
+<!--
 [![IPv4 Lease](https://june07.github.io/image/EVERYTHING.jpg)](https://june07.com/blog/ipv4/?utm_source=NiM&utm_medium=options%20page&utm_campaign=ipv4&utm_content=2)
+-->
+
+<div style="display:flex; justify-content:center;">
+  <a href="https://m.do.co/c/fe4184318b19" target="_blank" rel="noopener"><IMG border="0" alt="Digitalocean $100 Credit" src="https://june07.github.io/image/digitalocean-credit.png"></a>
+</div>
