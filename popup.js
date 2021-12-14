@@ -1,7 +1,8 @@
+/* eslint-disable no-undef */
 /**
  * MIT License
  *
- *    Copyright (c) 2016-2020 June07
+ *    Copyright (c) 2016-2022 June07
  *
  *    Permission is hereby granted, free of charge, to any person obtaining a copy
  *    of this software and associated documentation files (the "Software"), to deal
@@ -269,8 +270,8 @@ ngApp
                 if ($scope.notify) $scope.notify.close();
             }
         });
-        $('#modal1').perfectScrollbar();
-        $('#modal2').perfectScrollbar();
+        new PerfectScrollbar('#modal1');
+        new PerfectScrollbar('#modal2');
         $scope.openOptionsPage = function () {
             if (chrome.runtime.openOptionsPage) {
                 // New way to open options pages, if supported (Chrome 42+).
