@@ -707,7 +707,7 @@ ngApp
         'devtools://'
     ];
     const SOCKET_PATTERN = /((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])):([0-9]+)/;
-    const devToolsURL_Regex = /(devtools:\/\/|chrome-devtools:\/\/|https:\/\/chrome-devtools-frontend(.appspot.com|.june07.com)).*(inspector.html|js_app.html)/;
+    const devToolsURL_Regex = /(devtools:\/\/|chrome-devtools:\/\/|https:\/\/chrome-devtools-frontend(\.appspot.com|\.june07.com)).*(inspector.html|js_app.html)/;
     const UUID_Regex = new RegExp(/\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/i);
 
     $window.chrome.management.getSelf((ExtensionInfo) => {
@@ -1407,7 +1407,7 @@ ngApp
         return { host, port }
     }
     function getInstanceFromBrakeCODEInfoURL(infoURL) {
-        let regEx = new RegExp('https?:\/\/(pads(-dev)?\.brakecode\.com)\/json\/(' + UUID_Regex.source + ')');
+        let regEx = new RegExp('https?:\/\/(pads(-dev)?.brakecode.com)\/json\/(' + UUID_Regex.source + ')');
         let host = infoURL.match(regEx)[1],
             port = infoURL.match(regEx)[3];
         return { host, port }
@@ -1778,7 +1778,7 @@ ngApp
         hostPortHashmap(id, infoUrl);
     }
     function updateTrackedSessions(session) {
-        if (session.infoUrl.search(/\/\/pads(-dev)?.brakecode.com\/json\//) === -1) {
+        if (session.infoUrl.search(/\/\/pads(-dev)?\.brakecode.com\/json\//) === -1) {
             let index = $scope.localSessions.findIndex(localSession => localSession.websocketId === session.websocketId);
             if (index === -1) {
                 $scope.localSessions.push(session);
@@ -1786,7 +1786,7 @@ ngApp
                 session.auto = $scope.localSessions[index].auto;
                 $scope.localSessions.splice(index, 1, session);
             }
-        } else if (session.infoUrl.search(/\/\/pads(-dev)?.brakecode.com\/json\//) !== -1) {
+        } else if (session.infoUrl.search(/\/\/pads(-dev)?\.brakecode.com\/json\//) !== -1) {
             let index = $scope.brakeCodeSessions.findIndex(brakeCodeSession => brakeCodeSession.websocketId === session.websocketId);
             if (index === -1) {
                 $scope.brakeCodeSessions.push(session);
