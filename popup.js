@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+
 /**
  * MIT License
  *
@@ -168,6 +169,10 @@ ngApp
             else $scope.remoteTabs[0] = $scope.bg.remoteTabs[0];
             //$scope.$apply();
         });
+        $scope.bg.$on('brakecode-logged-in', () => {
+            $scope.$apply();
+            initDropdown();
+        });
         $scope.clickHandlerRemoveLocalDevToolsSession = function (sessionID) {
             $scope.bg.removeLocalSession(sessionID)
         }
@@ -314,6 +319,16 @@ ngApp
                 return tip;
             });
         }
+        function initDropdown() {
+            $('.dropdown-chip').dropdown({
+                inDuration: 300,
+                outDuration: 225,
+                constrainWidth: false, // Does not change width of dropdown to that of the activator
+                hover: true, // Activate on hover
+                coverTrigger: false, // Displays dropdown below the button
+                alignment: 'left' // Displays dropdown with edge aligned to the left of button
+            });
+        }
         function tooltipClickHandler(event) {
             let tip = event.currentTarget.M_Tooltip;
             activeTooltips[tip.tooltipEl.id] = tip;
@@ -358,6 +373,7 @@ ngApp
                 }
             });
             if ($scope.bg.localSessions.length === 0) $scope.initConnectionErrorMessage();
+            initDropdown();
         });
         $scope.initConnectionErrorMessage = function () {
             $('.ml11').each((i, el) => {
@@ -402,5 +418,11 @@ ngApp
                         });
                 }
             });
+        }
+        $scope.logout = function() {
+            $scope.bg.$emit('brakecode-logout');
+        }
+        $scope.login = function() {
+            $scope.bg.$emit('brakecode-login');
         }
     }]);

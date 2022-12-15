@@ -103,6 +103,14 @@
             <div id="donation-container" class="container">
                 <div class="row">
                     <div class="col-xs-3">
+                        <!--GitHub Sponsors-->
+                    </div>
+                    <div class="col-xs-8">
+                        <a class="donate-button" id="bitcoin-donate-button" href="https://github.com/sponsors/june07" target="_blank"><img src="./image/GitHub_Logo.png"></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">
                         <!--Paypal-->
                     </div>
                     <div class="col-xs-8">
@@ -148,14 +156,27 @@
                     <span class="i18n">appName</span>
                 </div>
                 <div id="nim-version"><p>{{bg.VERSION}}</p></div>
+                <div class="col s6" id="brakecode-login" ng-if="!bg.Auth.isAuthenticated">
+                    <div>
+                        <a href="#" ng-click="login()">
+                            <img id="brakecode-logo" src="image/favicon-16x16.png" title="Node.js Developer Tools." />
+                            <span class="button-text">Sign In</span>
+                        </a>
+                    </div>
+                </div>
                 <div class="col s6" id="user-chip" ng-if="bg.Auth.isAuthenticated">
-                    <div class="chip dropdown-chip" data-activates="auth-dropdown">
-                        <img ng-src="{{bg.Auth.profile.picture}}" />
+                    <div class="chip profile-chip dropdown-chip" data-target="auth-dropdown">
+                        <img ng-src="{{bg.Auth.profile.picture}}"/>
                         {{ bg.Auth.profile.nickname }}
                     </div>
                     <ul id="auth-dropdown" class="dropdown-content">
-                        <li><a href="#" ng-click="logout()">Logout</a></li>
+                        <li><a href="#" ng-click="logout()">Sign Out</a></li>
                     </ul>
+                </div>
+                <div ng-if="bg.Auth.loggingin">
+                    <div class="spinner-popup">
+                      <img src="./image/loading.svg" alt="Loading"/>
+                    </div>
                 </div>
             </div>
         </div>
