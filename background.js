@@ -32,6 +32,7 @@ ngApp
             let self = this;
             self.isAuthenticated = false;
             self.loggingin = false;
+            self.auth0 = undefined;
             createAuth0Client({
                 domain: env.AUTH0_DOMAIN,
                 client_id: env.AUTH0_CLIENT_ID,
@@ -51,7 +52,8 @@ ngApp
                 }.bind(self), 5000);
                 
                 $scope.Auth.auth0.getTokenSilently()
-                .then(() => {
+                .then(authResult => {
+                    localStorage.authResult = JSON.stringify(authResult);
                     self.isAuthenticated = true;
                     self.setProfileData(() => {
                         Object.values(connections).map(c => c.postMessage({ event: 'brakecode-logged-in' }));
@@ -1019,7 +1021,10 @@ ngApp
                             setDevToolsURL(json.data[0]);
                             if (padsMetadata.wsProto === 'wss') {
                                 url = jsonPayload.devtoolsFrontendUrl.replace(/wss?=(.*)\//, padsMetadata.wsProto + '=' + host + '/ws/' + port + '/');
-                                if (jsonPayload.type && jsonPayload.type === 'deno') url = url + '?runtime=' + jsonPayload.type;
+                                if (jsonPayload.type === 'deno' || (jsonPayload.webSocketDebuggerUrl && jsonPayload.webSocketDebuggerUrl.match(/wss?:\/\/[^:]*:[0-9]+(\/ws\/)/))) {
+                                    const id = jsonPayload.webSocketDebuggerUrl.match(/wss?:\/\/[^:]*:[0-9]+(\/ws\/(.*))/)[2];
+                                    url = url.replace(id, `${id}?runtime=deno`);
+                                }
                             } else {
                                 url = jsonPayload.devtoolsFrontendUrl.replace(/wss?=localhost/, 'ws=127.0.0.1');
                                 var inspectIP = url.match(SOCKET_PATTERN)[1];
