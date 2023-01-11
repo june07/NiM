@@ -1249,7 +1249,7 @@ ngApp
             } else if ($scope.settings.auto && isLocked(getInstance())) {
                 /** If the isLocked(getInstance()) is set then we still have to check for disconnects on the client side via httpGetTest().
                 until there exists an event for the DevTools websocket disconnect.  Currently there doesn't seem to be one
-                that we can use simultanous to DevTools itself as only one connection to the protocol is allowed at a time.
+                that we can use simultaneous to DevTools itself as only one connection to the protocol is allowed at a time.
                 */
                 SingletonHttpGet.getInstance({ host: $scope.settings.host, port: $scope.settings.port });
             }
