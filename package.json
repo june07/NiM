@@ -6,7 +6,7 @@
   "dependencies": {
     "@667/materialize": "^1.1.0-alpha-june07.0",
     "@auth0/auth0-spa-js": "^1.19.3",
-    "@materializecss/materialize": "^1.0.0",
+    "@materializecss/materialize": "^1.1.0",
     "@popperjs/core": "^2.11.0",
     "angular": "^1.8.2",
     "angular-animate": "^1.8.2",
