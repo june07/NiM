@@ -26,7 +26,7 @@
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.4",
     "perfect-scrollbar": "^1.5.3",
-    "pubnub": "^7.4.0",
+    "pubnub": "^8.0.0",
     "socket.io-client": "^4.4.0",
     "tippy.js": "^6.3.7",
     "tweetnacl": "^1.0.3",
