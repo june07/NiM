@@ -1,21 +1,29 @@
+The Software is provided to you by the Licensor under the License, as defined below, subject to the following condition.
+
+Without limiting other conditions in the License, the grant of rights under the License will not include, and the License does not grant you, the right to use the Software in any manner that directly or indirectly benefits any business entity.
+
+For purposes of the foregoing, “benefit” includes, but is not limited to:
+
+1. Commercial Use: Using the Software as part of any product or service that is provided to a third party for a fee or other consideration, including without limitation fees for hosting, consulting, or support services related to the Software.
+
+2. Internal Business Operations: Using the Software to support the operations of any business entity, including but not limited to, internal administration, business processes, and operations management.
+
+3. Derivatives and Integrations: Creating derivative works of the Software or integrating the Software into other software, products, or services that are used by or benefit a business entity in any manner.
+
+4. Service Provision: Offering the functionality of the Software as a service to third parties, whether or not a fee is charged.
+
+5. Training and Education: Using the Software for training, educational purposes, or any other purposes that are intended to improve or support the activities of a business entity.
+
+A “business entity” includes any individual, partnership, corporation, association, or any other legal entity that engages in commercial, professional, or industrial activities.
+
+Any license notice or attribution required by the License must also include this Enhanced Commons Clause License Condition notice.
+
 The MIT License (MIT)
 
-Copyright (c) 2016-2022 June07
+Copyright (c) 2016-2024 June07
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
