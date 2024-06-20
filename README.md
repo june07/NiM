@@ -3,6 +3,8 @@
 
 <!--The ratings badges are currently broken due to [this](https://github.com/badges/shields/issues/5475) and [this](https://github.com/pandawing/node-chrome-web-store-item-property/issues/275#issuecomment-687801815).-->
 
+#### See https://github.com/june07/nimv3 for updates as the project was upgraded to Manifest Version 3 due to Google's change.
+
 ![NiM Logo](https://june07.github.io/image/smallPromoTile.png)
 
 ![Google Reviews](https://june07.github.io/image/312uiu.gif)
