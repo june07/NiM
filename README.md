@@ -12,9 +12,8 @@
 
 #### See https://github.com/june07/nimv3 for updates as the project was upgraded to Manifest Version 3 due to Google's change.
 
-![NiM Logo](https://june07.github.io/image/smallPromoTile.png)
+[![https://nim.june07.com](https://june07.github.io/image/smallPromoTile.png)](https://nim.june07.com) [![https://nim.june07.com](https://github.com/june07/nimv3/assets/11353590/e6f30f3f-4ae5-4831-bafa-392eaeff66fd)](https://nim.june07.com)
 
-![Google Reviews](https://june07.github.io/image/312uiu.gif)
 # NiM (Node.js --inspector Manager)
 ###### Streamlines your development process
 
