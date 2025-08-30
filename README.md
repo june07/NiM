@@ -1,3 +1,35 @@
+
+<div align="right">
+  <details>
+    <summary >🌐 Language</summary>
+    <div>
+      <div align="center">
+        <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=en">English</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=zh-CN">简体中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=zh-TW">繁體中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=ja">日本語</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=ko">한국어</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=hi">हिन्दी</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=th">ไทย</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=fr">Français</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=de">Deutsch</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=es">Español</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=it">Italiano</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=ru">Русский</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=pt">Português</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=nl">Nederlands</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=pl">Polski</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=ar">العربية</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=fa">فارسی</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=tr">Türkçe</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=vi">Tiếng Việt</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=id">Bahasa Indonesia</a>
+        | <a href="https://openaitx.github.io/view.html?user=june07&project=NiM&lang=as">অসমীয়া</
+      </div>
+    </div>
+  </details>
+</div>
+
 ![https://chromewebstore.google.com/detail/nodejs-v8-inspector-manag/gnhhdgbaldcilmgcpfddgdbkhjohddkj](https://img.shields.io/chrome-web-store/v/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg)
 ![https://chromewebstore.google.com/detail/nodejs-v8-inspector-manag/gnhhdgbaldcilmgcpfddgdbkhjohddkj](https://img.shields.io/chrome-web-store/users/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg)
 ![https://chromewebstore.google.com/detail/nodejs-v8-inspector-manag/gnhhdgbaldcilmgcpfddgdbkhjohddkj](https://img.shields.io/chrome-web-store/rating/gnhhdgbaldcilmgcpfddgdbkhjohddkj.svg)
