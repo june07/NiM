@@ -31,7 +31,7 @@
     "tippy.js": "^6.3.7",
     "tweetnacl": "^1.0.3",
     "tweetnacl-util": "^0.15.1",
-    "uuid": "^8.3.2",
+    "uuid": "^14.0.0",
     "wnumb": "^1.2.0"
   },
   "devDependencies": {
